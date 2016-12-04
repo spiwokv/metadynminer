@@ -5,7 +5,7 @@ Metadynminer is R packages for reading, analysis and visualisation of metadynami
 > install.packages("metadynminer")
 > library(metadynminer)
 
-# Reading hills file
+<> # Reading hills file
 > hills<-read.hills("HILLS", per=c(TRUE, TRUE)) # done
 
 # Summary
