@@ -1,0 +1,11 @@
+Package: Metadynminer
+Type: Package
+Title: Metadynminer reads, analyses and visualizes metadynamics HILLS files from Plumed.
+Version: 0.1
+Date: 2016-12-04
+Author: Vojtech Spiwok
+Maintainer: Vojtech Spiwok <spiwokv@vscht.cz>
+Description: Metadynminer reads 1D and 2D metadynamics HILLS files from Plumed package [1].
+It uses a fast algorithm [2] to claculate the free energy surface from hills. Minima can
+be located and ploted on free energy surfaces.
+License: GPL-2
