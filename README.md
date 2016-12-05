@@ -7,7 +7,7 @@ install.packages("metadynminer") # in future will be added to R repository
 library(metadynminer) # in future will be added to R repository
 
 # Reading hills file
-hills<-read.hills("HILLS", per=c(TRUE, TRUE)) # done, to do manual
+hills<-read.hills("HILLS", per=c(TRUE, TRUE)) # done
 
 # Summary
 summary(hills) # done, to do manual
