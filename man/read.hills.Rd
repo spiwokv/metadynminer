@@ -1,80 +1,43 @@
 \name{read.hills}
 \alias{read.hills}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-%%  ~~function to do ... ~~
-}
-\description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+\title{HILLS reader}
+\description{Function to read HILLS file produced by Plumed. It read HILLS file with one or two CVs and
+             automatically recognizes its the number of CVs. The output is a hillsfile object.
 }
 \usage{
 read.hills(file = "HILLS", per = c(FALSE, FALSE))
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{file}{
-%%     ~~Describe \code{file} here~~
+     the name of the file which the data are to be read from. 
+     If it does not contain an absolute path, the file name is
+     relative to the current working directory, \code{getwd()}.
+     Compressed files are not supported.
+    
+     \code{file} can also be a complete URL. Default name is \code{HILLS}.
 }
   \item{per}{
-%%     ~~Describe \code{per} here~~
+     describes periodicity of CV(s). It is a vector with one or two logical
+     values. If for example both CVs are periodic from -pi to +pi it should
+     be set to \code{c(TRUE, TRUE)}. It is \code{FALSE} by default.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+  The file must be valid HILLS file from Plumed 2.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+  An object \code{hillsfile} containing hill positions, heights and widths.
 }
 \references{
-%% ~put references to the literature/web site here ~
+  http://www.plumed.org
 }
 \author{
-%%  ~~who you are~~
+  Vojtech Spiwok
 }
 \note{
-%%  ~~further notes~~
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (file = "HILLS", per = c(FALSE, FALSE)) 
-{
-    hillsf <- read.table(file, header = F, comment.char = "#")
-    if (ncol(hillsf) == 5) {
-        cat("1D HILLS file read\n")
-        hills <- list(hillsfile = hillsf, size = dim(hillsf), 
-            filename = file, per = per)
-        class(hills) <- "hillsfile"
-        return(hills)
-    }
-    else {
-        if (ncol(hillsf) == 7) {
-            cat("2D HILLS file read\n")
-            hills <- list(hillsfile = hillsf, size = dim(hillsf), 
-                filename = file, per = per)
-            class(hills) <- "hillsfile"
-            return(hills)
-        }
-        else {
-            stop("number of columns in HILLS file must be 5 (1D) of 7 (3D)")
-        }
-    }
-  }
+  myhills <- read.hills("HILLS", per=c(TRUE,TRUE))
+  summary(myhills)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
