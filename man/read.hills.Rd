@@ -30,8 +30,14 @@ read.hills(file = "HILLS", per = c(FALSE, FALSE))
   
   An object of class \code{hillsfile} is a \code{list} containing
   following components:
-  \item{per}{
-    
+  \item{hillsfile}{
+    hillsfile is a data frame containing time, CV(s), hill width(s), height and bias factor.
+  }
+  \item{size}{
+    size id a vector containing the number of lines and columns of hillsfile.
+  }
+  \item{filename}{
+    filename is the name of the HILLS file.
   }
 }
 \references{
