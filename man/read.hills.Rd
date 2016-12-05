@@ -27,6 +27,12 @@ read.hills(file = "HILLS", per = c(FALSE, FALSE))
 }
 \value{
   An object \code{hillsfile} containing hill positions, heights and widths.
+  
+  An object of class \code{hillsfile} is a \code{list} containing
+  following components:
+  \item{per}{
+    
+  }
 }
 \references{
   http://www.plumed.org
