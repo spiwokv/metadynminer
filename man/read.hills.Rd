@@ -2,7 +2,7 @@
 \alias{read.hills}
 \title{HILLS reader}
 \description{Function to read HILLS file produced by Plumed. It read HILLS file with one or two CVs and
-             automatically recognizes its the number of CVs. The output is a hillsfile object.
+             automatically recognizes its the number of CVs. The output is a \code{hillsfile} object.
 }
 \usage{
 read.hills(file = "HILLS", per = c(FALSE, FALSE))
@@ -50,6 +50,6 @@ read.hills(file = "HILLS", per = c(FALSE, FALSE))
 }
 
 \examples{
-  myhills <- read.hills("HILLS", per=c(TRUE,TRUE))
+  myhills <- read.hills("http://www.metadynamics.cz/metadynminer/data/HILLS", per=c(TRUE,TRUE))
   summary(myhills)
 }
