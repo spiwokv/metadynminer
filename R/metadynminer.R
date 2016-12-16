@@ -24,6 +24,15 @@ print.hillsfile<-function(hills) {
     cat(" with ")
     cat(hills$size[1])
     cat(" lines\n")
+    cat("The CV1 ranges from ")
+    cat(min(hills$hillsfile[,2]))
+    cat(" to ")
+    cat(max(hills$hillsfile[,2]))
+    cat("\nThe CV2 ranges from ")
+    cat(min(hills$hillsfile[,3]))
+    cat(" to ")
+    cat(max(hills$hillsfile[,3]))
+    cat("\n")
   }
   if(hills$size[2]==7) {
     cat("2D hills file ")
@@ -31,6 +40,11 @@ print.hillsfile<-function(hills) {
     cat(" with ")
     cat(hills$size[1])
     cat(" lines\n")
+    cat("The CV1 ranges from ")
+    cat(min(hills$hillsfile[,2]))
+    cat(" to ")
+    cat(max(hills$hillsfile[,2]))
+    cat("\n")
   }
 }
 
