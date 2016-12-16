@@ -10,10 +10,10 @@ library(metadynminer) # in future will be added to R repository
 hills<-read.hills("HILLS", per=c(TRUE, TRUE)) # done
 
 # Summary
-summary(hills) # done, to do manual
+summary(hills) # done
 
 # Plot hills file
-plot(hills) # done, to do manual
+plot(hills) # done
 
 # Plot hill heights
 plotheights(hills) # done, to do manual
