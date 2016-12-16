@@ -13,7 +13,7 @@ hills<-read.hills("HILLS", per=c(TRUE, TRUE)) # done
 summary(hills) # done
 
 # Plot hills file
-plot(hills) # done
+plot(hills) # done, to do manual
 
 # Plot hill heights
 plotheights(hills) # done, to do manual
