@@ -37,7 +37,7 @@ minima<-fesminima(fes) # done, to do manual
 summary(minima) # done, to do manual
 
 # Plot free energy minima
-plot(fes) # 2D done, 1D to do, to do manual
+plot(minima) # 2D done, 1D to do, to do manual
 
 # Calculate free energy
 fe<-freeene(x, hills, per=c(TRUE, TRUE), time=10000) # to do by linking with Fortran code
