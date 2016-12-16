@@ -1,71 +1,55 @@
-\name{summary.hillsfile}
-\alias{summary.hillsfile}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-%%  ~~function to do ... ~~
-}
-\description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+\name{read.hills}
+\alias{read.hills}
+\title{HILLS reader}
+\description{Function to read HILLS file produced by Plumed. It read HILLS file with one or two CVs and
+             automatically recognizes its the number of CVs. The output is a \code{hillsfile} object.
 }
 \usage{
-summary.hillsfile(hills)
+read.hills(file = "HILLS", per = c(FALSE, FALSE))
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{hills}{
-%%     ~~Describe \code{hills} here~~
+  \item{file}{
+     the name of the file which the data are to be read from. 
+     If it does not contain an absolute path, the file name is
+     relative to the current working directory, \code{getwd()}.
+     Compressed files are not supported.
+    
+     \code{file} can also be a complete URL. Default name is \code{HILLS}.
+}
+  \item{per}{
+     describes periodicity of CV(s). It is a vector with one or two logical
+     values. If for example both CVs are periodic from -pi to +pi it should
+     be set to \code{c(TRUE, TRUE)}. It is \code{FALSE} by default.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+  The file must be valid HILLS file from Plumed 2.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
-\examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (hills) 
-{
-    if (hills$size[2] == 5) {
-        cat("1D hills file ")
-        cat(hills$filename)
-        cat(" with ")
-        cat(hills$size[1])
-        cat(" lines\n")
-    }
-    if (hills$size[2] == 7) {
-        cat("2D hills file ")
-        cat(hills$filename)
-        cat(" with ")
-        cat(hills$size[1])
-        cat(" lines\n")
-    }
+  An object \code{hillsfile} containing hill positions, heights and widths.
+  
+  An object of class \code{hillsfile} is a \code{list} containing
+  following components:
+  \item{hillsfile}{
+    hillsfile is a data frame containing time, CV(s), hill width(s), height and bias factor.
+  }
+  \item{size}{
+    size id a vector containing the number of lines and columns of hillsfile.
+  }
+  \item{filename}{
+    filename is the name of the HILLS file.
   }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\references{
+  http://www.plumed.org
+}
+\author{
+  Vojtech Spiwok
+}
+\note{
+}
+
+\examples{
+  myhills <- read.hills("http://www.metadynamics.cz/metadynminer/data/HILLS", per=c(TRUE,TRUE))
+  summary(myhills)
+}
