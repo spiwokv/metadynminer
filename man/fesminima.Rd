@@ -28,8 +28,8 @@ fesminima(inputfes)
 }
 
 \examples{
-  myhills <- read.hills("http://www.metadynamics.cz/metadynminer/data/HILLS", per=c(TRUE,TRUE))
-  myfes<-mtdfes(myhills)
+  data(acealanme1.3)
+  myfes<-mtdfes(acealanme1.3)
   myminima<-fesminima(myfes)
   summary(myminima)
 }
