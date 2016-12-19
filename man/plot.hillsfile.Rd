@@ -12,7 +12,8 @@ plot.hillsfile(hills, xlab = NULL, ylab = NULL, xlim = NULL, ylim = NULL, zlim =
 }
 \arguments{
   \item{hills}{
-    
+    hillsfile is a data frame containing time, CV(s), hill width(s), height and bias factor.
+  }
 }
   \item{xlab}{
 %%     ~~Describe \code{xlab} here~~
