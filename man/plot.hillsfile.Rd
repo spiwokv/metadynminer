@@ -31,6 +31,7 @@ Vojtech Spiwok
 \seealso{
 }
 \examples{
-  
+  data(acealanme1.3)
+  plot(acealanme1.3)
 }
 
