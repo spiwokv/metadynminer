@@ -1,16 +1,15 @@
 \name{plot.hillsfile}
 \alias{plot.hillsfile}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+  Plots the profile of CVs of metadynamics
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+  Plots the profile of CVs of metadynamics. For metadynamics with one CV it plots CV as a function of time.
+  For metadynamics with two CVs it plots CV2 as a function of CV1.
 }
 \usage{
 plot.hillsfile(hills, xlab = NULL, ylab = NULL, xlim = NULL, ylim = NULL, zlim = NULL, main = NULL, sub = NULL, pch = 1, col = "black", bg = "red", cex = 1, asp = NULL, lwd = 1, axes = TRUE)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{hills}{
 %%     ~~Describe \code{hills} here~~
