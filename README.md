@@ -28,7 +28,7 @@ fes2<-mtdfes2(hills, time=1:10*1000) # to do by linking with Fortran code
 summary(fes) # done, to do manual
 
 # Plot FES
-plot(fes) # done, to do manual
+plot(fes) # done
 
 # Find minima
 minima<-fesminima(fes) # done, to do manual
