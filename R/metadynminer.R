@@ -1,3 +1,4 @@
+# read HILLS from Plumed
 read.hills<-function(file="HILLS", per=c(FALSE, FALSE)) {
   hillsf<-read.table(file, header=F, comment.char="#")
   if(ncol(hillsf)==5) {
@@ -17,6 +18,7 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE)) {
   }
 }
 
+# print a hillsfile
 print.hillsfile<-function(hills) {
   if(hills$size[2]==5) {
     cat("1D hills file ")
@@ -34,6 +36,7 @@ print.hillsfile<-function(hills) {
   }
 }
 
+# print summary of a hillsfile
 summary.hillsfile<-function(hills) {
   if(hills$size[2]==5) {
     cat("1D hills file ")
@@ -65,6 +68,7 @@ summary.hillsfile<-function(hills) {
   }
 }
 
+# plot hillsfile
 plot.hillsfile<-function(hills, xlab=NULL, ylab=NULL,
                          xlim=NULL, ylim=NULL, zlim=NULL,
                          main=NULL, sub=NULL,
@@ -90,6 +94,7 @@ plot.hillsfile<-function(hills, xlab=NULL, ylab=NULL,
   }
 }
 
+# plot heights
 plotheights<-function(hills, xlab=NULL, ylab=NULL,
                       xlim=NULL, ylim=NULL, zlim=NULL,
                       main=NULL, sub=NULL,
@@ -117,6 +122,7 @@ plotheights<-function(hills, xlab=NULL, ylab=NULL,
   }
 }
 
+# red FES from MetadynView
 read.fes<-function(filename, dimension=2, per=c(TRUE, TRUE)) {
   ifile<-read.table(filename)
   rows<-sqrt(nrow(ifile))
@@ -133,6 +139,7 @@ read.fes<-function(filename, dimension=2, per=c(TRUE, TRUE)) {
 
 #mtdfes2
 
+# plot FES
 print.fes<-function(inputfes) {
   if(inputfes$dimension==1) {
     cat("1D free energy surface with ")
@@ -152,7 +159,7 @@ print.fes<-function(inputfes) {
   }
 }
 
-
+# print summary of a FES
 summary.fes<-function(inputfes) {
   if(inputfes$dimension==1) {
     cat("1D free energy surface with ")
@@ -172,6 +179,7 @@ summary.fes<-function(inputfes) {
   }
 }
 
+# plot FES
 plot.fes<-function(inputfes, plottype="both",
                   xlim=NULL, ylim=NULL, zlim=NULL,
                   main=NULL, sub=NULL,
@@ -231,6 +239,7 @@ plot.fes<-function(inputfes, plottype="both",
   }
 }
 
+# find minima of a FES
 fesminima<-function(inputfes) {
   fes<-inputfes$fes
   rows<-inputfes$rows
@@ -273,11 +282,13 @@ fesminima<-function(inputfes) {
   return(minima)
 }
 
+# print minima of a FES
 print.minima<-function(minims) {
   cat("$minima\n\n")
   print(minims$minima)
 }
 
+# print a summary of minima of a FES
 summary.minima<-function(minims, temp=300, eunit="kJ/mol") {
   toprint <- minims$minima
   if(eunit=="kJ/mol") {
@@ -299,6 +310,7 @@ summary.minima<-function(minims, temp=300, eunit="kJ/mol") {
   print(toprint)
 }
 
+# plot minima
 plot.minima <- function(minims, plottype="both",
                   xlim=NULL, ylim=NULL, zlim=NULL,
                   main=NULL, sub=NULL,
