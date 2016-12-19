@@ -12,7 +12,7 @@ plot.hillsfile(hills, xlab = NULL, ylab = NULL, xlim = NULL, ylim = NULL, zlim =
 }
 \arguments{
   \item{hills}{
-%%     ~~Describe \code{hills} here~~
+    
 }
   \item{xlab}{
 %%     ~~Describe \code{xlab} here~~
