@@ -30,5 +30,6 @@ plotheights(hills)
 \seealso{
 }
 \examples{
-  
+  data(acealanme1.3)
+  plotheights(acealanme1.3)
 }
