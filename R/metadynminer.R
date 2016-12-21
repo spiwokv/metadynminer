@@ -1,13 +1,13 @@
 # read HILLS from Plumed
 read.hills<-function(file="HILLS", per=c(FALSE, FALSE)) {
   hillsf<-read.table(file, header=F, comment.char="#")
-  if(ncol(hillsf)==5) {
+  if(ncol(hillsf)==5 || ncol(hillsf)==6) {
     cat("1D HILLS file read\n")
     hills<-list(hillsfile=hillsf, size=dim(hillsf), filename=file, per=per)
     class(hills) <- "hillsfile"
     return(hills)
   } else {
-    if(ncol(hillsf)==7) {
+    if(ncol(hillsf)==7 || ncol(hillsf)==8) {
       cat("2D HILLS file read\n")
       hills<-list(hillsfile=hillsf, size=dim(hillsf), filename=file, per=per)
       class(hills) <- "hillsfile"
