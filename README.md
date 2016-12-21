@@ -13,10 +13,10 @@ hills<-read.hills("HILLS", per=c(TRUE, TRUE)) # done
 summary(hills) # done
 
 # Plot hills file
-plot(hills) # done, to do manual
+plot(hills) # done
 
 # Plot hill heights
-plotheights(hills) # done, to do manual
+plotheights(hills) # done
 
 # Calculate FES
 fes<-mtdfes(hills, time=10000) # to do by linking with Fortran code
@@ -40,20 +40,17 @@ summary(minima) # done, to do manual
 plot(minima) # 2D done, 1D to do, to do manual
 
 # Calculate free energy
-fe<-freeene(x, hills, per=c(TRUE, TRUE), time=10000) # to do by linking with Fortran code
+fe<-freeene(cvs, hills, per=c(TRUE, TRUE), time=10000) # to do by linking with Fortran code
 
 # Calculate free energy profile
-fe<-freeene2(x, hills, per=c(TRUE, TRUE), time=0:10000) # to do by linking with Fortran code
+fe<-freeene2(cvs, hills, per=c(TRUE, TRUE), time=0:10000) # to do by linking with Fortran code
 
 # Calculate free energy difference profile
-fe1<-freeene2(x1, hills, per=c(TRUE, TRUE), time=0:10000)
-fe2<-freeene2(x2, hills, per=c(TRUE, TRUE), time=0:10000)
+fe1<-freeene2(cvs1, hills, per=c(TRUE, TRUE), time=0:10000)
+fe2<-freeene2(cvs2, hills, per=c(TRUE, TRUE), time=0:10000)
 fediff<-fe2-fe1
-
-# Check if converged
-isconverged(fediff, from=5000) # to do
 
 # Find transition path
 # Summary of transition path
 
-```
+
