@@ -181,6 +181,7 @@ summary.fes<-function(inputfes) {
 
 # plot FES
 plot.fes<-function(inputfes, plottype="both",
+                  x=NULL, y=NULL,
                   xlim=NULL, ylim=NULL, zlim=NULL,
                   main=NULL, sub=NULL,
                   xlab=NULL, ylab=NULL,
@@ -193,7 +194,7 @@ plot.fes<-function(inputfes, plottype="both",
   fes<-inputfes$fes
   rows<-inputfes$rows
   if(inputfes$dimension==1) {
-    x<-inputfes$x
+    if(is.null(x)) x<-inputfes$x
     if(is.null(xlab)) xlab="CV"
     if(is.null(ylab)) ylab="free energy"
     if(is.null(xlim)) xlim<-c(min(x),max(x))
@@ -205,8 +206,8 @@ plot.fes<-function(inputfes, plottype="both",
         xlab=xlab, ylab=ylab, axes=axes,
         main=main, sub=sub)
   } else {
-    x<-inputfes$x
-    y<-inputfes$y
+    if(is.null(x)) x<-inputfes$x
+    if(is.null(y)) y<-inputfes$y
     if(is.null(xlab)) xlab="CV1"
     if(is.null(ylab)) ylab="CV2"
     if(is.null(zlim)) {
@@ -312,6 +313,7 @@ summary.minima<-function(minims, temp=300, eunit="kJ/mol") {
 
 # plot minima
 plot.minima <- function(minims, plottype="both",
+                  x=NULL, y=NULL,
                   xlim=NULL, ylim=NULL, zlim=NULL,
                   main=NULL, sub=NULL,
                   xlab=NULL, ylab=NULL,
@@ -327,7 +329,7 @@ plot.minima <- function(minims, plottype="both",
   minpoints<-minims$minima[,4:5]
   minlabs<-minims$minima[,1]
   if(minims$dimension==1) {
-    x<-minims$x
+    if(is.null(x)) x<-minims$x
     if(is.null(xlab)) xlab="CV"
     if(is.null(ylab)) ylab="free energy"
     if(is.null(xlim)) xlim<-c(min(x),max(x))
@@ -339,8 +341,8 @@ plot.minima <- function(minims, plottype="both",
         xlab=xlab, ylab=ylab, axes=axes,
         main=main, sub=sub)
   } else {
-    x<-minims$x
-    y<-minims$y
+    if(is.null(x)) x<-minims$x
+    if(is.null(y)) y<-minims$y
     if(is.null(xlab)) xlab="CV1"
     if(is.null(ylab)) ylab="CV2"
     if(is.null(zlim)) {
