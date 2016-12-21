@@ -13,7 +13,7 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE)) {
       class(hills) <- "hillsfile"
       return(hills)
     } else {
-      stop("number of columns in HILLS file must be 5 (1D) of 7 (3D)")
+      stop("number of columns in HILLS file must be 5 (1D) or 7 (3D)")
     }
   }
 }
