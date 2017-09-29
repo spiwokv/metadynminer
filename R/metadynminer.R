@@ -1,3 +1,6 @@
+library(Rcpp)
+library(RcppArmadillo)
+
 # read HILLS from Plumed
 read.hills<-function(file="HILLS", per=c(FALSE, FALSE)) {
   hillsf<-read.table(file, header=F, comment.char="#")
@@ -69,17 +72,25 @@ summary.hillsfile<-function(hills) {
 }
 
 # plot hillsfile
-plot.hillsfile<-function(hills, xlab=NULL, ylab=NULL,
-                         xlim=NULL, ylim=NULL, zlim=NULL,
+plot.hillsfile<-function(hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
+                         xlab=NULL, ylab=NULL,
+                         xlim=NULL, ylim=NULL,
                          main=NULL, sub=NULL,
                          pch=1, col="black", bg="red", cex=1,
                          asp=NULL, lwd=1, axes=TRUE) {
+  xlims<-NULL
+  ylims<-NULL
+  if(!is.null(xlim)) {xlims<-xlim}
+  if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
+  if(!is.null(ylim)) {ylims<-ylim}
+  if((hills$per[2]==T)&is.null(ylim)) {ylims<-perCV2r}
   if(hills$size[2]==5) {
     if(is.null(xlab)) xlab="time"
     if(is.null(ylab)) ylab="CV"
     plot(hills$hillsfile[,1], hills$hillsfile[,2], type="l",
          xlab=xlab, ylab=ylab,
          main=main, sub=sub,
+         xlim=xlims, ylim=ylims,
          col=col, cex=cex, lwd=lwd,
          asp=asp, axes=axes)
   }
@@ -89,6 +100,7 @@ plot.hillsfile<-function(hills, xlab=NULL, ylab=NULL,
     plot(hills$hillsfile[,2], hills$hillsfile[,3], type="p",
          xlab=xlab, ylab=ylab,
          main=main, sub=sub,
+         xlim=xlims, ylim=ylims,
          pch=pch, col=col, bg=bg, cex=cex, lwd=lwd,
          asp=asp, axes=axes)
   }
@@ -135,9 +147,68 @@ read.fes<-function(filename, dimension=2, per=c(TRUE, TRUE)) {
   return(cfes)
 }
 
-#mtdfes
+#fes2d
+fes2d<-function(hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
+                xlim=NULL, ylim=NULL, npoints=256) {
+  if(hills$size[2]==5) {
+    stop("It looks like a 1D FES, use fes1d instead")
+  }
+  if(max(hills$hillsfile[,4])/min(hills$hillsfile[,4])>1.00000000001) {
+    stop("Bias Sum algorithm works only with hills of the same sizes")
+  }
+  if(max(hills$hillsfile[,5])/min(hills$hillsfile[,5])>1.00000000001) {
+    stop("Bias Sum algorithm works only with hills of the same sizes")
+  }
+  sourceCpp("../src/mm.cpp")
+  minCV1 <- min(hills$hillsfile[,2])
+  maxCV1 <- max(hills$hillsfile[,2])
+  minCV2 <- min(hills$hillsfile[,3])
+  maxCV2 <- max(hills$hillsfile[,3])
+  xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
+  ylims<-c(minCV2-0.05*(maxCV2-minCV2), maxCV2+0.05*(maxCV2-minCV2))
+  if(!is.null(xlim)) {xlims<-xlim}
+  if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
+  if(!is.null(ylim)) {ylims<-ylim}
+  if((hills$per[2]==T)&is.null(ylim)) {ylims<-perCV2r}
+  x<-(0:npoints-xlims[1])/(xlims[2]-xlims[1])
+  y<-(0:npoints-ylims[1])/(ylims[2]-ylims[1])
+  if((hills$per[1]==F)&(hills$per[2]==F)) {
+    fesm<-hills1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                 npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                 npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                 npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+                 hills$hillsfile[,6],npoints)
+  }
+  if((hills$per[1]==T)&(hills$per[2]==F)) {
+    fesm<-hills1p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                   npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                   npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                   npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+                   hills$hillsfile[,6],npoints)
+  }
+  if((hills$per[1]==F)&(hills$per[2]==T)) {
+    fesm<-hills1p2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                   npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                   npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                   npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+                   hills$hillsfile[,6],npoints)
+  }
+  if((hills$per[1]==T)&(hills$per[2]==T)) {
+    fesm<-hills1p12(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                    npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                    npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                    npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+                    hills$hillsfile[,6],npoints)
+  }
+#  fes<-list(fesmat=ferm, size=nrow(hillsf), filename=file, per=per)
+#      class(hills) <- "hillsfile"
+#      return(hills)
+#  class(fes) <- "hillsfile"
+#  return(hills)
+  return(fesm)
+}
 
-#mtdfes2
+#fes2d2
 
 # plot FES
 print.fes<-function(inputfes) {
