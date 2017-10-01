@@ -170,8 +170,8 @@ fes2d<-function(hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
   if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
   if(!is.null(ylim)) {ylims<-ylim}
   if((hills$per[2]==T)&is.null(ylim)) {ylims<-perCV2r}
-  x<-(0:npoints-xlims[1])/(xlims[2]-xlims[1])
-  y<-(0:npoints-ylims[1])/(ylims[2]-ylims[1])
+  x<-0:npoints*(xlims[2]-xlims[1])/npoints+xlims[1]
+  y<-0:npoints*(ylims[2]-ylims[1])/npoints+ylims[1]
   if((hills$per[1]==F)&(hills$per[2]==F)) {
     fesm<-hills1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                  npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
@@ -200,12 +200,10 @@ fes2d<-function(hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
                     npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
                     hills$hillsfile[,6],npoints)
   }
-#  fes<-list(fesmat=ferm, size=nrow(hillsf), filename=file, per=per)
-#      class(hills) <- "hillsfile"
-#      return(hills)
-#  class(fes) <- "hillsfile"
-#  return(hills)
-  return(fesm)
+  fes<-list(fesmat=fesm, rows=npoints, dimension=2, per=hills$per, x=x, y=y)
+  class(fes) <- "fesmat"
+  return(fes)
+  return(fes)
 }
 
 #fes2d2
