@@ -613,31 +613,32 @@ plot.fes<-function(inputfes, plottype="both",
 fesminima<-function(inputfes) {
   fes<-inputfes$fes
   rows<-inputfes$rows
+  r8 <- rows/8
   per<-inputfes$per
   minx<-c()
   miny<-c()
   for(i in 0:7) {
-    ni<-i*16+0:17
+    ni<-i*r8+0:(r8+1)
     if(per[1]) {
-      ni[ni==0]<-128
-      ni[ni==129]<-1
+      ni[ni==0]<-rows
+      ni[ni==(rows+1)]<-1
     } else {
       ni<-ni[ni!=0]
-      ni<-ni[ni!=129]
+      ni<-ni[ni!=(rows+1)]
     }
     for(j in 0:7) {
-      nj<-(j*16+0:17)
+      nj<-(j*r8+0:(r8+1))
       if(per[2]) {
         nj<-nj[nj!=0]
-        nj<-nj[nj!=129]
+        nj<-nj[nj!=(rows+1)]
       } else {
-        nj[nj==0]<-128
-        nj[nj==129]<-1
+        nj[nj==0]<-rows
+        nj[nj==(rows+1)]<-1
       }
       binmin<-which(fes[ni,nj]==min(fes[ni,nj]), arr.ind = TRUE)
-      if(binmin[1]!=1 && binmin[1]!=18 && binmin[2]!=1 && binmin[2]!=18) {
-        minx<-c(minx,i*16+binmin[1]-1)
-        miny<-c(miny,j*16+binmin[2]-1)
+      if(binmin[1]!=1 && binmin[1]!=(r8+2) && binmin[2]!=1 && binmin[2]!=(r8+2)) {
+        minx<-c(minx,i*r8+binmin[1]-1)
+        miny<-c(miny,j*r8+binmin[2]-1)
       }
     }
   }
