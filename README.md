@@ -27,6 +27,19 @@ fes<-fes2d2(hills, tmin=5000, tmax=10000) # done, to do manual
 # You can sum two FESes
 fes<-fes1+fes2 # done, to do manual
 
+# You can calculate and substract min, max or mean from a FES
+fes<-fes1+min(fes1) # done, to do manual
+
+# In order to make a movie you can use summation of FESes
+tfes<-fes2d(hillsf, tmax=1000)
+png("test%03d.png")
+plot(tfes, zlim=c(-120,0))
+for(i in 1:10) {
+  tfes<-tfes+fes2d(hillsf, tmin=1000*i, tmax=1000*(i+1))
+  plot(tfes, zlim=c(-120,0))
+}
+dev.off()
+
 # Evaluate FES
 summary(fes) # done, to do manual
 

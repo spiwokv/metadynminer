@@ -358,29 +358,103 @@ fes1d2<-function(hills, perCV1r=c(-pi,pi),
 
 # sum fesses
 `+.fes`<-function(fes1, fes2) {
-  if(fes1$rows!=fes2$rows) {
-    stop("free energy surfaces have different numbers of points, exiting")
-  }
-  if(fes1$dimension!=fes2$dimension) {
-    stop("free energy surfaces have different dimension, exiting")
-  }
-  if(sum(fes1$x!=fes2$x)>0) {
-    stop("free energy surfaces have different CV1 axes, exiting")
-  }
-  if(fes1$dimension==2) {
-    if(sum(fes1$y!=fes2$y)>0) {
-      stop("free energy surfaces have different CV2 axes, exiting")
+  if((class(fes1)=="fes")&(class(fes2)=="fes")) {
+    if(fes1$rows!=fes2$rows) {
+      stop("free energy surfaces have different numbers of points, exiting")
     }
-  }
-  if(fes1$dimension==1) {
-    cfes<-list(fes=fes1$fes+fes2$fes, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x)
-  }
-  if(fes1$dimension==2) {
-    cfes<-list(fes=fes1$fes+fes2$fes, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
+    if(fes1$dimension!=fes2$dimension) {
+      stop("free energy surfaces have different dimension, exiting")
+    }
+    if(sum(fes1$x!=fes2$x)>0) {
+      stop("free energy surfaces have different CV1 axes, exiting")
+    }
+    if(fes1$dimension==2) {
+      if(sum(fes1$y!=fes2$y)>0) {
+        stop("free energy surfaces have different CV2 axes, exiting")
+      }
+    }
+    if(fes1$dimension==1) {
+      cfes<-list(fes=fes1$fes+fes2$fes, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x)
+    }
+    if(fes1$dimension==2) {
+      cfes<-list(fes=fes1$fes+fes2$fes, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
+    }
+  } else if(class(fes1)=="fes") {
+    if(fes1$dimension==1) {
+      cfes<-list(fes=fes1$fes+fes2, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x)
+    }
+    if(fes1$dimension==2) {
+      cfes<-list(fes=fes1$fes+fes2, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
+    }
+  } else if(class(fes2)=="fes") {
+    if(fes1$dimension==1) {
+      cfes<-list(fes=fes1+fes2$fes, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x)
+    }
+    if(fes1$dimension==2) {
+      cfes<-list(fes=fes1+fes2$fes, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y)
+    }
   }
   class(cfes) <- "fes"
   return(cfes)
   return(cfes)
+}
+
+# substract fesses
+`-.fes`<-function(fes1, fes2) {
+  if((class(fes1)=="fes")&(class(fes2)=="fes")) {
+    if(fes1$rows!=fes2$rows) {
+      stop("free energy surfaces have different numbers of points, exiting")
+    }
+    if(fes1$dimension!=fes2$dimension) {
+      stop("free energy surfaces have different dimension, exiting")
+    }
+    if(sum(fes1$x!=fes2$x)>0) {
+      stop("free energy surfaces have different CV1 axes, exiting")
+    }
+    if(fes1$dimension==2) {
+      if(sum(fes1$y!=fes2$y)>0) {
+        stop("free energy surfaces have different CV2 axes, exiting")
+      }
+    }
+    if(fes1$dimension==1) {
+      cfes<-list(fes=fes1$fes-fes2$fes, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x)
+    }
+    if(fes1$dimension==2) {
+      cfes<-list(fes=fes1$fes-fes2$fes, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
+    }
+  } else if(class(fes1)=="fes") {
+    if(fes1$dimension==1) {
+      cfes<-list(fes=fes1$fes-fes2, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x)
+    }
+    if(fes1$dimension==2) {
+      cfes<-list(fes=fes1$fes-fes2, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
+    }
+  } else if(class(fes2)=="fes") {
+    if(fes1$dimension==1) {
+      cfes<-list(fes=fes1-fes2$fes, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x)
+    }
+    if(fes1$dimension==2) {
+      cfes<-list(fes=fes1-fes2$fes, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y)
+    }
+  }
+  class(cfes) <- "fes"
+  return(cfes)
+  return(cfes)
+}
+
+# min of fes
+min.fes<-function(inputfes, na.rm=NULL) {
+  return(min(inputfes$fes, na.rm=na.rm))
+}
+
+# max of fes
+max.fes<-function(inputfes, na.rm=NULL) {
+  return(max(inputfes$fes, na.rm=na.rm))
+}
+
+# mean of fes
+mean.fes<-function(inputfes, na.rm=NULL) {
+  return(mean(inputfes$fes, na.rm=na.rm))
 }
 
 # print FES
