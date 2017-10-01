@@ -10,7 +10,9 @@ png("test.png")
 #axis(1, at=-3:3*60)
 #axis(2, at=-3:3*60)
 #box()
-plot(tfes1+tfes2)
+print(tfes1)
+print(tfes2)
+print(tfes1+tfes2)
 dev.off()
 
 

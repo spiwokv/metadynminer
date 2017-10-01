@@ -367,7 +367,7 @@ fes1d2<-function(hills, perCV1r=c(-pi,pi),
   if(sum(fes1$x!=fes2$x)>0) {
     stop("free energy surfaces have different CV1 axes, exiting")
   }
-  if(fes1$dimension==2) { 
+  if(fes1$dimension==2) {
     if(sum(fes1$y!=fes2$y)>0) {
       stop("free energy surfaces have different CV2 axes, exiting")
     }
