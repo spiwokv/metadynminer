@@ -18,11 +18,14 @@ plot(hills) # done
 # Plot hill heights
 plotheights(hills) # done
 
-# Calculate FES
-fes<-mtdfes(hills, time=10000) # to do by linking with Fortran code
+# Calculate FES by bias sum (fes1d for 1d FES)
+fes<-fes2d(hills, tmin=5000, tmax=10000) # done
 
-# Calculate FESes during flooding
-fes2<-mtdfes2(hills, time=1:10*1000) # to do by linking with Fortran code
+# Calculate FES conventionally (slow, fes1d2 for 1d FES)
+fes<-fes2d2(hills, tmin=5000, tmax=10000) # done
+
+# You can sum two FESes
+fes<-fes1+fes2 # done
 
 # Evaluate FES
 summary(fes) # done, to do manual
