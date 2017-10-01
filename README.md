@@ -19,13 +19,13 @@ plot(hills) # done
 plotheights(hills) # done
 
 # Calculate FES by bias sum (fes1d for 1d FES)
-fes<-fes2d(hills, tmin=5000, tmax=10000) # done
+fes<-fes2d(hills, tmin=5000, tmax=10000) # done, to do manual
 
 # Calculate FES conventionally (slow, fes1d2 for 1d FES)
-fes<-fes2d2(hills, tmin=5000, tmax=10000) # done
+fes<-fes2d2(hills, tmin=5000, tmax=10000) # done, to do manual
 
 # You can sum two FESes
-fes<-fes1+fes2 # done
+fes<-fes1+fes2 # done, to do manual
 
 # Evaluate FES
 summary(fes) # done, to do manual
