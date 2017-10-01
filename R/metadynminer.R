@@ -387,10 +387,10 @@ fes1d2<-function(hills, perCV1r=c(-pi,pi),
       cfes<-list(fes=fes1$fes+fes2, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
     }
   } else if(class(fes2)=="fes") {
-    if(fes1$dimension==1) {
+    if(fes2$dimension==1) {
       cfes<-list(fes=fes1+fes2$fes, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x)
     }
-    if(fes1$dimension==2) {
+    if(fes2$dimension==2) {
       cfes<-list(fes=fes1+fes2$fes, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y)
     }
   }
@@ -430,12 +430,55 @@ fes1d2<-function(hills, perCV1r=c(-pi,pi),
       cfes<-list(fes=fes1$fes-fes2, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
     }
   } else if(class(fes2)=="fes") {
-    if(fes1$dimension==1) {
+    if(fes2$dimension==1) {
       cfes<-list(fes=fes1-fes2$fes, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x)
     }
-    if(fes1$dimension==2) {
+    if(fes2$dimension==2) {
       cfes<-list(fes=fes1-fes2$fes, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y)
     }
+  }
+  class(cfes) <- "fes"
+  return(cfes)
+  return(cfes)
+}
+
+# multiply a fes
+`*.fes`<-function(fes1, fes2) {
+  if((class(fes1)=="fes")&(class(fes2)=="fes")) {
+    stop("you cannot multiply fes by fes")
+  } else if(class(fes1)=="fes") {
+    if(fes1$dimension==1) {
+      cfes<-list(fes=fes1$fes*fes2, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x)
+    }
+    if(fes1$dimension==2) {
+      cfes<-list(fes=fes1$fes*fes2, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
+    }
+  } else if(class(fes2)=="fes") {
+    if(fes2$dimension==1) {
+      cfes<-list(fes=fes1*fes2$fes, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x)
+    }
+    if(fes2$dimension==2) {
+      cfes<-list(fes=fes1*fes2$fes, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y)
+    }
+  }
+  class(cfes) <- "fes"
+  return(cfes)
+  return(cfes)
+}
+
+# divide a fes
+`/.fes`<-function(fes1, coef) {
+  if((class(fes1)=="fes")&(class(coef)=="fes")) {
+    stop("you cannot divide fes by fes")
+  } else if(class(fes1)=="fes") {
+    if(fes1$dimension==1) {
+      cfes<-list(fes=fes1$fes/coef, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x)
+    }
+    if(fes1$dimension==2) {
+      cfes<-list(fes=fes1$fes/coef, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
+    }
+  } else if(class(coef)=="fes") {
+    stop("you cannot divide something by fes")
   }
   class(cfes) <- "fes"
   return(cfes)

@@ -5,7 +5,7 @@ tfes<-fes2d(hillsf, tmax=1000)
 png("test%03d.png")
 plot(tfes, zlim=c(-120,0))
 for(i in 1:10) {
-  tfes<-tfes+fes2d(hillsf, tmin=1000*i, tmax=1000*(i+1))
+  tfes<-tfes+fes2d(hillsf, tmin=1000*i-1, tmax=1000*(i+1))
   plot(tfes, zlim=c(-120,0))
 }
 #image(x=180*tfes$x/pi, y=180*tfes$y/pi, z=tfes$fes, axes=F)
