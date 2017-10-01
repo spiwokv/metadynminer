@@ -6,7 +6,6 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericMatrix hills1(NumericVector cv1, NumericVector cv2, double width1, double width2, NumericVector heights, int n) {
   int ncv = cv1.size();
-  //int n = 360;
   int cv1i, cv2i;
   int ni, nj;
   double z;
@@ -36,7 +35,7 @@ NumericMatrix hills1(NumericVector cv1, NumericVector cv2, double width1, double
       for (int j = 0; j < n; j++) {
         nj=j-cv2i;
         if(j<cv2i) nj+=2*n;
-        v[i][j] += heights[icv]*g[ni][nj];
+        v[i][j] -= heights[icv]*g[ni][nj];
       }
     }
   }
@@ -51,7 +50,6 @@ NumericMatrix hills1(NumericVector cv1, NumericVector cv2, double width1, double
 // [[Rcpp::export]]
 NumericMatrix hills1p1(NumericVector cv1, NumericVector cv2, double width1, double width2, NumericVector heights, int n) {
   int ncv = cv1.size();
-  //int n = 360;
   int cv1i, cv2i;
   int ni, nj;
   double z;
@@ -81,7 +79,7 @@ NumericMatrix hills1p1(NumericVector cv1, NumericVector cv2, double width1, doub
       for (int j = 0; j < n; j++) {
         nj=j-cv2i;
         if(j<cv2i) nj+=2*n;
-        v[i][j] += heights[icv]*g[ni][nj];
+        v[i][j] -= heights[icv]*g[ni][nj];
       }
     }
   }
@@ -96,7 +94,6 @@ NumericMatrix hills1p1(NumericVector cv1, NumericVector cv2, double width1, doub
 // [[Rcpp::export]]
 NumericMatrix hills1p2(NumericVector cv1, NumericVector cv2, double width1, double width2, NumericVector heights, int n) {
   int ncv = cv1.size();
-  //int n = 360;
   int cv1i, cv2i;
   int ni, nj;
   double z;
@@ -126,7 +123,7 @@ NumericMatrix hills1p2(NumericVector cv1, NumericVector cv2, double width1, doub
       for (int j = 0; j < n; j++) {
         nj=j-cv2i;
         if(j<cv2i) nj+=n;
-        v[i][j] += heights[icv]*g[ni][nj];
+        v[i][j] -= heights[icv]*g[ni][nj];
       }
     }
   }
@@ -141,7 +138,6 @@ NumericMatrix hills1p2(NumericVector cv1, NumericVector cv2, double width1, doub
 // [[Rcpp::export]]
 NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, double width2, NumericVector heights, int n) {
   int ncv = cv1.size();
-  //int n = 360;
   int cv1i, cv2i;
   int ni, nj;
   double z;
@@ -171,7 +167,7 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
       for (int j = 0; j < n; j++) {
         nj=j-cv2i;
         if(j<cv2i) nj+=n;
-        v[i][j] += heights[icv]*g[ni][nj];
+        v[i][j] -= heights[icv]*g[ni][nj];
       }
     }
   }
@@ -184,13 +180,10 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
 }
 
 // [[Rcpp::export]]
-NumericMatrix hills2(NumericVector cv1, NumericVector cv2, double width1, double width2, NumericVector heights, int n) {
+NumericMatrix hills2(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, int n) {
   int ncv = cv1.size();
-  //int n = 360;
   double dcv1;
   double dcv2;
-  double rw1 = 1.0/2.0/width1/width1;
-  double rw2 = 1.0/2.0/width1/width1;
   double v[n][n];
   NumericMatrix vo(n, n);
   for (int i = 0; i < n; i++) {
@@ -203,12 +196,7 @@ NumericMatrix hills2(NumericVector cv1, NumericVector cv2, double width1, double
       for (int j = 0; j < n; j++) {
         dcv1 = cv1[icv]-double(i);
         dcv2 = cv2[icv]-double(j);
-        if(dcv1 >  180.0) dcv1 -= 360.0;
-        if(dcv1 < -180.0) dcv1 += 360.0;
-        if(dcv2 >  180.0) dcv2 -= 360.0;
-        if(dcv2 < -180.0) dcv2 += 360.0;
-        //v(i,j) += heights[icv]*exp(-rw1*dcv1*dcv1-rw2*dcv2*dcv2);
-        v[i][j] += heights[icv]*exp(-rw1*dcv1*dcv1-rw2*dcv2*dcv2);
+        v[i][j] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]);
       }
     }
   }
@@ -220,3 +208,160 @@ NumericMatrix hills2(NumericVector cv1, NumericVector cv2, double width1, double
   return vo;
 }
 
+// [[Rcpp::export]]
+NumericMatrix hills2p1(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, int n) {
+  int ncv = cv1.size();
+  double dcv1;
+  double dcv2;
+  double v[n][n];
+  NumericMatrix vo(n, n);
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      v[i][j]=0.0;
+    }
+  }
+  for (int icv = 0; icv < ncv; icv++) {
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        dcv1 = cv1[icv]-double(i);
+        dcv2 = cv2[icv]-double(j);
+        if(dcv1 >  double(n)/2.0) dcv1 -= double(n);
+        if(dcv1 < -double(n)/2.0) dcv1 += double(n);
+        v[i][j] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]);
+      }
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      vo(i, j) = v[i][j];
+    }
+  }
+  return vo;
+}
+
+
+// [[Rcpp::export]]
+NumericMatrix hills2p2(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, int n) {
+  int ncv = cv1.size();
+  double dcv1;
+  double dcv2;
+  double v[n][n];
+  NumericMatrix vo(n, n);
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      v[i][j]=0.0;
+    }
+  }
+  for (int icv = 0; icv < ncv; icv++) {
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        dcv1 = cv1[icv]-double(i);
+        dcv2 = cv2[icv]-double(j);
+        if(dcv2 >  double(n)/2.0) dcv2 -= double(n);
+        if(dcv2 < -double(n)/2.0) dcv2 += double(n);
+        v[i][j] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]);
+      }
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      vo(i, j) = v[i][j];
+    }
+  }
+  return vo;
+}
+
+// [[Rcpp::export]]
+NumericMatrix hills2p12(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, int n) {
+  int ncv = cv1.size();
+  double dcv1;
+  double dcv2;
+  double v[n][n];
+  NumericMatrix vo(n, n);
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      v[i][j]=0.0;
+    }
+  }
+  for (int icv = 0; icv < ncv; icv++) {
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        dcv1 = cv1[icv]-double(i);
+        dcv2 = cv2[icv]-double(j);
+        if(dcv1 >  double(n)/2.0) dcv1 -= double(n);
+        if(dcv1 < -double(n)/2.0) dcv1 += double(n);
+        if(dcv2 >  double(n)/2.0) dcv2 -= double(n);
+        if(dcv2 < -double(n)/2.0) dcv2 += double(n);
+        v[i][j] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]);
+      }
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      vo(i, j) = v[i][j];
+    }
+  }
+  return vo;
+}
+
+// [[Rcpp::export]]
+NumericVector hills1d1(NumericVector cv1, double width1, NumericVector heights, int n) {
+  int ncv = cv1.size();
+  int cv1i;
+  int ni;
+  double z;
+  double v[n];
+  double g[2*n];
+  NumericVector vo(n);
+  for (int i = 0; i < n; i++) {
+    z = exp(-double(i)*double(i)/2.0/width1/width1);
+    g[i] = z;
+    if(i>0) g[2*n-i] = z;
+  }
+  for (int i = 0; i < n; i++) {
+    v[i] = 0.0;
+  }
+  for (int icv; icv<ncv; icv++) {
+    cv1i = int(cv1[icv]+0.5);
+    for (int i = 0; i < n; i++) {
+      ni=i-cv1i;
+      if(i<cv1i) ni+=2*n;
+      v[i] -= heights[icv]*g[ni];
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    vo(i) = v[i];
+  }
+  return vo;
+}
+
+// [[Rcpp::export]]
+NumericVector hills1d1p(NumericVector cv1, double width1, NumericVector heights, int n) {
+  int ncv = cv1.size();
+  int cv1i;
+  int ni;
+  double z;
+  double v[n];
+  double g[n];
+  NumericVector vo(n);
+  for (int i = 0; i < n/2; i++) {
+    z = exp(-double(i)*double(i)/2.0/width1/width1);
+    g[i] = z;
+    if(i>0) g[n-i] = z;
+  }
+  for (int i = 0; i < n; i++) {
+    v[i] = 0.0;
+  }
+  for (int icv; icv<ncv; icv++) {
+    cv1i = int(cv1[icv]+0.5);
+    for (int i = 0; i < n; i++) {
+      ni=i-cv1i;
+      if(i<cv1i) ni+=n;
+      v[i] -= heights[icv]*g[ni];
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    vo(i) = v[i];
+  }
+  return vo;
+}
