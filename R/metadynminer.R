@@ -676,6 +676,48 @@ emptyminima<-function(inputfes=inputfes) {
   return(minima)
 }
 
+# create one minima
+oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
+  fes<-inputfes$fes
+  rows<-inputfes$rows
+  per<-inputfes$per
+  icv1<-as.integer(rows*(cv1-min(inputfes$x))/(max(inputfes$x)-min(inputfes$x)))+1
+  if(icv1<0)    stop("out of range")
+  if(icv1>rows) stop("out of range")
+  icv2<-as.integer(rows*(cv2-min(inputfes$y))/(max(inputfes$x)-min(inputfes$x)))+1
+  if(icv2<0)    stop("out of range")
+  if(icv2>rows) stop("out of range")
+  minima<-data.frame(c("A"), c(icv1), c(icv2), c(cv1), c(cv2), c(fes[icv1,icv2]))
+  names(minima) <- c("letter", "CV1bin", "CV2bin", "CV1", "CV2", "free_energy")
+  minima<-list(minima=minima, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, y=inputfes$y)
+  class(minima) <- "minima"
+  return(minima)
+}
+
+# add minima
+`+.minima`<-function(min1, min2) {
+  if(class(min1)!="minima") {
+    stop("you can sum only two minima objects")
+  }
+  if(class(min2)!="minima") {
+    stop("you can sum only two minima objects")
+  }
+  if(sum(min1$fes)!=sum(min2$fes)) {
+    stop("you can sum only minima objects with same FESes")
+  }
+  myLETTERS <- c(LETTERS, paste("A", LETTERS, sep=""), paste("B", LETTERS, sep=""))[1:(nrow(min1$minima)+nrow(min2$minima))]
+  minima1<-min1$minima
+  minima2<-min2$minima
+  minima<-rbind(minima1, minima2)
+  names(minima) <- c("letter", "CV1bin", "CV2bin", "CV1", "CV2", "free_energy")
+  minima <- minima[order(minima[,6]),]
+  rownames(minima) <- seq(length=nrow(minima))
+  minima[,1]<-myLETTERS
+  minima<-list(minima=minima, fes=min1$fes, rows=min1$rows, dimension=min1$dimension, per=min1$per, x=min1$x, y=min1$y)
+  class(minima) <- "minima"
+  return(minima)
+}
+
 # print minima of a FES
 print.minima<-function(minims) {
   cat("$minima\n\n")
