@@ -1,6 +1,6 @@
 # Metadynminer
 
-Metadynminer is R packages for reading, analysis and visualisation of metadynamics HILLS files produced by Plumed.
+Metadynminer is R packages for reading, analysis and visualisation of metadynamics HILLS and COLVAR files produced by Plumed.
 
 ```R
 install.packages("metadynminer") # in future will be added to R repository
