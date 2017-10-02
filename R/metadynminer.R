@@ -769,3 +769,9 @@ plot.minima <- function(minims, plottype="both",
   }
 }
 
+#NumericVector fe2d(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y) {
+#NumericVector fe2dp1(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, double p1) {
+#NumericVector fe2dp2(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, double p2) {
+#NumericVector fe2dp12(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, double p1, double p2) {
+#NumericVector fe1d(NumericVector cv1, NumericVector width1, NumericVector heights, double x) {
+#NumericVector fe1dp(NumericVector cv1, NumericVector width1, NumericVector heights, double x, double p1) {
