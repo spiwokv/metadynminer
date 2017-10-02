@@ -47,7 +47,7 @@ summary(fes) # done, to do manual
 plot(fes) # done
 
 # Find minima
-minima<-fesminima(fes) # done, to do manual
+minima<-fesminima(fes) # check it, to do manual
 
 # Evaluate free energy minima
 summary(minima) # done, to do manual
@@ -56,10 +56,10 @@ summary(minima) # done, to do manual
 plot(minima) # 2D done, 1D to do, to do manual
 
 # Calculate free energy
-fe<-freeene(cvs, hills, per=c(TRUE, TRUE), time=10000) # to do by linking with Fortran code
+fe<-freeene(cvs, hills, per=c(TRUE, TRUE), time=10000) # to do by linking with C++ code
 
 # Calculate free energy profile
-fe<-freeene2(cvs, hills, per=c(TRUE, TRUE), time=0:10000) # to do by linking with Fortran code
+fe<-freeene2(cvs, hills, per=c(TRUE, TRUE), time=0:10000) # to do by linking with C++ code
 
 # Calculate free energy difference profile
 fe1<-freeene2(cvs1, hills, per=c(TRUE, TRUE), time=0:10000)
