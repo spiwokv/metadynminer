@@ -22,7 +22,7 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE)) {
 }
 
 # print a hillsfile
-print.hillsfile<-function(hills) {
+print.hillsfile<-function(hills=hills) {
   if(hills$size[2]==5) {
     cat("1D hills file ")
     cat(hills$filename)
@@ -40,7 +40,7 @@ print.hillsfile<-function(hills) {
 }
 
 # print summary of a hillsfile
-summary.hillsfile<-function(hills) {
+summary.hillsfile<-function(hills=hills) {
   if(hills$size[2]==5) {
     cat("1D hills file ")
     cat(hills$filename)
@@ -72,17 +72,17 @@ summary.hillsfile<-function(hills) {
 }
 
 # head hills
-head.hillsfile<-function(hills, n=10) {
+head.hillsfile<-function(hills=hills, n=10) {
   return(head(hills$hillsfile, n=n))
 }
 
 # tail hills
-tail.hillsfile<-function(hills, n=10) {
+tail.hillsfile<-function(hills=hills, n=10) {
   return(tail(hills$hillsfile, n=n))
 }
 
 # plot hillsfile
-plot.hillsfile<-function(hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
+plot.hillsfile<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
                          xlab=NULL, ylab=NULL,
                          xlim=NULL, ylim=NULL,
                          main=NULL, sub=NULL,
@@ -117,7 +117,7 @@ plot.hillsfile<-function(hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
 }
 
 # plot heights
-plotheights<-function(hills, xlab=NULL, ylab=NULL,
+plotheights<-function(hills=hills, xlab=NULL, ylab=NULL,
                       xlim=NULL, ylim=NULL, zlim=NULL,
                       main=NULL, sub=NULL,
                       pch=1, col="black", bg="red", cex=1,
@@ -145,7 +145,7 @@ plotheights<-function(hills, xlab=NULL, ylab=NULL,
 }
 
 # red FES from MetadynView
-read.fes<-function(filename, dimension=2, per=c(TRUE, TRUE)) {
+read.fes<-function(filename=filename, dimension=2, per=c(TRUE, TRUE)) {
   ifile<-read.table(filename)
   rows<-sqrt(nrow(ifile))
   fes<-matrix(ifile[,3], nrow=rows)
@@ -158,7 +158,7 @@ read.fes<-function(filename, dimension=2, per=c(TRUE, TRUE)) {
 }
 
 # calculate 2d fes by bias sum algorithm
-fes2d<-function(hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
+fes2d<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
                 tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(hills$size[2]==5) {
     stop("It looks like a 1D FES, use fes1d instead")
@@ -226,7 +226,7 @@ fes2d<-function(hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
 }
 
 # calculate 2d fes conventionally (slow)
-fes2d2<-function(hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
+fes2d2<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
                  tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(hills$size[2]==5) {
     stop("It looks like a 1D FES, use fes1d2 instead")
@@ -288,7 +288,7 @@ fes2d2<-function(hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
 }
 
 # calculate 1d fes by bias sum algorithm
-fes1d<-function(hills, perCV1r=c(-pi,pi),
+fes1d<-function(hills=hills, perCV1r=c(-pi,pi),
                 tmin=0, tmax=NULL, xlim=NULL, npoints=256) {
   if(hills$size[2]==7) {
     stop("It looks like a 2D FES, use fes2d instead")
@@ -329,7 +329,7 @@ fes1d<-function(hills, perCV1r=c(-pi,pi),
 }
 
 # calculate 1d fes conventionally (slow)
-fes1d2<-function(hills, perCV1r=c(-pi,pi),
+fes1d2<-function(hills=hills, perCV1r=c(-pi,pi),
                  tmin=0, tmax=NULL, xlim=NULL, npoints=256) {
   if(hills$size[2]==7) {
     stop("It looks like a 2D FES, use fes2d2 instead")
@@ -496,22 +496,22 @@ fes1d2<-function(hills, perCV1r=c(-pi,pi),
 }
 
 # min of fes
-min.fes<-function(inputfes, na.rm=NULL) {
+min.fes<-function(inputfes=inputfes, na.rm=NULL) {
   return(min(inputfes$fes, na.rm=na.rm))
 }
 
 # max of fes
-max.fes<-function(inputfes, na.rm=NULL) {
+max.fes<-function(inputfes=inputfes, na.rm=NULL) {
   return(max(inputfes$fes, na.rm=na.rm))
 }
 
 # mean of fes
-mean.fes<-function(inputfes, na.rm=NULL) {
+mean.fes<-function(inputfes=inputfes, na.rm=NULL) {
   return(mean(inputfes$fes, na.rm=na.rm))
 }
 
 # print FES
-print.fes<-function(inputfes) {
+print.fes<-function(inputfes=inputfes) {
   if(inputfes$dimension==1) {
     cat("1D free energy surface with ")
     cat(inputfes$rows)
@@ -535,7 +535,7 @@ print.fes<-function(inputfes) {
 }
 
 # print summary of a FES
-summary.fes<-function(inputfes) {
+summary.fes<-function(inputfes=inputfes) {
   if(inputfes$dimension==1) {
     cat("1D free energy surface with ")
     cat(inputfes$rows)
@@ -559,7 +559,7 @@ summary.fes<-function(inputfes) {
 }
 
 # plot FES
-plot.fes<-function(inputfes, plottype="both",
+plot.fes<-function(inputfes=inputfes, plottype="both",
                   x=NULL, y=NULL,
                   xlim=NULL, ylim=NULL, zlim=NULL,
                   main=NULL, sub=NULL,
@@ -620,7 +620,7 @@ plot.fes<-function(inputfes, plottype="both",
 }
 
 # find minima of a FES
-fesminima<-function(inputfes) {
+fesminima<-function(inputfes=inputfes) {
   fes<-inputfes$fes
   rows<-inputfes$rows
   r8 <- rows/8
@@ -663,6 +663,19 @@ fesminima<-function(inputfes) {
   return(minima)
 }
 
+# create empty minima
+emptyminima<-function(inputfes=inputfes) {
+  fes<-inputfes$fes
+  rows<-inputfes$rows
+  per<-inputfes$per
+  minima<-data.frame(c("A"), c(0), c(0), c(0), c(0), c(0))
+  minima<-minima[-1,]
+  names(minima) <- c("letter", "CV1bin", "CV2bin", "CV1", "CV2", "free_energy")
+  minima<-list(minima=minima, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, y=inputfes$y)
+  class(minima) <- "minima"
+  return(minima)
+}
+
 # print minima of a FES
 print.minima<-function(minims) {
   cat("$minima\n\n")
@@ -670,7 +683,7 @@ print.minima<-function(minims) {
 }
 
 # print a summary of minima of a FES
-summary.minima<-function(minims, temp=300, eunit="kJ/mol") {
+summary.minima<-function(minims=minims, temp=300, eunit="kJ/mol") {
   toprint <- minims$minima
   if(eunit=="kJ/mol") {
     toprint<-cbind(toprint, exp(-1000*toprint[,6]/8.314/temp))
@@ -692,7 +705,7 @@ summary.minima<-function(minims, temp=300, eunit="kJ/mol") {
 }
 
 # plot minima
-plot.minima <- function(minims, plottype="both",
+plot.minima <- function(minims=minims, plottype="both",
                   x=NULL, y=NULL,
                   xlim=NULL, ylim=NULL, zlim=NULL,
                   main=NULL, sub=NULL,
@@ -768,6 +781,8 @@ plot.minima <- function(minims, plottype="both",
     }
   }
 }
+
+
 
 #NumericVector fe2d(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y) {
 #NumericVector fe2dp1(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, double p1) {

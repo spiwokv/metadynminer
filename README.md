@@ -52,11 +52,13 @@ minima<-fesminima(fes) # check it, to do manual
 # Evaluate free energy minima
 summary(minima) # done, to do manual
 
+minima<-emptyminima()
+
 # Plot free energy minima
 plot(minima) # 2D done, 1D to do, to do manual
 
 # Calculate free energy profile for a point in CV space (fe1d for 1D FES)
-fe<-fe2d(hills, cvs) # done, to do manual
+prof<-feprofiles(hills, minima) # done, to do manual
 
 # Find transition path
 # Summary of transition path
