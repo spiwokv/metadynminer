@@ -71,6 +71,16 @@ summary.hillsfile<-function(hills) {
   }
 }
 
+# head hills
+head.hillsfile<-function(hills, n=10) {
+  return(head(hills$hillsfile, n=n))
+}
+
+# tail hills
+tail.hillsfile<-function(hills, n=10) {
+  return(tail(hills$hillsfile, n=n))
+}
+
 # plot hillsfile
 plot.hillsfile<-function(hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
                          xlab=NULL, ylab=NULL,
