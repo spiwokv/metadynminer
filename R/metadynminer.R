@@ -81,6 +81,24 @@ tail.hillsfile<-function(hills=hills, n=10) {
   return(tail(hills$hillsfile, n=n))
 }
 
+# sum HILLS from Plumed
+`+.hillsfile`<-function(hills1, hills2) {
+  if(ncol(hills1$hillsfile)!=ncol(hills2$hillsfile)) {
+    stop("you can sum only hills of same dimension")
+  }
+  if(hills1$per[1]!=hills2$per[1]) {
+    stop("you can sum only hills of same periodicity")
+  }
+  if(ncol(hills1$hillsfile)==7 || ncol(hills1$hillsfile)==8) {
+    if(hills1$per[2]!=hills2$per[2]) {
+      stop("you can sum only hills of same periodicity")
+    }
+  }
+  hills<-list(hillsfile=rbind(hills1$hillsfile, hills2$hillsfile), size=dim(rbind(hills1$hillsfile, hills2$hillsfile)), filename=hills1$filename, per=hills1$per)
+  class(hills) <- "hillsfile"
+  return(hills)
+}
+
 # plot hillsfile
 plot.hillsfile<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
                          xlab=NULL, ylab=NULL,
