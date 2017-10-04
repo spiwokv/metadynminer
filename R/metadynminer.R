@@ -642,6 +642,9 @@ fesminima2d<-function(inputfes=inputfes, nbins=8) {
   fes<-inputfes$fes
   rows<-inputfes$rows
   rb <- rows/nbins
+  if(inputfes$dimension==1) {
+    stop("use fesminima1d instead")
+  }
   if(rb<2) {
     stop("nbins too high, try to reduce it")
   }
@@ -651,6 +654,58 @@ fesminima2d<-function(inputfes=inputfes, nbins=8) {
   per<-inputfes$per
   minx<-c()
   miny<-c()
+  for(i in 0:(nbins-1)) {
+    ni<-i*rb+0:(rb+1)
+    if(per[1]) {
+      ni[ni==0]<-rows
+      ni[ni==(rows+1)]<-1
+    } else {
+      ni<-ni[ni!=0]
+      ni<-ni[ni!=(rows+1)]
+    }
+    for(j in 0:(nbins-1)) {
+      nj<-j*rb+0:(rb+1)
+      if(per[2]) {
+        nj[nj==0]<-rows
+        nj[nj==(rows+1)]<-1
+      } else {
+        nj<-nj[nj!=0]
+        nj<-nj[nj!=(rows+1)]
+      }
+      binmin<-which(fes[ni,nj]==min(fes[ni,nj]), arr.ind = TRUE)
+      if(binmin[1]!=1 && binmin[2]!=1 && binmin[1]!=length(ni) && binmin[2]!=length(nj)) {
+        minx<-c(minx,i*rb+binmin[1]-1)
+        miny<-c(miny,j*rb+binmin[2]-1)
+      }
+    }
+  }
+  myLETTERS <- c(LETTERS, paste("A", LETTERS, sep=""), paste("B", LETTERS, sep=""))[1:length(minx)]
+  minima<-data.frame(myLETTERS, minx, miny, inputfes$x[minx], inputfes$y[miny], fes[cbind(minx,miny)])
+  names(minima) <- c("letter", "CV1bin", "CV2bin", "CV1", "CV2", "free_energy")
+  minima <- minima[order(minima[,6]),]
+  rownames(minima) <- seq(length=nrow(minima))
+  minima[,1]<-myLETTERS
+  minima<-list(minima=minima, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, y=inputfes$y)
+  class(minima) <- "minima"
+  return(minima)
+}
+
+# find minima of a FES
+fesminima1d<-function(inputfes=inputfes, nbins=8) {
+  fes<-inputfes$fes
+  rows<-inputfes$rows
+  rb <- rows/nbins
+  if(inputfes$dimension==2) {
+    stop("use fesminima2d instead")
+  }
+  if(rb<2) {
+    stop("nbins too high, try to reduce it")
+  }
+  if(rows%%nbins>0) {
+    stop("number of rows in FES must be integer multiple of nbins")
+  }
+  per<-inputfes$per
+  minx<-c()
   for(i in 0:(nbins-1)) {
     ni<-i*rb+0:(rb+1)
     if(per[1]) {

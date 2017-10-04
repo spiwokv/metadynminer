@@ -46,8 +46,8 @@ summary(fes) # done, to do manual
 # Plot FES
 plot(fes) # done
 
-# Find minima
-minima<-fesminima(fes) # check it, to do manual
+# Find minima (fesminima1d for 1d FES)
+minima<-fesminima2d(fes) # done, to do manual
 
 # Evaluate free energy minima
 summary(minima) # done, to do manual
