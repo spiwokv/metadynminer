@@ -175,12 +175,9 @@ read.fes<-function(filename=filename, dimension=2, per=c(TRUE, TRUE)) {
   return(cfes)
 }
 
-# calculate 2d fes by bias sum algorithm
-fes2d<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
+# calculate fes by bias sum algorithm
+fes<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
                 tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
-  if(hills$size[2]==5) {
-    stop("It looks like a 1D FES, use fes1d instead")
-  }
   if(!is.null(tmax)) {
     if(hills$size[1]<tmax) {
       cat("You requested more hills by tmax than available, using all hills\n")
@@ -190,197 +187,160 @@ fes2d<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
   if(is.null(tmax)) {
     tmax<-hills$size[1]
   }
-  if(max(hills$hillsfile[,4])/min(hills$hillsfile[,4])>1.00000000001) {
-    stop("Bias Sum algorithm works only with hills of the same sizes")
-  }
-  if(max(hills$hillsfile[,5])/min(hills$hillsfile[,5])>1.00000000001) {
-    stop("Bias Sum algorithm works only with hills of the same sizes")
-  }
   sourceCpp("../src/mm.cpp")
-  minCV1 <- min(hills$hillsfile[,2])
-  maxCV1 <- max(hills$hillsfile[,2])
-  minCV2 <- min(hills$hillsfile[,3])
-  maxCV2 <- max(hills$hillsfile[,3])
-  xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
-  ylims<-c(minCV2-0.05*(maxCV2-minCV2), maxCV2+0.05*(maxCV2-minCV2))
-  if(!is.null(xlim)) {xlims<-xlim}
-  if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
-  if(!is.null(ylim)) {ylims<-ylim}
-  if((hills$per[2]==T)&is.null(ylim)) {ylims<-perCV2r}
-  x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
-  y<-0:(npoints-1)*(ylims[2]-ylims[1])/(npoints-1)+ylims[1]
-  if((hills$per[1]==F)&(hills$per[2]==F)) {
-    fesm<-hills1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                 npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
-                 npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
-                 npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                 hills$hillsfile[,6],npoints,tmin,tmax)
-  }
-  if((hills$per[1]==T)&(hills$per[2]==F)) {
-    fesm<-hills1p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+  if(hills$size[2]==7) {
+    if(max(hills$hillsfile[,4])/min(hills$hillsfile[,4])>1.00000000001) {
+      stop("Bias Sum algorithm works only with hills of the same sizes")
+    }
+    if(max(hills$hillsfile[,5])/min(hills$hillsfile[,5])>1.00000000001) {
+      stop("Bias Sum algorithm works only with hills of the same sizes")
+    }
+    minCV1 <- min(hills$hillsfile[,2])
+    maxCV1 <- max(hills$hillsfile[,2])
+    minCV2 <- min(hills$hillsfile[,3])
+    maxCV2 <- max(hills$hillsfile[,3])
+    xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
+    ylims<-c(minCV2-0.05*(maxCV2-minCV2), maxCV2+0.05*(maxCV2-minCV2))
+    if(!is.null(xlim)) {xlims<-xlim}
+    if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
+    if(!is.null(ylim)) {ylims<-ylim}
+    if((hills$per[2]==T)&is.null(ylim)) {ylims<-perCV2r}
+    x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
+    y<-0:(npoints-1)*(ylims[2]-ylims[1])/(npoints-1)+ylims[1]
+    if((hills$per[1]==F)&(hills$per[2]==F)) {
+      fesm<-hills1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                    npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                    npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                    npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
                    hills$hillsfile[,6],npoints,tmin,tmax)
+    }
+    if((hills$per[1]==T)&(hills$per[2]==F)) {
+      fesm<-hills1p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                     npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                     npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                     npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+                     hills$hillsfile[,6],npoints,tmin,tmax)
+    }
+    if((hills$per[1]==F)&(hills$per[2]==T)) {
+      fesm<-hills1p2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                     npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                     npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                     npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+                     hills$hillsfile[,6],npoints,tmin,tmax)
+    }
+    if((hills$per[1]==T)&(hills$per[2]==T)) {
+      fesm<-hills1p12(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                      npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                      npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+                      hills$hillsfile[,6],npoints,tmin,tmax)
+    }
+    cfes<-list(fes=fesm, rows=npoints, dimension=2, per=hills$per, x=x, y=y)
+    class(cfes) <- "fes"
   }
-  if((hills$per[1]==F)&(hills$per[2]==T)) {
-    fesm<-hills1p2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                   npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
-                   npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
-                   npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                   hills$hillsfile[,6],npoints,tmin,tmax)
+  if(hills$size[2]==5) {
+    if(max(hills$hillsfile[,3])/min(hills$hillsfile[,3])>1.00000000001) {
+      stop("Bias Sum algorithm works only with hills of the same sizes")
+    }
+    minCV1 <- min(hills$hillsfile[,2])
+    maxCV1 <- max(hills$hillsfile[,2])
+    xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
+    if(!is.null(xlim)) {xlims<-xlim}
+    if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
+    x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
+    if(hills$per[1]==F) {
+      fesm<-hills1d1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                     npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]),
+                     hills$hillsfile[,4],npoints,tmin,tmax)
+    }
+    if(hills$per[1]==T) {
+      fesm<-hills1d1p(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                      npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]),
+                      hills$hillsfile[,4],npoints,tmin,tmax)
+    }
+    cfes<-list(fes=fesm, rows=npoints, dimension=1, per=hills$per, x=x)
+    class(cfes) <- "fes"
   }
-  if((hills$per[1]==T)&(hills$per[2]==T)) {
-    fesm<-hills1p12(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                    npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
-                    npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
-                    npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                    hills$hillsfile[,6],npoints,tmin,tmax)
-  }
-  cfes<-list(fes=fesm, rows=npoints, dimension=2, per=hills$per, x=x, y=y)
-  class(cfes) <- "fes"
-  return(cfes)
   return(cfes)
 }
 
-# calculate 2d fes conventionally (slow)
-fes2d2<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
+# calculate fes conventionally (slow)
+fes2<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
                  tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+  if(!is.null(tmax)) {
+    if(hills$size[1]<tmax) {
+      cat("You requested more hills by tmax than available, using all hills\n")
+      tmax<-hills$size[1]
+    }
+  }
+  if(is.null(tmax)) {
+    tmax<-hills$size[1]
+  }
+  sourceCpp("../src/mm.cpp")
+  if(hills$size[2]==7) {
+    minCV1 <- min(hills$hillsfile[,2])
+    maxCV1 <- max(hills$hillsfile[,2])
+    minCV2 <- min(hills$hillsfile[,3])
+    maxCV2 <- max(hills$hillsfile[,3])
+    xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
+    ylims<-c(minCV2-0.05*(maxCV2-minCV2), maxCV2+0.05*(maxCV2-minCV2))
+    if(!is.null(xlim)) {xlims<-xlim}
+    if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
+    if(!is.null(ylim)) {ylims<-ylim}
+    if((hills$per[2]==T)&is.null(ylim)) {ylims<-perCV2r}
+    x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
+    y<-0:(npoints-1)*(ylims[2]-ylims[1])/(npoints-1)+ylims[1]
+    if((hills$per[1]==F)&(hills$per[2]==F)) {
+      fesm<-hills2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                   npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                   npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
+                   npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
+                   hills$hillsfile[,6],npoints,tmin,tmax)
+    }
+    if((hills$per[1]==T)&(hills$per[2]==F)) {
+      fesm<-hills2p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                     npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                     npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
+                     npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
+                     hills$hillsfile[,6],npoints,tmin,tmax)
+    }
+    if((hills$per[1]==F)&(hills$per[2]==T)) {
+      fesm<-hills2p2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                     npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                     npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
+                     npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
+                     hills$hillsfile[,6],npoints,tmin,tmax)
+    }
+    if((hills$per[1]==T)&(hills$per[2]==T)) {
+      fesm<-hills2p12(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                      npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
+                      npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
+                      hills$hillsfile[,6],npoints,tmin,tmax)
+    }
+    cfes<-list(fes=fesm, rows=npoints, dimension=2, per=hills$per, x=x, y=y)
+    class(cfes) <- "fes"
+  }
   if(hills$size[2]==5) {
-    stop("It looks like a 1D FES, use fes1d2 instead")
-  }
-  if(!is.null(tmax)) {
-    if(hills$size[1]<tmax) {
-      cat("You requested more hills by tmax than available, using all hills\n")
-      tmax<-hills$size[1]
+    minCV1 <- min(hills$hillsfile[,2])
+    maxCV1 <- max(hills$hillsfile[,2])
+    xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
+    if(!is.null(xlim)) {xlims<-xlim}
+    if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
+    x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
+    if(hills$per[1]==F) {
+      fesm<-hills1d2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                     npoints*hills$hillsfile[,3]/(xlims[2]-xlims[1]),
+                     hills$hillsfile[,4],npoints,tmin,tmax)
     }
-  }
-  if(is.null(tmax)) {
-    tmax<-hills$size[1]
-  }
-  sourceCpp("../src/mm.cpp")
-  minCV1 <- min(hills$hillsfile[,2])
-  maxCV1 <- max(hills$hillsfile[,2])
-  minCV2 <- min(hills$hillsfile[,3])
-  maxCV2 <- max(hills$hillsfile[,3])
-  xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
-  ylims<-c(minCV2-0.05*(maxCV2-minCV2), maxCV2+0.05*(maxCV2-minCV2))
-  if(!is.null(xlim)) {xlims<-xlim}
-  if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
-  if(!is.null(ylim)) {ylims<-ylim}
-  if((hills$per[2]==T)&is.null(ylim)) {ylims<-perCV2r}
-  x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
-  y<-0:(npoints-1)*(ylims[2]-ylims[1])/(npoints-1)+ylims[1]
-  if((hills$per[1]==F)&(hills$per[2]==F)) {
-    fesm<-hills2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                 npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
-                 npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
-                 npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
-                 hills$hillsfile[,6],npoints,tmin,tmax)
-  }
-  if((hills$per[1]==T)&(hills$per[2]==F)) {
-    fesm<-hills2p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                   npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
-                   npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
-                   npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
-                   hills$hillsfile[,6],npoints,tmin,tmax)
-  }
-  if((hills$per[1]==F)&(hills$per[2]==T)) {
-    fesm<-hills2p2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                   npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
-                   npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
-                   npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
-                   hills$hillsfile[,6],npoints,tmin,tmax)
-  }
-  if((hills$per[1]==T)&(hills$per[2]==T)) {
-    fesm<-hills2p12(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                    npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
-                    npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
-                    npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
-                    hills$hillsfile[,6],npoints,tmin,tmax)
-  }
-  cfes<-list(fes=fesm, rows=npoints, dimension=2, per=hills$per, x=x, y=y)
-  class(cfes) <- "fes"
-  return(cfes)
-  return(cfes)
-}
-
-# calculate 1d fes by bias sum algorithm
-fes1d<-function(hills=hills, perCV1r=c(-pi,pi),
-                tmin=0, tmax=NULL, xlim=NULL, npoints=256) {
-  if(hills$size[2]==7) {
-    stop("It looks like a 2D FES, use fes2d instead")
-  }
-  if(!is.null(tmax)) {
-    if(hills$size[1]<tmax) {
-      cat("You requested more hills by tmax than available, using all hills\n")
-      tmax<-hills$size[1]
+    if(hills$per[1]==T) {
+      fesm<-hills1d2p(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                      npoints*hills$hillsfile[,3]/(xlims[2]-xlims[1]),
+                      hills$hillsfile[,4],npoints,tmin,tmax)
     }
+    cfes<-list(fes=fesm, rows=npoints, dimension=1, per=hills$per, x=x)
+    class(cfes) <- "fes"
   }
-  if(is.null(tmax)) {
-    tmax<-hills$size[1]
-  }
-  if(max(hills$hillsfile[,3])/min(hills$hillsfile[,3])>1.00000000001) {
-    stop("Bias Sum algorithm works only with hills of the same sizes")
-  }
-  sourceCpp("../src/mm.cpp")
-  minCV1 <- min(hills$hillsfile[,2])
-  maxCV1 <- max(hills$hillsfile[,2])
-  xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
-  if(!is.null(xlim)) {xlims<-xlim}
-  if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
-  x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
-  if(hills$per[1]==F) {
-    fesm<-hills1d1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                   npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]),
-                   hills$hillsfile[,4],npoints,tmin,tmax)
-  }
-  if(hills$per[1]==T) {
-    fesm<-hills1d1p(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                    npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]),
-                    hills$hillsfile[,4],npoints,tmin,tmax)
-  }
-  cfes<-list(fes=fesm, rows=npoints, dimension=1, per=hills$per, x=x)
-  class(cfes) <- "fes"
-  return(cfes)
-  return(cfes)
-}
-
-# calculate 1d fes conventionally (slow)
-fes1d2<-function(hills=hills, perCV1r=c(-pi,pi),
-                 tmin=0, tmax=NULL, xlim=NULL, npoints=256) {
-  if(hills$size[2]==7) {
-    stop("It looks like a 2D FES, use fes2d2 instead")
-  }
-  if(!is.null(tmax)) {
-    if (hills$size[1]<tmax) {
-      cat("You requested more hills by tmax than available, using all hills\n")
-      tmax<-hills$size[1]
-    }
-  }
-  if(is.null(tmax)) {
-    tmax<-hills$size[1]
-  }
-  sourceCpp("../src/mm.cpp")
-  minCV1 <- min(hills$hillsfile[,2])
-  maxCV1 <- max(hills$hillsfile[,2])
-  xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
-  if(!is.null(xlim)) {xlims<-xlim}
-  if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
-  x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
-  if(hills$per[1]==F) {
-    fesm<-hills1d1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                   npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]),
-                   hills$hillsfile[,4],npoints,tmin,tmax)
-  }
-  if(hills$per[1]==T) {
-    fesm<-hills1d1p(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                    npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]),
-                    hills$hillsfile[,4],npoints,tmin,tmax)
-  }
-  cfes<-list(fes=fesm, rows=npoints, dimension=1, per=hills$per, x=x)
-  class(cfes) <- "fes"
-  return(cfes)
   return(cfes)
 }
 
@@ -715,29 +675,18 @@ fesminima1d<-function(inputfes=inputfes, nbins=8) {
       ni<-ni[ni!=0]
       ni<-ni[ni!=(rows+1)]
     }
-    for(j in 0:(nbins-1)) {
-      nj<-j*rb+0:(rb+1)
-      if(per[2]) {
-        nj[nj==0]<-rows
-        nj[nj==(rows+1)]<-1
-      } else {
-        nj<-nj[nj!=0]
-        nj<-nj[nj!=(rows+1)]
-      }
-      binmin<-which(fes[ni,nj]==min(fes[ni,nj]), arr.ind = TRUE)
-      if(binmin[1]!=1 && binmin[2]!=1 && binmin[1]!=length(ni) && binmin[2]!=length(nj)) {
-        minx<-c(minx,i*rb+binmin[1]-1)
-        miny<-c(miny,j*rb+binmin[2]-1)
-      }
+    binmin<-which(fes[ni]==min(fes[ni]), arr.ind = TRUE)
+    if(binmin[1]!=1 && binmin[1]!=length(ni)) {
+      minx<-c(minx,i*rb+binmin[1]-1)
     }
   }
   myLETTERS <- c(LETTERS, paste("A", LETTERS, sep=""), paste("B", LETTERS, sep=""))[1:length(minx)]
-  minima<-data.frame(myLETTERS, minx, miny, inputfes$x[minx], inputfes$y[miny], fes[cbind(minx,miny)])
-  names(minima) <- c("letter", "CV1bin", "CV2bin", "CV1", "CV2", "free_energy")
-  minima <- minima[order(minima[,6]),]
+  minima<-data.frame(myLETTERS, minx, inputfes$x[minx], fes[minx])
+  names(minima) <- c("letter", "CV1bin", "CV1", "free_energy")
+  minima <- minima[order(minima[,4]),]
   rownames(minima) <- seq(length=nrow(minima))
   minima[,1]<-myLETTERS
-  minima<-list(minima=minima, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, y=inputfes$y)
+  minima<-list(minima=minima, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x)
   class(minima) <- "minima"
   return(minima)
 }

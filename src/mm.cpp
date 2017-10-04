@@ -357,6 +357,48 @@ NumericVector hills1d1p(NumericVector cv1, double width1, NumericVector heights,
 }
 
 // [[Rcpp::export]]
+NumericVector hills1d2(NumericVector cv1, NumericVector width1, NumericVector heights, int n, int tmin, int tmax) {
+  double dcv1;
+  double v[n];
+  NumericVector vo(n);
+  for (int i = 0; i < n; i++) {
+    v[i]=0.0;
+  }
+  for (int icv=tmin; icv < tmax; icv++) {
+    for (int i = 0; i < n; i++) {
+      dcv1 = cv1[icv]-double(i);
+      v[i] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]);
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    vo(i) = v[i];
+  }
+  return vo;
+}
+
+// [[Rcpp::export]]
+NumericVector hills1d2p(NumericVector cv1, NumericVector width1, NumericVector heights, int n, int tmin, int tmax) {
+  double dcv1;
+  double v[n];
+  NumericVector vo(n);
+  for (int i = 0; i < n; i++) {
+    v[i]=0.0;
+  }
+  for (int icv=tmin; icv < tmax; icv++) {
+    for (int i = 0; i < n; i++) {
+      dcv1 = cv1[icv]-double(i);
+      if(dcv1 >  double(n)/2.0) dcv1 -= double(n);
+      if(dcv1 < -double(n)/2.0) dcv1 += double(n);
+      v[i] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]);
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    vo(i) = v[i];
+  }
+  return vo;
+}
+
+// [[Rcpp::export]]
 NumericVector fe2d(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y) {
   int n = cv1.size();
   double dcv1;
