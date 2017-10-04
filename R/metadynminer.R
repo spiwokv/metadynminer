@@ -638,15 +638,21 @@ plot.fes<-function(inputfes=inputfes, plottype="both",
 }
 
 # find minima of a FES
-fesminima<-function(inputfes=inputfes) {
+fesminima2d<-function(inputfes=inputfes, nbins=8) {
   fes<-inputfes$fes
   rows<-inputfes$rows
-  r8 <- rows/8
+  rb <- rows/nbins
+  if(rb<2) {
+    stop("nbins too high, try to reduce it")
+  }
+  if(rows%%nbins>0) {
+    stop("number of rows in FES must be integer multiple of nbins")
+  }
   per<-inputfes$per
   minx<-c()
   miny<-c()
-  for(i in 0:7) {
-    ni<-i*r8+0:(r8+1)
+  for(i in 0:(nbins-1)) {
+    ni<-i*rb+0:(rb+1)
     if(per[1]) {
       ni[ni==0]<-rows
       ni[ni==(rows+1)]<-1
@@ -654,19 +660,19 @@ fesminima<-function(inputfes=inputfes) {
       ni<-ni[ni!=0]
       ni<-ni[ni!=(rows+1)]
     }
-    for(j in 0:7) {
-      nj<-(j*r8+0:(r8+1))
+    for(j in 0:(nbins-1)) {
+      nj<-j*rb+0:(rb+1)
       if(per[2]) {
-        nj<-nj[nj!=0]
-        nj<-nj[nj!=(rows+1)]
-      } else {
         nj[nj==0]<-rows
         nj[nj==(rows+1)]<-1
+      } else {
+        nj<-nj[nj!=0]
+        nj<-nj[nj!=(rows+1)]
       }
       binmin<-which(fes[ni,nj]==min(fes[ni,nj]), arr.ind = TRUE)
-      if(binmin[1]!=1 && binmin[1]!=(r8+2) && binmin[2]!=1 && binmin[2]!=(r8+2)) {
-        minx<-c(minx,i*r8+binmin[1]-1)
-        miny<-c(miny,j*r8+binmin[2]-1)
+      if(binmin[1]!=1 && binmin[2]!=1 && binmin[1]!=length(ni) && binmin[2]!=length(nj)) {
+        minx<-c(minx,i*rb+binmin[1]-1)
+        miny<-c(miny,j*rb+binmin[2]-1)
       }
     }
   }
