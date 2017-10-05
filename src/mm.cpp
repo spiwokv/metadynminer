@@ -483,37 +483,31 @@ NumericVector fe2dp12(NumericVector cv1, NumericVector cv2, NumericVector width1
 }
 
 // [[Rcpp::export]]
-NumericVector fe1d(NumericVector cv1, NumericVector width1, NumericVector heights, double x) {
-  int n = cv1.size();
+NumericVector fe1d(NumericVector cv1, NumericVector width1, NumericVector heights, double x, int tmin, int tmax) {
   double dcv1;
   double v;
-  NumericVector vo(n);
-  for (int icv=0; icv < n; icv++) {
-    v = 0.0;
-    for (int i = 0; i < icv; i++) {
-      dcv1 = cv1[i]-x;
-      v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]);
-    }
-    vo(icv)=v;
+  NumericVector vo(tmax-tmin+1);
+  v = 0.0;
+  for (int i=tmin; i <= tmax; i++) {
+    dcv1 = cv1[i]-x;
+    v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]);
+    vo(i)=v;
   }
   return vo;
 }
 
 // [[Rcpp::export]]
-NumericVector fe1dp(NumericVector cv1, NumericVector width1, NumericVector heights, double x, double p1) {
-  int n = cv1.size();
+NumericVector fe1dp(NumericVector cv1, NumericVector width1, NumericVector heights, double x, double p1, int tmin, int tmax) {
   double dcv1;
   double v;
-  NumericVector vo(n);
-  for (int icv=0; icv < n; icv++) {
-    v = 0.0;
-    for (int i = 0; i < icv; i++) {
-      dcv1 = cv1[i]-x;
-      if(dcv1 >  p1/2.0) dcv1 -= p1;
-      if(dcv1 < -p1/2.0) dcv1 += p1;
-      v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]);
-    }
-    vo(icv)=v;
+  NumericVector vo(tmax-tmin+1);
+  v = 0.0;
+  for (int i=tmin; i <= tmax; i++) {
+    dcv1 = cv1[i]-x;
+    if(dcv1 >  p1/2.0) dcv1 -= p1;
+    if(dcv1 < -p1/2.0) dcv1 += p1;
+    v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]);
+    vo(i)=v;
   }
   return vo;
 }

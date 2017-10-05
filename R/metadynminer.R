@@ -2,7 +2,7 @@ library(Rcpp)
 library(RcppArmadillo)
 
 # read HILLS from Plumed
-read.hills<-function(file="HILLS", per=c(FALSE, FALSE)) {
+read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-pi,pi)) {
   hillsf<-read.table(file, header=F, comment.char="#")
   if(ncol(hillsf)==5 || ncol(hillsf)==6) {
     cat("1D HILLS file read\n")
@@ -12,7 +12,7 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE)) {
   } else {
     if(ncol(hillsf)==7 || ncol(hillsf)==8) {
       cat("2D HILLS file read\n")
-      hills<-list(hillsfile=hillsf, size=dim(hillsf), filename=file, per=per)
+      hills<-list(hillsfile=hillsf, size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2)
       class(hills) <- "hillsfile"
       return(hills)
     } else {
@@ -94,13 +94,14 @@ tail.hillsfile<-function(hills=hills, n=10) {
       stop("you can sum only hills of same periodicity")
     }
   }
-  hills<-list(hillsfile=rbind(hills1$hillsfile, hills2$hillsfile), size=dim(rbind(hills1$hillsfile, hills2$hillsfile)), filename=hills1$filename, per=hills1$per)
+  hills<-list(hillsfile=rbind(hills1$hillsfile, hills2$hillsfile), size=dim(rbind(hills1$hillsfile, hills2$hillsfile)),
+              filename=hills1$filename, per=hills1$per, pcv1=hills1$pcv1, pcv2=hills1$pcv2)
   class(hills) <- "hillsfile"
   return(hills)
 }
 
 # plot hillsfile
-plot.hillsfile<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
+plot.hillsfile<-function(hills=hills,
                          xlab=NULL, ylab=NULL,
                          xlim=NULL, ylim=NULL,
                          main=NULL, sub=NULL,
@@ -109,9 +110,9 @@ plot.hillsfile<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
   xlims<-NULL
   ylims<-NULL
   if(!is.null(xlim)) {xlims<-xlim}
-  if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
+  if((hills$per[1]==T)&is.null(xlim)) {xlims<-hills$pcv1}
   if(!is.null(ylim)) {ylims<-ylim}
-  if((hills$per[2]==T)&is.null(ylim)) {ylims<-perCV2r}
+  if((hills$per[2]==T)&is.null(ylim)) {ylims<-hills$pcv2}
   if(hills$size[2]==5) {
     if(is.null(xlab)) xlab="time"
     if(is.null(ylab)) ylab="CV"
@@ -163,21 +164,20 @@ plotheights<-function(hills=hills, xlab=NULL, ylab=NULL,
 }
 
 # red FES from MetadynView
-read.fes<-function(filename=filename, dimension=2, per=c(TRUE, TRUE)) {
+read.fes<-function(filename=filename, dimension=2, per=c(TRUE, TRUE), pcv1=c(-pi,pi), pcv2=c(-pi,pi)) {
   ifile<-read.table(filename)
   rows<-sqrt(nrow(ifile))
   fes<-matrix(ifile[,3], nrow=rows)
   fes<-max(fes)-fes
   x<-min(ifile[,1])+(max(ifile[,1])-min(ifile[,1]))*0:(rows-1)/(rows-1)
   y<-min(ifile[,2])+(max(ifile[,2])-min(ifile[,2]))*0:(rows-1)/(rows-1)
-  cfes<-list(fes=fes, rows=rows, dimension=dimension, per=per, x=x, y=y)
+  cfes<-list(fes=fes, rows=rows, dimension=dimension, per=per, x=x, y=y, pcv1=pcv1, pcv2=pcv2)
   class(cfes) <- "fes"
   return(cfes)
 }
 
 # calculate fes by bias sum algorithm
-fes<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
-                tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+fes<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(tmax)) {
     if(hills$size[1]<tmax) {
       cat("You requested more hills by tmax than available, using all hills\n")
@@ -186,6 +186,9 @@ fes<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
   }
   if(is.null(tmax)) {
     tmax<-hills$size[1]
+  }
+  if(tmin>=tmax) {
+    stop("tmax must be higher than tmin")
   }
   sourceCpp("../src/mm.cpp")
   if(hills$size[2]==7) {
@@ -202,9 +205,9 @@ fes<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
     xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
     ylims<-c(minCV2-0.05*(maxCV2-minCV2), maxCV2+0.05*(maxCV2-minCV2))
     if(!is.null(xlim)) {xlims<-xlim}
-    if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
+    if((hills$per[1]==T)&is.null(xlim)) {xlims<-hills$pcv1}
     if(!is.null(ylim)) {ylims<-ylim}
-    if((hills$per[2]==T)&is.null(ylim)) {ylims<-perCV2r}
+    if((hills$per[2]==T)&is.null(ylim)) {ylims<-hills$pcv2}
     x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
     y<-0:(npoints-1)*(ylims[2]-ylims[1])/(npoints-1)+ylims[1]
     if((hills$per[1]==F)&(hills$per[2]==F)) {
@@ -235,7 +238,7 @@ fes<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
                       npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
                       hills$hillsfile[,6],npoints,tmin,tmax)
     }
-    cfes<-list(fes=fesm, rows=npoints, dimension=2, per=hills$per, x=x, y=y)
+    cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=2, per=hills$per, x=x, y=y, pcv1=hills$pcv1, pcv2=hills$pcv2)
     class(cfes) <- "fes"
   }
   if(hills$size[2]==5) {
@@ -246,7 +249,7 @@ fes<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
     maxCV1 <- max(hills$hillsfile[,2])
     xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
     if(!is.null(xlim)) {xlims<-xlim}
-    if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
+    if((hills$per[1]==T)&is.null(xlim)) {xlims<-hills$pcv1}
     x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
     if(hills$per[1]==F) {
       fesm<-hills1d1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
@@ -258,15 +261,14 @@ fes<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
                       npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]),
                       hills$hillsfile[,4],npoints,tmin,tmax)
     }
-    cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per, x=x)
+    cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per, x=x, pcv1=hills$pcv1, pcv2=hills$pcv2)
     class(cfes) <- "fes"
   }
   return(cfes)
 }
 
 # calculate fes conventionally (slow)
-fes2<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
-                 tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(tmax)) {
     if(hills$size[1]<tmax) {
       cat("You requested more hills by tmax than available, using all hills\n")
@@ -275,6 +277,9 @@ fes2<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
   }
   if(is.null(tmax)) {
     tmax<-hills$size[1]
+  }
+  if(tmin>=tmax) {
+    stop("tmax must be higher than tmin")
   }
   sourceCpp("../src/mm.cpp")
   if(hills$size[2]==7) {
@@ -285,9 +290,9 @@ fes2<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
     xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
     ylims<-c(minCV2-0.05*(maxCV2-minCV2), maxCV2+0.05*(maxCV2-minCV2))
     if(!is.null(xlim)) {xlims<-xlim}
-    if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
+    if((hills$per[1]==T)&is.null(xlim)) {xlims<-hills$pcv1}
     if(!is.null(ylim)) {ylims<-ylim}
-    if((hills$per[2]==T)&is.null(ylim)) {ylims<-perCV2r}
+    if((hills$per[2]==T)&is.null(ylim)) {ylims<-hills$pcv2}
     x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
     y<-0:(npoints-1)*(ylims[2]-ylims[1])/(npoints-1)+ylims[1]
     if((hills$per[1]==F)&(hills$per[2]==F)) {
@@ -318,7 +323,7 @@ fes2<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
                       npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
                       hills$hillsfile[,6],npoints,tmin,tmax)
     }
-    cfes<-list(fes=fesm, rows=npoints, dimension=2, per=hills$per, x=x, y=y)
+    cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=2, per=hills$per, x=x, y=y, pcv1=hills$pcv1, pcv2=hills$pcv2)
     class(cfes) <- "fes"
   }
   if(hills$size[2]==5) {
@@ -326,7 +331,7 @@ fes2<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
     maxCV1 <- max(hills$hillsfile[,2])
     xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
     if(!is.null(xlim)) {xlims<-xlim}
-    if((hills$per[1]==T)&is.null(xlim)) {xlims<-perCV1r}
+    if((hills$per[1]==T)&is.null(xlim)) {xlims<-hills$pcv1}
     x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
     if(hills$per[1]==F) {
       fesm<-hills1d2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
@@ -338,7 +343,7 @@ fes2<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
                       npoints*hills$hillsfile[,3]/(xlims[2]-xlims[1]),
                       hills$hillsfile[,4],npoints,tmin,tmax)
     }
-    cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per, x=x)
+    cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per, x=x, pcv1=hills$pcv1, pcv2=hills$pcv2)
     class(cfes) <- "fes"
   }
   return(cfes)
@@ -362,24 +367,24 @@ fes2<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
       }
     }
     if(fes1$dimension==1) {
-      cfes<-list(fes=fes1$fes+fes2$fes, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x)
+      cfes<-list(fes=fes1$fes+fes2$fes, hills=rbind(fes1$hillsfile, fes2$hillsfile), rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
-      cfes<-list(fes=fes1$fes+fes2$fes, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
+      cfes<-list(fes=fes1$fes+fes2$fes, hills=rbind(fes1$hillsfile, fes2$hillsfile), rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
   } else if(class(fes1)=="fes") {
     if(fes1$dimension==1) {
-      cfes<-list(fes=fes1$fes+fes2, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x)
+      cfes<-list(fes=fes1$fes+fes2, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
-      cfes<-list(fes=fes1$fes+fes2, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
+      cfes<-list(fes=fes1$fes+fes2, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
   } else if(class(fes2)=="fes") {
     if(fes2$dimension==1) {
-      cfes<-list(fes=fes1+fes2$fes, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x)
+      cfes<-list(fes=fes1+fes2$fes, hills=fes2$hillsfile, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
     if(fes2$dimension==2) {
-      cfes<-list(fes=fes1+fes2$fes, hills=rbind(fes1$hills,fes2$hills), rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y)
+      cfes<-list(fes=fes1+fes2$fes, hills=rbind(fes1$hillsfile,fes2$hillsfile), rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
   }
   class(cfes) <- "fes"
@@ -406,24 +411,24 @@ fes2<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
     cat("WARNING: FES obtained by subtraction of two FESes\n")
     cat(" will inherit hills only from the first FES\n")
     if(fes1$dimension==1) {
-      cfes<-list(fes=fes1$fes-fes2$fes, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x)
+      cfes<-list(fes=fes1$fes-fes2$fes, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
-      cfes<-list(fes=fes1$fes-fes2$fes, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
+      cfes<-list(fes=fes1$fes-fes2$fes, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
   } else if(class(fes1)=="fes") {
     if(fes1$dimension==1) {
-      cfes<-list(fes=fes1$fes-fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x)
+      cfes<-list(fes=fes1$fes-fes2, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
-      cfes<-list(fes=fes1$fes-fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
+      cfes<-list(fes=fes1$fes-fes2, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
   } else if(class(fes2)=="fes") {
     if(fes2$dimension==1) {
-      cfes<-list(fes=fes1-fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x)
+      cfes<-list(fes=fes1-fes2$fes, hills=fes2$hillsfile, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
     if(fes2$dimension==2) {
-      cfes<-list(fes=fes1-fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y)
+      cfes<-list(fes=fes1-fes2$fes, hills=fes2$hillsfile, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
   }
   class(cfes) <- "fes"
@@ -436,17 +441,17 @@ fes2<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
     stop("you cannot multiply fes by fes")
   } else if(class(fes1)=="fes") {
     if(fes1$dimension==1) {
-      cfes<-list(fes=fes1$fes*fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x)
+      cfes<-list(fes=fes1$fes*fes2, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
-      cfes<-list(fes=fes1$fes*fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
+      cfes<-list(fes=fes1$fes*fes2, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
   } else if(class(fes2)=="fes") {
     if(fes2$dimension==1) {
-      cfes<-list(fes=fes1*fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x)
+      cfes<-list(fes=fes1*fes2$fes, hills=fes2$hillsfile, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
     if(fes2$dimension==2) {
-      cfes<-list(fes=fes1*fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y)
+      cfes<-list(fes=fes1*fes2$fes, hills=fes2$hillsfile, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
   }
   cat("WARNING: multiplication of FES will multiply\n")
@@ -461,10 +466,10 @@ fes2<-function(hills=hills, perCV1r=c(-pi,pi), perCV2r=c(-pi,pi),
     stop("you cannot divide fes by fes")
   } else if(class(fes1)=="fes") {
     if(fes1$dimension==1) {
-      cfes<-list(fes=fes1$fes/coef, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x)
+      cfes<-list(fes=fes1$fes/coef, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
-      cfes<-list(fes=fes1$fes/coef, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y)
+      cfes<-list(fes=fes1$fes/coef, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
   } else if(class(coef)=="fes") {
     stop("you cannot divide something by fes")
@@ -645,7 +650,7 @@ fesminima<-function(inputfes=inputfes, nbins=8) {
     minima <- minima[order(minima[,6]),]
     rownames(minima) <- seq(length=nrow(minima))
     minima[,1]<-myLETTERS
-    minima<-list(minima=minima, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, y=inputfes$y)
+    minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, y=inputfes$y, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
     class(minima) <- "minima"
   }
   if(inputfes$dimension==1) {
@@ -670,7 +675,7 @@ fesminima<-function(inputfes=inputfes, nbins=8) {
     minima <- minima[order(minima[,4]),]
     rownames(minima) <- seq(length=nrow(minima))
     minima[,1]<-myLETTERS
-    minima<-list(minima=minima, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x)
+    minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
     class(minima) <- "minima"
   }
   return(minima)
@@ -685,14 +690,14 @@ emptyminima<-function(inputfes=inputfes) {
     minima<-data.frame(c("A"), c(0), c(0), c(0), c(0), c(0))
     minima<-minima[-1,]
     names(minima) <- c("letter", "CV1bin", "CV2bin", "CV1", "CV2", "free_energy")
-    minima<-list(minima=minima, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, y=inputfes$y)
+    minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, y=inputfes$y, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
     class(minima) <- "minima"
   }
   if(inputfes$dimension==1) {
     minima<-data.frame(c("A"), c(0), c(0), c(0))
     minima<-minima[-1,]
     names(minima) <- c("letter", "CV1bin", "CV1", "free_energy")
-    minima<-list(minima=minima, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x)
+    minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
     class(minima) <- "minima"
   }
   return(minima)
@@ -712,7 +717,7 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
     if(icv2>rows) stop("out of range")
     minima<-data.frame(c("A"), c(icv1), c(icv2), c(cv1), c(cv2), c(fes[icv1,icv2]))
     names(minima) <- c("letter", "CV1bin", "CV2bin", "CV1", "CV2", "free_energy")
-    minima<-list(minima=minima, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, y=inputfes$y)
+    minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, y=inputfes$y, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
     class(minima) <- "minima"
   }
   if(inputfes$dimension==1) {
@@ -721,7 +726,7 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
     if(icv1>rows) stop("out of range")
     minima<-data.frame(c("A"), c(icv1), c(cv1), c(fes[icv1,icv2]))
     names(minima) <- c("letter", "CV1bin", "CV1", "free_energy")
-    minima<-list(minima=minima, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x)
+    minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
     class(minima) <- "minima"
   }
   return(minima)
@@ -747,7 +752,7 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
     minima <- minima[order(minima[,6]),]
     rownames(minima) <- seq(length=nrow(minima))
     minima[,1]<-myLETTERS
-    minima<-list(minima=minima, hills=min1$hills, fes=min1$fes, rows=min1$rows, dimension=min1$dimension, per=min1$per, x=min1$x, y=min1$y)
+    minima<-list(minima=minima, hills=min1$hills, fes=min1$fes, rows=min1$rows, dimension=min1$dimension, per=min1$per, x=min1$x, y=min1$y, pcv1=min1$pcv1, pcv2=min1$pcv2)
     class(minima) <- "minima"
   }
   if(inputfes$dimension==1) {
@@ -755,7 +760,7 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
     minima <- minima[order(minima[,4]),]
     rownames(minima) <- seq(length=nrow(minima))
     minima[,1]<-myLETTERS
-    minima<-list(minima=minima, hills=min1$hills, fes=min1$fes, rows=min1$rows, dimension=min1$dimension, per=min1$per, x=min1$x)
+    minima<-list(minima=minima, hills=min1$hillsfile, fes=min1$fes, rows=min1$rows, dimension=min1$dimension, per=min1$per, x=min1$x, pcv1=min1$pcv1, pcv2=min1$pcv2)
     class(minima) <- "minima"
   }
   return(minima)
@@ -870,15 +875,36 @@ plot.minima <- function(minims=minims, plottype="both",
 }
 
 # Calculate free energy profiles
-#feprof <- function(minims=minims, tmin=0, tmax=NULL) {
-#  fes<-minims$fes
-#  rows<-minims$rows
-#  mins<-minims$minima
-#  if(minims$dimension==1) {
-#    mms <- c()
-#    for(i in 1:nrow(mins)) {
-#      mm<-fe1d(, NumericVector width1, NumericVector heights, double x) {
-#fe1dp(NumericVector cv1, NumericVector width1, NumericVector heights, double x, double p1) {
+feprof <- function(minims=minims, tmin=0, tmax=NULL) {
+  fes<-minims$fes
+  rows<-minims$rows
+  mins<-minims$minima
+  hills<-minims$hills
+  if(is.null(tmax)) {
+    tmax<-nrow(hills)
+  }
+  if(tmax>nrow(hills)) {
+    tmax<-nrow(hills)
+    cat("You requested more hills by tmax than available, using all hills\n")
+  }
+  if(tmin>=tmax) {
+    stop("tmax must be higher than tmin")
+  }
+  tt <- tmin:tmax
+  mms <- data.frame(tt)
+  if(minims$dimension==1) {
+    for(i in 1:nrow(mins)) {
+      if(minims$per[1]==T) {
+        mm<-fe1dp(hills[,2], hills[,3], hills[,4], mins[i,3], minims$pcv1[2]-minims$pcv1[2], tmin, tmax)
+      } else {
+        mm<-fe1d(hills[,2], hills[,3], hills[,4], mins[i,3], tmin, tmax)
+      }
+      mms<-cbind(mms,mm)
+    }
+  }
+  return(mms)
+}
+      #fe1dp(NumericVector cv1, NumericVector width1, NumericVector heights, double x, double p1) {
 
 
 
