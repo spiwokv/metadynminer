@@ -895,20 +895,29 @@ feprof <- function(minims=minims, tmin=0, tmax=NULL) {
   if(minims$dimension==1) {
     for(i in 1:nrow(mins)) {
       if(minims$per[1]==T) {
-        mm<-fe1dp(hills[,2], hills[,3], hills[,4], mins[i,3], minims$pcv1[2]-minims$pcv1[2], tmin, tmax)
+        mm<-fe1dp(hills[,2], hills[,3], hills[,4], mins[i,3], minims$pcv1[2]-minims$pcv1[1], tmin, tmax)
       } else {
         mm<-fe1d(hills[,2], hills[,3], hills[,4], mins[i,3], tmin, tmax)
       }
       mms<-cbind(mms,mm)
     }
   }
+  if(minims$dimension==2) {
+    for(i in 1:nrow(mins)) {
+      if(minims$per[1]==T && minims$per[2]==T) {
+        mm<-fe2dp12(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], minims$pcv2[2]-minims$pcv2[1], tmin, tmax)
+      }
+      if(minims$per[1]==T && minims$per[2]==F) {
+        mm<-fe2dp1(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], tmin, tmax)
+      }
+      if(minims$per[1]==F && minims$per[2]==T) {
+        mm<-fe2dp2(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv2[2]-minims$pcv2[1], tmin, tmax)
+      }
+      if(minims$per[1]==F && minims$per[2]==F) {
+        mm<-fe2d(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], tmin, tmax)
+      }
+      mms<-cbind(mms,mm)
+    }
+  }
   return(mms)
 }
-      #fe1dp(NumericVector cv1, NumericVector width1, NumericVector heights, double x, double p1) {
-
-
-
-#NumericVector fe2d(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y) {
-#NumericVector fe2dp1(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, double p1) {
-#NumericVector fe2dp2(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, double p2) {
-#NumericVector fe2dp12(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, double p1, double p2) {
