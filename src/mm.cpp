@@ -398,86 +398,75 @@ NumericVector hills1d2p(NumericVector cv1, NumericVector width1, NumericVector h
   return vo;
 }
 
+
 // [[Rcpp::export]]
-NumericVector fe2d(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y) {
-  int n = cv1.size();
+NumericVector fe2dp(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, int tmin, int tmax) {
   double dcv1;
   double dcv2;
   double v;
-  NumericVector vo(n);
-  for (int icv=0; icv < n; icv++) {
-    v = 0.0;
-    for (int i = 0; i < icv; i++) {
-      dcv1 = cv1[i]-x;
-      dcv2 = cv2[i]-y;
-      v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]-dcv2*dcv2/2.0/width2[i]/width2[i]);
-    }
-    vo(icv)=v;
+  NumericVector vo(tmax-tmin+1);
+  v = 0.0;
+  for (int i=tmin; i <= tmax; i++) {
+    dcv1 = cv1[i]-x;
+    dcv2 = cv2[i]-y;
+    v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]-dcv2*dcv2/2.0/width2[i]/width2[i]);
+    vo(i)=v;
   }
   return vo;
 }
 
 // [[Rcpp::export]]
-NumericVector fe2dp1(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, double p1) {
-  int n = cv1.size();
+NumericVector fe2dp1(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, double p1, int tmin, int tmax) {
   double dcv1;
   double dcv2;
   double v;
-  NumericVector vo(n);
-  for (int icv=0; icv < n; icv++) {
-    v = 0.0;
-    for (int i = 0; i < icv; i++) {
-      dcv1 = cv1[i]-x;
-      if(dcv1 >  p1/2.0) dcv1 -= p1;
-      if(dcv1 < -p1/2.0) dcv1 += p1;
-      dcv2 = cv2[i]-y;
-      v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]-dcv2*dcv2/2.0/width2[i]/width2[i]);
-    }
-    vo(icv)=v;
+  NumericVector vo(tmax-tmin+1);
+  v = 0.0;
+  for (int i=tmin; i <= tmax; i++) {
+    dcv1 = cv1[i]-x;
+    if(dcv1 >  p1/2.0) dcv1 -= p1;
+    if(dcv1 < -p1/2.0) dcv1 += p1;
+    dcv2 = cv2[i]-y;
+    v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]-dcv2*dcv2/2.0/width2[i]/width2[i]);
+    vo(i)=v;
   }
   return vo;
 }
 
 // [[Rcpp::export]]
-NumericVector fe2dp2(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, double p2) {
-  int n = cv1.size();
+NumericVector fe2dp2(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, double p2, int tmin, int tmax) {
   double dcv1;
   double dcv2;
   double v;
-  NumericVector vo(n);
-  for (int icv=0; icv < n; icv++) {
-    v = 0.0;
-    for (int i = 0; i < icv; i++) {
-      dcv1 = cv1[i]-x;
-      dcv2 = cv2[i]-y;
-      if(dcv2 >  p2/2.0) dcv2 -= p2;
-      if(dcv2 < -p2/2.0) dcv2 += p2;
-      v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]-dcv2*dcv2/2.0/width2[i]/width2[i]);
-    }
-    vo(icv)=v;
+  NumericVector vo(tmax-tmin+1);
+  v = 0.0;
+  for (int i=tmin; i <= tmax; i++) {
+    dcv1 = cv1[i]-x;
+    dcv2 = cv2[i]-y;
+    if(dcv2 >  p2/2.0) dcv2 -= p2;
+    if(dcv2 < -p2/2.0) dcv2 += p2;
+    v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]-dcv2*dcv2/2.0/width2[i]/width2[i]);
+    vo(i)=v;
   }
   return vo;
 }
 
 // [[Rcpp::export]]
-NumericVector fe2dp12(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, double p1, double p2) {
-  int n = cv1.size();
+NumericVector fe2dp12(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, double p1, double p2, int tmin, int tmax) {
   double dcv1;
   double dcv2;
   double v;
-  NumericVector vo(n);
-  for (int icv=0; icv < n; icv++) {
-    v = 0.0;
-    for (int i = 0; i < icv; i++) {
-      dcv1 = cv1[i]-x;
-      if(dcv1 >  p1/2.0) dcv1 -= p1;
-      if(dcv1 < -p1/2.0) dcv1 += p1;
-      dcv2 = cv2[i]-y;
-      if(dcv2 >  p2/2.0) dcv2 -= p2;
-      if(dcv2 < -p2/2.0) dcv2 += p2;
-      v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]-dcv2*dcv2/2.0/width2[i]/width2[i]);
-    }
-    vo(icv)=v;
+  NumericVector vo(tmax-tmin+1);
+  v = 0.0;
+  for (int i=tmin; i <= tmax; i++) {
+    dcv1 = cv1[i]-x;
+    if(dcv1 >  p1/2.0) dcv1 -= p1;
+    if(dcv1 < -p1/2.0) dcv1 += p1;
+    dcv2 = cv2[i]-y;
+    if(dcv2 >  p2/2.0) dcv2 -= p2;
+    if(dcv2 < -p2/2.0) dcv2 += p2;
+    v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]-dcv2*dcv2/2.0/width2[i]/width2[i]);
+    vo(i)=v;
   }
   return vo;
 }
