@@ -101,7 +101,7 @@ tail.hillsfile<-function(hills=hills, n=10) {
 }
 
 # plot hillsfile
-plot.hillsfile<-function(hills=hills,
+plot.hillsfile<-function(hills=hills, ignoretime=FALSE,
                          xlab=NULL, ylab=NULL,
                          xlim=NULL, ylim=NULL,
                          main=NULL, sub=NULL,
@@ -116,12 +116,21 @@ plot.hillsfile<-function(hills=hills,
   if(hills$size[2]==5) {
     if(is.null(xlab)) xlab="time"
     if(is.null(ylab)) ylab="CV"
-    plot(hills$hillsfile[,1], hills$hillsfile[,2], type="l",
-         xlab=xlab, ylab=ylab,
-         main=main, sub=sub,
-         xlim=xlims, ylim=ylims,
-         col=col, cex=cex, lwd=lwd,
-         asp=asp, axes=axes)
+    if(ignoretime) {
+      plot(hills$hillsfile[,2], type="l",
+           xlab=xlab, ylab=ylab,
+           main=main, sub=sub,
+           xlim=xlims, ylim=ylims,
+           col=col, cex=cex, lwd=lwd,
+           asp=asp, axes=axes)
+    } else {
+      plot(hills$hillsfile[,1], hills$hillsfile[,2], type="l",
+           xlab=xlab, ylab=ylab,
+           main=main, sub=sub,
+           xlim=xlims, ylim=ylims,
+           col=col, cex=cex, lwd=lwd,
+           asp=asp, axes=axes)
+    }
   }
   if(hills$size[2]==7) {
     if(is.null(xlab)) xlab="CV1"
@@ -136,7 +145,7 @@ plot.hillsfile<-function(hills=hills,
 }
 
 # plot heights
-plotheights<-function(hills=hills, xlab=NULL, ylab=NULL,
+plotheights<-function(hills=hills, ignoretime=FALSE, xlab=NULL, ylab=NULL,
                       xlim=NULL, ylim=NULL, zlim=NULL,
                       main=NULL, sub=NULL,
                       pch=1, col="black", bg="red", cex=1,
@@ -145,18 +154,34 @@ plotheights<-function(hills=hills, xlab=NULL, ylab=NULL,
     if(is.null(xlab)) xlab="time"
     if(is.null(ylab)) ylab="hill height"
     if(hills$size[2]==5) {
-      plot(hills$hillsfile[,1], hills$hillsfile[,4], type="l",
-           xlab=xlab, ylab=ylab,
-           main=main, sub=sub,
-           col=col, cex=cex, lwd=lwd,
-           asp=asp, axes=axes)
+      if(ignoretime) {
+        plot(hills$hillsfile[,4], type="l",
+             xlab=xlab, ylab=ylab,
+             main=main, sub=sub,
+             col=col, cex=cex, lwd=lwd,
+             asp=asp, axes=axes)
+      } else {
+        plot(hills$hillsfile[,1], hills$hillsfile[,4], type="l",
+             xlab=xlab, ylab=ylab,
+             main=main, sub=sub,
+             col=col, cex=cex, lwd=lwd,
+             asp=asp, axes=axes)
+      }
     }
     if(hills$size[2]==7) {
-      plot(hills$hillsfile[,1], hills$hillsfile[,6], type="l",
-           xlab=xlab, ylab=ylab,
-           main=main, sub=sub,
-           col=col, cex=cex, lwd=lwd,
-           asp=asp, axes=axes)
+      if(ignoretime) {
+        plot(hills$hillsfile[,6], type="l",
+             xlab=xlab, ylab=ylab,
+             main=main, sub=sub,
+             col=col, cex=cex, lwd=lwd,
+             asp=asp, axes=axes)
+      } else {
+        plot(hills$hillsfile[,1], hills$hillsfile[,6], type="l",
+             xlab=xlab, ylab=ylab,
+             main=main, sub=sub,
+             col=col, cex=cex, lwd=lwd,
+             asp=asp, axes=axes)
+      }
     }
   } else {
     stop("function plotheights requires object hillsfile as an input")
