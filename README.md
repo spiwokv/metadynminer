@@ -31,7 +31,7 @@ fes<-fes(hills, tmin=5000, tmax=10000) # done, to do manual
 fes+fes # done, to do manual
 
 # Calculate and substract min, max or mean from a FES
-fes<-fes+min(fes1) # done, to do manual
+fes<-fes-min(fes1) # done, to do manual
 
 # Summary of FES
 summary(fes) # done, to do manual
@@ -68,7 +68,7 @@ fesminima(fes) + oneminimum(fes, cv1=0, cv2=0) # done, to do manual
 plot(minima) # 2D done, 1D to do, to do manual
 
 # Calculate free energy profile for minima
-prof<-feprofiles(hills, minima) # done, to do manual
+prof<-feprofiles(minima) # done, to do manual
 
 # Find transition path
 # Summary of transition path

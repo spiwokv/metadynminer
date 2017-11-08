@@ -944,6 +944,66 @@ feprof <- function(minims=minims, tmin=0, tmax=NULL) {
       mms<-cbind(mms,mm)
     }
   }
-  return(mms)
+  profs<-list(mms=mms, mins=mins, fes=fes, rows=rows, dimension=minims$dimension, per=minims$per, pcv1=minims$pcv1, pcv2=minims$pcv2)
+  class(profs) <- "profiles"
+  return(profs)
 }
+
+print.profiles <- function(profs=profs) {
+  cat(nrow(profs$mms))
+  if(profs$dimension==1) {
+    cat(" 1D minima\n")
+  } else {
+    cat(" 2D minima\n")
+  }
+}
+
+summary.profiles <- function(profs=profs) {
+  if(profs$dimension==1) {
+    outprofile <- profs$mins
+    mms<-profs$mms[,2:ncol(profs$mms)]-profs$mms[,2]
+    outprofile <- cbind(outprofile,apply(mms,2,min))
+    outprofile <- cbind(outprofile,apply(mms,2,max))
+    outprofile <- cbind(outprofile,t(mms[nrow(mms),]))
+    names(outprofile)[5:7]<-c("min diff", "max diff", "tail")
+    print(outprofile)
+  } else {
+    outprofile <- profs$mins
+    mms<-profs$mms[,2:ncol(profs$mms)]-profs$mms[,2]
+    outprofile <- cbind(outprofile,apply(mms,2,min))
+    outprofile <- cbind(outprofile,apply(mms,2,max))
+    outprofile <- cbind(outprofile,t(mms[nrow(mms),]))
+    names(outprofile)[7:9]<-c("min diff", "max diff", "tail")
+    print(outprofile)
+  }
+}
+
+plot.profiles <- function(profs=profs, which=NULL,
+                          xlim=NULL, ylim=NULL,
+                          main=NULL, sub=NULL,
+                          xlab=NULL, ylab=NULL,
+                          col=NULL, asp=NULL, lwd=1, axes=T) {
+  if(is.null(which)) which<-1:(ncol(profs$mms)-1)
+  if(is.null(xlab)) xlab<-"Index"
+  if(is.null(ylab)) ylab<-"Free Energy Difference (kJ/mol)"
+  if(is.null(col)) col<-rainbow(ceiling(1.35*length(which)))[length(which):1]
+  col<-rep(col, (ncol(profs$mms)-1))
+  mms<-profs$mms[,2:ncol(profs$mms)]-profs$mms[,2]
+  if(is.null(xlim)) xlim<-c(min(profs$mms[,1]),max(profs$mms[,1]))
+  if(is.null(ylim)) {
+    yliml <- min(mms[,1:ncol(mms)])
+    ylimu <- max(mms[,1:ncol(mms)])
+    ylim<-c(yliml-0.05*(ylimu-yliml), ylimu+0.05*(ylimu-yliml))
+  }
+  plot(profs$mms[,1], mms[,1], type="l",
+       xlab=xlab, ylab=ylab,
+       main=main, sub=sub,
+       xlim=xlim, ylim=ylim,
+       lwd=lwd, asp=asp, axes=axes)
+  for(i in 1:length(which)) {
+      lines(profs$mms[,1], mms[,which[i]],
+            lwd=lwd, col=col[i])
+  }
+}
+
 
