@@ -10,22 +10,22 @@ install.packages("metadynminer") # in future will be added to R repository
 library(metadynminer) # in future will be added to R repository
 
 # Read hills file
-hills<-read.hills("HILLS", per=c(TRUE, TRUE)) # done
+hillsf<-read.hills("HILLS", per=c(TRUE, TRUE)) # done
 
 # Sum two hills files
-hills+hills # done
+hillsf+hillsf # done
 
 # Summary of a hills file
-summary(hills) # done
+summary(hillsf) # done
 
 # Plot CVs
-plot(hills) # done
+plot(hillsf) # done
 
 # Plot heights
-plotheights(hills) # done
+plotheights(hillsf) # done
 
 # Calculate FES by bias sum (alternatively use fes2 for conventional calculation)
-fes<-fes(hills, tmin=5000, tmax=10000) # done, to do manual
+fes<-fes(hillsf, tmin=5000, tmax=10000) # done, to do manual
 
 # Sum two FESes
 fes+fes # done, to do manual
@@ -40,7 +40,7 @@ summary(fes) # done, to do manual
 plot(fes) # done
 
 # In order to make a movie you can use summation of FESes
-tfes<-fes(hills, tmax=1000)
+tfes<-fes(hillsf, tmax=1000)
 png("test%03d.png")
 plot(tfes, zlim=c(-120,0))
 for(i in 1:10) {
