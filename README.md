@@ -25,19 +25,19 @@ plot(hillsf) # done
 plotheights(hillsf) # done
 
 # Calculate FES by bias sum (alternatively use fes2 for conventional calculation)
-fes<-fes(hillsf, tmin=5000, tmax=10000) # done, to do manual
+afes<-fes(hillsf, tmin=5000, tmax=10000) # done, to do manual
 
 # Sum two FESes
-fes+fes # done, to do manual
+afes+afes # done, to do manual
 
 # Calculate and substract min, max or mean from a FES
-fes<-fes-min(fes1) # done, to do manual
+afes<-afes-min(afes) # done, to do manual
 
 # Summary of FES
-summary(fes) # done, to do manual
+summary(afes) # done, to do manual
 
 # Plot FES
-plot(fes) # done
+plot(afes) # done
 
 # In order to make a movie you can use summation of FESes
 tfes<-fes(hillsf, tmax=1000)
