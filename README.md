@@ -68,7 +68,7 @@ fesminima(fes) + oneminimum(fes, cv1=0, cv2=0) # done, to do manual
 plot(minima) # 2D done, 1D to do, to do manual
 
 # Calculate free energy profile for minima
-prof<-feprofiles(minima) # done, to do manual
+prof<-feprof(minima) # done, to do manual
 
 # Find transition path
 # Summary of transition path
