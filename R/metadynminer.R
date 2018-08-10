@@ -16,7 +16,7 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
       class(hills) <- "hillsfile"
       return(hills)
     } else {
-      stop("number of columns in HILLS file must be 5 or 6 (1D) or 7 or 8 (3D)")
+      stop("number of columns in HILLS file must be 5 or 6 (1D) or 7 or 8 (2D)")
     }
   }
 }
