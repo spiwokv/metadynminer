@@ -39,16 +39,6 @@ summary(afes) # done, to do manual
 # Plot FES
 plot(afes) # done
 
-# In order to make a movie you can use summation of FESes
-tfes<-fes(hillsf, tmax=1000)
-png("test%03d.png")
-plot(tfes, zlim=c(-120,0))
-for(i in 1:10) {
-  tfes<-tfes+fes(hills, tmin=1000*i+1, tmax=1000*(i+1))
-  plot(tfes, zlim=c(-120,0))
-}
-dev.off()
-
 # Find minima
 minima<-fesminima(fes) # done, to do manual
 
