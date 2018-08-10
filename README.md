@@ -1,8 +1,9 @@
 # MetadynMiner
 
-## Usage
+## Introduction
 Metadynminer is R packages for reading, analysis and visualisation of metadynamics HILLS files produced by Plumed.
 
+## Usage
 ```R
 # Install from R repository
 install.packages("metadynminer") # in future will be added to R repository
@@ -67,7 +68,6 @@ prof<-feprof(minima) # done, to do manual
 
 ## Tips and Tricks
 ### Publication quality figures
-
 Following script can be used to generate a publication quality figure (8x8 cm, 600 dpi):
 ```R
 hillsf <- read.hills("HILLS", per=c(T,T))
