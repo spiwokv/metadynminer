@@ -107,7 +107,7 @@ dev.off()
 ```
 These files can be concatenated by a movie making program such as mencoder.
 
-If you instead want to see flooding type:
+If you instead want to see flooding, type:
 ```R
 hillsf <- read.hills("HILLS", per=c(T,T))
 tfes<-fes(hillsf)
@@ -130,7 +130,8 @@ axis(1, at=-3:3*pi/3, labels=-3:3*60)
 ```
 The expression -3:3 will generate a vector {-3,-2,-1,0,1,2,3}, which can be multiplied by pi/3
 (tick positions in radians) or by 60 (tick positions in degrees). If you want to transform just
-one axis, e.g. the horizontal one, simply type axis(2) for the vertical one.
+one axis, e.g. the horizontal one while keepinng the vertical unchanges, simply type `axis(2)`
+for the vertical one.
 
 ## Shifting a periodic CV
 It may happen that some simulations with a torsion CV it may be difficult to analyse and visualize
