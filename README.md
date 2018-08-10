@@ -1,7 +1,7 @@
 # MetadynMiner
 
 ## Introduction
-Metadynminer is R packages for reading, analysis and visualisation of metadynamics HILLS files produced by Plumed.
+MetadynMiner is R packages for reading, analysis and visualisation of metadynamics HILLS files produced by Plumed.
 
 ## Usage
 ```R
