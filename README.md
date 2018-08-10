@@ -25,34 +25,34 @@ plot(hillsf) # done
 plotheights(hillsf) # done
 
 # Calculate FES by bias sum (alternatively use fes2 for conventional calculation)
-afes<-fes(hillsf, tmin=5000, tmax=10000) # done, to do manual
+tfes<-fes(hillsf, tmin=5000, tmax=10000) # done, to do manual
 
 # Sum two FESes
-afes+afes # done, to do manual
+tfes+tfes # done, to do manual
 
 # Calculate and substract min, max or mean from a FES
-afes<-afes-min(afes) # done, to do manual
+tfes<-tfes-min(tfes) # done, to do manual
 
 # Summary of FES
-summary(afes) # done, to do manual
+summary(tfes) # done, to do manual
 
 # Plot FES
-plot(afes) # done
+plot(tfes) # done
 
 # Find minima
-minima<-fesminima(fes) # done, to do manual
+minima<-fesminima(tfes) # done, to do manual
 
 # Summary of minima
 summary(minima) # done, to do manual
 
 # Create empty minima
-minima<-emptyminima(fes) # done, to do manual
+minima<-emptyminima(tfes) # done, to do manual
 
 # Create ad hoc minimum
-minima<-oneminimum(fes, cv1=0, cv2=0) # done, to do manual
+minima<-oneminimum(tfes, cv1=0, cv2=0) # done, to do manual
 
 # sum minima
-fesminima(fes) + oneminimum(fes, cv1=0, cv2=0) # done, to do manual
+fesminima(fes) + oneminimum(tfes, cv1=0, cv2=0) # done, to do manual
 
 # Plot free energy minima
 plot(minima) # 2D done, 1D to do, to do manual
