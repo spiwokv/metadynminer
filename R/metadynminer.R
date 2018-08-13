@@ -1009,12 +1009,9 @@ plot.profiles <- function(profs=profs, which=NULL,
 neb<-function(minims, min1, min2, nbins=20,
               nsteps=100, step=1.0, k=0.2) {
   fes<-minims$fes
-<<<<<<< HEAD
   pcv1<-minims$pcv1
   pcv2<-minims$pcv2
   rows<-minims$rows
-=======
->>>>>>> e00b2040361d2f20229bd9b34881289e37143955
   align<-function(v1, v2) {
     dot <- v1[1]*v2[1]+v1[2]*v2[2]
     return(c(dot*v2[1], dot*v2[2]))
@@ -1044,15 +1041,11 @@ neb<-function(minims, min1, min2, nbins=20,
   x2<-c(min2[1,2], min2[1,3])
   pathx <- x1[1]+0:nbins*(x2[1]-x1[1])/nbins
   pathy <- x1[2]+0:nbins*(x2[2]-x1[2])/nbins
-<<<<<<< HEAD
   fespot <- c()
   for(i in 1:(nbins+1)) {
     fespot<-c(fespot,fes[pathx[i],pathy[i]])
   }
   path<-data.frame(pathx,pathy,fespot)
-=======
-  path<-data.frame(pathx,pathy)
->>>>>>> e00b2040361d2f20229bd9b34881289e37143955
   newpath<-path
   for(i in 1:nsteps) {
     for(j in 1:(nbins-1)) {
@@ -1066,7 +1059,6 @@ neb<-function(minims, min1, min2, nbins=20,
        f2a <- align(f2, tau)
        f2p <- f2-f2a
        fphi <- 0.5*(1.0+cos(cosphi(path[j,], path[j+1,], path[j+2,])*pi))
-<<<<<<< HEAD
        newpath[j+1,1] <- newpath[j+1,1] + step*(f1p[1]+f2a[1]+fphi*f2p[1])
        newpath[j+1,2] <- newpath[j+1,2] + step*(f1p[2]+f2a[2]+fphi*f2p[2])
        newpath[j+1,3] <- fes[newpath[j+1,1],newpath[j+1,2]]
@@ -1088,14 +1080,4 @@ neb<-function(minims, min1, min2, nbins=20,
 # min path
 # max path
 
-=======
-       newpath[j+1,1] = newpath[j+1,1] + step*(f1p[1]+f2a[1]+fphi*f2p[1])
-       newpath[j+1,2] = newpath[j+1,2] + step*(f1p[2]+f2a[2]+fphi*f2p[2])
-    }
-    path <- newpath
-    #make absolut, not relative coordinates, add energy
-  }
-  return(path)
-}
->>>>>>> e00b2040361d2f20229bd9b34881289e37143955
 
