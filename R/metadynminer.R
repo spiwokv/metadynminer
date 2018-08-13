@@ -2,15 +2,17 @@ library(Rcpp)
 library(RcppArmadillo)
 
 # read HILLS from Plumed
-read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-pi,pi)) {
+read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-pi,pi), ignoretime=FALSE) {
   hillsf<-read.table(file, header=F, comment.char="#")
   if(ncol(hillsf)==5 || ncol(hillsf)==6) {
     cat("1D HILLS file read\n")
-    if(hillsf[,1]!=sort(hillsf[,1])) {
-      cat("Warning: time in the hills file is not continuous, probably you\n")
-      cat("used RESTART function. The time will be updated automatically from zero\n")
-      cat("according to the first step!\n")
-      hillsf[,1]<-seq(from=0, by=hillsf[1,1])
+    if(ignoretime) {
+      if (hillsf[,1]!=sort(hillsf[,1])) {
+        cat("Warning: time in the hills file is not continuous, probably you\n")
+        cat("used RESTART function. The time will be updated automatically from zero\n")
+        cat("according to the first step!\n")
+        hillsf[,1]<-seq(from=0, by=hillsf[1,1])
+      }
     }
     hills<-list(hillsfile=hillsf, size=dim(hillsf), filename=file, per=per)
     class(hills) <- "hillsfile"
@@ -18,11 +20,13 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
   } else {
     if(ncol(hillsf)==7 || ncol(hillsf)==8) {
       cat("2D HILLS file read\n")
-      if(hillsf[,1]!=sort(hillsf[,1])) {
-        cat("Warning: time in the hills file is not continuous, probably you\n")
-        cat("used RESTART function. The time will be updated automatically from zero\n")
-        cat("according to the first step!\n")
-        hillsf[,1]<-seq(from=0, by=hillsf[1,1])
+      if(ignoretime) {
+        if (hillsf[,1]!=sort(hillsf[,1])) {
+          cat("Warning: time in the hills file is not continuous, probably you\n")
+          cat("used RESTART function. The time will be updated automatically from zero\n")
+          cat("according to the first step!\n")
+          hillsf[,1]<-seq(from=0, by=hillsf[1,1])
+        }
       }
       hills<-list(hillsfile=hillsf, size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2)
       class(hills) <- "hillsfile"
@@ -153,6 +157,43 @@ plot.hillsfile<-function(hills=hills, ignoretime=FALSE,
          xlim=xlims, ylim=ylims,
          pch=pch, col=col, bg=bg, cex=cex, lwd=lwd,
          asp=asp, axes=axes)
+  }
+}
+
+# points hillsfile
+points.hillsfile<-function(hills=hills, ignoretime=FALSE,
+                           pch=1, col="black", bg="red", cex=1,
+                           asp=NULL, lwd=1, axes=TRUE) {
+  if(hills$size[2]==5) {
+    if(ignoretime) {
+      points(hills$hillsfile[,2],
+             col=col, cex=cex, lwd=lwd)
+    } else {
+      points(hills$hillsfile[,1], hills$hillsfile[,2],
+             col=col, cex=cex, lwd=lwd)
+    }
+  }
+  if(hills$size[2]==7) {
+    points(hills$hillsfile[,2], hills$hillsfile[,3],
+           pch=pch, col=col, bg=bg, cex=cex, lwd=lwd)
+  }
+}
+
+# lines hillsfile
+lines.hillsfile<-function(hills=hills, ignoretime=FALSE,
+                          lwd=1, col="black") {
+  if(hills$size[2]==5) {
+    if(ignoretime) {
+      lines(hills$hillsfile[,2],
+            col=col, lwd=lwd)
+    } else {
+      plot(hills$hillsfile[,1], hills$hillsfile[,2],
+           col=col, lwd=lwd)
+    }
+  }
+  if(hills$size[2]==7) {
+    lines(hills$hillsfile[,2], hills$hillsfile[,3],
+          col=col, lwd=lwd)
   }
 }
 
@@ -638,6 +679,31 @@ plot.fes<-function(inputfes=inputfes, plottype="both",
               labels=labels, labcex=labcex, drawlabels=drawlabels,
               method=method, col=contcol, lty=lty, lwd=lwd, add=T)
     }
+  }
+}
+
+# points FES
+points.fes<-function(inputfes=inputfes, x=NULL,
+                     pch=1, col="black", bg="red", cex=1) {
+  fes<-inputfes$fes
+  if(inputfes$dimension==1) {
+    if(is.null(x)) x<-inputfes$x
+    points(x, fes,
+           pch=pch, col=col, bg=bg, cex=cex)
+  } else {
+    cat("points available only for 1D free energy surfaces\n")
+  }
+}
+
+# lines FES
+lines.fes<-function(inputfes=inputfes, x=NULL,
+                    lwd=1, col="black") {
+  fes<-inputfes$fes
+  if(inputfes$dimension==1) {
+    if(is.null(x)) x<-inputfes$x
+    lines(x, fes, lwd=lwd, col=col)
+  } else {
+    cat("points available only for 1D free energy surfaces\n")
   }
 }
 
