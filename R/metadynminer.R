@@ -1006,4 +1006,78 @@ plot.profiles <- function(profs=profs, which=NULL,
   }
 }
 
+neb<-function(minims, min1, min2, nbins=20,
+              nsteps=100, step=1.0, k=0.2) {
+  fes<-minims$fes
+  pcv1<-minims$pcv1
+  pcv2<-minims$pcv2
+  rows<-minims$rows
+  align<-function(v1, v2) {
+    dot <- v1[1]*v2[1]+v1[2]*v2[2]
+    return(c(dot*v2[1], dot*v2[2]))
+  }
+  perp<-function(xm1, x, xp1) {
+    d1 <- sqrt((x[,1]-xm1[,1])**2 + (x[,2]-xm1[,2])**2)
+    d2 <- sqrt((xp1[,1]-x[,1])**2 + (xp1[,2]-x[,2])**2)
+    d <- d1 + d2
+    return(c((xp1[,1]-xm1[,1])/d, (xp1[,2]-xm1[,2])/d))
+  }
+  cosphi<-function(xm1, x, xp1) {
+    d1 <- sqrt((x[,1]-xm1[,1])**2 + (x[,2]-xm1[,2])**2)
+    d2 <- sqrt((xp1[,1]-x[,1])**2 + (xp1[,2]-x[,2])**2)
+    return(((x[,1]-xm1[,1])*(xp1[,1]-x[,1])+(x[,2]-xm1[,2])*(xp1[,2]-x[,2]))/d1/d2)
+  }
+  force1<-function(fes, x, y) {
+    fx<-(fes[x-1,y]-fes[x+1,y])/2.0
+    fy<-(fes[x,y-1]-fes[x,y+1])/2.0
+    return(c(fx,fy))
+  }
+  force2<-function(xm1, x, xp1, k) {
+    fx <- k*(xm1[,1]+xp1[,1]-2.0*x[,1])
+    fy <- k*(xm1[,2]+xp1[,2]-2.0*x[,2])
+    return(c(fx,fy))
+  }
+  x1<-c(min1[1,2], min1[1,3])
+  x2<-c(min2[1,2], min2[1,3])
+  pathx <- x1[1]+0:nbins*(x2[1]-x1[1])/nbins
+  pathy <- x1[2]+0:nbins*(x2[2]-x1[2])/nbins
+  fespot <- c()
+  for(i in 1:(nbins+1)) {
+    fespot<-c(fespot,fes[pathx[i],pathy[i]])
+  }
+  path<-data.frame(pathx,pathy,fespot)
+  newpath<-path
+  for(i in 1:nsteps) {
+    for(j in 1:(nbins-1)) {
+       tau <- perp(path[j,], path[j+1,], path[j+2,])
+       x <- round(path[j+1,1])
+       y <- round(path[j+1,2])
+       f1 <- force1(fes, x, y)
+       f1a <- align(f1, tau)
+       f1p <- f1-f1a
+       f2 <- force2(path[j,],path[j+1,],path[j+2,],k)
+       f2a <- align(f2, tau)
+       f2p <- f2-f2a
+       fphi <- 0.5*(1.0+cos(cosphi(path[j,], path[j+1,], path[j+2,])*pi))
+       newpath[j+1,1] <- newpath[j+1,1] + step*(f1p[1]+f2a[1]+fphi*f2p[1])
+       newpath[j+1,2] <- newpath[j+1,2] + step*(f1p[2]+f2a[2]+fphi*f2p[2])
+       newpath[j+1,3] <- fes[newpath[j+1,1],newpath[j+1,2]]
+    }
+    path <- newpath
+  }
+  path[,1]<-path[,1]*(pcv1[2]-pcv1[1])/rows+pcv1[1]
+  path[,2]<-path[,2]*(pcv2[2]-pcv2[1])/rows+pcv2[1]
+  #profs<-list(mms=mms, mins=mins, fes=fes, rows=rows, dimension=minims$dimension, per=minims$per, pcv1=minims$pcv1, pcv2=minims$pcv2)
+  #class(profs) <- "profiles"
+  #return(profs)
+  #make object
+  return(path)
+}
+
+# plot path
+# print path
+# summary path
+# min path
+# max path
+
 
