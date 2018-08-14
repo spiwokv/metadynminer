@@ -709,16 +709,17 @@ summary.fes<-function(inputfes=inputfes) {
 
 # plot FES
 plot.fes<-function(inputfes=inputfes, plottype="both",
-                  x=NULL, y=NULL,
-                  xlim=NULL, ylim=NULL, zlim=NULL,
-                  main=NULL, sub=NULL,
-                  xlab=NULL, ylab=NULL,
-                  nlevels=10, levels=NULL,
-                  col=rainbow(135)[100:1],
-                  labels=NULL, labcex=0.6, drawlabels=TRUE,
-                  method="flattest",
-                  contcol=par("fg"), lty=par("lty"), lwd=1,
-                  axes=T) {
+                   colscale=F, x=NULL, y=NULL,
+                   xlim=NULL, ylim=NULL, zlim=NULL,
+                   main=NULL, sub=NULL,
+                   xlab=NULL, ylab=NULL,
+                   nlevels=10, levels=NULL,
+                   col=rainbow(135)[100:1],
+                   labels=NULL, labcex=0.6, drawlabels=TRUE,
+                   colscalelab="free energy",
+                   method="flattest",
+                   contcol=par("fg"), lty=par("lty"), lwd=1,
+                   axes=T) {
   fes<-inputfes$fes
   rows<-inputfes$rows
   if(inputfes$dimension==1) {
@@ -746,11 +747,14 @@ plot.fes<-function(inputfes=inputfes, plottype="both",
     }
     if(is.null(xlim)) xlim<-c(min(x),max(x))
     if(is.null(ylim)) ylim<-c(min(y),max(y))
+    if(colscale) {
+      layout(matrix(c(1,2), 1, 2, byrow = TRUE), widths=c(4,1))
+    }
     if(plottype=="image" || plottype=="both") {
       image(x, y, fes, zlim=zlim,
-        col=col, xlim=xlim, ylim=ylim,
-        xlab=xlab, ylab=ylab, axes=axes,
-        main=main, sub=sub)
+            col=col, xlim=xlim, ylim=ylim,
+            xlab=xlab, ylab=ylab, axes=axes,
+            main=main, sub=sub)
     }
     if(plottype=="contour") {
       contour(x, y, fes, zlim=zlim,
@@ -764,6 +768,13 @@ plot.fes<-function(inputfes=inputfes, plottype="both",
               nlevels=nlevels, levels=levels,
               labels=labels, labcex=labcex, drawlabels=drawlabels,
               method=method, col=contcol, lty=lty, lwd=lwd, add=T)
+    }
+    if(colscale) {
+      smat<-matrix(seq(from=zlim[1], to=zlim[2], length.out=100))
+      image(c(0), seq(from=zlim[1], to=zlim[2], length.out=100),
+            t(smat), zlim=zlim, col=col, xlab="", ylab=colscalelab, axes=F)
+      axis(2, lty=lty, lwd=lwd)
+      box(lwd=lwd)
     }
   }
 }
