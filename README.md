@@ -131,8 +131,8 @@ You can use function `fes2d21d` to convert a 2D surface to 1D and to evalulate t
 hillsf <- read.hills("HILLS", per=c(T,T))
 tfes1<-fes2d21d(hillsf, remdim=2)
 plot(tfes1-min(tfes1), ylim=c(0,80), lwd=4, col="black")
-for(i in 1:9) {
- tfes1<-fes2d21d(hillsf, tmax=3000*(i+1))
+for(i in 1:10) {
+ tfes1<-fes2d21d(hillsf, tmax=3000*i)
  lines(tfes1-min(tfes1), col=rainbow(13)[i])
 }
 ```
