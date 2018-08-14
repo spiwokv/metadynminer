@@ -1214,6 +1214,12 @@ neb<-function(minims, min1, min2, nbins=20,
   if(min2 %in% myLETTERS) {
     min2 <- minims$minima[match(min2, myLETTERS),]
   }
+  if(min1 %in% 1:nrow(minims$minima)) {
+    min1 <- minims$minima[min1,]
+  }
+  if(min2 %in% 1:nrow(minims$minima)) {
+    min2 <- minims$minima[min2,]
+  }
   if(minims$dimension==1) {
     #path <- fes
   }
