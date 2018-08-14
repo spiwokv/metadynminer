@@ -112,6 +112,9 @@ for(i in 0:299) {
 dev.off()
 ```
 
+### Evaluation of convergence of one CV
+TODO
+
 ### Transforming CVs
 If you want to use degrees instead of radians on axes, set axes=F in the plot function and then plot
 (without closing the plot window!) both axes separately.
