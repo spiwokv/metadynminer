@@ -433,7 +433,7 @@ fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256
 }
 
 # calculate fes by bias sum algorithm
-fes2d21d<-function(hills=hills, remdim=2, temp=300,
+fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
                    tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(tmax)) {
     if(hills$size[1]<tmax) {
@@ -495,15 +495,27 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300,
                       npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
                       hills$hillsfile[,6],npoints,tmin,tmax)
     }
-    cat("Warning: The fuction assumes your free energy surface is in kJ/mol!\n")
-    prob<- exp(-1000*fesm/8.314/temp)
-    if(remdim==1) {
-      fesm <- -8.314*temp*log(apply(prob, 2, sum))/1000
-      cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per[2], x=y, pcv1=hills$pcv2)
+    if(eunit=="kJ/mol") {
+      prob<- exp(-1000*fesm/8.314/temp)
+      if(remdim==1) {
+        fesm <- -8.314*temp*log(apply(prob, 2, sum))/1000
+        cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per[2], x=y, pcv1=hills$pcv2)
+      }
+      if(remdim==2) {
+        fesm <- -8.314*temp*log(apply(prob, 1, sum))/1000
+        cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per[1], x=x, pcv1=hills$pcv1)
+      }
     }
-    if(remdim==2) {
-      fesm <- -8.314*temp*log(apply(prob, 1, sum))/1000
-      cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per[1], x=x, pcv1=hills$pcv1)
+    if(eunit=="kcal/mol") {
+      prob<- exp(-1000*4.184*fesm/8.314/temp)
+      if(remdim==1) {
+        fesm <- -8.314*temp*log(apply(prob, 2, sum))/1000/4.184
+        cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per[2], x=y, pcv1=hills$pcv2)
+      }
+      if(remdim==2) {
+        fesm <- -8.314*temp*log(apply(prob, 1, sum))/1000/4.184
+        cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per[1], x=x, pcv1=hills$pcv1)
+      }
     }
     class(cfes) <- "fes"
   }
