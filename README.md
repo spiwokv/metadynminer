@@ -155,7 +155,8 @@ for the vertical one.
 ### kcal vs kJ
 MetadynMiner works in kJ/mol by defauls. If your MD engine uses kcal/mol instead, you can either
 multiply your free energy surface by 4.184 to get kJ/mol. If you prefer to keep kcal/mol, you can
-set `eunit="kcal/mol"` for functions `fes2d21d` or `summary` of minima object.
+set `eunit="kcal/mol"` for functions `fes2d21d` or `summary` of minima object. Other units are not
+supported.
 
 ### Shifting a periodic CV
 It may happen that some simulations with a torsion CV it may be difficult to analyse and visualize
