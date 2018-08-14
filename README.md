@@ -44,6 +44,9 @@ summary(tfes)
 # Plot FES
 plot(tfes)
 
+# Plot FES with color scale
+plot(tfes, colscale=T)
+
 # Find minima
 minima<-fesminima(tfes)
 
