@@ -61,10 +61,13 @@ plot(minima)
 # Calculate free energy profile for minima
 prof<-feprof(minima)
 
+# Make 1D free energy surface from the 2D one
+tfes1<-fes2d21d(hillsf, remdim=2) # T=300K, kJ/mol
+plot(tfes1)
+
 # Nudged Elastic Band - almost done, make object, make 1D
 # Summary of transition path
 # Scale
-# 2d21d
 ```
 
 ## Tips and Tricks
@@ -123,7 +126,16 @@ dev.off()
 ```
 
 ### Evaluation of convergence of one CV
-TODO
+You can use function `fes2d21d` to convert a 2D surface to 1D and to evalulate the evolution:
+```R
+hillsf <- read.hills("HILLS", per=c(T,T))
+tfes1<-fes2d21d(hillsf, remdim=2)
+plot(tfes1-min(tfes1), ylim=c(0,80), lwd=4, col="black")
+for(i in 1:9) {
+ tfes1<-fes2d21d(hillsf, tmax=3000*(i+1))
+ lines(tfes1-min(tfes1), col=rainbow(13)[i])
+}
+```
 
 ### Transforming CVs
 If you want to use degrees instead of radians on axes, set axes=F in the plot function and then plot
