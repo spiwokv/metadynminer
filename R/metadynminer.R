@@ -500,7 +500,7 @@ fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256
   return(cfes)
 }
 
-# calculate fes by bias sum algorithm
+# calculate 1D fes from 2D by bias sum algorithm
 fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
                    tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(tmax)) {
