@@ -1215,6 +1215,7 @@ neb<-function(minims, min1, min2, nbins=20,
     min2 <- minims$minima[match(min2, myLETTERS),]
   }
   if(minims$dimension==1) {
+    #path <- fes
   }
   if(minims$dimension==2) {
     align<-function(v1, v2) {
@@ -1533,6 +1534,30 @@ lines.nebpath <- function(nebpath=nebpath,
   if(ncol(nebpath$path)==2) {
     lines(nebpath$path[,2], type="l",
           col=col, lwd=lwd)
+  }
+}
+
+pointsonfes <- function(nebpath=nebpath,
+                        pch=NULL, cex=1, bg=NULL,
+                        col="red", lwd=1) {
+  if(ncol(nebpath$path)==3) {
+    points(nebpath$path[,1], nebpath$path[,2],
+           pch=NULL, cex=1, bg=NULL,
+           col=col, lwd=lwd)
+  }
+  if(ncol(nebpath$path)==2) {
+    stop("Error: Can be used only on 2D free energy surfaces")
+  }
+}
+
+linesonfes <- function(nebpath=nebpath,
+                       col="red", lwd=1) {
+  if(ncol(nebpath$path)==3) {
+    lines(nebpath$path[,1], nebpath$path[,2],
+          col=col, lwd=lwd)
+  }
+  if(ncol(nebpath$path)==2) {
+    stop("Error: Can be used only on 2D free energy surfaces")
   }
 }
 
