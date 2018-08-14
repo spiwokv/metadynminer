@@ -995,14 +995,8 @@ summary.minima<-function(minims=minims, temp=300, eunit="kJ/mol") {
   if(eunit=="kJ/mol") {
     toprint<-cbind(toprint, exp(-1000*toprint[,tind]/8.314/temp))
   }
-  if(eunit=="J/mol") {
-    toprint<-cbind(toprint, exp(-toprint[,tind]/8.314/temp))
-  }
   if(eunit=="kcal/mol") {
     toprint<-cbind(toprint, exp(-1000*toprint[,tind]/8.314/temp/4.184))
-  }
-  if(eunit=="cal/mol") {
-    toprint<-cbind(toprint, exp(-toprint[,tind]/8.314/temp/4.184))
   }
   sumpop<-sum(toprint[,tind+1])
   toprint<-cbind(toprint, 100*toprint[,tind+1]/sumpop)
