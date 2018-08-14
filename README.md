@@ -68,8 +68,17 @@ prof<-feprof(minima)
 tfes1<-fes2d21d(hillsf, remdim=2) # T=300K, kJ/mol
 plot(tfes1)
 
-# Nudged Elastic Band - almost done, make object, make 1D
-# Summary of transition path
+# Calculate transition path using Nudged Elastic Band
+myneb <- neb(minima, min1="A", min2="B")
+myneb
+summary(myneb)
+
+# Plot transition path
+plot(myneb)
+
+# Plot transition path on FES
+plot(minima)
+linesonfes(myneb)
 ```
 
 ## Tips and Tricks
