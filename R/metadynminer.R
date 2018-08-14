@@ -133,7 +133,8 @@ plot.hillsfile<-function(hills=hills, ignoretime=FALSE,
     if(is.null(xlab)) xlab="time"
     if(is.null(ylab)) ylab="CV"
     if(ignoretime) {
-      plot(hills$hillsfile[,2], type="l",
+      plot(seq(from=hills$hillsfile[1,1],by=hills$hillsfile[1,1],length.out=nrow(hills$hillsfile)),
+           hills$hillsfile[,2], type="l",
            xlab=xlab, ylab=ylab,
            main=main, sub=sub,
            xlim=xlims, ylim=ylims,
@@ -166,7 +167,8 @@ points.hillsfile<-function(hills=hills, ignoretime=FALSE,
                            asp=NULL, lwd=1, axes=TRUE) {
   if(hills$size[2]==5) {
     if(ignoretime) {
-      points(hills$hillsfile[,2],
+      points(seq(from=hills$hillsfile[1,1],by=hills$hillsfile[1,1],length.out=nrow(hills$hillsfile)),
+             hills$hillsfile[,2],
              col=col, cex=cex, lwd=lwd)
     } else {
       points(hills$hillsfile[,1], hills$hillsfile[,2],
@@ -184,7 +186,8 @@ lines.hillsfile<-function(hills=hills, ignoretime=FALSE,
                           lwd=1, col="black") {
   if(hills$size[2]==5) {
     if(ignoretime) {
-      lines(hills$hillsfile[,2],
+      lines(seq(from=hills$hillsfile[1,1],by=hills$hillsfile[1,1],length.out=nrow(hills$hillsfile)),
+            hills$hillsfile[,2],
             col=col, lwd=lwd)
     } else {
       plot(hills$hillsfile[,1], hills$hillsfile[,2],
@@ -208,7 +211,8 @@ plotheights<-function(hills=hills, ignoretime=FALSE, xlab=NULL, ylab=NULL,
     if(is.null(ylab)) ylab="hill height"
     if(hills$size[2]==5) {
       if(ignoretime) {
-        plot(hills$hillsfile[,4], type="l",
+        plot(seq(from=hills$hillsfile[1,1],by=hills$hillsfile[1,1],length.out=nrow(hills$hillsfile)),
+             hills$hillsfile[,4], type="l",
              xlab=xlab, ylab=ylab,
              main=main, sub=sub,
              col=col, cex=cex, lwd=lwd,
@@ -223,7 +227,8 @@ plotheights<-function(hills=hills, ignoretime=FALSE, xlab=NULL, ylab=NULL,
     }
     if(hills$size[2]==7) {
       if(ignoretime) {
-        plot(hills$hillsfile[,6], type="l",
+        plot(seq(from=hills$hillsfile[1,1],by=hills$hillsfile[1,1],length.out=nrow(hills$hillsfile)),
+             hills$hillsfile[,6], type="l",
              xlab=xlab, ylab=ylab,
              main=main, sub=sub,
              col=col, cex=cex, lwd=lwd,
@@ -1057,6 +1062,7 @@ summary.profiles <- function(profs=profs) {
 }
 
 plot.profiles <- function(profs=profs, which=NULL,
+                          ignoretime=FALSE,
                           xlim=NULL, ylim=NULL,
                           main=NULL, sub=NULL,
                           xlab=NULL, ylab=NULL,
@@ -1073,14 +1079,27 @@ plot.profiles <- function(profs=profs, which=NULL,
     ylimu <- max(mms[,1:ncol(mms)])
     ylim<-c(yliml-0.05*(ylimu-yliml), ylimu+0.05*(ylimu-yliml))
   }
-  plot(profs$mms[,1], mms[,1], type="l",
-       xlab=xlab, ylab=ylab,
-       main=main, sub=sub,
-       xlim=xlim, ylim=ylim,
-       lwd=lwd, asp=asp, axes=axes)
-  for(i in 1:length(which)) {
-      lines(profs$mms[,1], mms[,which[i]],
-            lwd=lwd, col=col[i])
+  if(ignoretime) {
+    plot(seq(from=profs$mms[1,1], by=profs$mms[1,1], length.out=nrow(profs$mms)),
+         mms[,1], type="l",
+         xlab=xlab, ylab=ylab,
+         main=main, sub=sub,
+         xlim=xlim, ylim=ylim,
+         lwd=lwd, asp=asp, axes=axes)
+    for(i in 1:length(which)) {
+        lines(profs$mms[,1], mms[,which[i]],
+              lwd=lwd, col=col[i])
+    }
+  } else {
+    plot(profs$mms[,1], mms[,1], type="l",
+         xlab=xlab, ylab=ylab,
+         main=main, sub=sub,
+         xlim=xlim, ylim=ylim,
+         lwd=lwd, asp=asp, axes=axes)
+    for(i in 1:length(which)) {
+        lines(profs$mms[,1], mms[,which[i]],
+              lwd=lwd, col=col[i])
+    }
   }
 }
 
