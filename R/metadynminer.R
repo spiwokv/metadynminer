@@ -32,7 +32,7 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
       class(hills) <- "hillsfile"
       return(hills)
     } else {
-      stop("number of columns in HILLS file must be 5 or 6 (1D) or 7 or 8 (2D)")
+      stop("Error: Number of columns in HILLS file must be 5 or 6 (1D) or 7 or 8 (2D)")
     }
   }
 }
@@ -100,14 +100,14 @@ tail.hillsfile<-function(hills=hills, n=10) {
 # sum HILLS from Plumed
 `+.hillsfile`<-function(hills1, hills2) {
   if(ncol(hills1$hillsfile)!=ncol(hills2$hillsfile)) {
-    stop("you can sum only hills of same dimension")
+    stop("Error: You can sum only hills of same dimension")
   }
   if(hills1$per[1]!=hills2$per[1]) {
-    stop("you can sum only hills of same periodicity")
+    stop("Error: You can sum only hills of same periodicity")
   }
   if(ncol(hills1$hillsfile)==7 || ncol(hills1$hillsfile)==8) {
     if(hills1$per[2]!=hills2$per[2]) {
-      stop("you can sum only hills of same periodicity")
+      stop("Error: You can sum only hills of same periodicity")
     }
   }
   hills<-list(hillsfile=rbind(hills1$hillsfile, hills2$hillsfile), size=dim(rbind(hills1$hillsfile, hills2$hillsfile)),
@@ -242,7 +242,7 @@ plotheights<-function(hills=hills, ignoretime=FALSE, xlab=NULL, ylab=NULL,
       }
     }
   } else {
-    stop("function plotheights requires object hillsfile as an input")
+    stop("Error: Function plotheights requires object hillsfile as an input")
   }
 }
 
@@ -263,7 +263,7 @@ read.fes<-function(filename=filename, dimension=2, per=c(TRUE, TRUE), pcv1=c(-pi
 fes<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(tmax)) {
     if(hills$size[1]<tmax) {
-      cat("You requested more hills by tmax than available, using all hills\n")
+      cat("Warning: You requested more hills by tmax than available, using all hills\n")
       tmax<-hills$size[1]
     }
   }
@@ -271,15 +271,15 @@ fes<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256)
     tmax<-hills$size[1]
   }
   if(tmin>=tmax) {
-    stop("tmax must be higher than tmin")
+    stop("Error: tmax must be higher than tmin")
   }
   sourceCpp("../src/mm.cpp")
   if(hills$size[2]==7) {
     if(max(hills$hillsfile[,4])/min(hills$hillsfile[,4])>1.00000000001) {
-      stop("Bias Sum algorithm works only with hills of the same sizes")
+      stop("Error: Bias Sum algorithm works only with hills of the same sizes")
     }
     if(max(hills$hillsfile[,5])/min(hills$hillsfile[,5])>1.00000000001) {
-      stop("Bias Sum algorithm works only with hills of the same sizes")
+      stop("Error: Bias Sum algorithm works only with hills of the same sizes")
     }
     minCV1 <- min(hills$hillsfile[,2])
     maxCV1 <- max(hills$hillsfile[,2])
@@ -326,7 +326,7 @@ fes<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256)
   }
   if(hills$size[2]==5) {
     if(max(hills$hillsfile[,3])/min(hills$hillsfile[,3])>1.00000000001) {
-      stop("Bias Sum algorithm works only with hills of the same sizes")
+      stop("Error: Bias Sum algorithm works only with hills of the same sizes")
     }
     minCV1 <- min(hills$hillsfile[,2])
     maxCV1 <- max(hills$hillsfile[,2])
@@ -354,7 +354,7 @@ fes<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256)
 fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(tmax)) {
     if(hills$size[1]<tmax) {
-      cat("You requested more hills by tmax than available, using all hills\n")
+      cat("Warning: You requested more hills by tmax than available, using all hills\n")
       tmax<-hills$size[1]
     }
   }
@@ -362,7 +362,7 @@ fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256
     tmax<-hills$size[1]
   }
   if(tmin>=tmax) {
-    stop("tmax must be higher than tmin")
+    stop("Error: tmax must be higher than tmin")
   }
   sourceCpp("../src/mm.cpp")
   if(hills$size[2]==7) {
@@ -432,21 +432,102 @@ fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256
   return(cfes)
 }
 
+# calculate fes by bias sum algorithm
+fes2d21d<-function(hills=hills, remdim=2, temp=300,
+                   tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+  if(!is.null(tmax)) {
+    if(hills$size[1]<tmax) {
+      cat("Warning: You requested more hills by tmax than available, using all hills\n")
+      tmax<-hills$size[1]
+    }
+  }
+  if(is.null(tmax)) {
+    tmax<-hills$size[1]
+  }
+  if(tmin>=tmax) {
+    stop("Error: tmax must be higher than tmin")
+  }
+  sourceCpp("../src/mm.cpp")
+  if(hills$size[2]==7) {
+    if(max(hills$hillsfile[,4])/min(hills$hillsfile[,4])>1.00000000001) {
+      stop("Error: Bias Sum algorithm works only with hills of the same sizes")
+    }
+    if(max(hills$hillsfile[,5])/min(hills$hillsfile[,5])>1.00000000001) {
+      stop("Error: Bias Sum algorithm works only with hills of the same sizes")
+    }
+    minCV1 <- min(hills$hillsfile[,2])
+    maxCV1 <- max(hills$hillsfile[,2])
+    minCV2 <- min(hills$hillsfile[,3])
+    maxCV2 <- max(hills$hillsfile[,3])
+    xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
+    ylims<-c(minCV2-0.05*(maxCV2-minCV2), maxCV2+0.05*(maxCV2-minCV2))
+    if(!is.null(xlim)) {xlims<-xlim}
+    if((hills$per[1]==T)&is.null(xlim)) {xlims<-hills$pcv1}
+    if(!is.null(ylim)) {ylims<-ylim}
+    if((hills$per[2]==T)&is.null(ylim)) {ylims<-hills$pcv2}
+    x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
+    y<-0:(npoints-1)*(ylims[2]-ylims[1])/(npoints-1)+ylims[1]
+    if((hills$per[1]==F)&(hills$per[2]==F)) {
+      fesm<-hills1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                   npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                   npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                   npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+                   hills$hillsfile[,6],npoints,tmin,tmax)
+    }
+    if((hills$per[1]==T)&(hills$per[2]==F)) {
+      fesm<-hills1p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                     npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                     npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                     npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+                     hills$hillsfile[,6],npoints,tmin,tmax)
+    }
+    if((hills$per[1]==F)&(hills$per[2]==T)) {
+      fesm<-hills1p2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                     npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                     npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                     npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+                     hills$hillsfile[,6],npoints,tmin,tmax)
+    }
+    if((hills$per[1]==T)&(hills$per[2]==T)) {
+      fesm<-hills1p12(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                      npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                      npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+                      hills$hillsfile[,6],npoints,tmin,tmax)
+    }
+    cat("Warning: The fuction assumes your free energy surface is in kJ/mol!\n")
+    prob<- exp(-1000*fesm/8.314/temp)
+    if(remdim==1) {
+      fesm <- -8.314*temp*log(apply(prob, 2, sum))/1000
+      cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per[2], x=y, pcv1=hills$pcv2)
+    }
+    if(remdim==2) {
+      fesm <- -8.314*temp*log(apply(prob, 1, sum))/1000
+      cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per[1], x=x, pcv1=hills$pcv1)
+    }
+    class(cfes) <- "fes"
+  }
+  if(hills$size[2]==5) {
+    stop("Error: Your free energy surface is already 1D")
+  }
+  return(cfes)
+}
+
 # sum fesses
 `+.fes`<-function(fes1, fes2) {
   if((class(fes1)=="fes")&(class(fes2)=="fes")) {
     if(fes1$rows!=fes2$rows) {
-      stop("free energy surfaces have different numbers of points, exiting")
+      stop("Error: Free energy surfaces have different numbers of points, exiting")
     }
     if(fes1$dimension!=fes2$dimension) {
-      stop("free energy surfaces have different dimension, exiting")
+      stop("Error: Free energy surfaces have different dimension, exiting")
     }
     if(sum(fes1$x!=fes2$x)>0) {
-      stop("free energy surfaces have different CV1 axes, exiting")
+      stop("Error: Free energy surfaces have different CV1 axes, exiting")
     }
     if(fes1$dimension==2) {
       if(sum(fes1$y!=fes2$y)>0) {
-        stop("free energy surfaces have different CV2 axes, exiting")
+        stop("Error: Free energy surfaces have different CV2 axes, exiting")
       }
     }
     if(fes1$dimension==1) {
@@ -478,20 +559,20 @@ fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256
 `-.fes`<-function(fes1, fes2) {
   if((class(fes1)=="fes")&(class(fes2)=="fes")) {
     if(fes1$rows!=fes2$rows) {
-      stop("free energy surfaces have different numbers of points, exiting")
+      stop("Error: Free energy surfaces have different numbers of points, exiting")
     }
     if(fes1$dimension!=fes2$dimension) {
-      stop("free energy surfaces have different dimension, exiting")
+      stop("Error: Free energy surfaces have different dimension, exiting")
     }
     if(sum(fes1$x!=fes2$x)>0) {
-      stop("free energy surfaces have different CV1 axes, exiting")
+      stop("Error: Free energy surfaces have different CV1 axes, exiting")
     }
     if(fes1$dimension==2) {
       if(sum(fes1$y!=fes2$y)>0) {
-        stop("free energy surfaces have different CV2 axes, exiting")
+        stop("Error: Free energy surfaces have different CV2 axes, exiting")
       }
     }
-    cat("WARNING: FES obtained by subtraction of two FESes\n")
+    cat("Warning: FES obtained by subtraction of two FESes\n")
     cat(" will inherit hills only from the first FES\n")
     if(fes1$dimension==1) {
       cfes<-list(fes=fes1$fes-fes2$fes, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
@@ -521,7 +602,7 @@ fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256
 # multiply a fes
 `*.fes`<-function(fes1, fes2) {
   if((class(fes1)=="fes")&(class(fes2)=="fes")) {
-    stop("you cannot multiply fes by fes")
+    stop("Error: You cannot multiply fes by fes")
   } else if(class(fes1)=="fes") {
     if(fes1$dimension==1) {
       cfes<-list(fes=fes1$fes*fes2, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
@@ -537,7 +618,7 @@ fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256
       cfes<-list(fes=fes1*fes2$fes, hills=fes2$hillsfile, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
   }
-  cat("WARNING: multiplication of FES will multiply\n")
+  cat("Warning: multiplication of FES will multiply\n")
   cat(" the FES but not hill heights\n")
   class(cfes) <- "fes"
   return(cfes)
@@ -546,7 +627,7 @@ fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256
 # divide a fes
 `/.fes`<-function(fes1, coef) {
   if((class(fes1)=="fes")&(class(coef)=="fes")) {
-    stop("you cannot divide fes by fes")
+    stop("Error: You cannot divide fes by fes")
   } else if(class(fes1)=="fes") {
     if(fes1$dimension==1) {
       cfes<-list(fes=fes1$fes/coef, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
@@ -555,9 +636,9 @@ fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256
       cfes<-list(fes=fes1$fes/coef, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
   } else if(class(coef)=="fes") {
-    stop("you cannot divide something by fes")
+    stop("Error: You cannot divide something by fes")
   }
-  cat("WARNING: division of FES will divide\n")
+  cat("Warning: division of FES will divide\n")
   cat(" the FES but not hill heights\n")
   class(cfes) <- "fes"
   return(cfes)
@@ -636,7 +717,7 @@ plot.fes<-function(inputfes=inputfes, plottype="both",
                   col=rainbow(135)[100:1],
                   labels=NULL, labcex=0.6, drawlabels=TRUE,
                   method="flattest",
-                  contcol=par("fg"), lty=par("lty"), lwd=par("lwd"),
+                  contcol=par("fg"), lty=par("lty"), lwd=1,
                   axes=T) {
   fes<-inputfes$fes
   rows<-inputfes$rows
@@ -648,7 +729,7 @@ plot.fes<-function(inputfes=inputfes, plottype="both",
     if(is.null(ylim)) {
       ylim<-range(pretty(range(fes)))
     }
-    plot(x, fes, type="l",
+    plot(x, fes, type="l", lwd=lwd,
         col=col, xlim=xlim, ylim=ylim,
         xlab=xlab, ylab=ylab, axes=axes,
         main=main, sub=sub)
@@ -696,7 +777,7 @@ points.fes<-function(inputfes=inputfes, x=NULL,
     points(x, fes,
            pch=pch, col=col, bg=bg, cex=cex)
   } else {
-    cat("points available only for 1D free energy surfaces\n")
+    stop("Error: points available only for 1D free energy surfaces\n")
   }
 }
 
@@ -708,7 +789,7 @@ lines.fes<-function(inputfes=inputfes, x=NULL,
     if(is.null(x)) x<-inputfes$x
     lines(x, fes, lwd=lwd, col=col)
   } else {
-    cat("points available only for 1D free energy surfaces\n")
+    stop("Error: points available only for 1D free energy surfaces\n")
   }
 }
 
@@ -718,10 +799,10 @@ fesminima<-function(inputfes=inputfes, nbins=8) {
   rows<-inputfes$rows
   rb <- rows/nbins
   if(rb<2) {
-    stop("nbins too high, try to reduce it")
+    stop("Error: nbins too high, try to reduce it")
   }
   if(rows%%nbins>0) {
-    stop("number of rows in FES must be integer multiple of nbins")
+    stop("Error: number of rows in FES must be integer multiple of nbins")
   }
   per<-inputfes$per
   if(inputfes$dimension==2) {
@@ -818,11 +899,11 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
   per<-inputfes$per
   if(inputfes$dimension==2) {
     icv1<-as.integer(rows*(cv1-min(inputfes$x))/(max(inputfes$x)-min(inputfes$x)))+1
-    if(icv1<0)    stop("out of range")
-    if(icv1>rows) stop("out of range")
+    if(icv1<0)    stop("Error: Out of range")
+    if(icv1>rows) stop("Error: Out of range")
     icv2<-as.integer(rows*(cv2-min(inputfes$y))/(max(inputfes$x)-min(inputfes$x)))+1
-    if(icv2<0)    stop("out of range")
-    if(icv2>rows) stop("out of range")
+    if(icv2<0)    stop("Error: Out of range")
+    if(icv2>rows) stop("Error: Out of range")
     minima<-data.frame(c("A"), c(icv1), c(icv2), c(cv1), c(cv2), c(fes[icv1,icv2]))
     names(minima) <- c("letter", "CV1bin", "CV2bin", "CV1", "CV2", "free_energy")
     minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, y=inputfes$y, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
@@ -830,8 +911,8 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
   }
   if(inputfes$dimension==1) {
     icv1<-as.integer(rows*(cv1-min(inputfes$x))/(max(inputfes$x)-min(inputfes$x)))+1
-    if(icv1<0)    stop("out of range")
-    if(icv1>rows) stop("out of range")
+    if(icv1<0)    stop("Error: Out of range")
+    if(icv1>rows) stop("Error: Out of range")
     minima<-data.frame(c("A"), c(icv1), c(cv1), c(fes[icv1,icv2]))
     names(minima) <- c("letter", "CV1bin", "CV1", "free_energy")
     minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
@@ -843,13 +924,13 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
 # add minima
 `+.minima`<-function(min1, min2) {
   if(class(min1)!="minima") {
-    stop("you can sum only two minima objects")
+    stop("Error: You can sum only two minima objects")
   }
   if(class(min2)!="minima") {
-    stop("you can sum only two minima objects")
+    stop("Error: You can sum only two minima objects")
   }
   if(sum(min1$fes)!=sum(min2$fes)) {
-    stop("you can sum only minima objects with same FESes")
+    stop("Error: You can sum only minima objects with same FESes")
   }
   myLETTERS <- c(LETTERS, paste("A", LETTERS, sep=""), paste("B", LETTERS, sep=""))[1:(nrow(min1$minima)+nrow(min2$minima))]
   minima1<-min1$minima
@@ -993,10 +1074,10 @@ feprof <- function(minims=minims, tmin=0, tmax=NULL) {
   }
   if(tmax>nrow(hills)) {
     tmax<-nrow(hills)
-    cat("You requested more hills by tmax than available, using all hills\n")
+    cat("Warning: You requested more hills by tmax than available, using all hills\n")
   }
   if(tmin>=tmax) {
-    stop("tmax must be higher than tmin")
+    stop("Error: tmax must be higher than tmin")
   }
   tt <- tmin:tmax
   mms <- data.frame(tt)
