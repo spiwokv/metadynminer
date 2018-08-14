@@ -70,7 +70,6 @@ plot(tfes1)
 
 # Nudged Elastic Band - almost done, make object, make 1D
 # Summary of transition path
-# Scale
 ```
 
 ## Tips and Tricks
