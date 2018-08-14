@@ -268,7 +268,18 @@ lines.hillsfile<-function(hills=hills, ignoretime=FALSE,
   }
 }
 
-# plot heights
+#' Plot evolution of heights of hills in hillsfile object
+#'
+#' `plotheights` plots evolution of heights of hills. In well tempered metadynamics
+#' hill heights decrese with flooding of the free energy surface. Evolution of heights
+#' may be useful to evaluate convergence of the simulation.
+#'
+#' @param hills hillsfile object
+#' @param ignoretime time in the first column of the HILLS file will be ignored
+#' @inherit plot
+#'
+#' @examples
+#' plotheights(acealanme)
 plotheights<-function(hills=hills, ignoretime=FALSE, xlab=NULL, ylab=NULL,
                       xlim=NULL, ylim=NULL, zlim=NULL,
                       main=NULL, sub=NULL,
@@ -314,8 +325,20 @@ plotheights<-function(hills=hills, ignoretime=FALSE, xlab=NULL, ylab=NULL,
   }
 }
 
-# red FES from MetadynView
-read.fes<-function(filename=filename, dimension=2, per=c(TRUE, TRUE), pcv1=c(-pi,pi), pcv2=c(-pi,pi)) {
+#' Read free energy surface from the output of MetadynView
+#'
+#' `read.fes` read free energy surface from the output file of MetadynView (http://metadyn.vscht.cz)
+#'
+#' @param file fes.txt file from MetadynView
+#' @param dimension number of dimensions (default 2)
+#' @param per logical vector specifying periodicity of collective variables
+#' @param pcv1 periodicity of CV1
+#' @param pcv2 periodicity of CV2
+#' @return hillsfile object
+#'
+#' @examples
+#' tfes<-read.fes("fes.txt")
+read.fes<-function(filename="fes.txt", dimension=2, per=c(TRUE, TRUE), pcv1=c(-pi,pi), pcv2=c(-pi,pi)) {
   ifile<-read.table(filename)
   rows<-sqrt(nrow(ifile))
   fes<-matrix(ifile[,3], nrow=rows)
@@ -327,19 +350,30 @@ read.fes<-function(filename=filename, dimension=2, per=c(TRUE, TRUE), pcv1=c(-pi
   return(cfes)
 }
 
-# calculate fes by bias sum algorithm
-fes<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
-  if(!is.null(tmax)) {
-    if(hills$size[1]<tmax) {
-      cat("Warning: You requested more hills by tmax than available, using all hills\n")
-      tmax<-hills$size[1]
+#' Calculate free energy surface by Bias Sum algorithm
+#'
+#' `fes` summes up hills using fast Bias Sum algorithm
+#'
+#' @param hills hillsfile object
+#' @param imin index of a hill from which summation starts (default 0)
+#' @param imax index of a hill from which summation stops (default the rest of hills)
+#' @param npoints resolution of the free energy surface in number of points
+#' @return fes object
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+fes<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+  if(!is.null(imax)) {
+    if(hills$size[1]<imax) {
+      cat("Warning: You requested more hills by imax than available, using all hills\n")
+      imax<-hills$size[1]
     }
   }
-  if(is.null(tmax)) {
-    tmax<-hills$size[1]
+  if(is.null(imax)) {
+    imax<-hills$size[1]
   }
-  if(tmin>=tmax) {
-    stop("Error: tmax must be higher than tmin")
+  if(imin>=imax) {
+    stop("Error: imax must be higher than imin")
   }
   sourceCpp("../src/mm.cpp")
   if(hills$size[2]==7) {
@@ -366,28 +400,28 @@ fes<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256)
                    npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                    npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                    npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                   hills$hillsfile[,6],npoints,tmin,tmax)
+                   hills$hillsfile[,6],npoints,imin,imax)
     }
     if((hills$per[1]==T)&(hills$per[2]==F)) {
       fesm<-hills1p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                      npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                      npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                     hills$hillsfile[,6],npoints,tmin,tmax)
+                     hills$hillsfile[,6],npoints,imin,imax)
     }
     if((hills$per[1]==F)&(hills$per[2]==T)) {
       fesm<-hills1p2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                      npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                      npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                     hills$hillsfile[,6],npoints,tmin,tmax)
+                     hills$hillsfile[,6],npoints,imin,imax)
     }
     if((hills$per[1]==T)&(hills$per[2]==T)) {
       fesm<-hills1p12(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                       npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                       npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                       npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                      hills$hillsfile[,6],npoints,tmin,tmax)
+                      hills$hillsfile[,6],npoints,imin,imax)
     }
     cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=2, per=hills$per, x=x, y=y, pcv1=hills$pcv1, pcv2=hills$pcv2)
     class(cfes) <- "fes"
@@ -405,12 +439,12 @@ fes<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256)
     if(hills$per[1]==F) {
       fesm<-hills1d1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]),
-                     hills$hillsfile[,4],npoints,tmin,tmax)
+                     hills$hillsfile[,4],npoints,imin,imax)
     }
     if(hills$per[1]==T) {
       fesm<-hills1d1p(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                       npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]),
-                      hills$hillsfile[,4],npoints,tmin,tmax)
+                      hills$hillsfile[,4],npoints,imin,imax)
     }
     cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per, x=x, pcv1=hills$pcv1, pcv2=hills$pcv2)
     class(cfes) <- "fes"
@@ -418,19 +452,31 @@ fes<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256)
   return(cfes)
 }
 
-# calculate fes conventionally (slow)
-fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
-  if(!is.null(tmax)) {
-    if(hills$size[1]<tmax) {
-      cat("Warning: You requested more hills by tmax than available, using all hills\n")
-      tmax<-hills$size[1]
+#' Calculate free energy surface by conventional algorithm
+#'
+#' `fes2` summes up hills using slow conventional algorithm. It can be used
+#' as a reference or when hill widths are variable
+#'
+#' @param hills hillsfile object
+#' @param imin index of a hill from which summation starts (default 0)
+#' @param imax index of a hill from which summation stops (default the rest of hills)
+#' @param npoints resolution of the free energy surface in number of points
+#' @return fes object
+#'
+#' @examples
+#' tfes<-fes2(acealanme)
+fes2<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+  if(!is.null(imax)) {
+    if(hills$size[1]<imax) {
+      cat("Warning: You requested more hills by imax than available, using all hills\n")
+      imax<-hills$size[1]
     }
   }
-  if(is.null(tmax)) {
-    tmax<-hills$size[1]
+  if(is.null(imax)) {
+    imax<-hills$size[1]
   }
-  if(tmin>=tmax) {
-    stop("Error: tmax must be higher than tmin")
+  if(imin>=imax) {
+    stop("Error: imax must be higher than imin")
   }
   sourceCpp("../src/mm.cpp")
   if(hills$size[2]==7) {
@@ -451,28 +497,28 @@ fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256
                    npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                    npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
                    npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
-                   hills$hillsfile[,6],npoints,tmin,tmax)
+                   hills$hillsfile[,6],npoints,imin,imax)
     }
     if((hills$per[1]==T)&(hills$per[2]==F)) {
       fesm<-hills2p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                      npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
                      npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
-                     hills$hillsfile[,6],npoints,tmin,tmax)
+                     hills$hillsfile[,6],npoints,imin,imax)
     }
     if((hills$per[1]==F)&(hills$per[2]==T)) {
       fesm<-hills2p2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                      npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
                      npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
-                     hills$hillsfile[,6],npoints,tmin,tmax)
+                     hills$hillsfile[,6],npoints,imin,imax)
     }
     if((hills$per[1]==T)&(hills$per[2]==T)) {
       fesm<-hills2p12(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                       npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                       npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
                       npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
-                      hills$hillsfile[,6],npoints,tmin,tmax)
+                      hills$hillsfile[,6],npoints,imin,imax)
     }
     cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=2, per=hills$per, x=x, y=y, pcv1=hills$pcv1, pcv2=hills$pcv2)
     class(cfes) <- "fes"
@@ -487,12 +533,12 @@ fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256
     if(hills$per[1]==F) {
       fesm<-hills1d2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*hills$hillsfile[,3]/(xlims[2]-xlims[1]),
-                     hills$hillsfile[,4],npoints,tmin,tmax)
+                     hills$hillsfile[,4],npoints,imin,imax)
     }
     if(hills$per[1]==T) {
       fesm<-hills1d2p(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                       npoints*hills$hillsfile[,3]/(xlims[2]-xlims[1]),
-                      hills$hillsfile[,4],npoints,tmin,tmax)
+                      hills$hillsfile[,4],npoints,imin,imax)
     }
     cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per, x=x, pcv1=hills$pcv1, pcv2=hills$pcv2)
     class(cfes) <- "fes"
@@ -500,20 +546,36 @@ fes2<-function(hills=hills, tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256
   return(cfes)
 }
 
-# calculate 1D fes from 2D by bias sum algorithm
+#' Calculate 1D free energy surface from hillsfile object
+#'
+#' `fes2d21d` calculates 2D free energy surface, converts free energies to probabilities
+#' (exp(-F/kT)), summes them up along one collective variable and converts back to free
+#' energy (-kT log(P)).
+#'
+#' @param hills hillsfile object
+#' @param remdim dimension to be removed (1 for CV1, 2 for CV2, default 2)
+#' @param temp temperature in Kelvins
+#' @param eunit energy units (kJ/mol or kcal/mol, kJ/mol is default)
+#' @param imin index of a hill from which summation starts (default 0)
+#' @param imax index of a hill from which summation stops (default the rest of hills)
+#' @param npoints resolution of the free energy surface in number of points
+#' @return fes object
+#'
+#' @examples
+#' tfes<-fes2d21d(acealanme, remdim=2)
 fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
-                   tmin=0, tmax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
-  if(!is.null(tmax)) {
-    if(hills$size[1]<tmax) {
-      cat("Warning: You requested more hills by tmax than available, using all hills\n")
-      tmax<-hills$size[1]
+                   imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+  if(!is.null(imax)) {
+    if(hills$size[1]<imax) {
+      cat("Warning: You requested more hills by imax than available, using all hills\n")
+      imax<-hills$size[1]
     }
   }
-  if(is.null(tmax)) {
-    tmax<-hills$size[1]
+  if(is.null(imax)) {
+    imax<-hills$size[1]
   }
-  if(tmin>=tmax) {
-    stop("Error: tmax must be higher than tmin")
+  if(imin>=imax) {
+    stop("Error: imax must be higher than imin")
   }
   sourceCpp("../src/mm.cpp")
   if(hills$size[2]==7) {
@@ -540,28 +602,28 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
                    npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                    npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                    npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                   hills$hillsfile[,6],npoints,tmin,tmax)
+                   hills$hillsfile[,6],npoints,imin,imax)
     }
     if((hills$per[1]==T)&(hills$per[2]==F)) {
       fesm<-hills1p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                      npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                      npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                     hills$hillsfile[,6],npoints,tmin,tmax)
+                     hills$hillsfile[,6],npoints,imin,imax)
     }
     if((hills$per[1]==F)&(hills$per[2]==T)) {
       fesm<-hills1p2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                      npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                      npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                     hills$hillsfile[,6],npoints,tmin,tmax)
+                     hills$hillsfile[,6],npoints,imin,imax)
     }
     if((hills$per[1]==T)&(hills$per[2]==T)) {
       fesm<-hills1p12(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                       npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                       npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                       npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                      hills$hillsfile[,6],npoints,tmin,tmax)
+                      hills$hillsfile[,6],npoints,imin,imax)
     }
     if(eunit=="kJ/mol") {
       prob<- exp(-1000*fesm/8.314/temp)
@@ -593,7 +655,6 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
   return(cfes)
 }
 
-# sum fesses
 `+.fes`<-function(fes1, fes2) {
   if((class(fes1)=="fes")&(class(fes2)=="fes")) {
     if(fes1$rows!=fes2$rows) {
@@ -635,7 +696,6 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
   return(cfes)
 }
 
-# substract fesses
 `-.fes`<-function(fes1, fes2) {
   if((class(fes1)=="fes")&(class(fes2)=="fes")) {
     if(fes1$rows!=fes2$rows) {
@@ -679,7 +739,6 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
   return(cfes)
 }
 
-# multiply a fes
 `*.fes`<-function(fes1, fes2) {
   if((class(fes1)=="fes")&(class(fes2)=="fes")) {
     stop("Error: You cannot multiply fes by fes")
@@ -704,7 +763,6 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
   return(cfes)
 }
 
-# divide a fes
 `/.fes`<-function(fes1, coef) {
   if((class(fes1)=="fes")&(class(coef)=="fes")) {
     stop("Error: You cannot divide fes by fes")
@@ -724,22 +782,62 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
   return(cfes)
 }
 
-# min of fes
+#' Calculate minimum of free energy surface
+#'
+#' `min.fes` calculates minimum of free energy in a fes object
+#'
+#' @param inputfes fes object
+#' @inherit min
+#' @return minimum
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' min(tfes)
 min.fes<-function(inputfes=inputfes, na.rm=NULL) {
   return(min(inputfes$fes, na.rm=na.rm))
 }
 
-# max of fes
+#' Calculate maximum of free energy surface
+#'
+#' `max.fes` calculates maximum of free energy in a fes object
+#'
+#' @param inputfes fes object
+#' @inherit max
+#' @return maximum
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' max(tfes)
 max.fes<-function(inputfes=inputfes, na.rm=NULL) {
   return(max(inputfes$fes, na.rm=na.rm))
 }
 
-# mean of fes
+#' Calculate mean of free energy surface
+#'
+#' `mean.fes` calculates mean of free energy in a fes object
+#'
+#' @param inputfes fes object
+#' @inherit mean
+#' @return mean
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' mean(tfes)
 mean.fes<-function(inputfes=inputfes, na.rm=NULL) {
   return(mean(inputfes$fes, na.rm=na.rm))
 }
 
-# print FES
+#' Print dimensionality, minimum and maximum of free energy surface
+#'
+#' `print.fes` prints dimensionality, minimum and maximum of
+#' free energy in a fes object
+#'
+#' @param inputfes fes object
+#' @inherit print
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' tfes
 print.fes<-function(inputfes=inputfes) {
   if(inputfes$dimension==1) {
     cat("1D free energy surface with ")
@@ -763,7 +861,17 @@ print.fes<-function(inputfes=inputfes) {
   }
 }
 
-# print summary of a FES
+#' Print summary of free energy surface
+#'
+#' `summary.fes` prints dimensionality, minimum and maximum of
+#' free energy in a fes object
+#'
+#' @param inputfes fes object
+#' @inherit print
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' summary(tfes)
 summary.fes<-function(inputfes=inputfes) {
   if(inputfes$dimension==1) {
     cat("1D free energy surface with ")
@@ -787,7 +895,23 @@ summary.fes<-function(inputfes=inputfes) {
   }
 }
 
-# plot FES
+#' Plot fes object
+#'
+#' `plot.fes` plots free energy surface. For a fes with one collective variable it plots
+#' a 1D profile. For a fes with two collective variables it plots 2D free energy surface
+#' using image, contours or combination of both (default).
+#'
+#' @param inputfes fes object
+#' @param plottype specifies whether 2D free energy surface will be ploted as image, contours or both (default "both")
+#' @param colscale specifies whether color scale will be ploted (default False)
+#' @param colscalelab color scale label (default "free energy")
+#' @inherit plot, image, contours
+#'
+#' @examples
+#' tfes2d<-fes(acealanme)
+#' plot(tfes2d)
+#' tfes1d<-fes(acealanme1d)
+#' plot(tfes1d)
 plot.fes<-function(inputfes=inputfes, plottype="both",
                    colscale=F, x=NULL, y=NULL,
                    xlim=NULL, ylim=NULL, zlim=NULL,
@@ -859,7 +983,17 @@ plot.fes<-function(inputfes=inputfes, plottype="both",
   }
 }
 
-# points FES
+#' Plots 1D fes object as points
+#'
+#' `points.fes` plots 1D free energy surface as points.
+#'
+#' @param inputfes fes object
+#' @inherit points
+#'
+#' @examples
+#' tfes<-fes(acealanme1d)
+#' plot(tfes)
+#' points(tfes)
 points.fes<-function(inputfes=inputfes, x=NULL,
                      pch=1, col="black", bg="red", cex=1) {
   fes<-inputfes$fes
@@ -872,7 +1006,17 @@ points.fes<-function(inputfes=inputfes, x=NULL,
   }
 }
 
-# lines FES
+#' Plots 1D fes object as lines
+#'
+#' `lines.fes` plots 1D free energy surface as lines.
+#'
+#' @param inputfes fes object
+#' @inherit lines
+#'
+#' @examples
+#' tfes<-fes(acealanme1d)
+#' plot(tfes)
+#' lines(tfes, lwd=4)
 lines.fes<-function(inputfes=inputfes, x=NULL,
                     lwd=1, col="black") {
   fes<-inputfes$fes
@@ -884,7 +1028,22 @@ lines.fes<-function(inputfes=inputfes, x=NULL,
   }
 }
 
-# find minima of a FES
+#' Find free energy minima in the fes object
+#'
+#' `fesminima` finds free energy minima on 1D or 2D free energy surface.
+#' The surface is divided by a 1D or 2D grid and minima are found for each
+#' grid point. Next the program determines whether the minimum is a local
+#' free energy minimum. Free energy minima are labeled constitutively by
+#' capital letters.
+#'
+#' @param inputfes fes object
+#' @param nbins number of bins for each CV (default 8)
+#' @return minima object
+#'
+#' @examples
+#' tfes<-fes(acealanme1d)
+#' minima<-fesminima(tfes)
+#' minima
 fesminima<-function(inputfes=inputfes, nbins=8) {
   fes<-inputfes$fes
   rows<-inputfes$rows
@@ -961,7 +1120,6 @@ fesminima<-function(inputfes=inputfes, nbins=8) {
   return(minima)
 }
 
-# create empty minima
 emptyminima<-function(inputfes=inputfes) {
   fes<-inputfes$fes
   rows<-inputfes$rows
@@ -983,7 +1141,22 @@ emptyminima<-function(inputfes=inputfes) {
   return(minima)
 }
 
-# create one minima
+#' Creates one ad hoc free energy minimum for a fes object
+#'
+#' `oneminimum` creates an ad hoc free energy minimum on free energy surface.
+#' This can be used to calculate free energy surface evolution at arbitrary
+#' point of free energy surface.
+#'
+#' @param inputfes fes object
+#' @param cv1 the value of collective variable 1
+#' @param cv2 the value of collective variable 2
+#' @return minima object
+#'
+#' @examples
+#' tfes<-fes(acealanme1d)
+#' minima<-fesminima(tfes)
+#' minima<-minima+oneminimum(tfes, cv1=0, cv2=0)
+#' minima
 oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
   fes<-inputfes$fes
   rows<-inputfes$rows
@@ -1012,7 +1185,6 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
   return(minima)
 }
 
-# add minima
 `+.minima`<-function(min1, min2) {
   if(class(min1)!="minima") {
     stop("Error: You can sum only two minima objects")
@@ -1027,7 +1199,7 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
   minima1<-min1$minima
   minima2<-min2$minima
   minima<-rbind(minima1, minima2)
-  if(inputfes$dimension==2) {
+  if(min1$dimension==2) {
     names(minima) <- c("letter", "CV1bin", "CV2bin", "CV1", "CV2", "free_energy")
     minima <- minima[order(minima[,6]),]
     rownames(minima) <- seq(length=nrow(minima))
@@ -1035,7 +1207,7 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
     minima<-list(minima=minima, hills=min1$hills, fes=min1$fes, rows=min1$rows, dimension=min1$dimension, per=min1$per, x=min1$x, y=min1$y, pcv1=min1$pcv1, pcv2=min1$pcv2)
     class(minima) <- "minima"
   }
-  if(inputfes$dimension==1) {
+  if(min1$dimension==1) {
     names(minima) <- c("letter", "CV1bin", "CV1", "free_energy")
     minima <- minima[order(minima[,4]),]
     rownames(minima) <- seq(length=nrow(minima))
@@ -1046,13 +1218,37 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
   return(minima)
 }
 
-# print minima of a FES
+#' Print minima object
+#'
+#' `print.minima` prints free energy minima (identifier, values of bins and collective variables and free energy).
+#'
+#' @param minims minima object
+#' @param temp temperature in Kelvins
+#' @param eunit energy units (kJ/mol or kcal/mol, kJ/mol is default)
+#' @inherit print
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' minima
 print.minima<-function(minims) {
   cat("$minima\n\n")
   print(minims$minima)
 }
 
-# print a summary of minima of a FES
+#' Print minima object summary
+#'
+#' `summary.minima` prints summary for free energy minima (identifier, values of bins and collective variables,
+#' free energy and equilibrium populations).
+#'
+#' @param minims minima object
+#' @param temp temperature in Kelvins
+#' @param eunit energy units (kJ/mol or kcal/mol, kJ/mol is default)
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' summary(minima)
 summary.minima<-function(minims=minims, temp=300, eunit="kJ/mol") {
   toprint <- minims$minima
   tind = 6
@@ -1073,7 +1269,21 @@ summary.minima<-function(minims=minims, temp=300, eunit="kJ/mol") {
   print(toprint)
 }
 
-# plot minima
+#' Plot minima object
+#'
+#' `plot.minima` plots free energy surface with minima. The free energy sufrace is ploted the same
+#' way as by plot.fes with aditional minima labels.
+#'
+#' @param minims minima object
+#' @param plottype specifies whether 2D free energy surface will be ploted as image, contours or both (default "both")
+#' @param colscale specifies whether color scale will be ploted (default False)
+#' @param colscalelab color scale label (default "free energy")
+#' @inherit plot, image, contours
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' plot(minima)
 plot.minima <- function(minims=minims, plottype="both",
                   x=NULL, y=NULL,
                   xlim=NULL, ylim=NULL, zlim=NULL,
@@ -1148,30 +1358,44 @@ plot.minima <- function(minims=minims, plottype="both",
   }
 }
 
-# Calculate free energy profiles
-feprof <- function(minims=minims, tmin=0, tmax=NULL) {
+#' Calculate free energy profile for minima object
+#'
+#' `feprof` calculates free energy profiles for free energy minima. It finds the global minimum at the
+#' imax and calculates the evolution of free of local vs. global free energy minimum. The global
+#' minimum is const (zero).
+#'
+#' @param minims minima object
+#' @param imin index of a hill from which summation starts (default 0)
+#' @param imax index of a hill from which summation stops (default the rest of hills)
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' prof<-fesprof(minima)
+#' prof
+feprof <- function(minims=minims, imin=0, imax=NULL) {
   fes<-minims$fes
   rows<-minims$rows
   mins<-minims$minima
   hills<-minims$hills
-  if(is.null(tmax)) {
-    tmax<-nrow(hills)
+  if(is.null(imax)) {
+    imax<-nrow(hills)
   }
-  if(tmax>nrow(hills)) {
-    tmax<-nrow(hills)
-    cat("Warning: You requested more hills by tmax than available, using all hills\n")
+  if(imax>nrow(hills)) {
+    imax<-nrow(hills)
+    cat("Warning: You requested more hills by imax than available, using all hills\n")
   }
-  if(tmin>=tmax) {
-    stop("Error: tmax must be higher than tmin")
+  if(imin>=imax) {
+    stop("Error: imax must be higher than imin")
   }
-  tt <- tmin:tmax
+  tt <- imin:imax
   mms <- data.frame(tt)
   if(minims$dimension==1) {
     for(i in 1:nrow(mins)) {
       if(minims$per[1]==T) {
-        mm<-fe1dp(hills[,2], hills[,3], hills[,4], mins[i,3], minims$pcv1[2]-minims$pcv1[1], tmin, tmax)
+        mm<-fe1dp(hills[,2], hills[,3], hills[,4], mins[i,3], minims$pcv1[2]-minims$pcv1[1], imin, imax)
       } else {
-        mm<-fe1d(hills[,2], hills[,3], hills[,4], mins[i,3], tmin, tmax)
+        mm<-fe1d(hills[,2], hills[,3], hills[,4], mins[i,3], imin, imax)
       }
       mms<-cbind(mms,mm)
     }
@@ -1179,16 +1403,16 @@ feprof <- function(minims=minims, tmin=0, tmax=NULL) {
   if(minims$dimension==2) {
     for(i in 1:nrow(mins)) {
       if(minims$per[1]==T && minims$per[2]==T) {
-        mm<-fe2dp12(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], minims$pcv2[2]-minims$pcv2[1], tmin, tmax)
+        mm<-fe2dp12(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], minims$pcv2[2]-minims$pcv2[1], imin, imax)
       }
       if(minims$per[1]==T && minims$per[2]==F) {
-        mm<-fe2dp1(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], tmin, tmax)
+        mm<-fe2dp1(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], imin, imax)
       }
       if(minims$per[1]==F && minims$per[2]==T) {
-        mm<-fe2dp2(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv2[2]-minims$pcv2[1], tmin, tmax)
+        mm<-fe2dp2(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv2[2]-minims$pcv2[1], imin, imax)
       }
       if(minims$per[1]==F && minims$per[2]==F) {
-        mm<-fe2d(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], tmin, tmax)
+        mm<-fe2d(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], imin, imax)
       }
       mms<-cbind(mms,mm)
     }
@@ -1207,21 +1431,38 @@ print.profiles <- function(profs=profs) {
   }
 }
 
-summary.profiles <- function(profs=profs) {
+#' Prints summary for free energy profile
+#'
+#' `summary.profiles` prints the list of free energy minima with maximal
+#' and minimal free energy differences.
+#'
+#' @param profs profiles object
+#' @param imind index of a hill from which calculation of difference starts (default 0)
+#' @param imaxd index of a hill from which calculation of difference stops (default the rest of hills)
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' prof<-fesprof(minima)
+#' summary(prof)
+summary.profiles <- function(profs=profs, imind=1, imaxd=NULL) {
+  if(is.null(imaxd)) {
+    imaxd<-nrow(profs$mms)
+  }
   if(profs$dimension==1) {
     outprofile <- profs$mins
     mms<-profs$mms[,2:ncol(profs$mms)]-profs$mms[,2]
-    outprofile <- cbind(outprofile,apply(mms,2,min))
-    outprofile <- cbind(outprofile,apply(mms,2,max))
-    outprofile <- cbind(outprofile,t(mms[nrow(mms),]))
+    outprofile <- cbind(outprofile,apply(mms[imind:imaxd,],2,min))
+    outprofile <- cbind(outprofile,apply(mms[imind:imaxd,],2,max))
+    outprofile <- cbind(outprofile,t(mms[imaxd,]))
     names(outprofile)[5:7]<-c("min diff", "max diff", "tail")
     print(outprofile)
   } else {
     outprofile <- profs$mins
     mms<-profs$mms[,2:ncol(profs$mms)]-profs$mms[,2]
-    outprofile <- cbind(outprofile,apply(mms,2,min))
-    outprofile <- cbind(outprofile,apply(mms,2,max))
-    outprofile <- cbind(outprofile,t(mms[nrow(mms),]))
+    outprofile <- cbind(outprofile,apply(mms[imind:imaxd,],2,min))
+    outprofile <- cbind(outprofile,apply(mms[imind:imaxd,],2,max))
+    outprofile <- cbind(outprofile,t(mms[imaxd,]))
     names(outprofile)[7:9]<-c("min diff", "max diff", "tail")
     print(outprofile)
   }

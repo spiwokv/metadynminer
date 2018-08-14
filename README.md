@@ -29,8 +29,8 @@ plotheights(hillsf)
 # Calculate FES by bias sum (alternatively use fes2 for conventional calculation)
 tfes<-fes(hillsf)
 
-# Calculate FES for given range
-tfes<-fes(hillsf, tmin=5000, tmax=10000)
+# Calculate FES for given range (indexes of hills)
+tfes<-fes(hillsf, imin=5000, imax=10000)
 
 # Sum two FESes
 tfes+tfes
@@ -63,6 +63,9 @@ plot(minima)
 
 # Calculate free energy profile for minima
 prof<-feprof(minima)
+
+# Plot free energy profile for minima
+plot(prof)
 
 # Make 1D free energy surface from the 2D one
 tfes1<-fes2d21d(hillsf, remdim=2) # T=300K, kJ/mol
@@ -116,7 +119,7 @@ tfes<-fes(hillsf, tmax=100)
 png("snap%04d.png")
 plot(tfes, zlim=c(-200,0))
 for(i in 1:299) {
- tfes<-tfes+fes(hillsf, tmin=100*i+1, tmax=100*(i+1))
+ tfes<-tfes+fes(hillsf, imin=100*i+1, imax=100*(i+1))
  plot(tfes, zlim=c(-200,0))
 }
 dev.off()
@@ -130,7 +133,7 @@ tfes<-fes(hillsf)
 png("snap%04d.png")
 plot(tfes, zlim=c(-200,0))
 for(i in 0:299) {
-  tfes<-tfes + -1*fes(hillsf, tmin=100*i+1, tmax=100*(i+1))
+  tfes<-tfes + -1*fes(hillsf, imin=100*i+1, imax=100*(i+1))
   plot(tfes, zlim=c(-200,0))
 }
 dev.off()
@@ -143,7 +146,7 @@ hillsf <- read.hills("HILLS", per=c(T,T))
 tfes1<-fes2d21d(hillsf, remdim=2)
 plot(tfes1-min(tfes1), ylim=c(0,80), lwd=4, col="black")
 for(i in 1:10) {
- tfes1<-fes2d21d(hillsf, tmax=3000*i)
+ tfes1<-fes2d21d(hillsf, imax=3000*i)
  lines(tfes1-min(tfes1), col=rainbow(13)[i])
 }
 ```
