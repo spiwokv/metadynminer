@@ -12,57 +12,56 @@ install.packages("metadynminer") # in future will be added to R repository
 library(metadynminer) # in future will be added to R repository
 
 # Read hills file
-hillsf<-read.hills("HILLS", per=c(TRUE, TRUE)) # done
+hillsf<-read.hills("HILLS", per=c(TRUE, TRUE)) # HILLS with periodicity on CV1 and CV2
 
 # Sum two hills files
-hillsf+hillsf # done
+hillsf+hillsf
 
 # Summary of a hills file
-summary(hillsf) # done
+summary(hillsf)
 
 # Plot CVs
-plot(hillsf) # done
+plot(hillsf)
 
 # Plot heights
-plotheights(hillsf) # done
+plotheights(hillsf)
 
 # Calculate FES by bias sum (alternatively use fes2 for conventional calculation)
-tfes<-fes(hillsf, tmin=5000, tmax=10000) # done, to do manual
+tfes<-fes(hillsf)
+
+# Calculate FES for given range
+tfes<-fes(hillsf, tmin=5000, tmax=10000)
 
 # Sum two FESes
-tfes+tfes # done, to do manual
+tfes+tfes
 
 # Calculate and substract min, max or mean from a FES
-tfes<-tfes-min(tfes) # done, to do manual
+tfes<-tfes-min(tfes)
 
 # Summary of FES
-summary(tfes) # done, to do manual
+summary(tfes)
 
 # Plot FES
-plot(tfes) # done
+plot(tfes)
 
 # Find minima
-minima<-fesminima(tfes) # done, to do manual
+minima<-fesminima(tfes)
 
 # Summary of minima
-summary(minima) # done, to do manual
+summary(minima)
 
-# Create empty minima
-minima<-emptyminima(tfes) # done, to do manual
-
-# Create ad hoc minimum
-minima<-oneminimum(tfes, cv1=0, cv2=0) # done, to do manual
-
-# sum minima
-fesminima(fes) + oneminimum(tfes, cv1=0, cv2=0) # done, to do manual
+# Create empty minima list, create ad hoc minimum, add minima
+minima<-emptyminima(tfes)
+minima<-oneminimum(tfes, cv1=0, cv2=0)
+fesminima(fes) + oneminimum(tfes, cv1=0, cv2=0)
 
 # Plot free energy minima
-plot(minima) # 2D done, 1D to do, to do manual
+plot(minima)
 
 # Calculate free energy profile for minima
-prof<-feprof(minima) # done, to do manual
+prof<-feprof(minima)
 
-# Find transition path
+# Nudged Elastic Band - almost done, make object, make 1D
 # Summary of transition path
 # Scale
 # 2d21d
