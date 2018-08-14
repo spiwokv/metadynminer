@@ -1,7 +1,7 @@
 Package: metadynminer
 Type: Package
 Title: Metadynminer reads, analyses and visualizes metadynamics HILLS files from Plumed.
-Version: 0.1
+Version: 0.1.0
 Date: 2018-08-14
 Author: Vojtech Spiwok [aut, cre]
 Maintainer: Vojtech Spiwok <spiwokv@vscht.cz>
