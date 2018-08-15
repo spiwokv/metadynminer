@@ -12,7 +12,7 @@
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme1d)
+#' tfes<-fes(acealanme)
 #' minima<-fesminima(tfes)
 #' minima
 fesminima<-function(inputfes=inputfes, nbins=8) {

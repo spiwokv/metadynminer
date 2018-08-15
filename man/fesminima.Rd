@@ -22,7 +22,7 @@ free energy minimum. Free energy minima are labeled constitutively by
 capital letters.
 }
 \examples{
-tfes<-fes(acealanme1d)
+tfes<-fes(acealanme)
 minima<-fesminima(tfes)
 minima
 }
