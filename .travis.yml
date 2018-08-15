@@ -14,5 +14,5 @@ sudo: required
 install:
     - R -e 'install.packages(c("Rcpp", "RcppArmadillo"))'
 env:
-  - PKG_CPPFLAGS=`Rscript -e 'install.packages(c("Rcpp", "RcppArmadillo"),repos="https://cloud.r-project.org");cat(toString(RcppArmadillo:::CxxFlags()));cat(" ");cat(toString(Rcpp:::CxxFlags()))'`
+  - PKG_CPPFLAGS="-I/home/travis/R-bin/lib/R/library/Rcpp/include -I/home/travis/R-bin/lib/R/library/Rcpp/RcppArmadillo/include"
 
