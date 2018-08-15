@@ -17,5 +17,5 @@ tfes<-fes(acealanme)
 minima<-fesminima(tfes)
 nebAD<-neb(minima, min1="A", min2="D")
 plot(nebAD)
-lines(nebAD)
+lines(nebAD, lwd=4)
 }

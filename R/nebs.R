@@ -414,7 +414,7 @@ points.nebpath <- function(nebpath=nebpath,
 #' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' plot(nebAD)
-#' lines(nebAD)
+#' lines(nebAD, lwd=4)
 lines.nebpath <- function(nebpath=nebpath,
                           col="red", lwd=1) {
   if(ncol(nebpath$path)==3) {
