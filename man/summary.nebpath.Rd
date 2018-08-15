@@ -20,7 +20,7 @@ half lives calculated by Eyring equation (https://doi.org/10.1063/1.1749604).
 }
 \examples{
 tfes<-fes(acealanme)
-minima<-findminima(tfes)
+minima<-fesminima(tfes)
 nebAD<-neb(minima, min1="A", min2="D")
 summary(nebAD)
 }

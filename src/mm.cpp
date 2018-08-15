@@ -1,6 +1,4 @@
-#include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
-
+#include <Rcpp.h>
 using namespace Rcpp;
 
 // [[Rcpp::export]]

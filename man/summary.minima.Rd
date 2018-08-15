@@ -20,6 +20,6 @@ free energy and equilibrium populations).
 }
 \examples{
 tfes<-fes(acealanme)
-minima<-findminima(tfes)
+minima<-fesminima(tfes)
 summary(minima)
 }

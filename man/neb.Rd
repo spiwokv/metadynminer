@@ -29,7 +29,7 @@ two minima. For 2D surface it calculates the transition path by Nudged Elastic
 }
 \examples{
 tfes<-fes(acealanme)
-minima<-findminima(tfes)
+minima<-fesminima(tfes)
 nebAD<-neb(minima, min1="A", min2="D")
 nebAD
 }

@@ -16,7 +16,7 @@
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
+#' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' nebAD
 neb<-function(minims=minims, min1="A", min2="B", nbins=20,
@@ -110,7 +110,7 @@ neb<-function(minims=minims, min1="A", min2="B", nbins=20,
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
+#' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' nebAD
 print.nebpath <- function(nebpath=nebpath) {
@@ -131,7 +131,7 @@ print.nebpath <- function(nebpath=nebpath) {
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
+#' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' summary(nebAD)
 summary.nebpath <- function(nebpath=nebpath, temp=300, eunit="kJ/mol") {
@@ -329,7 +329,7 @@ summary.nebpath <- function(nebpath=nebpath, temp=300, eunit="kJ/mol") {
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
+#' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' plot(nebAD)
 plot.nebpath <- function(nebpath=nebpath,
@@ -382,7 +382,7 @@ plot.nebpath <- function(nebpath=nebpath,
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
+#' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' plot(nebAD)
 #' points(nebAD)
@@ -411,7 +411,7 @@ points.nebpath <- function(nebpath=nebpath,
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
+#' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' plot(nebAD)
 #' lines(nebAD, lwd=4)
@@ -438,7 +438,7 @@ lines.nebpath <- function(nebpath=nebpath,
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
+#' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' plot(minima)
 #' pointsonfes(nebAD)
@@ -466,7 +466,7 @@ pointsonfes <- function(nebpath=nebpath,
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
+#' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' plot(minima)
 #' linesonfes(nebAD)

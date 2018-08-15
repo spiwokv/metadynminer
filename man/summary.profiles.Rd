@@ -19,7 +19,7 @@ and minimal free energy differences.
 }
 \examples{
 tfes<-fes(acealanme)
-minima<-findminima(tfes)
-prof<-fesprof(minima)
+minima<-fesminima(tfes)
+prof<-feprof(minima)
 summary(prof)
 }

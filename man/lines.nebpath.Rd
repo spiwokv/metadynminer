@@ -14,7 +14,7 @@
 }
 \examples{
 tfes<-fes(acealanme)
-minima<-findminima(tfes)
+minima<-fesminima(tfes)
 nebAD<-neb(minima, min1="A", min2="D")
 plot(nebAD)
 lines(nebAD, lwd=4)

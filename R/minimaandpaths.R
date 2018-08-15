@@ -203,7 +203,7 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
+#' minima<-fesminima(tfes)
 #' minima
 print.minima<-function(minims) {
   cat("$minima\n\n")
@@ -222,7 +222,7 @@ print.minima<-function(minims) {
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
+#' minima<-fesminima(tfes)
 #' summary(minima)
 summary.minima<-function(minims=minims, temp=300, eunit="kJ/mol") {
   toprint <- minims$minima
@@ -260,7 +260,7 @@ summary.minima<-function(minims=minims, temp=300, eunit="kJ/mol") {
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
+#' minima<-fesminima(tfes)
 #' plot(minima)
 plot.minima <- function(minims=minims, plottype="both",
                   x=NULL, y=NULL,
@@ -349,8 +349,8 @@ plot.minima <- function(minims=minims, plottype="both",
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
-#' prof<-fesprof(minima)
+#' minima<-fesminima(tfes)
+#' prof<-feprof(minima)
 #' prof
 feprof <- function(minims=minims, imin=0, imax=NULL) {
   fes<-minims$fes
@@ -423,8 +423,8 @@ print.profiles <- function(profs=profs) {
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
-#' prof<-fesprof(minima)
+#' minima<-fesminima(tfes)
+#' prof<-feprof(minima)
 #' summary(prof)
 summary.profiles <- function(profs=profs, imind=1, imaxd=NULL) {
   if(is.null(imaxd)) {
@@ -464,8 +464,8 @@ summary.profiles <- function(profs=profs, imind=1, imaxd=NULL) {
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-#' minima<-findminima(tfes)
-#' prof<-fesprof(minima)
+#' minima<-fesminima(tfes)
+#' prof<-feprof(minima)
 #' plot(prof)
 plot.profiles <- function(profs=profs, which=NULL,
                           ignoretime=FALSE,

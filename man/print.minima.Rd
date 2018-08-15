@@ -18,6 +18,6 @@
 }
 \examples{
 tfes<-fes(acealanme)
-minima<-findminima(tfes)
+minima<-fesminima(tfes)
 minima
 }

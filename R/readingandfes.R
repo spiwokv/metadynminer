@@ -1,5 +1,6 @@
-library(Rcpp)
-library(RcppArmadillo)
+#' @useDynLib metadynminer
+#' @importFrom Rcpp sourceCpp
+NULL
 
 #' Read HILLS from Plumed
 #'
@@ -399,7 +400,7 @@ fes<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256)
   if(imin>=imax) {
     stop("Error: imax must be higher than imin")
   }
-  sourceCpp("../src/mm.cpp")
+  #sourceCpp("mm.cpp")
   if(hills$size[2]==7) {
     if(max(hills$hillsfile[,4])/min(hills$hillsfile[,4])>1.00000000001) {
       stop("Error: Bias Sum algorithm works only with hills of the same sizes")
@@ -503,7 +504,7 @@ fes2<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256
   if(imin>=imax) {
     stop("Error: imax must be higher than imin")
   }
-  sourceCpp("../src/mm.cpp")
+  #sourceCpp("mm.cpp")
   if(hills$size[2]==7) {
     minCV1 <- min(hills$hillsfile[,2])
     maxCV1 <- max(hills$hillsfile[,2])
@@ -603,7 +604,7 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
   if(imin>=imax) {
     stop("Error: imax must be higher than imin")
   }
-  sourceCpp("../src/mm.cpp")
+  #sourceCpp("mm.cpp")
   if(hills$size[2]==7) {
     if(max(hills$hillsfile[,4])/min(hills$hillsfile[,4])>1.00000000001) {
       stop("Error: Bias Sum algorithm works only with hills of the same sizes")

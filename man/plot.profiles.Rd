@@ -22,7 +22,7 @@ They are colored by rainbow colors from the global one (blue) to the highest (re
 }
 \examples{
 tfes<-fes(acealanme)
-minima<-findminima(tfes)
-prof<-fesprof(minima)
+minima<-fesminima(tfes)
+prof<-feprof(minima)
 plot(prof)
 }

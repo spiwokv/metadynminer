@@ -28,6 +28,6 @@ way as by plot.fes with aditional minima labels.
 }
 \examples{
 tfes<-fes(acealanme)
-minima<-findminima(tfes)
+minima<-fesminima(tfes)
 plot(minima)
 }

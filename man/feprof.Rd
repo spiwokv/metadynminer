@@ -20,7 +20,7 @@ minimum is const (zero).
 }
 \examples{
 tfes<-fes(acealanme)
-minima<-findminima(tfes)
-prof<-fesprof(minima)
+minima<-fesminima(tfes)
+prof<-feprof(minima)
 prof
 }
