@@ -150,7 +150,7 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
     icv1<-as.integer(rows*(cv1-min(inputfes$x))/(max(inputfes$x)-min(inputfes$x)))+1
     if(icv1<0)    stop("Error: Out of range")
     if(icv1>rows) stop("Error: Out of range")
-    minima<-data.frame(c("A"), c(icv1), c(cv1), c(fes[icv1,icv2]))
+    minima<-data.frame(c("A"), c(icv1), c(cv1), c(fes[icv1]))
     names(minima) <- c("letter", "CV1bin", "CV1", "free_energy")
     minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
     class(minima) <- "minima"
