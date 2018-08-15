@@ -2,7 +2,7 @@
 % Please edit documentation in R/metadynminer.R
 \name{summary.profiles}
 \alias{summary.profiles}
-\title{Prints summary for free energy profile}
+\title{Print summary for free energy profile}
 \usage{
 \method{summary}{profiles}(profs = profs, imind = 1, imaxd = NULL)
 }

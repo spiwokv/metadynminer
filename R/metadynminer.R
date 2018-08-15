@@ -833,7 +833,6 @@ mean.fes<-function(inputfes=inputfes, na.rm=NULL) {
 #' free energy in a fes object
 #'
 #' @param inputfes fes object
-#' @inherit print
 #'
 #' @examples
 #' tfes<-fes(acealanme)
@@ -867,7 +866,6 @@ print.fes<-function(inputfes=inputfes) {
 #' free energy in a fes object
 #'
 #' @param inputfes fes object
-#' @inherit print
 #'
 #' @examples
 #' tfes<-fes(acealanme)
@@ -905,7 +903,9 @@ summary.fes<-function(inputfes=inputfes) {
 #' @param plottype specifies whether 2D free energy surface will be ploted as image, contours or both (default "both")
 #' @param colscale specifies whether color scale will be ploted (default False)
 #' @param colscalelab color scale label (default "free energy")
-#' @inherit plot, image, contours
+#' @inherit plot
+#' @inherit image
+#' @inherit contours
 #'
 #' @examples
 #' tfes2d<-fes(acealanme)
@@ -1225,7 +1225,6 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
 #' @param minims minima object
 #' @param temp temperature in Kelvins
 #' @param eunit energy units (kJ/mol or kcal/mol, kJ/mol is default)
-#' @inherit print
 #'
 #' @examples
 #' tfes<-fes(acealanme)
@@ -1278,7 +1277,9 @@ summary.minima<-function(minims=minims, temp=300, eunit="kJ/mol") {
 #' @param plottype specifies whether 2D free energy surface will be ploted as image, contours or both (default "both")
 #' @param colscale specifies whether color scale will be ploted (default False)
 #' @param colscalelab color scale label (default "free energy")
-#' @inherit plot, image, contours
+#' @inherit plot
+#' @inherit image
+#' @inherit contours
 #'
 #' @examples
 #' tfes<-fes(acealanme)
@@ -1431,7 +1432,7 @@ print.profiles <- function(profs=profs) {
   }
 }
 
-#' Prints summary for free energy profile
+#' Print summary for free energy profile
 #'
 #' `summary.profiles` prints the list of free energy minima with maximal
 #' and minimal free energy differences.
@@ -1468,6 +1469,23 @@ summary.profiles <- function(profs=profs, imind=1, imaxd=NULL) {
   }
 }
 
+#' Plot free energy profile
+#'
+#' `plot.profiles` plots evolution of free energy differences between minima.
+#' They are colored by rainbow colors from the global one (blue) to the highest (red).
+#'
+#' @param profs profiles object
+#' @param which vector of indexes of profiles to be ploted (default all)
+#' @param ignoretime time in the first column of the HILLS file will be ignored
+#' @inherit plot
+#' @inherit image
+#' @inherit contours
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' prof<-fesprof(minima)
+#' plot(prof)
 plot.profiles <- function(profs=profs, which=NULL,
                           ignoretime=FALSE,
                           xlim=NULL, ylim=NULL,
@@ -1510,7 +1528,27 @@ plot.profiles <- function(profs=profs, which=NULL,
   }
 }
 
-neb<-function(minims, min1, min2, nbins=20,
+#' Find transition path on free energy surface by Nudged Elastic Band method
+#'
+#' `neb` finds a transition path on free energy surface for a given pair of
+#' minima. For a 1D surface it simply takes the free energy profile between the
+#' two minima. For 2D surface it calculates the transition path by Nudged Elastic
+#; Band method (https://doi.org/10.1063/1.1323224).
+#'
+#' @param minims minima object
+#' @param min1 starting minimum identifier (can be letter or index, default "A")
+#' @param min2 final minimum identifier (can be letter or index, default "B")
+#' @param nbins number of bins along Nudged Elastic Band (default 20)
+#' @param nsteps number of Nudged Elastic Band iterations (default 100)
+#' @param step Nudged Elastic Band iteration step (default 1)
+#' @param k Nudged Elastic Band toughness (default 0.2)
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' nebAD<-neb(minima, min1="A", min2="D")
+#' nebAD
+neb<-function(minims=minims, min1="A", min2="B", nbins=20,
               nsteps=100, step=1.0, k=0.2) {
   fes<-minims$fes
   pcv1<-minims$pcv1
@@ -1519,14 +1557,12 @@ neb<-function(minims, min1, min2, nbins=20,
   myLETTERS <- c(LETTERS, paste("A", LETTERS, sep=""), paste("B", LETTERS, sep=""))[1:nrow(minims$minima)]
   if(min1 %in% myLETTERS) {
     min1 <- minims$minima[match(min1, myLETTERS),]
+  } else if(min1 %in% 1:nrow(minims$minima)) {
+    min1 <- minims$minima[min1,]
   }
   if(min2 %in% myLETTERS) {
     min2 <- minims$minima[match(min2, myLETTERS),]
-  }
-  if(min1 %in% 1:nrow(minims$minima)) {
-    min1 <- minims$minima[min1,]
-  }
-  if(min2 %in% 1:nrow(minims$minima)) {
+  } else if(min2 %in% 1:nrow(minims$minima)) {
     min2 <- minims$minima[min2,]
   }
   if(minims$dimension==1) {
@@ -1594,12 +1630,35 @@ neb<-function(minims, min1, min2, nbins=20,
   return(cnebpath)
 }
 
+#' Print Nudged Elastic Band minima
+#'
+#' `print.nebpath` prints the list minima for Nudged Elastic Band
+#'
+#' @param nebpath nebpath object
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' nebAD<-neb(minima, min1="A", min2="D")
+#' nebAD
 print.nebpath <- function(nebpath=nebpath) {
   cat("path between minima:\n")
   print(nebpath$min1)
   print(nebpath$min2)
 }
 
+#' Print summary for Nudged Elastic Band
+#'
+#' `print.nebpath` prints the list minima for Nudged Elastic Band, activation energies and
+#' half lives calculated by Eyring equation (https://doi.org/10.1063/1.1749604).
+#'
+#' @param nebpath nebpath object
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' nebAD<-neb(minima, min1="A", min2="D")
+#' summary(nebAD)
 summary.nebpath <- function(nebpath=nebpath, temp=300, eunit="kJ/mol") {
   cat("path between minima:\n")
   print(nebpath$min1)
@@ -1785,6 +1844,18 @@ summary.nebpath <- function(nebpath=nebpath, temp=300, eunit="kJ/mol") {
   return(rates)
 }
 
+#' Plot Nudged Elastic Band
+#'
+#' `plot.nebpath` plots free energy profile calculated by Nudged Elastic Band.
+#'
+#' @param nebpath nebpath object
+#' @inherit plot
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' nebAD<-neb(minima, min1="A", min2="D")
+#' plot(nebAD)
 plot.nebpath <- function(nebpath=nebpath,
                          xlim=NULL, ylim=NULL,
                          main=NULL, sub=NULL,
@@ -1825,6 +1896,19 @@ plot.nebpath <- function(nebpath=nebpath,
   }
 }
 
+#' Plot points for Nudged Elastic Band
+#'
+#' `points.nebpath` plots points for free energy profile calculated by Nudged Elastic Band.
+#'
+#' @param nebpath nebpath object
+#' @inherit points
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' nebAD<-neb(minima, min1="A", min2="D")
+#' plot(nebAD)
+#' points(nebAD)
 points.nebpath <- function(nebpath=nebpath,
                            pch=NULL, cex=1, bg=NULL,
                            col="red", lwd=1) {
@@ -1840,6 +1924,19 @@ points.nebpath <- function(nebpath=nebpath,
   }
 }
 
+#' Plot lines for Nudged Elastic Band
+#'
+#' `lines.nebpath` plots lines for free energy profile calculated by Nudged Elastic Band.
+#'
+#' @param nebpath nebpath object
+#' @inherit lines
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' nebAD<-neb(minima, min1="A", min2="D")
+#' plot(nebAD)
+#' lines(nebAD, lwd=4)
 lines.nebpath <- function(nebpath=nebpath,
                           col="red", lwd=1) {
   if(ncol(nebpath$path)==3) {
@@ -1852,6 +1949,20 @@ lines.nebpath <- function(nebpath=nebpath,
   }
 }
 
+#' Plot points for Nudged Elastic Band projected onto free energy surface
+#'
+#' `points.nebpath` plots points for free energy profile calculated by Nudged Elastic Band
+#' projected onto free energy surface.
+#'
+#' @param nebpath nebpath object
+#' @inherit points
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' nebAD<-neb(minima, min1="A", min2="D")
+#' plot(minima)
+#' pointsonfes(nebAD)
 pointsonfes <- function(nebpath=nebpath,
                         pch=NULL, cex=1, bg=NULL,
                         col="red", lwd=1) {
@@ -1865,6 +1976,20 @@ pointsonfes <- function(nebpath=nebpath,
   }
 }
 
+#' Plot lines for Nudged Elastic Band projected onto free energy surface
+#'
+#' `points.nebpath` plots lines for free energy profile calculated by Nudged Elastic Band
+#' projected onto free energy surface.
+#'
+#' @param nebpath nebpath object
+#' @inherit lines
+#'
+#' @examples
+#' tfes<-fes(acealanme)
+#' minima<-findminima(tfes)
+#' nebAD<-neb(minima, min1="A", min2="D")
+#' plot(minima)
+#' linesonfes(nebAD)
 linesonfes <- function(nebpath=nebpath,
                        col="red", lwd=1) {
   if(ncol(nebpath$path)==3) {
