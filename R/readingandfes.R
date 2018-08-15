@@ -852,22 +852,6 @@ max.fes<-function(inputfes=inputfes, na.rm=NULL) {
   return(max(inputfes$fes, na.rm=na.rm))
 }
 
-#' Calculate mean of free energy surface
-#'
-#' `mean.fes` calculates mean of free energy in a fes object
-#'
-#' @param inputfes fes object
-#' @inherit mean
-#' @return mean
-#'
-#' @export
-#' @examples
-#' tfes<-fes(acealanme)
-#' mean(tfes)
-mean.fes<-function(inputfes=inputfes, na.rm=NULL) {
-  return(mean(inputfes$fes, na.rm=na.rm))
-}
-
 #' Print dimensionality, minimum and maximum of free energy surface
 #'
 #' `print.fes` prints dimensionality, minimum and maximum of
