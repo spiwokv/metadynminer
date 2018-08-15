@@ -14,5 +14,5 @@ sudo: required
 install:
     - R -e 'install.packages(c("Rcpp", "RcppArmadillo"))'
 env:
-  - PKG_CPPFLAGS="-I/home/travis/R/library/Rcpp/include -I/home/travis/R/library/Rcpp/RcppArmadillo/include"
+  - PKG_CPPFLAGS="-I/home/travis/R/library/Rcpp/include -I/home/travis/R/library/RcppArmadillo/include"
 
