@@ -23,7 +23,7 @@ NULL
 #' fourhills<-c(l1,l2,l3,l4)
 #' tf <- tempfile()
 #' writeLines(fourhills, tf)
-#' read.hills(tf, per=c(T,T))
+#' read.hills(tf, per=c(TRUE,TRUE))
 read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-pi,pi), ignoretime=FALSE) {
   hillsf<-read.table(file, header=F, comment.char="#")
   if(ncol(hillsf)==5 || ncol(hillsf)==6) {

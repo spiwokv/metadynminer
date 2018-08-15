@@ -33,5 +33,5 @@ l4<-"4 -1.198  2.872 0.3 0.3 1.074 10"
 fourhills<-c(l1,l2,l3,l4)
 tf <- tempfile()
 writeLines(fourhills, tf)
-read.hills(tf, per=c(T,T))
+read.hills(tf, per=c(TRUE,TRUE))
 }

@@ -273,7 +273,7 @@ plot.minima <- function(minims=minims, plottype="both",
                   method="flattest", textcol="black",
                   pch=1, bg="red", cex=1,
                   contcol=par("fg"), lty=par("lty"), lwd=par("lwd"),
-                  axes=T) {
+                  axes=TRUE) {
   fes<-minims$fes
   rows<-minims$rows
   minlabs<-minims$minima[,1]
