@@ -12,6 +12,8 @@ library(RcppArmadillo)
 #' @param pcv2 periodicity of CV2
 #' @param ignoretime time in the first column of the HILLS file will be ignored
 #' @return hillsfile object
+#'
+#' @export
 #' @examples
 #' hillsf <- read.hills("HILLS", per=c(T, T))
 read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-pi,pi), ignoretime=FALSE) {
@@ -55,6 +57,8 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
 #'
 #' @param hills hillsfile object
 #' @return dimensionality and size of a hillsfile object
+#'
+#' @export
 #' @examples
 #' acealanme
 print.hillsfile<-function(hills=hills) {
@@ -74,7 +78,16 @@ print.hillsfile<-function(hills=hills) {
   }
 }
 
-# print summary of a hillsfile
+#' Print summary for hillsfile
+#'
+#' `summary.hillsfile` prints dimensionality, size and collective variable ranges of a hillsfile object
+#'
+#' @param hills hillsfile object
+#' @return dimensionality and size of a hillsfile object
+#'
+#' @export
+#' @examples
+#' acealanme
 summary.hillsfile<-function(hills=hills) {
   if(hills$size[2]==5) {
     cat("1D hills file ")
@@ -112,7 +125,9 @@ summary.hillsfile<-function(hills=hills) {
 #'
 #' @param hills hillsfile object
 #' @param n number of lines (default 10)
-#' @return first n lines of a hillsfile object.
+#' @return first n lines of a hillsfile object
+#'
+#' @export
 #' @examples
 #' head(acealanme)
 head.hillsfile<-function(hills=hills, n=10) {
@@ -125,13 +140,16 @@ head.hillsfile<-function(hills=hills, n=10) {
 #'
 #' @param hills hillsfile object
 #' @param n number of lines (default 10)
-#' @return last n lines of a hillsfile object.
+#' @return last n lines of a hillsfile object
+#'
+#' @export
 #' @examples
 #' tail(acealanme)
 tail.hillsfile<-function(hills=hills, n=10) {
   return(tail(hills$hillsfile, n=n))
 }
 
+#' @export
 `+.hillsfile`<-function(hills1, hills2) {
   if(ncol(hills1$hillsfile)!=ncol(hills2$hillsfile)) {
     stop("Error: You can sum only hills of same dimension")
@@ -159,6 +177,7 @@ tail.hillsfile<-function(hills=hills, n=10) {
 #' @param ignoretime time in the first column of the HILLS file will be ignored
 #' @inherit plot
 #'
+#' @export
 #' @examples
 #' plot(acealanme)
 plot.hillsfile<-function(hills=hills, ignoretime=FALSE,
@@ -215,6 +234,7 @@ plot.hillsfile<-function(hills=hills, ignoretime=FALSE,
 #' @param ignoretime time in the first column of the HILLS file will be ignored
 #' @inherit points
 #'
+#' @export
 #' @examples
 #' plot(acealanme)
 #' points(acealanme, col="red")
@@ -247,6 +267,7 @@ points.hillsfile<-function(hills=hills, ignoretime=FALSE,
 #' @param ignoretime time in the first column of the HILLS file will be ignored
 #' @inherit points
 #'
+#' @export
 #' @examples
 #' plot(acealanme)
 #' lines(acealanme, col="red")
@@ -278,6 +299,7 @@ lines.hillsfile<-function(hills=hills, ignoretime=FALSE,
 #' @param ignoretime time in the first column of the HILLS file will be ignored
 #' @inherit plot
 #'
+#' @export
 #' @examples
 #' plotheights(acealanme)
 plotheights<-function(hills=hills, ignoretime=FALSE, xlab=NULL, ylab=NULL,
@@ -336,6 +358,7 @@ plotheights<-function(hills=hills, ignoretime=FALSE, xlab=NULL, ylab=NULL,
 #' @param pcv2 periodicity of CV2
 #' @return hillsfile object
 #'
+#' @export
 #' @examples
 #' tfes<-read.fes("fes.txt")
 read.fes<-function(filename="fes.txt", dimension=2, per=c(TRUE, TRUE), pcv1=c(-pi,pi), pcv2=c(-pi,pi)) {
@@ -360,6 +383,7 @@ read.fes<-function(filename="fes.txt", dimension=2, per=c(TRUE, TRUE), pcv1=c(-p
 #' @param npoints resolution of the free energy surface in number of points
 #' @return fes object
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 fes<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
@@ -463,6 +487,7 @@ fes<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256)
 #' @param npoints resolution of the free energy surface in number of points
 #' @return fes object
 #'
+#' @export
 #' @examples
 #' tfes<-fes2(acealanme)
 fes2<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
@@ -561,6 +586,7 @@ fes2<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256
 #' @param npoints resolution of the free energy surface in number of points
 #' @return fes object
 #'
+#' @export
 #' @examples
 #' tfes<-fes2d21d(acealanme, remdim=2)
 fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
@@ -655,6 +681,7 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
   return(cfes)
 }
 
+#' @export
 `+.fes`<-function(fes1, fes2) {
   if((class(fes1)=="fes")&(class(fes2)=="fes")) {
     if(fes1$rows!=fes2$rows) {
@@ -696,6 +723,7 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
   return(cfes)
 }
 
+#' @export
 `-.fes`<-function(fes1, fes2) {
   if((class(fes1)=="fes")&(class(fes2)=="fes")) {
     if(fes1$rows!=fes2$rows) {
@@ -739,6 +767,7 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
   return(cfes)
 }
 
+#' @export
 `*.fes`<-function(fes1, fes2) {
   if((class(fes1)=="fes")&(class(fes2)=="fes")) {
     stop("Error: You cannot multiply fes by fes")
@@ -763,6 +792,7 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
   return(cfes)
 }
 
+#' @export
 `/.fes`<-function(fes1, coef) {
   if((class(fes1)=="fes")&(class(coef)=="fes")) {
     stop("Error: You cannot divide fes by fes")
@@ -790,6 +820,7 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
 #' @inherit min
 #' @return minimum
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' min(tfes)
@@ -805,6 +836,7 @@ min.fes<-function(inputfes=inputfes, na.rm=NULL) {
 #' @inherit max
 #' @return maximum
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' max(tfes)
@@ -820,6 +852,7 @@ max.fes<-function(inputfes=inputfes, na.rm=NULL) {
 #' @inherit mean
 #' @return mean
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' mean(tfes)
@@ -834,6 +867,7 @@ mean.fes<-function(inputfes=inputfes, na.rm=NULL) {
 #'
 #' @param inputfes fes object
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' tfes
@@ -867,6 +901,7 @@ print.fes<-function(inputfes=inputfes) {
 #'
 #' @param inputfes fes object
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' summary(tfes)
@@ -907,6 +942,7 @@ summary.fes<-function(inputfes=inputfes) {
 #' @inherit image
 #' @inherit contours
 #'
+#' @export
 #' @examples
 #' tfes2d<-fes(acealanme)
 #' plot(tfes2d)
@@ -990,6 +1026,7 @@ plot.fes<-function(inputfes=inputfes, plottype="both",
 #' @param inputfes fes object
 #' @inherit points
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme1d)
 #' plot(tfes)
@@ -1013,6 +1050,7 @@ points.fes<-function(inputfes=inputfes, x=NULL,
 #' @param inputfes fes object
 #' @inherit lines
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme1d)
 #' plot(tfes)

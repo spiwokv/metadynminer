@@ -13,6 +13,7 @@
 #' @param step Nudged Elastic Band iteration step (default 1)
 #' @param k Nudged Elastic Band toughness (default 0.2)
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)
@@ -106,6 +107,7 @@ neb<-function(minims=minims, min1="A", min2="B", nbins=20,
 #'
 #' @param nebpath nebpath object
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)
@@ -126,6 +128,7 @@ print.nebpath <- function(nebpath=nebpath) {
 #' @param temp temperature in Kelvins
 #' @param eunit energy units (kJ/mol or kcal/mol, kJ/mol is default)
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)
@@ -323,6 +326,7 @@ summary.nebpath <- function(nebpath=nebpath, temp=300, eunit="kJ/mol") {
 #' @param nebpath nebpath object
 #' @inherit plot
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)
@@ -375,6 +379,7 @@ plot.nebpath <- function(nebpath=nebpath,
 #' @param nebpath nebpath object
 #' @inherit points
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)
@@ -403,6 +408,7 @@ points.nebpath <- function(nebpath=nebpath,
 #' @param nebpath nebpath object
 #' @inherit lines
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)
@@ -429,6 +435,7 @@ lines.nebpath <- function(nebpath=nebpath,
 #' @param nebpath nebpath object
 #' @inherit points
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)
@@ -456,6 +463,7 @@ pointsonfes <- function(nebpath=nebpath,
 #' @param nebpath nebpath object
 #' @inherit lines
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)

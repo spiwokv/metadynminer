@@ -10,6 +10,7 @@
 #' @param nbins number of bins for each CV (default 8)
 #' @return minima object
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme1d)
 #' minima<-fesminima(tfes)
@@ -90,6 +91,7 @@ fesminima<-function(inputfes=inputfes, nbins=8) {
   return(minima)
 }
 
+#' @export
 emptyminima<-function(inputfes=inputfes) {
   fes<-inputfes$fes
   rows<-inputfes$rows
@@ -122,6 +124,7 @@ emptyminima<-function(inputfes=inputfes) {
 #' @param cv2 the value of collective variable 2
 #' @return minima object
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme1d)
 #' minima<-fesminima(tfes)
@@ -155,6 +158,7 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
   return(minima)
 }
 
+#' @export
 `+.minima`<-function(min1, min2) {
   if(class(min1)!="minima") {
     stop("Error: You can sum only two minima objects")
@@ -196,6 +200,7 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
 #' @param temp temperature in Kelvins
 #' @param eunit energy units (kJ/mol or kcal/mol, kJ/mol is default)
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)
@@ -214,6 +219,7 @@ print.minima<-function(minims) {
 #' @param temp temperature in Kelvins
 #' @param eunit energy units (kJ/mol or kcal/mol, kJ/mol is default)
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)
@@ -251,6 +257,7 @@ summary.minima<-function(minims=minims, temp=300, eunit="kJ/mol") {
 #' @inherit image
 #' @inherit contours
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)
@@ -339,6 +346,7 @@ plot.minima <- function(minims=minims, plottype="both",
 #' @param imin index of a hill from which summation starts (default 0)
 #' @param imax index of a hill from which summation stops (default the rest of hills)
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)
@@ -393,6 +401,7 @@ feprof <- function(minims=minims, imin=0, imax=NULL) {
   return(profs)
 }
 
+#' @export
 print.profiles <- function(profs=profs) {
   cat(nrow(profs$mms))
   if(profs$dimension==1) {
@@ -411,6 +420,7 @@ print.profiles <- function(profs=profs) {
 #' @param imind index of a hill from which calculation of difference starts (default 0)
 #' @param imaxd index of a hill from which calculation of difference stops (default the rest of hills)
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)
@@ -451,6 +461,7 @@ summary.profiles <- function(profs=profs, imind=1, imaxd=NULL) {
 #' @inherit image
 #' @inherit contours
 #'
+#' @export
 #' @examples
 #' tfes<-fes(acealanme)
 #' minima<-findminima(tfes)
