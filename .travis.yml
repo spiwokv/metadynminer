@@ -12,7 +12,7 @@ dist: trusty
 warnings_are_errors: true
 sudo: required
 install:
-    - R -e 'install.packages(c("Rcpp", "RcppArmadillo"))'
+    - R -e 'install.packages("Rcpp")'
 env:
-  - PKG_CPPFLAGS="-I/home/travis/R/Library/Rcpp/include -I/home/travis/R/Library/RcppArmadillo/include"
+  - PKG_CPPFLAGS="-I/home/travis/R/Library/Rcpp/include"
 
