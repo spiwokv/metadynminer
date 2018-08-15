@@ -1,8 +1,18 @@
 language: r
+r:
+  - oldrel
+  - release
+  - devel
+cache: packages
+os:
+- osx
+- linux
+osx_image: xcode9
+dist: trusty
 warnings_are_errors: true
 sudo: required
 install:
   - R -e 'install.packages(c("Rcpp", "RcppArmadillo"))'
 env:
-  - PKG_CPPFLAGS=`Rscript -e 'install.packages(c("Rcpp", "RcppArmadillo"), repos="https://cloud.r-project.org");cat(toString(RcppArmadillo:::CxxFlags()));cat(" ");cat(toString(Rcpp:::CxxFlags()))'`
+  - PKG_CPPFLAGS=`Rscript -e 'cat(toString(RcppArmadillo:::CxxFlags()));cat(" ");cat(toString(Rcpp:::CxxFlags()))'`
 
