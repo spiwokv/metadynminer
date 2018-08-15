@@ -2,11 +2,17 @@
 
 ## Introduction
 MetadynMiner is R packages for reading, analysis and visualisation of metadynamics HILLS files produced by Plumed.
+It reads HILLS files from Plumed, calculates free energy surface by fast Bias Sum algorithm, finds minima and analyses
+transition paths by Nudged Elastic Band method.
 
 ## Usage
 ```R
 # Install from R repository
-install.packages("metadynminer") # in future will be added to R repository
+#install.packages("metadynminer") # in future will be added to R repository
+
+# Before this you can install from GitHub by devtools
+install.packages("devtools")
+devtools::install_github("spiwokv/metadynminer")
 
 # Load library
 library(metadynminer) # in future will be added to R repository
