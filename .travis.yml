@@ -11,8 +11,9 @@ osx_image: xcode9
 dist: trusty
 warnings_are_errors: true
 sudo: required
-install:
-  - R -e 'install.packages(c("Rcpp", "RcppArmadillo"))'
+before_install:
+  install:
+    - R -e 'install.packages(c("Rcpp", "RcppArmadillo"))'
 env:
   - PKG_CPPFLAGS=`Rscript -e 'cat(toString(RcppArmadillo:::CxxFlags()));cat(" ");cat(toString(Rcpp:::CxxFlags()))'`
 
