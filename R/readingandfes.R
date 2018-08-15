@@ -355,20 +355,7 @@ plotheights<-function(hills=hills, ignoretime=FALSE, xlab=NULL, ylab=NULL,
   }
 }
 
-#' Read free energy surface from the output of MetadynView
-#'
-#' `read.fes` read free energy surface from the output file of MetadynView (http://metadyn.vscht.cz)
-#'
-#' @param file fes.txt file from MetadynView
-#' @param dimension number of dimensions (default 2)
-#' @param per logical vector specifying periodicity of collective variables
-#' @param pcv1 periodicity of CV1
-#' @param pcv2 periodicity of CV2
-#' @return hillsfile object
-#'
 #' @export
-#' @examples
-#' tfes<-read.fes("fes.txt")
 read.fes<-function(filename="fes.txt", dimension=2, per=c(TRUE, TRUE), pcv1=c(-pi,pi), pcv2=c(-pi,pi)) {
   ifile<-read.table(filename)
   rows<-sqrt(nrow(ifile))
