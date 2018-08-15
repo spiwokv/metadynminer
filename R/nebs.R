@@ -123,6 +123,8 @@ print.nebpath <- function(nebpath=nebpath) {
 #' half lives calculated by Eyring equation (https://doi.org/10.1063/1.1749604).
 #'
 #' @param nebpath nebpath object
+#' @param temp temperature in Kelvins
+#' @param eunit energy units (kJ/mol or kcal/mol, kJ/mol is default)
 #'
 #' @examples
 #' tfes<-fes(acealanme)
