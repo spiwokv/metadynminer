@@ -6,7 +6,7 @@
 \usage{
 \method{points}{hillsfile}(hills = hills, ignoretime = FALSE,
   pch = 1, col = "black", bg = "red", cex = 1, asp = NULL,
-  lwd = 1, axes = TRUE)
+  lwd = 1, axes = TRUE, ...)
 }
 \arguments{
 \item{hills}{hillsfile object}

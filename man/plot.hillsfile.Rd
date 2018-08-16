@@ -7,7 +7,7 @@
 \method{plot}{hillsfile}(hills = hills, ignoretime = FALSE,
   xlab = NULL, ylab = NULL, xlim = NULL, ylim = NULL,
   main = NULL, sub = NULL, pch = 1, col = "black", bg = "red",
-  cex = 1, asp = NULL, lwd = 1, axes = TRUE)
+  cex = 1, asp = NULL, lwd = 1, axes = TRUE, ...)
 }
 \arguments{
 \item{hills}{hillsfile object}

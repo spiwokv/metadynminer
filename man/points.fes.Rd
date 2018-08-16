@@ -5,7 +5,7 @@
 \title{Plots 1D fes object as points}
 \usage{
 \method{points}{fes}(inputfes = inputfes, x = NULL, pch = 1,
-  col = "black", bg = "red", cex = 1)
+  col = "black", bg = "red", cex = 1, ...)
 }
 \arguments{
 \item{inputfes}{fes object}

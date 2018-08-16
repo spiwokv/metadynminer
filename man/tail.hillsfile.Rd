@@ -4,7 +4,7 @@
 \alias{tail.hillsfile}
 \title{Print last n lines of hillsfile}
 \usage{
-\method{tail}{hillsfile}(hills = hills, n = 10)
+\method{tail}{hillsfile}(hills = hills, n = 10, ...)
 }
 \arguments{
 \item{hills}{hillsfile object}

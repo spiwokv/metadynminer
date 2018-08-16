@@ -11,7 +11,7 @@
   labcex = 0.6, drawlabels = TRUE, method = "flattest",
   textcol = "black", pch = 1, bg = "red", cex = 1,
   contcol = par("fg"), lty = par("lty"), lwd = par("lwd"),
-  axes = TRUE)
+  axes = TRUE, ...)
 }
 \arguments{
 \item{minims}{minima object}

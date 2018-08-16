@@ -4,7 +4,7 @@
 \alias{head.hillsfile}
 \title{Print first n lines of hillsfile}
 \usage{
-\method{head}{hillsfile}(hills = hills, n = 10)
+\method{head}{hillsfile}(hills = hills, n = 10, ...)
 }
 \arguments{
 \item{hills}{hillsfile object}

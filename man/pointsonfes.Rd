@@ -5,7 +5,7 @@
 \title{Plot points for Nudged Elastic Band projected onto free energy surface}
 \usage{
 pointsonfes(nebpath = nebpath, pch = NULL, cex = 1, bg = NULL,
-  col = "red", lwd = 1)
+  col = "red", lwd = 1, ...)
 }
 \arguments{
 \item{nebpath}{nebpath object}

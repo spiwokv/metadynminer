@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{nebpath}(nebpath = nebpath, xlim = NULL, ylim = NULL,
   main = NULL, sub = NULL, xlab = "bin", ylab = "free energy",
-  col = "red", lwd = 1, cex = 1, axes = T)
+  col = "red", lwd = 1, cex = 1, axes = T, ...)
 }
 \arguments{
 \item{nebpath}{nebpath object}

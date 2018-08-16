@@ -5,7 +5,7 @@
 \title{Print summary for Nudged Elastic Band}
 \usage{
 \method{summary}{nebpath}(nebpath = nebpath, temp = 300,
-  eunit = "kJ/mol")
+  eunit = "kJ/mol", ...)
 }
 \arguments{
 \item{nebpath}{nebpath object}

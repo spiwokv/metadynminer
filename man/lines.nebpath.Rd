@@ -4,7 +4,7 @@
 \alias{lines.nebpath}
 \title{Plot lines for Nudged Elastic Band}
 \usage{
-\method{lines}{nebpath}(nebpath = nebpath, col = "red", lwd = 1)
+\method{lines}{nebpath}(nebpath = nebpath, col = "red", lwd = 1, ...)
 }
 \arguments{
 \item{nebpath}{nebpath object}

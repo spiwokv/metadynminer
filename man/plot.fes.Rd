@@ -10,7 +10,7 @@
   nlevels = 10, levels = NULL, col = rainbow(135)[100:1],
   labels = NULL, labcex = 0.6, drawlabels = TRUE,
   colscalelab = "free energy", method = "flattest",
-  contcol = par("fg"), lty = par("lty"), lwd = 1, axes = T)
+  contcol = par("fg"), lty = par("lty"), lwd = 1, axes = T, ...)
 }
 \arguments{
 \item{inputfes}{fes object}

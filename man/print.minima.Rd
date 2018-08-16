@@ -4,7 +4,7 @@
 \alias{print.minima}
 \title{Print minima object}
 \usage{
-\method{print}{minima}(minims)
+\method{print}{minima}(minims, ...)
 }
 \arguments{
 \item{minims}{minima object}

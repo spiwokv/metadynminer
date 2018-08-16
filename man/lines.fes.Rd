@@ -5,7 +5,7 @@
 \title{Plots 1D fes object as lines}
 \usage{
 \method{lines}{fes}(inputfes = inputfes, x = NULL, lwd = 1,
-  col = "black")
+  col = "black", ...)
 }
 \arguments{
 \item{inputfes}{fes object}

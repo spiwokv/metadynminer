@@ -4,7 +4,7 @@
 \alias{print.hillsfile}
 \title{Print hillsfile}
 \usage{
-\method{print}{hillsfile}(hills = hills)
+\method{print}{hillsfile}(hills = hills, ...)
 }
 \arguments{
 \item{hills}{hillsfile object}

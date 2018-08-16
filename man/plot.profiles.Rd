@@ -7,7 +7,7 @@
 \method{plot}{profiles}(profs = profs, which = NULL,
   ignoretime = FALSE, xlim = NULL, ylim = NULL, main = NULL,
   sub = NULL, xlab = NULL, ylab = NULL, col = NULL, asp = NULL,
-  lwd = 1, axes = T)
+  lwd = 1, axes = T, ...)
 }
 \arguments{
 \item{profs}{profiles object}

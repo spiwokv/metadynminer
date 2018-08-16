@@ -4,7 +4,8 @@
 \alias{summary.profiles}
 \title{Print summary for free energy profile}
 \usage{
-\method{summary}{profiles}(profs = profs, imind = 1, imaxd = NULL)
+\method{summary}{profiles}(profs = profs, imind = 1, imaxd = NULL,
+  ...)
 }
 \arguments{
 \item{profs}{profiles object}

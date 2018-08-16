@@ -5,7 +5,7 @@
 \title{Plot points for Nudged Elastic Band}
 \usage{
 \method{points}{nebpath}(nebpath = nebpath, pch = NULL, cex = 1,
-  bg = NULL, col = "red", lwd = 1)
+  bg = NULL, col = "red", lwd = 1, ...)
 }
 \arguments{
 \item{nebpath}{nebpath object}

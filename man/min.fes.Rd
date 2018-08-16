@@ -4,7 +4,7 @@
 \alias{min.fes}
 \title{Calculate minimum of free energy surface}
 \usage{
-\method{min}{fes}(inputfes = inputfes, na.rm = NULL)
+\method{min}{fes}(inputfes = inputfes, na.rm = NULL, ...)
 }
 \arguments{
 \item{inputfes}{fes object}

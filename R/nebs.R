@@ -115,7 +115,7 @@ neb<-function(minims=minims, min1="A", min2="B", nbins=20,
 #' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' nebAD
-print.nebpath <- function(nebpath=nebpath) {
+print.nebpath <- function(nebpath=nebpath,...) {
   cat("path between minima:\n")
   print(nebpath$min1)
   print(nebpath$min2)
@@ -136,7 +136,7 @@ print.nebpath <- function(nebpath=nebpath) {
 #' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' summary(nebAD)
-summary.nebpath <- function(nebpath=nebpath, temp=300, eunit="kJ/mol") {
+summary.nebpath <- function(nebpath=nebpath, temp=300, eunit="kJ/mol",...) {
   cat("path between minima:\n")
   print(nebpath$min1)
   print(nebpath$min2)
@@ -339,7 +339,7 @@ plot.nebpath <- function(nebpath=nebpath,
                          main=NULL, sub=NULL,
                          xlab="bin", ylab="free energy",
                          col="red", lwd=1, cex=1,
-                         axes=T) {
+                         axes=T,...) {
   if(ncol(nebpath$path)==3) {
     if(is.null(ylim)) {
       ylim<-c(min(nebpath$path[,3]), min(nebpath$path[,3])+1.1*(max(nebpath$path[,3])-min(nebpath$path[,3])))
@@ -390,7 +390,7 @@ plot.nebpath <- function(nebpath=nebpath,
 #' points(nebAD)
 points.nebpath <- function(nebpath=nebpath,
                            pch=NULL, cex=1, bg=NULL,
-                           col="red", lwd=1) {
+                           col="red", lwd=1,...) {
   if(ncol(nebpath$path)==3) {
     points(nebpath$path[,3],
            pch=NULL, cex=1, bg=NULL,
@@ -418,7 +418,7 @@ points.nebpath <- function(nebpath=nebpath,
 #' plot(nebAD)
 #' lines(nebAD, lwd=4)
 lines.nebpath <- function(nebpath=nebpath,
-                          col="red", lwd=1) {
+                          col="red", lwd=1,...) {
   if(ncol(nebpath$path)==3) {
     lines(nebpath$path[,3],
           col=col, lwd=lwd)
@@ -446,7 +446,7 @@ lines.nebpath <- function(nebpath=nebpath,
 #' pointsonfes(nebAD)
 pointsonfes <- function(nebpath=nebpath,
                         pch=NULL, cex=1, bg=NULL,
-                        col="red", lwd=1) {
+                        col="red", lwd=1,...) {
   if(ncol(nebpath$path)==3) {
     points(nebpath$path[,1], nebpath$path[,2],
            pch=NULL, cex=1, bg=NULL,

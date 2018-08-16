@@ -4,7 +4,7 @@
 \alias{print.nebpath}
 \title{Print Nudged Elastic Band minima}
 \usage{
-\method{print}{nebpath}(nebpath = nebpath)
+\method{print}{nebpath}(nebpath = nebpath, ...)
 }
 \arguments{
 \item{nebpath}{nebpath object}

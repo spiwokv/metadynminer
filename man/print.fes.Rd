@@ -4,7 +4,7 @@
 \alias{print.fes}
 \title{Print dimensionality, minimum and maximum of free energy surface}
 \usage{
-\method{print}{fes}(inputfes = inputfes)
+\method{print}{fes}(inputfes = inputfes, ...)
 }
 \arguments{
 \item{inputfes}{fes object}

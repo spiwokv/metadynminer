@@ -4,7 +4,7 @@
 \alias{max.fes}
 \title{Calculate maximum of free energy surface}
 \usage{
-\method{max}{fes}(inputfes = inputfes, na.rm = NULL)
+\method{max}{fes}(inputfes = inputfes, na.rm = NULL, ...)
 }
 \arguments{
 \item{inputfes}{fes object}

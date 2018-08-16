@@ -4,7 +4,7 @@
 \alias{summary.fes}
 \title{Print summary of free energy surface}
 \usage{
-\method{summary}{fes}(inputfes = inputfes)
+\method{summary}{fes}(inputfes = inputfes, ...)
 }
 \arguments{
 \item{inputfes}{fes object}

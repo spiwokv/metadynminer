@@ -69,7 +69,7 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
 #' @export
 #' @examples
 #' acealanme
-print.hillsfile<-function(hills=hills) {
+print.hillsfile<-function(hills=hills,...) {
   if(hills$size[2]==5) {
     cat("1D hills file ")
     cat(hills$filename)
@@ -96,7 +96,7 @@ print.hillsfile<-function(hills=hills) {
 #' @export
 #' @examples
 #' acealanme
-summary.hillsfile<-function(hills=hills) {
+summary.hillsfile<-function(hills=hills,...) {
   if(hills$size[2]==5) {
     cat("1D hills file ")
     cat(hills$filename)
@@ -138,7 +138,7 @@ summary.hillsfile<-function(hills=hills) {
 #' @export
 #' @examples
 #' head(acealanme)
-head.hillsfile<-function(hills=hills, n=10) {
+head.hillsfile<-function(hills=hills, n=10,...) {
   return(head(hills$hillsfile, n=n))
 }
 
@@ -153,7 +153,7 @@ head.hillsfile<-function(hills=hills, n=10) {
 #' @export
 #' @examples
 #' tail(acealanme)
-tail.hillsfile<-function(hills=hills, n=10) {
+tail.hillsfile<-function(hills=hills, n=10,...) {
   return(tail(hills$hillsfile, n=n))
 }
 
@@ -193,7 +193,7 @@ plot.hillsfile<-function(hills=hills, ignoretime=FALSE,
                          xlim=NULL, ylim=NULL,
                          main=NULL, sub=NULL,
                          pch=1, col="black", bg="red", cex=1,
-                         asp=NULL, lwd=1, axes=TRUE) {
+                         asp=NULL, lwd=1, axes=TRUE,...) {
   xlims<-NULL
   ylims<-NULL
   if(!is.null(xlim)) {xlims<-xlim}
@@ -249,7 +249,7 @@ plot.hillsfile<-function(hills=hills, ignoretime=FALSE,
 #' points(acealanme, col="red")
 points.hillsfile<-function(hills=hills, ignoretime=FALSE,
                            pch=1, col="black", bg="red", cex=1,
-                           asp=NULL, lwd=1, axes=TRUE) {
+                           asp=NULL, lwd=1, axes=TRUE,...) {
   if(hills$size[2]==5) {
     if(ignoretime) {
       points(seq(from=hills$hillsfile[1,1],by=hills$hillsfile[1,1],length.out=nrow(hills$hillsfile)),
@@ -281,7 +281,7 @@ points.hillsfile<-function(hills=hills, ignoretime=FALSE,
 #' plot(acealanme)
 #' lines(acealanme, col="red")
 lines.hillsfile<-function(hills=hills, ignoretime=FALSE,
-                          lwd=1, col="black") {
+                          lwd=1, col="black",...) {
   if(hills$size[2]==5) {
     if(ignoretime) {
       lines(seq(from=hills$hillsfile[1,1],by=hills$hillsfile[1,1],length.out=nrow(hills$hillsfile)),
@@ -805,7 +805,7 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
 #' @examples
 #' tfes<-fes(acealanme)
 #' min(tfes)
-min.fes<-function(inputfes=inputfes, na.rm=NULL) {
+min.fes<-function(inputfes=inputfes, na.rm=NULL,...) {
   return(min(inputfes$fes, na.rm=na.rm))
 }
 
@@ -821,7 +821,7 @@ min.fes<-function(inputfes=inputfes, na.rm=NULL) {
 #' @examples
 #' tfes<-fes(acealanme)
 #' max(tfes)
-max.fes<-function(inputfes=inputfes, na.rm=NULL) {
+max.fes<-function(inputfes=inputfes, na.rm=NULL,...) {
   return(max(inputfes$fes, na.rm=na.rm))
 }
 
@@ -836,7 +836,7 @@ max.fes<-function(inputfes=inputfes, na.rm=NULL) {
 #' @examples
 #' tfes<-fes(acealanme)
 #' tfes
-print.fes<-function(inputfes=inputfes) {
+print.fes<-function(inputfes=inputfes,...) {
   if(inputfes$dimension==1) {
     cat("1D free energy surface with ")
     cat(inputfes$rows)
@@ -870,7 +870,7 @@ print.fes<-function(inputfes=inputfes) {
 #' @examples
 #' tfes<-fes(acealanme)
 #' summary(tfes)
-summary.fes<-function(inputfes=inputfes) {
+summary.fes<-function(inputfes=inputfes,...) {
   if(inputfes$dimension==1) {
     cat("1D free energy surface with ")
     cat(inputfes$rows)
@@ -924,7 +924,7 @@ plot.fes<-function(inputfes=inputfes, plottype="both",
                    colscalelab="free energy",
                    method="flattest",
                    contcol=par("fg"), lty=par("lty"), lwd=1,
-                   axes=T) {
+                   axes=T,...) {
   fes<-inputfes$fes
   rows<-inputfes$rows
   if(inputfes$dimension==1) {
@@ -1000,7 +1000,7 @@ plot.fes<-function(inputfes=inputfes, plottype="both",
 #' plot(tfes)
 #' points(tfes)
 points.fes<-function(inputfes=inputfes, x=NULL,
-                     pch=1, col="black", bg="red", cex=1) {
+                     pch=1, col="black", bg="red", cex=1,...) {
   fes<-inputfes$fes
   if(inputfes$dimension==1) {
     if(is.null(x)) x<-inputfes$x
@@ -1024,7 +1024,7 @@ points.fes<-function(inputfes=inputfes, x=NULL,
 #' plot(tfes)
 #' lines(tfes, lwd=4)
 lines.fes<-function(inputfes=inputfes, x=NULL,
-                    lwd=1, col="black") {
+                    lwd=1, col="black",...) {
   fes<-inputfes$fes
   if(inputfes$dimension==1) {
     if(is.null(x)) x<-inputfes$x

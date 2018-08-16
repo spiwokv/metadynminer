@@ -4,7 +4,7 @@
 \alias{summary.hillsfile}
 \title{Print summary for hillsfile}
 \usage{
-\method{summary}{hillsfile}(hills = hills)
+\method{summary}{hillsfile}(hills = hills, ...)
 }
 \arguments{
 \item{hills}{hillsfile object}

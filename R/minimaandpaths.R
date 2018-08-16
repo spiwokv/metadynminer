@@ -183,7 +183,7 @@ oneminimum<-function(inputfes=inputfes, cv1=cv1, cv2=cv2) {
 #' tfes<-fes(acealanme)
 #' minima<-fesminima(tfes)
 #' minima
-print.minima<-function(minims) {
+print.minima<-function(minims,...) {
   cat("$minima\n\n")
   print(minims$minima)
 }
@@ -202,7 +202,7 @@ print.minima<-function(minims) {
 #' tfes<-fes(acealanme)
 #' minima<-fesminima(tfes)
 #' summary(minima)
-summary.minima<-function(minims=minims, temp=300, eunit="kJ/mol") {
+summary.minima<-function(minims=minims, temp=300, eunit="kJ/mol",...) {
   toprint <- minims$minima
   tind = 6
   if(minims$dimension==1) {
@@ -251,7 +251,7 @@ plot.minima <- function(minims=minims, plottype="both",
                   method="flattest", textcol="black",
                   pch=1, bg="red", cex=1,
                   contcol=par("fg"), lty=par("lty"), lwd=par("lwd"),
-                  axes=TRUE) {
+                  axes=TRUE,...) {
   fes<-minims$fes
   rows<-minims$rows
   minlabs<-minims$minima[,1]
@@ -380,7 +380,7 @@ feprof <- function(minims=minims, imin=0, imax=NULL) {
 }
 
 #' @export
-print.profiles <- function(profs=profs) {
+print.profiles <- function(profs=profs,...) {
   cat(nrow(profs$mms))
   if(profs$dimension==1) {
     cat(" 1D minima\n")
@@ -404,7 +404,7 @@ print.profiles <- function(profs=profs) {
 #' minima<-fesminima(tfes)
 #' prof<-feprof(minima)
 #' summary(prof)
-summary.profiles <- function(profs=profs, imind=1, imaxd=NULL) {
+summary.profiles <- function(profs=profs, imind=1, imaxd=NULL,...) {
   if(is.null(imaxd)) {
     imaxd<-nrow(profs$mms)
   }
@@ -450,7 +450,7 @@ plot.profiles <- function(profs=profs, which=NULL,
                           xlim=NULL, ylim=NULL,
                           main=NULL, sub=NULL,
                           xlab=NULL, ylab=NULL,
-                          col=NULL, asp=NULL, lwd=1, axes=T) {
+                          col=NULL, asp=NULL, lwd=1, axes=T,...) {
   if(is.null(which)) which<-1:(ncol(profs$mms)-1)
   if(is.null(xlab)) xlab<-"Index"
   if(is.null(ylab)) ylab<-"Free Energy Difference (kJ/mol)"

@@ -5,7 +5,7 @@
 \title{Print minima object summary}
 \usage{
 \method{summary}{minima}(minims = minims, temp = 300,
-  eunit = "kJ/mol")
+  eunit = "kJ/mol", ...)
 }
 \arguments{
 \item{minims}{minima object}

@@ -5,7 +5,7 @@
 \title{Plot lines for hillsfile object}
 \usage{
 \method{lines}{hillsfile}(hills = hills, ignoretime = FALSE, lwd = 1,
-  col = "black")
+  col = "black", ...)
 }
 \arguments{
 \item{hills}{hillsfile object}
