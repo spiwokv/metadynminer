@@ -80,6 +80,8 @@ neb<-function(minims=minims, min1="A", min2="B", nbins=20,
          tau <- perp(path[j,], path[j+1,], path[j+2,])
          x <- round(path[j+1,1])
          y <- round(path[j+1,2])
+         x <- min(x,nrow(fes)-1)
+         y <- min(y,ncol(fes)-1)
          f1 <- force1(fes, x, y)
          f1a <- align(f1, tau)
          f1p <- f1-f1a
@@ -89,7 +91,7 @@ neb<-function(minims=minims, min1="A", min2="B", nbins=20,
          fphi <- 0.5*(1.0+cos(cosphi(path[j,], path[j+1,], path[j+2,])*pi))
          newpath[j+1,1] <- newpath[j+1,1] + step*(f1p[1]+f2a[1]+fphi*f2p[1])
          newpath[j+1,2] <- newpath[j+1,2] + step*(f1p[2]+f2a[2]+fphi*f2p[2])
-         newpath[j+1,3] <- fes[newpath[j+1,1],newpath[j+1,2]]
+         newpath[j+1,3] <- fes[max(min(newpath[j+1,1],nrow(fes)),1),max(min(newpath[j+1,2],ncol(fes)),1)]
       }
       path <- newpath
     }
