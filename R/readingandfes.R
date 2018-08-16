@@ -395,7 +395,6 @@ fes<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256)
   if(imin>=imax) {
     stop("Error: imax must be higher than imin")
   }
-  fesm<-matrix((1:(npoints*npoints))*0, nrow=npoints)
   if(hills$size[2]==7) {
     if(max(hills$hillsfile[,4])/min(hills$hillsfile[,4])>1.00000000001) {
       stop("Error: Bias Sum algorithm works only with hills of the same sizes")
@@ -499,7 +498,6 @@ fes2<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256
   if(imin>=imax) {
     stop("Error: imax must be higher than imin")
   }
-  fesm<-matrix((1:(npoints*npoints))*0, nrow=npoints)
   if(hills$size[2]==7) {
     minCV1 <- min(hills$hillsfile[,2])
     maxCV1 <- max(hills$hillsfile[,2])
