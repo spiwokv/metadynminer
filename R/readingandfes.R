@@ -356,19 +356,6 @@ plotheights<-function(hills=hills, ignoretime=FALSE, xlab=NULL, ylab=NULL,
   }
 }
 
-#' @export
-read.fes<-function(filename="fes.txt", dimension=2, per=c(TRUE, TRUE), pcv1=c(-pi,pi), pcv2=c(-pi,pi)) {
-  ifile<-read.table(filename)
-  rows<-sqrt(nrow(ifile))
-  fes<-matrix(ifile[,3], nrow=rows)
-  fes<-max(fes)-fes
-  x<-min(ifile[,1])+(max(ifile[,1])-min(ifile[,1]))*0:(rows-1)/(rows-1)
-  y<-min(ifile[,2])+(max(ifile[,2])-min(ifile[,2]))*0:(rows-1)/(rows-1)
-  cfes<-list(fes=fes, rows=rows, dimension=dimension, per=per, x=x, y=y, pcv1=pcv1, pcv2=pcv2)
-  class(cfes) <- "fes"
-  return(cfes)
-}
-
 #' Calculate free energy surface by Bias Sum algorithm
 #'
 #' `fes` summes up hills using fast Bias Sum algorithm

@@ -91,28 +91,6 @@ fesminima<-function(inputfes=inputfes, nbins=8) {
   return(minima)
 }
 
-#' @export
-emptyminima<-function(inputfes=inputfes) {
-  fes<-inputfes$fes
-  rows<-inputfes$rows
-  per<-inputfes$per
-  if(inputfes$dimension==2) {
-    minima<-data.frame(c("A"), c(0), c(0), c(0), c(0), c(0))
-    minima<-minima[-1,]
-    names(minima) <- c("letter", "CV1bin", "CV2bin", "CV1", "CV2", "free_energy")
-    minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, y=inputfes$y, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
-    class(minima) <- "minima"
-  }
-  if(inputfes$dimension==1) {
-    minima<-data.frame(c("A"), c(0), c(0), c(0))
-    minima<-minima[-1,]
-    names(minima) <- c("letter", "CV1bin", "CV1", "free_energy")
-    minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
-    class(minima) <- "minima"
-  }
-  return(minima)
-}
-
 #' Creates one ad hoc free energy minimum for a fes object
 #'
 #' `oneminimum` creates an ad hoc free energy minimum on free energy surface.

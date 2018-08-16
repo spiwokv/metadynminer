@@ -6,6 +6,7 @@ Date: 2018-08-14
 Author: Vojtech Spiwok [aut, cre]
 Maintainer: Vojtech Spiwok <spiwokv@vscht.cz>
 Depends: R (>= 3.3.0), Rcpp
+LinkingTo: Rcpp
 Description: Metadynminer reads 1D and 2D metadynamics HILLS files from Plumed package (1).
   It uses a fast algorithm (2) to claculate the free energy surface from hills. Minima can
   be located and ploted on free energy surfaces.
@@ -15,5 +16,3 @@ References:
 LazyData: true
 License: GPL-3
 RoxygenNote: 6.1.0
-LinkingTo: Rcpp
-Imports: Rcpp
