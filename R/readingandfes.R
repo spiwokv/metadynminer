@@ -836,7 +836,8 @@ max.fes<-function(inputfes=inputfes, na.rm=NULL,...) {
 #' @examples
 #' tfes<-fes(acealanme)
 #' tfes
-print.fes<-function(inputfes=inputfes,...) {
+print.fes<-function(x,...) {
+  inputfes=x
   if(inputfes$dimension==1) {
     cat("1D free energy surface with ")
     cat(inputfes$rows)
