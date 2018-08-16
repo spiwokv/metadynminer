@@ -322,6 +322,9 @@ NumericVector hills1d1(NumericVector cv1, double width1, NumericVector heights, 
   double v[n];
   double g[2*n];
   NumericVector vo(n);
+  for (int i = 0; i < 2*n; i++) {
+    g[n]=0.0;
+  }
   for (int i = 0; i < n; i++) {
     z = exp(-double(i)*double(i)/2.0/width1/width1);
     g[i] = z;
@@ -352,6 +355,9 @@ NumericVector hills1d1p(NumericVector cv1, double width1, NumericVector heights,
   double v[n];
   double g[n];
   NumericVector vo(n);
+  for (int i = 0; i < n; i++) {
+    g[n]=0.0;
+  }
   for (int i = 0; i < n/2; i++) {
     z = exp(-double(i)*double(i)/2.0/width1/width1);
     g[i] = z;
