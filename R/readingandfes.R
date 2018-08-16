@@ -198,8 +198,6 @@ plot.hillsfile<-function(hills=hills, ignoretime=FALSE,
   ylims<-NULL
   if(!is.null(xlim)) {xlims<-xlim}
   if((hills$per[1]==T)&is.null(xlim)) {xlims<-hills$pcv1}
-  if(!is.null(ylim)) {ylims<-ylim}
-  if((hills$per[2]==T)&is.null(ylim)) {ylims<-hills$pcv2}
   if(hills$size[2]==5) {
     if(is.null(xlab)) xlab="time"
     if(is.null(ylab)) ylab="CV"
@@ -221,6 +219,8 @@ plot.hillsfile<-function(hills=hills, ignoretime=FALSE,
     }
   }
   if(hills$size[2]==7) {
+    if(!is.null(ylim)) {ylims<-ylim}
+    if((hills$per[2]==T)&is.null(ylim)) {ylims<-hills$pcv2}
     if(is.null(xlab)) xlab="CV1"
     if(is.null(ylab)) ylab="CV2"
     plot(hills$hillsfile[,2], hills$hillsfile[,3], type="p",
