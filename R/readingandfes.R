@@ -996,6 +996,9 @@ plot.fes<-function(inputfes=inputfes, plottype="both",
       axis(2, lty=lty, lwd=lwd)
       box(lwd=lwd)
     }
+    if(colscale) {
+      par(mfrow=c(1,1))
+    }
   }
 }
 
