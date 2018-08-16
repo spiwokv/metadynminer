@@ -837,7 +837,7 @@ max.fes<-function(inputfes=inputfes, na.rm=NULL,...) {
 #' tfes<-fes(acealanme)
 #' tfes
 print.fes<-function(x,...) {
-  inputfes=x
+  inputfes<-x
   if(inputfes$dimension==1) {
     cat("1D free energy surface with ")
     cat(inputfes$rows)
@@ -914,9 +914,8 @@ summary.fes<-function(inputfes=inputfes,...) {
 #' plot(tfes2d)
 #' tfes1d<-fes(acealanme1d)
 #' plot(tfes1d)
-plot.fes<-function(inputfes=inputfes, plottype="both",
-                   colscale=F, x=NULL, y=NULL,
-                   xlim=NULL, ylim=NULL, zlim=NULL,
+plot.fes<-function(x, plottype="both",
+                   colscale=F, xlim=NULL, ylim=NULL, zlim=NULL,
                    main=NULL, sub=NULL,
                    xlab=NULL, ylab=NULL,
                    nlevels=10, levels=NULL,
@@ -926,10 +925,11 @@ plot.fes<-function(inputfes=inputfes, plottype="both",
                    method="flattest",
                    contcol=par("fg"), lty=par("lty"), lwd=1,
                    axes=T,...) {
+  inputfes<-x
   fes<-inputfes$fes
   rows<-inputfes$rows
   if(inputfes$dimension==1) {
-    if(is.null(x)) x<-inputfes$x
+    x<-inputfes$x
     if(is.null(xlab)) xlab="CV"
     if(is.null(ylab)) ylab="free energy"
     if(is.null(xlim)) xlim<-c(min(x),max(x))
@@ -941,8 +941,8 @@ plot.fes<-function(inputfes=inputfes, plottype="both",
         xlab=xlab, ylab=ylab, axes=axes,
         main=main, sub=sub)
   } else {
-    if(is.null(x)) x<-inputfes$x
-    if(is.null(y)) y<-inputfes$y
+    x<-inputfes$x
+    y<-inputfes$y
     if(is.null(xlab)) xlab="CV1"
     if(is.null(ylab)) ylab="CV2"
     if(is.null(zlim)) {
