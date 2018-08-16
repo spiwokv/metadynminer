@@ -50,7 +50,7 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
           hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
         }
       }
-      hillso<-list(hillsfile=hillsf, size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2)
+      hills<-list(hillsfile=hillsf, size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2)
       class(hills) <- "hillsfile"
       return(hills)
     } else {
