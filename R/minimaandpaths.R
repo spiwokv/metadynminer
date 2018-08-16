@@ -356,10 +356,9 @@ feprof <- function(minims=minims, imin=0, imax=NULL) {
   fes<-minims$fes
   rows<-minims$rows
   mins<-minims$minima
-  hills<-minims$hills
+  hills<-minims$hillsfile
   if(is.null(imax)) {
     imax<-nrow(hills)
-    cat(imax,"\n")
   }
   if(imax>nrow(hills)) {
     imax<-nrow(hills)
