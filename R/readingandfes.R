@@ -194,6 +194,8 @@ plot.hillsfile<-function(hills=hills, ignoretime=FALSE,
                          main=NULL, sub=NULL,
                          pch=1, col="black", bg="red", cex=1,
                          asp=NULL, lwd=1, axes=TRUE) {
+  xlims<-NULL
+  ylims<-NULL
   if(!is.null(xlim)) {xlims<-xlim}
   if(!is.null(ylim)) {ylims<-ylim}
   if(hills$size[2]==5) {
