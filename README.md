@@ -165,7 +165,7 @@ plot(tfes, axes=F)
 axis(2, at=-3:3*pi/3, labels=-3:3*60)
 axis(1, at=-3:3*pi/3, labels=-3:3*60)
 ```
-The expression -3:3 will generate a vector {-3,-2,-1,0,1,2,3}, which can be multiplied by \pi/3
+The expression -3:3 will generate a vector {-3,-2,-1,0,1,2,3}, which can be multiplied by $\pi$/3
 (tick positions in radians) or by 60 (tick positions in degrees). If you want to transform just
 one axis, e.g. the horizontal one while keepinng the vertical unchanges, simply type `axis(2)`
 for the vertical one.
@@ -178,10 +178,10 @@ supported.
 
 ### Shifting a periodic CV
 It may happen that some simulations with a torsion CV it may be difficult to analyse and visualize
-it in the range -\pi - +\pi. However, this problem is not very common so we did not make any user friendly way
+it in the range -$\pi$ - +$\pi$. However, this problem is not very common so we did not make any user friendly way
 how to solve this and it can be solved in a user unfriendly way. It is possible to move the whole free
 energy surface and corresponding x or y values within the free energy surface object. For example,
-if you want to shift free energy surface to have phi from 0 to 2\pi you can do this:
+if you want to shift free energy surface to have phi from 0 to 2$\pi$ you can do this:
 ```R
 hillsf <- read.hills("HILLS", per=c(T,T))
 tfes<-fes(hillsf)
