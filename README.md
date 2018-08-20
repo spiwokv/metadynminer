@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/spiwokv/metadynminer.svg?branch=master)](https://travis-ci.org/spiwokv/metadynminer)
 
-[![Build Status](https://ci.appveyor.com/project/spiwokv/metadynminer?branch=master&svg=true)](https://ci.appveyor.com/project/spiwokv/metadynminer)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/spiwokv/metadynminer?branch=master&svg=true)](https://ci.appveyor.com/project/spiwokv/metadynminer)
 
 # MetadynMiner
 
