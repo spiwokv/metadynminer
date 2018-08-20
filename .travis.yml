@@ -13,6 +13,4 @@ warnings_are_errors: true
 sudo: required
 install:
     - R -e 'install.packages("Rcpp")'
-env:
-  - r_build_args: "--resave-data"
-  #- PKG_CPPFLAGS="-I/home/travis/R/Library/Rcpp/include"
+
