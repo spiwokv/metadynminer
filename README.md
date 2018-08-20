@@ -168,11 +168,12 @@ If you want to use degrees instead of radians on axes, set `axes=F` in the plot 
 plot(tfes, axes=F)
 axis(2, at=-3:3*pi/3, labels=-3:3*60)
 axis(1, at=-3:3*pi/3, labels=-3:3*60)
+box()
 ```
 The expression -3:3 will generate a vector {-3,-2,-1,0,1,2,3}, which can be multiplied by pi/3
 (tick positions in radians) or by 60 (tick positions in degrees). If you want to transform just
 one axis, e.g. the horizontal one while keepinng the vertical unchanges, simply type `axis(2)`
-for the vertical one.
+for the vertical one. `box()` redraws a box.
 
 ### kcal vs kJ
 MetadynMiner works in kJ/mol by defauls. If your MD engine uses kcal/mol instead, you can either
