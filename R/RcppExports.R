@@ -49,8 +49,8 @@ hills1d2p <- function(cv1, width1, heights, n, tmin, tmax) {
     .Call('_metadynminer_hills1d2p', PACKAGE = 'metadynminer', cv1, width1, heights, n, tmin, tmax)
 }
 
-fe2dp <- function(cv1, cv2, width1, width2, heights, x, y, tmin, tmax) {
-    .Call('_metadynminer_fe2dp', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, x, y, tmin, tmax)
+fe2d <- function(cv1, cv2, width1, width2, heights, x, y, tmin, tmax) {
+    .Call('_metadynminer_fe2d', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, x, y, tmin, tmax)
 }
 
 fe2dp1 <- function(cv1, cv2, width1, width2, heights, x, y, p1, tmin, tmax) {

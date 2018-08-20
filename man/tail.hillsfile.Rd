@@ -4,15 +4,17 @@
 \alias{tail.hillsfile}
 \title{Print last n lines of hillsfile}
 \usage{
-\method{tail}{hillsfile}(hills = hills, n = 10, ...)
+\method{tail}{hillsfile}(x, n = 10, ...)
 }
 \arguments{
-\item{hills}{hillsfile object}
+\item{x}{hillsfile object.}
 
-\item{n}{number of lines (default 10)}
+\item{n}{number of lines (default 10).}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \value{
-last n lines of a hillsfile object
+last n lines of a hillsfile object.
 }
 \description{
 `tail.hillsfile` prints last n lines of a hillsfile object.

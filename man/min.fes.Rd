@@ -4,16 +4,21 @@
 \alias{min.fes}
 \title{Calculate minimum of free energy surface}
 \usage{
-\method{min}{fes}(inputfes = inputfes, na.rm = NULL, ...)
+\method{min}{fes}(inputfes, na.rm = NULL, ...)
 }
 \arguments{
-\item{inputfes}{fes object}
+\item{inputfes}{fes object.}
+
+\item{na.rm}{a logical indicating whether missing values should be
+removed.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \value{
-minimum
+minimum.
 }
 \description{
-`min.fes` calculates minimum of free energy in a fes object
+`min.fes` calculates minimum of free energy in a fes object.
 }
 \examples{
 tfes<-fes(acealanme)

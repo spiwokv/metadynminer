@@ -4,11 +4,25 @@
 \alias{points.fes}
 \title{Plots 1D fes object as points}
 \usage{
-\method{points}{fes}(inputfes = inputfes, x = NULL, pch = 1,
-  col = "black", bg = "red", cex = 1, ...)
+\method{points}{fes}(x, pch = 1, col = "black", bg = "red",
+  cex = 1, lwd = 1, ...)
 }
 \arguments{
-\item{inputfes}{fes object}
+\item{x}{fes object.}
+
+\item{pch}{plotting 'character', i.e., symbol to use. See 'points'}
+
+\item{col}{color code or name, see 'par'.}
+
+\item{bg}{background (fill) color for the open plot symbols given by
+'pch = 21:25'.}
+
+\item{cex}{character (or symbol) expansion: a numerical vector. This
+works as a multiple of 'par("cex")'.}
+
+\item{lwd}{line width for drawing symbols see 'par'.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 `points.fes` plots 1D free energy surface as points.

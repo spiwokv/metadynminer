@@ -4,11 +4,25 @@
 \alias{points.nebpath}
 \title{Plot points for Nudged Elastic Band}
 \usage{
-\method{points}{nebpath}(nebpath = nebpath, pch = NULL, cex = 1,
-  bg = NULL, col = "red", lwd = 1, ...)
+\method{points}{nebpath}(x, pch = NULL, cex = 1, bg = NULL,
+  col = "red", lwd = 1, ...)
 }
 \arguments{
-\item{nebpath}{nebpath object}
+\item{x}{nebpath object.}
+
+\item{pch}{plotting 'character', i.e., symbol to use. See 'points'.}
+
+\item{cex}{character (or symbol) expansion: a numerical vector. This
+works as a multiple of 'par("cex")'.}
+
+\item{bg}{background (fill) color for the open plot symbols given by
+'pch = 21:25'.}
+
+\item{col}{color code or name, see 'par'.}
+
+\item{lwd}{line width for drawing symbols see 'par'.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 `points.nebpath` plots points for free energy profile calculated by Nudged Elastic Band.

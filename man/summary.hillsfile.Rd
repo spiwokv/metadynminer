@@ -4,16 +4,18 @@
 \alias{summary.hillsfile}
 \title{Print summary for hillsfile}
 \usage{
-\method{summary}{hillsfile}(hills = hills, ...)
+\method{summary}{hillsfile}(object, ...)
 }
 \arguments{
-\item{hills}{hillsfile object}
+\item{object}{hillsfile object.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \value{
-dimensionality and size of a hillsfile object
+dimensionality and size of a hillsfile object.
 }
 \description{
-`summary.hillsfile` prints dimensionality, size and collective variable ranges of a hillsfile object
+`summary.hillsfile` prints dimensionality, size and collective variable ranges of a hillsfile object.
 }
 \examples{
 acealanme

@@ -4,17 +4,39 @@
 \alias{plot.profiles}
 \title{Plot free energy profile}
 \usage{
-\method{plot}{profiles}(profs = profs, which = NULL,
-  ignoretime = FALSE, xlim = NULL, ylim = NULL, main = NULL,
-  sub = NULL, xlab = NULL, ylab = NULL, col = NULL, asp = NULL,
-  lwd = 1, axes = T, ...)
+\method{plot}{profiles}(x, which = NULL, ignoretime = FALSE,
+  xlim = NULL, ylim = NULL, main = NULL, sub = NULL, xlab = NULL,
+  ylab = NULL, col = NULL, asp = NULL, lwd = 1, axes = T, ...)
 }
 \arguments{
-\item{profs}{profiles object}
+\item{x}{profiles object.}
 
-\item{which}{vector of indexes of profiles to be ploted (default all)}
+\item{which}{vector of indexes of profiles to be ploted (default all).}
 
-\item{ignoretime}{time in the first column of the HILLS file will be ignored}
+\item{ignoretime}{time in the first column of the HILLS file will be ignored.}
+
+\item{xlim}{numeric vector of length 2, giving the x coordinates range.}
+
+\item{ylim}{numeric vector of length 2, giving the y coordinates range.}
+
+\item{main}{an overall title for the plot: see 'title'.}
+
+\item{sub}{a sub title for the plot: see 'title'.}
+
+\item{xlab}{a title for the x axis: see 'title'.}
+
+\item{ylab}{a title for the y axis: see 'title'.}
+
+\item{col}{color code or name, see 'par'.}
+
+\item{asp}{the y/x aspect ratio, see 'plot.window'.}
+
+\item{lwd}{line width.}
+
+\item{axes}{a logical value indicating whether both axes should be drawn
+on the plot.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 `plot.profiles` plots evolution of free energy differences between minima.

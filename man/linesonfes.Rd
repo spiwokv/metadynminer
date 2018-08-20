@@ -4,13 +4,17 @@
 \alias{linesonfes}
 \title{Plot lines for Nudged Elastic Band projected onto free energy surface}
 \usage{
-linesonfes(nebpath = nebpath, col = "red", lwd = 1)
+linesonfes(x, col = "red", lwd = 1)
 }
 \arguments{
-\item{nebpath}{nebpath object}
+\item{x}{nebpath object.}
+
+\item{col}{color code or name, see 'par'.}
+
+\item{lwd}{line width for drawing symbols see 'par'.}
 }
 \description{
-`points.nebpath` plots lines for free energy profile calculated by Nudged Elastic Band
+`linesonfes` plots lines for free energy profile calculated by Nudged Elastic Band
 projected onto free energy surface.
 }
 \examples{

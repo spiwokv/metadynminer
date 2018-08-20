@@ -4,16 +4,21 @@
 \alias{max.fes}
 \title{Calculate maximum of free energy surface}
 \usage{
-\method{max}{fes}(inputfes = inputfes, na.rm = NULL, ...)
+\method{max}{fes}(inputfes, na.rm = NULL, ...)
 }
 \arguments{
-\item{inputfes}{fes object}
+\item{inputfes}{fes object.}
+
+\item{na.rm}{a logical indicating whether missing values should be
+removed.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \value{
-maximum
+maximum.
 }
 \description{
-`max.fes` calculates maximum of free energy in a fes object
+`max.fes` calculates maximum of free energy in a fes object.
 }
 \examples{
 tfes<-fes(acealanme)

@@ -4,15 +4,16 @@
 \alias{summary.minima}
 \title{Print minima object summary}
 \usage{
-\method{summary}{minima}(minims = minims, temp = 300,
-  eunit = "kJ/mol", ...)
+\method{summary}{minima}(object, temp = 300, eunit = "kJ/mol", ...)
 }
 \arguments{
-\item{minims}{minima object}
+\item{object}{minima object}
 
 \item{temp}{temperature in Kelvins}
 
 \item{eunit}{energy units (kJ/mol or kcal/mol, kJ/mol is default)}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 `summary.minima` prints summary for free energy minima (identifier, values of bins and collective variables,

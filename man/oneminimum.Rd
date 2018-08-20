@@ -4,17 +4,17 @@
 \alias{oneminimum}
 \title{Creates one ad hoc free energy minimum for a fes object}
 \usage{
-oneminimum(inputfes = inputfes, cv1 = cv1, cv2 = cv2)
+oneminimum(inputfes, cv1 = cv1, cv2 = cv2)
 }
 \arguments{
-\item{inputfes}{fes object}
+\item{inputfes}{fes object.}
 
-\item{cv1}{the value of collective variable 1}
+\item{cv1}{the value of collective variable 1.}
 
-\item{cv2}{the value of collective variable 2}
+\item{cv2}{the value of collective variable 2.}
 }
 \value{
-minima object
+minima object.
 }
 \description{
 `oneminimum` creates an ad hoc free energy minimum on free energy surface.

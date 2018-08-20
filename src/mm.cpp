@@ -424,7 +424,7 @@ NumericVector hills1d2p(NumericVector cv1, NumericVector width1, NumericVector h
 
 
 // [[Rcpp::export]]
-NumericVector fe2dp(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, int tmin, int tmax) {
+NumericVector fe2d(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, int tmin, int tmax) {
   double dcv1;
   double dcv2;
   double v;

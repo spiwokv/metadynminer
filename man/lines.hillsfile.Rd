@@ -4,18 +4,24 @@
 \alias{lines.hillsfile}
 \title{Plot lines for hillsfile object}
 \usage{
-\method{lines}{hillsfile}(hills = hills, ignoretime = FALSE, lwd = 1,
+\method{lines}{hillsfile}(x, ignoretime = FALSE, lwd = 1,
   col = "black", ...)
 }
 \arguments{
-\item{hills}{hillsfile object}
+\item{x}{hillsfile object.}
 
-\item{ignoretime}{time in the first column of the HILLS file will be ignored}
+\item{ignoretime}{time in the first column of the HILLS file will be ignored.}
+
+\item{lwd}{line width for drawing symbols see 'par'.}
+
+\item{col}{color code or name, see 'par'.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 `lines.hillsfile` plots lines for hillsfile object. For a hillsfile with one
 collective variable it plots its evolution. For a hillsfile with two collective
-variables it plots CV1 vs. CV2
+variables it plots CV1 vs. CV2.
 }
 \examples{
 plot(acealanme)

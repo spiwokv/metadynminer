@@ -4,15 +4,16 @@
 \alias{summary.nebpath}
 \title{Print summary for Nudged Elastic Band}
 \usage{
-\method{summary}{nebpath}(nebpath = nebpath, temp = 300,
-  eunit = "kJ/mol", ...)
+\method{summary}{nebpath}(object, temp = 300, eunit = "kJ/mol", ...)
 }
 \arguments{
-\item{nebpath}{nebpath object}
+\item{object}{nebpath object.}
 
-\item{temp}{temperature in Kelvins}
+\item{temp}{temperature in Kelvins.}
 
-\item{eunit}{energy units (kJ/mol or kcal/mol, kJ/mol is default)}
+\item{eunit}{energy units (kJ/mol or kcal/mol, kJ/mol is default).}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 `print.nebpath` prints the list minima for Nudged Elastic Band, activation energies and

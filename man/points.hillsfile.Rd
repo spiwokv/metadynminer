@@ -4,19 +4,32 @@
 \alias{points.hillsfile}
 \title{Plot points for hillsfile object}
 \usage{
-\method{points}{hillsfile}(hills = hills, ignoretime = FALSE,
-  pch = 1, col = "black", bg = "red", cex = 1, asp = NULL,
-  lwd = 1, axes = TRUE, ...)
+\method{points}{hillsfile}(x, ignoretime = FALSE, pch = 1,
+  col = "black", bg = "red", cex = 1, lwd = 1, ...)
 }
 \arguments{
-\item{hills}{hillsfile object}
+\item{x}{hillsfile object.}
 
-\item{ignoretime}{time in the first column of the HILLS file will be ignored}
+\item{ignoretime}{time in the first column of the HILLS file will be ignored.}
+
+\item{pch}{plotting 'character', i.e., symbol to use. See 'points'.}
+
+\item{col}{color code or name, see 'par'.}
+
+\item{bg}{background (fill) color for the open plot symbols given by
+'pch = 21:25'.}
+
+\item{cex}{character (or symbol) expansion: a numerical vector. This
+works as a multiple of 'par("cex")'.}
+
+\item{lwd}{line width for drawing symbols see 'par'.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 `points.hillsfile` plots points for hillsfile object. For a hillsfile with one
 collective variable it plots its evolution. For a hillsfile with two collective
-variables it plots CV1 vs. CV2
+variables it plots CV1 vs. CV2.
 }
 \examples{
 plot(acealanme)

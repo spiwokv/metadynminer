@@ -8,19 +8,23 @@ fes(hills = hills, imin = 0, imax = NULL, xlim = NULL,
   ylim = NULL, npoints = 256)
 }
 \arguments{
-\item{hills}{hillsfile object}
+\item{hills}{hillsfile object.}
 
-\item{imin}{index of a hill from which summation starts (default 0)}
+\item{imin}{index of a hill from which summation starts (default 0).}
 
-\item{imax}{index of a hill from which summation stops (default the rest of hills)}
+\item{imax}{index of a hill from which summation stops (default the rest of hills).}
 
-\item{npoints}{resolution of the free energy surface in number of points}
+\item{xlim}{numeric vector of length 2, giving the CV1 coordinates range.}
+
+\item{ylim}{numeric vector of length 2, giving the CV2 coordinates range.}
+
+\item{npoints}{resolution of the free energy surface in number of points.}
 }
 \value{
-fes object
+fes object.
 }
 \description{
-`fes` summes up hills using fast Bias Sum algorithm
+`fes` summes up hills using fast Bias Sum algorithm.
 }
 \examples{
 tfes<-fes(acealanme)

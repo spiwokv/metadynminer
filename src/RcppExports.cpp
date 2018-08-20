@@ -213,9 +213,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// fe2dp
-NumericVector fe2dp(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, int tmin, int tmax);
-RcppExport SEXP _metadynminer_fe2dp(SEXP cv1SEXP, SEXP cv2SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP heightsSEXP, SEXP xSEXP, SEXP ySEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+// fe2d
+NumericVector fe2d(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, double x, double y, int tmin, int tmax);
+RcppExport SEXP _metadynminer_fe2d(SEXP cv1SEXP, SEXP cv2SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP heightsSEXP, SEXP xSEXP, SEXP ySEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -228,7 +228,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type y(ySEXP);
     Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
     Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
-    rcpp_result_gen = Rcpp::wrap(fe2dp(cv1, cv2, width1, width2, heights, x, y, tmin, tmax));
+    rcpp_result_gen = Rcpp::wrap(fe2d(cv1, cv2, width1, width2, heights, x, y, tmin, tmax));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -340,7 +340,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_metadynminer_hills1d1p", (DL_FUNC) &_metadynminer_hills1d1p, 6},
     {"_metadynminer_hills1d2", (DL_FUNC) &_metadynminer_hills1d2, 6},
     {"_metadynminer_hills1d2p", (DL_FUNC) &_metadynminer_hills1d2p, 6},
-    {"_metadynminer_fe2dp", (DL_FUNC) &_metadynminer_fe2dp, 9},
+    {"_metadynminer_fe2d", (DL_FUNC) &_metadynminer_fe2d, 9},
     {"_metadynminer_fe2dp1", (DL_FUNC) &_metadynminer_fe2dp1, 10},
     {"_metadynminer_fe2dp2", (DL_FUNC) &_metadynminer_fe2dp2, 10},
     {"_metadynminer_fe2dp12", (DL_FUNC) &_metadynminer_fe2dp12, 11},

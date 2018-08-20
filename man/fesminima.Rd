@@ -4,15 +4,15 @@
 \alias{fesminima}
 \title{Find free energy minima in the fes object}
 \usage{
-fesminima(inputfes = inputfes, nbins = 8)
+fesminima(inputfes, nbins = 8)
 }
 \arguments{
-\item{inputfes}{fes object}
+\item{inputfes}{fes object.}
 
-\item{nbins}{number of bins for each CV (default 8)}
+\item{nbins}{number of bins for each CV (default 8).}
 }
 \value{
-minima object
+minima object.
 }
 \description{
 `fesminima` finds free energy minima on 1D or 2D free energy surface.

@@ -4,10 +4,12 @@
 \alias{print.fes}
 \title{Print dimensionality, minimum and maximum of free energy surface}
 \usage{
-\method{print}{fes}(inputfes = inputfes, ...)
+\method{print}{fes}(x, ...)
 }
 \arguments{
-\item{inputfes}{fes object}
+\item{x}{fes object}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 `print.fes` prints dimensionality, minimum and maximum of

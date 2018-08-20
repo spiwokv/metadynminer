@@ -8,19 +8,21 @@ neb(minims = minims, min1 = "A", min2 = "B", nbins = 20,
   nsteps = 100, step = 1, k = 0.2)
 }
 \arguments{
-\item{minims}{minima object}
+\item{minims}{minima object.}
 
-\item{min1}{starting minimum identifier (can be letter or index, default "A")}
+\item{min1}{starting minimum identifier (can be letter or
+index, default "A").}
 
-\item{min2}{final minimum identifier (can be letter or index, default "B")}
+\item{min2}{final minimum identifier (can be letter or index,
+default "B").}
 
-\item{nbins}{number of bins along Nudged Elastic Band (default 20)}
+\item{nbins}{number of bins along Nudged Elastic Band (default 20).}
 
-\item{nsteps}{number of Nudged Elastic Band iterations (default 100)}
+\item{nsteps}{number of Nudged Elastic Band iterations (default 100).}
 
-\item{step}{Nudged Elastic Band iteration step (default 1)}
+\item{step}{Nudged Elastic Band iteration step (default 1).}
 
-\item{k}{Nudged Elastic Band toughness (default 0.2)}
+\item{k}{Nudged Elastic Band toughness (default 0.2).}
 }
 \description{
 `neb` finds a transition path on free energy surface for a given pair of

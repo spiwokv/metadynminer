@@ -4,14 +4,14 @@
 \alias{feprof}
 \title{Calculate free energy profile for minima object}
 \usage{
-feprof(minims = minims, imin = 0, imax = NULL)
+feprof(minims, imin = 0, imax = NULL)
 }
 \arguments{
-\item{minims}{minima object}
+\item{minims}{minima object.}
 
-\item{imin}{index of a hill from which summation starts (default 0)}
+\item{imin}{index of a hill from which summation starts (default 0).}
 
-\item{imax}{index of a hill from which summation stops (default the rest of hills)}
+\item{imax}{index of a hill from which summation stops (default the rest of hills).}
 }
 \description{
 `feprof` calculates free energy profiles for free energy minima. It finds the global minimum at the

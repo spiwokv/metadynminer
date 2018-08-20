@@ -8,22 +8,26 @@ fes2d21d(hills = hills, remdim = 2, temp = 300, eunit = "kJ/mol",
   imin = 0, imax = NULL, xlim = NULL, ylim = NULL, npoints = 256)
 }
 \arguments{
-\item{hills}{hillsfile object}
+\item{hills}{hillsfile object.}
 
-\item{remdim}{dimension to be removed (1 for CV1, 2 for CV2, default 2)}
+\item{remdim}{dimension to be removed (1 for CV1, 2 for CV2, default 2).}
 
-\item{temp}{temperature in Kelvins}
+\item{temp}{temperature in Kelvins.}
 
-\item{eunit}{energy units (kJ/mol or kcal/mol, kJ/mol is default)}
+\item{eunit}{energy units (kJ/mol or kcal/mol, kJ/mol is default).}
 
-\item{imin}{index of a hill from which summation starts (default 0)}
+\item{imin}{index of a hill from which summation starts (default 0).}
 
-\item{imax}{index of a hill from which summation stops (default the rest of hills)}
+\item{imax}{index of a hill from which summation stops (default the rest of hills).}
 
-\item{npoints}{resolution of the free energy surface in number of points}
+\item{xlim}{numeric vector of length 2, giving the CV1 coordinates range.}
+
+\item{ylim}{numeric vector of length 2, giving the CV2 coordinates range.}
+
+\item{npoints}{resolution of the free energy surface in number of points.}
 }
 \value{
-fes object
+fes object.
 }
 \description{
 `fes2d21d` calculates 2D free energy surface, converts free energies to probabilities

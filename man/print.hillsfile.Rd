@@ -4,13 +4,15 @@
 \alias{print.hillsfile}
 \title{Print hillsfile}
 \usage{
-\method{print}{hillsfile}(hills = hills, ...)
+\method{print}{hillsfile}(x, ...)
 }
 \arguments{
-\item{hills}{hillsfile object}
+\item{x}{hillsfile object.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \value{
-dimensionality and size of a hillsfile object
+dimensionality and size of a hillsfile object.
 }
 \description{
 `print.hillsfile` prints dimensionality and size of a hillsfile object.

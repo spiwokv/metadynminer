@@ -4,11 +4,16 @@
 \alias{lines.fes}
 \title{Plots 1D fes object as lines}
 \usage{
-\method{lines}{fes}(inputfes = inputfes, x = NULL, lwd = 1,
-  col = "black", ...)
+\method{lines}{fes}(x, lwd = 1, col = "black", ...)
 }
 \arguments{
-\item{inputfes}{fes object}
+\item{x}{fes object.}
+
+\item{lwd}{line width for drawing symbols see 'par'.}
+
+\item{col}{color code or name, see 'par'.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 `lines.fes` plots 1D free energy surface as lines.

@@ -4,10 +4,16 @@
 \alias{lines.nebpath}
 \title{Plot lines for Nudged Elastic Band}
 \usage{
-\method{lines}{nebpath}(nebpath = nebpath, col = "red", lwd = 1, ...)
+\method{lines}{nebpath}(x, col = "red", lwd = 1, ...)
 }
 \arguments{
-\item{nebpath}{nebpath object}
+\item{x}{nebpath object.}
+
+\item{col}{color code or name, see 'par'.}
+
+\item{lwd}{line width for drawing symbols see 'par'.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 `lines.nebpath` plots lines for free energy profile calculated by Nudged Elastic Band.

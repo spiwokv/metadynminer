@@ -4,10 +4,12 @@
 \alias{print.nebpath}
 \title{Print Nudged Elastic Band minima}
 \usage{
-\method{print}{nebpath}(nebpath = nebpath, ...)
+\method{print}{nebpath}(x, ...)
 }
 \arguments{
-\item{nebpath}{nebpath object}
+\item{x}{nebpath object}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 `print.nebpath` prints the list minima for Nudged Elastic Band

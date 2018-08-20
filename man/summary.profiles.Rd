@@ -4,15 +4,18 @@
 \alias{summary.profiles}
 \title{Print summary for free energy profile}
 \usage{
-\method{summary}{profiles}(profs = profs, imind = 1, imaxd = NULL,
-  ...)
+\method{summary}{profiles}(object, imind = 1, imaxd = NULL, ...)
 }
 \arguments{
-\item{profs}{profiles object}
+\item{object}{profiles object.}
 
-\item{imind}{index of a hill from which calculation of difference starts (default 0)}
+\item{imind}{index of a hill from which calculation of difference
+starts (default 0).}
 
-\item{imaxd}{index of a hill from which calculation of difference stops (default the rest of hills)}
+\item{imaxd}{index of a hill from which calculation of difference
+stops (default the rest of hills).}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 `summary.profiles` prints the list of free energy minima with maximal

@@ -5,13 +5,15 @@
 #' two minima. For 2D surface it calculates the transition path by Nudged Elastic
 #; Band method (https://doi.org/10.1063/1.1323224).
 #'
-#' @param minims minima object
-#' @param min1 starting minimum identifier (can be letter or index, default "A")
-#' @param min2 final minimum identifier (can be letter or index, default "B")
-#' @param nbins number of bins along Nudged Elastic Band (default 20)
-#' @param nsteps number of Nudged Elastic Band iterations (default 100)
-#' @param step Nudged Elastic Band iteration step (default 1)
-#' @param k Nudged Elastic Band toughness (default 0.2)
+#' @param minims minima object.
+#' @param min1 starting minimum identifier (can be letter or
+#'        index, default "A").
+#' @param min2 final minimum identifier (can be letter or index,
+#'        default "B").
+#' @param nbins number of bins along Nudged Elastic Band (default 20).
+#' @param nsteps number of Nudged Elastic Band iterations (default 100).
+#' @param step Nudged Elastic Band iteration step (default 1).
+#' @param k Nudged Elastic Band toughness (default 0.2).
 #'
 #' @export
 #' @examples
@@ -107,7 +109,8 @@ neb<-function(minims=minims, min1="A", min2="B", nbins=20,
 #'
 #' `print.nebpath` prints the list minima for Nudged Elastic Band
 #'
-#' @param nebpath nebpath object
+#' @param x nebpath object
+#' @param ... further arguments passed to or from other methods.
 #'
 #' @export
 #' @examples
@@ -115,10 +118,10 @@ neb<-function(minims=minims, min1="A", min2="B", nbins=20,
 #' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' nebAD
-print.nebpath <- function(nebpath=nebpath,...) {
+print.nebpath <- function(x,...) {
   cat("path between minima:\n")
-  print(nebpath$min1)
-  print(nebpath$min2)
+  print(x$min1)
+  print(x$min2)
 }
 
 #' Print summary for Nudged Elastic Band
@@ -126,9 +129,10 @@ print.nebpath <- function(nebpath=nebpath,...) {
 #' `print.nebpath` prints the list minima for Nudged Elastic Band, activation energies and
 #' half lives calculated by Eyring equation (https://doi.org/10.1063/1.1749604).
 #'
-#' @param nebpath nebpath object
-#' @param temp temperature in Kelvins
-#' @param eunit energy units (kJ/mol or kcal/mol, kJ/mol is default)
+#' @param object nebpath object.
+#' @param temp temperature in Kelvins.
+#' @param eunit energy units (kJ/mol or kcal/mol, kJ/mol is default).
+#' @param ... further arguments passed to or from other methods.
 #'
 #' @export
 #' @examples
@@ -136,7 +140,8 @@ print.nebpath <- function(nebpath=nebpath,...) {
 #' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' summary(nebAD)
-summary.nebpath <- function(nebpath=nebpath, temp=300, eunit="kJ/mol",...) {
+summary.nebpath <- function(object, temp=300, eunit="kJ/mol",...) {
+  nebpath<-object
   cat("path between minima:\n")
   print(nebpath$min1)
   print(nebpath$min2)
@@ -325,8 +330,20 @@ summary.nebpath <- function(nebpath=nebpath, temp=300, eunit="kJ/mol",...) {
 #'
 #' `plot.nebpath` plots free energy profile calculated by Nudged Elastic Band.
 #'
-#' @param nebpath nebpath object
-#' @inherit plot
+#' @param x nebpath object.
+#' @param main an overall title for the plot: see 'title'.
+#' @param sub a sub title for the plot: see 'title'.
+#' @param xlab a title for the x axis: see 'title'.
+#' @param ylab a title for the y axis: see 'title'.
+#' @param asp the y/x aspect ratio, see 'plot.window'.
+#' @param col color code or name, see 'par'.
+#' @param cex text expansion.
+#' @param lwd line width for drawing symbols see 'par'.
+#' @param xlim numeric vector of length 2, giving the x coordinates range.
+#' @param ylim numeric vector of length 2, giving the y coordinates range.
+#' @param axes a logical value indicating whether both axes should be drawn
+#'        on the plot.
+#' @param ... further arguments passed to or from other methods.
 #'
 #' @export
 #' @examples
@@ -334,12 +351,13 @@ summary.nebpath <- function(nebpath=nebpath, temp=300, eunit="kJ/mol",...) {
 #' minima<-fesminima(tfes)
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' plot(nebAD)
-plot.nebpath <- function(nebpath=nebpath,
+plot.nebpath <- function(x,
                          xlim=NULL, ylim=NULL,
                          main=NULL, sub=NULL,
                          xlab="bin", ylab="free energy",
-                         col="red", lwd=1, cex=1,
+                         col="red", lwd=1, asp=NULL, cex=1,
                          axes=T,...) {
+  nebpath<-x
   if(ncol(nebpath$path)==3) {
     if(is.null(ylim)) {
       ylim<-c(min(nebpath$path[,3]), min(nebpath$path[,3])+1.1*(max(nebpath$path[,3])-min(nebpath$path[,3])))
@@ -349,7 +367,7 @@ plot.nebpath <- function(nebpath=nebpath,
          main=main, sub=sub,
          xlab=xlab, ylab=ylab,
          col=col, lwd=lwd,
-         axes=T)
+         axes=T, asp=asp)
     text(c(1), c(nebpath$path[1,3])+0.05*(max(nebpath$path[,3])-min(nebpath$path[,3])), labels=c(nebpath$min1[1]), cex=cex)
     text(c(nrow(nebpath$path)), c(nebpath$path[nrow(nebpath$path),3])+0.05*(max(nebpath$path[,3])-min(nebpath$path[,3])),
          labels=c(nebpath$min2[1]), cex=cex)
@@ -365,7 +383,7 @@ plot.nebpath <- function(nebpath=nebpath,
          main=main, sub=sub,
          xlab=xlab, ylab=ylab,
          col=col, lwd=lwd,
-         axes=T)
+         axes=T, asp=asp)
     text(c(1), c(nebpath$path[1,2])+0.05*(max(nebpath$path[,2])-min(nebpath$path[,2])), labels=c(nebpath$min1[1]), cex=cex)
     text(c(nrow(nebpath$path)), c(nebpath$path[nrow(nebpath$path),2])+0.05*(max(nebpath$path[,2])-min(nebpath$path[,2])),
          labels=c(nebpath$min2[1]), cex=cex)
@@ -378,8 +396,15 @@ plot.nebpath <- function(nebpath=nebpath,
 #'
 #' `points.nebpath` plots points for free energy profile calculated by Nudged Elastic Band.
 #'
-#' @param nebpath nebpath object
-#' @inherit points
+#' @param x nebpath object.
+#' @param pch plotting 'character', i.e., symbol to use. See 'points'.
+#' @param col color code or name, see 'par'.
+#' @param bg background (fill) color for the open plot symbols given by
+#'        'pch = 21:25'.
+#' @param cex character (or symbol) expansion: a numerical vector. This
+#'        works as a multiple of 'par("cex")'.
+#' @param lwd line width for drawing symbols see 'par'.
+#' @param ... further arguments passed to or from other methods.
 #'
 #' @export
 #' @examples
@@ -388,9 +413,9 @@ plot.nebpath <- function(nebpath=nebpath,
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' plot(nebAD)
 #' points(nebAD)
-points.nebpath <- function(nebpath=nebpath,
-                           pch=NULL, cex=1, bg=NULL,
+points.nebpath <- function(x, pch=NULL, cex=1, bg=NULL,
                            col="red", lwd=1,...) {
+  nebpath<-x
   if(ncol(nebpath$path)==3) {
     points(nebpath$path[,3],
            pch=NULL, cex=1, bg=NULL,
@@ -407,8 +432,10 @@ points.nebpath <- function(nebpath=nebpath,
 #'
 #' `lines.nebpath` plots lines for free energy profile calculated by Nudged Elastic Band.
 #'
-#' @param nebpath nebpath object
-#' @inherit lines
+#' @param x nebpath object.
+#' @param col color code or name, see 'par'.
+#' @param lwd line width for drawing symbols see 'par'.
+#' @param ... further arguments passed to or from other methods.
 #'
 #' @export
 #' @examples
@@ -417,8 +444,9 @@ points.nebpath <- function(nebpath=nebpath,
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' plot(nebAD)
 #' lines(nebAD, lwd=4)
-lines.nebpath <- function(nebpath=nebpath,
+lines.nebpath <- function(x,
                           col="red", lwd=1,...) {
+  nebpath<-x
   if(ncol(nebpath$path)==3) {
     lines(nebpath$path[,3],
           col=col, lwd=lwd)
@@ -431,11 +459,17 @@ lines.nebpath <- function(nebpath=nebpath,
 
 #' Plot points for Nudged Elastic Band projected onto free energy surface
 #'
-#' `points.nebpath` plots points for free energy profile calculated by Nudged Elastic Band
+#' `pointsonfes` plots points for free energy profile calculated by Nudged Elastic Band
 #' projected onto free energy surface.
 #'
-#' @param nebpath nebpath object
-#' @inherit points
+#' @param x nebpath object.
+#' @param pch plotting 'character', i.e., symbol to use. See 'points'.
+#' @param col color code or name, see 'par'.
+#' @param bg background (fill) color for the open plot symbols given by
+#'        'pch = 21:25'.
+#' @param cex character (or symbol) expansion: a numerical vector. This
+#'        works as a multiple of 'par("cex")'.
+#' @param lwd line width for drawing symbols see 'par'.
 #'
 #' @export
 #' @examples
@@ -444,9 +478,10 @@ lines.nebpath <- function(nebpath=nebpath,
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' plot(minima)
 #' pointsonfes(nebAD)
-pointsonfes <- function(nebpath=nebpath,
+pointsonfes <- function(x,
                         pch=NULL, cex=1, bg=NULL,
-                        col="red", lwd=1,...) {
+                        col="red", lwd=1) {
+  nebpath<-x
   if(ncol(nebpath$path)==3) {
     points(nebpath$path[,1], nebpath$path[,2],
            pch=NULL, cex=1, bg=NULL,
@@ -459,11 +494,12 @@ pointsonfes <- function(nebpath=nebpath,
 
 #' Plot lines for Nudged Elastic Band projected onto free energy surface
 #'
-#' `points.nebpath` plots lines for free energy profile calculated by Nudged Elastic Band
+#' `linesonfes` plots lines for free energy profile calculated by Nudged Elastic Band
 #' projected onto free energy surface.
 #'
-#' @param nebpath nebpath object
-#' @inherit lines
+#' @param x nebpath object.
+#' @param col color code or name, see 'par'.
+#' @param lwd line width for drawing symbols see 'par'.
 #'
 #' @export
 #' @examples
@@ -472,8 +508,9 @@ pointsonfes <- function(nebpath=nebpath,
 #' nebAD<-neb(minima, min1="A", min2="D")
 #' plot(minima)
 #' linesonfes(nebAD)
-linesonfes <- function(nebpath=nebpath,
+linesonfes <- function(x,
                        col="red", lwd=1) {
+  nebpath<-x
   if(ncol(nebpath$path)==3) {
     lines(nebpath$path[,1], nebpath$path[,2],
           col=col, lwd=lwd)
