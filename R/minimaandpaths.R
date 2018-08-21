@@ -396,9 +396,9 @@ feprof <- function(minims, imin=1, imax=NULL) {
   if(minims$dimension==1) {
     for(i in 1:nrow(mins)) {
       if(minims$per[1]==T) {
-        mm<-fe1dp(hills[,2], hills[,3], hills[,4], mins[i,3], minims$pcv1[2]-minims$pcv1[1], imin, imax)
+        mm<-fe1dp(hills[,2], hills[,3], hills[,4], mins[i,3], minims$pcv1[2]-minims$pcv1[1], imin-1, imax-1)
       } else {
-        mm<-fe1d(hills[,2], hills[,3], hills[,4], mins[i,3], imin, imax)
+        mm<-fe1d(hills[,2], hills[,3], hills[,4], mins[i,3], imin-1, imax-1)
       }
       mms<-cbind(mms,mm)
     }
@@ -406,16 +406,16 @@ feprof <- function(minims, imin=1, imax=NULL) {
   if(minims$dimension==2) {
     for(i in 1:nrow(mins)) {
       if(minims$per[1]==T && minims$per[2]==T) {
-        mm<-fe2dp12(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], minims$pcv2[2]-minims$pcv2[1], imin, imax)
+        mm<-fe2dp12(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], minims$pcv2[2]-minims$pcv2[1], imin-1, imax-1)
       }
       if(minims$per[1]==T && minims$per[2]==F) {
-        mm<-fe2dp1(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], imin, imax)
+        mm<-fe2dp1(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], imin-1, imax-1)
       }
       if(minims$per[1]==F && minims$per[2]==T) {
-        mm<-fe2dp2(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv2[2]-minims$pcv2[1], imin, imax)
+        mm<-fe2dp2(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv2[2]-minims$pcv2[1], imin-1, imax-1)
       }
       if(minims$per[1]==F && minims$per[2]==F) {
-        mm<-fe2d(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], imin, imax)
+        mm<-fe2d(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], imin-1, imax-1)
       }
       mms<-cbind(mms,mm)
     }
