@@ -623,7 +623,7 @@ fes2<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256
 #' @examples
 #' tfes<-fes2d21d(acealanme, remdim=2)
 fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
-                   imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+                   imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(imax)) {
     if(hills$size[1]<imax) {
       cat("Warning: You requested more hills by imax than available, using all hills\n")
