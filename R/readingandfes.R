@@ -407,7 +407,7 @@ plotheights<-function(hills=hills, ignoretime=FALSE,
 #' `fes` summes up hills using fast Bias Sum algorithm.
 #'
 #' @param hills hillsfile object.
-#' @param imin index of a hill from which summation starts (default 0).
+#' @param imin index of a hill from which summation starts (default 1).
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #' @param xlim numeric vector of length 2, giving the CV1 coordinates range.
 #' @param ylim numeric vector of length 2, giving the CV2 coordinates range.
@@ -417,7 +417,7 @@ plotheights<-function(hills=hills, ignoretime=FALSE,
 #' @export
 #' @examples
 #' tfes<-fes(acealanme)
-fes<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+fes<-function(hills=hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(imax)) {
     if(hills$size[1]<imax) {
       cat("Warning: You requested more hills by imax than available, using all hills\n")
@@ -512,7 +512,7 @@ fes<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256)
 #' as a reference or when hill widths are variable.
 #'
 #' @param hills hillsfile object.
-#' @param imin index of a hill from which summation starts (default 0).
+#' @param imin index of a hill from which summation starts (default 1).
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #' @param xlim numeric vector of length 2, giving the CV1 coordinates range.
 #' @param ylim numeric vector of length 2, giving the CV2 coordinates range.
@@ -522,7 +522,7 @@ fes<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256)
 #' @export
 #' @examples
 #' tfes<-fes2(acealanme)
-fes2<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+fes2<-function(hills=hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(imax)) {
     if(hills$size[1]<imax) {
       cat("Warning: You requested more hills by imax than available, using all hills\n")
@@ -612,7 +612,7 @@ fes2<-function(hills=hills, imin=0, imax=NULL, xlim=NULL, ylim=NULL, npoints=256
 #' @param remdim dimension to be removed (1 for CV1, 2 for CV2, default 2).
 #' @param temp temperature in Kelvins.
 #' @param eunit energy units (kJ/mol or kcal/mol, kJ/mol is default).
-#' @param imin index of a hill from which summation starts (default 0).
+#' @param imin index of a hill from which summation starts (default 1).
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #' @param xlim numeric vector of length 2, giving the CV1 coordinates range.
 #' @param ylim numeric vector of length 2, giving the CV2 coordinates range.

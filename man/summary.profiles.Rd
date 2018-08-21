@@ -10,7 +10,7 @@
 \item{object}{profiles object.}
 
 \item{imind}{index of a hill from which calculation of difference
-starts (default 0).}
+starts (default 1).}
 
 \item{imaxd}{index of a hill from which calculation of difference
 stops (default the rest of hills).}

@@ -5,7 +5,7 @@
 \title{Calculate 1D free energy surface from hillsfile object}
 \usage{
 fes2d21d(hills = hills, remdim = 2, temp = 300, eunit = "kJ/mol",
-  imin = 0, imax = NULL, xlim = NULL, ylim = NULL, npoints = 256)
+  imin = 1, imax = NULL, xlim = NULL, ylim = NULL, npoints = 256)
 }
 \arguments{
 \item{hills}{hillsfile object.}
@@ -16,7 +16,7 @@ fes2d21d(hills = hills, remdim = 2, temp = 300, eunit = "kJ/mol",
 
 \item{eunit}{energy units (kJ/mol or kcal/mol, kJ/mol is default).}
 
-\item{imin}{index of a hill from which summation starts (default 0).}
+\item{imin}{index of a hill from which summation starts (default 1).}
 
 \item{imax}{index of a hill from which summation stops (default the rest of hills).}
 

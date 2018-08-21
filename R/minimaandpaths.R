@@ -367,7 +367,7 @@ plot.minima <- function(x, plottype="both",
 #' minimum is const (zero).
 #'
 #' @param minims minima object.
-#' @param imin index of a hill from which summation starts (default 0).
+#' @param imin index of a hill from which summation starts (default 1).
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #'
 #' @export
@@ -376,7 +376,7 @@ plot.minima <- function(x, plottype="both",
 #' minima<-fesminima(tfes)
 #' prof<-feprof(minima)
 #' prof
-feprof <- function(minims, imin=0, imax=NULL) {
+feprof <- function(minims, imin=1, imax=NULL) {
   fes<-minims$fes
   rows<-minims$rows
   mins<-minims$minima
@@ -454,7 +454,7 @@ print.profiles <- function(x,...) {
 #'
 #' @param object profiles object.
 #' @param imind index of a hill from which calculation of difference
-#'        starts (default 0).
+#'        starts (default 1).
 #' @param imaxd index of a hill from which calculation of difference
 #'        stops (default the rest of hills).
 #' @param ... further arguments passed to or from other methods.

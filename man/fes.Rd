@@ -4,13 +4,13 @@
 \alias{fes}
 \title{Calculate free energy surface by Bias Sum algorithm}
 \usage{
-fes(hills = hills, imin = 0, imax = NULL, xlim = NULL,
+fes(hills = hills, imin = 1, imax = NULL, xlim = NULL,
   ylim = NULL, npoints = 256)
 }
 \arguments{
 \item{hills}{hillsfile object.}
 
-\item{imin}{index of a hill from which summation starts (default 0).}
+\item{imin}{index of a hill from which summation starts (default 1).}
 
 \item{imax}{index of a hill from which summation stops (default the rest of hills).}
 
