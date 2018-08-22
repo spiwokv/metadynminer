@@ -29,12 +29,10 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
   if(ncol(hillsf)==5 || ncol(hillsf)==6) {
     cat("1D HILLS file read\n")
     if(ignoretime) {
-      if (hillsf[,1]!=sort(hillsf[,1])) {
-        cat("Warning: time in the hills file is not continuous, probably you\n")
-        cat("used RESTART function. The time will be updated automatically from zero\n")
-        cat("according to the first step!\n")
-        hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
-      }
+      cat("Warning: time in the hills file is not continuous, probably you\n")
+      cat("used RESTART function. The time will be updated automatically from zero\n")
+      cat("according to the first step!\n")
+      hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
     }
     hills<-list(hillsfile=hillsf, time=hillsf[,1], cv1=hillsf[,2], cv2=NULL,
                 size=dim(hillsf), filename=file, per=per, pcv1=pcv1)
@@ -44,12 +42,10 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
     if(ncol(hillsf)==7 || ncol(hillsf)==8) {
       cat("2D HILLS file read\n")
       if(ignoretime) {
-        if (hillsf[,1]!=sort(hillsf[,1])) {
-          cat("Warning: time in the hills file is not continuous, probably you\n")
-          cat("used RESTART function. The time will be updated automatically from zero\n")
-          cat("according to the first step!\n")
-          hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
-        }
+        cat("Warning: time in the hills file is not continuous, probably you\n")
+        cat("used RESTART function. The time will be updated automatically from zero\n")
+        cat("according to the first step!\n")
+        hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
       }
       hills<-list(hillsfile=hillsf, time=hillsf[,1], cv1=hillsf[,2], cv2=hillsf[,3],
                   size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2)
@@ -324,7 +320,7 @@ lines.hillsfile<-function(x, ignoretime=FALSE,
             hills$hillsfile[,2],
             col=col, lwd=lwd)
     } else {
-      plot(hills$hillsfile[,1], hills$hillsfile[,2],
+      lines(hills$hillsfile[,1], hills$hillsfile[,2],
            col=col, lwd=lwd)
     }
   }
@@ -427,8 +423,8 @@ fes<-function(hills=hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256)
   if(is.null(imax)) {
     imax<-hills$size[1]
   }
-  if(imin>=imax) {
-    stop("Error: imax must be higher than imin")
+  if(imin>imax) {
+    stop("Error: imax cannot be lower than imin")
   }
   if(hills$size[2]==7) {
     if(max(hills$hillsfile[,4])/min(hills$hillsfile[,4])>1.00000000001) {
@@ -454,28 +450,28 @@ fes<-function(hills=hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256)
                    npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                    npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                    npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                   hills$hillsfile[,6],npoints,imin,imax)
+                   hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==T)&(hills$per[2]==F)) {
       fesm<-hills1p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                      npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                      npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                     hills$hillsfile[,6],npoints,imin,imax)
+                     hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==F)&(hills$per[2]==T)) {
       fesm<-hills1p2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                      npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                      npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                     hills$hillsfile[,6],npoints,imin,imax)
+                     hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==T)&(hills$per[2]==T)) {
       fesm<-hills1p12(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                       npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                       npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                       npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                      hills$hillsfile[,6],npoints,imin,imax)
+                      hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=2, per=hills$per, x=x, y=y, pcv1=hills$pcv1, pcv2=hills$pcv2)
     class(cfes) <- "fes"
@@ -493,12 +489,12 @@ fes<-function(hills=hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256)
     if(hills$per[1]==F) {
       fesm<-hills1d1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]),
-                     hills$hillsfile[,4],npoints,imin,imax)
+                     hills$hillsfile[,4],npoints,imin-1,imax-1)
     }
     if(hills$per[1]==T) {
       fesm<-hills1d1p(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                       npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]),
-                      hills$hillsfile[,4],npoints,imin,imax)
+                      hills$hillsfile[,4],npoints,imin-1,imax-1)
     }
     cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per, x=x, pcv1=hills$pcv1, pcv2=hills$pcv2)
     class(cfes) <- "fes"
@@ -532,8 +528,8 @@ fes2<-function(hills=hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256
   if(is.null(imax)) {
     imax<-hills$size[1]
   }
-  if(imin>=imax) {
-    stop("Error: imax must be higher than imin")
+  if(imin>imax) {
+    stop("Error: imax cannot be lower than imin")
   }
   if(hills$size[2]==7) {
     minCV1 <- min(hills$hillsfile[,2])
@@ -553,28 +549,28 @@ fes2<-function(hills=hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256
                    npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                    npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
                    npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
-                   hills$hillsfile[,6],npoints,imin,imax)
+                   hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==T)&(hills$per[2]==F)) {
       fesm<-hills2p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                      npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
                      npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
-                     hills$hillsfile[,6],npoints,imin,imax)
+                     hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==F)&(hills$per[2]==T)) {
       fesm<-hills2p2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                      npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
                      npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
-                     hills$hillsfile[,6],npoints,imin,imax)
+                     hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==T)&(hills$per[2]==T)) {
       fesm<-hills2p12(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                       npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                       npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]),
                       npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]),
-                      hills$hillsfile[,6],npoints,imin,imax)
+                      hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=2, per=hills$per, x=x, y=y, pcv1=hills$pcv1, pcv2=hills$pcv2)
     class(cfes) <- "fes"
@@ -589,12 +585,12 @@ fes2<-function(hills=hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256
     if(hills$per[1]==F) {
       fesm<-hills1d2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*hills$hillsfile[,3]/(xlims[2]-xlims[1]),
-                     hills$hillsfile[,4],npoints,imin,imax)
+                     hills$hillsfile[,4],npoints,imin-1,imax-1)
     }
     if(hills$per[1]==T) {
       fesm<-hills1d2p(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                       npoints*hills$hillsfile[,3]/(xlims[2]-xlims[1]),
-                      hills$hillsfile[,4],npoints,imin,imax)
+                      hills$hillsfile[,4],npoints,imin-1,imax-1)
     }
     cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per, x=x, pcv1=hills$pcv1, pcv2=hills$pcv2)
     class(cfes) <- "fes"
@@ -633,10 +629,9 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
   if(is.null(imax)) {
     imax<-hills$size[1]
   }
-  if(imin>=imax) {
-    stop("Error: imax must be higher than imin")
+  if(imin>imax) {
+    stop("Error: imax cannot be lower than imin")
   }
-  #sourceCpp("mm.cpp")
   if(hills$size[2]==7) {
     if(max(hills$hillsfile[,4])/min(hills$hillsfile[,4])>1.00000000001) {
       stop("Error: Bias Sum algorithm works only with hills of the same sizes")
@@ -661,28 +656,28 @@ fes2d21d<-function(hills=hills, remdim=2, temp=300, eunit="kJ/mol",
                    npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                    npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                    npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                   hills$hillsfile[,6],npoints,imin,imax)
+                   hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==T)&(hills$per[2]==F)) {
       fesm<-hills1p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                      npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                      npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                     hills$hillsfile[,6],npoints,imin,imax)
+                     hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==F)&(hills$per[2]==T)) {
       fesm<-hills1p2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                      npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                      npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                     hills$hillsfile[,6],npoints,imin,imax)
+                     hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==T)&(hills$per[2]==T)) {
       fesm<-hills1p12(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
                       npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
                       npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
                       npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
-                      hills$hillsfile[,6],npoints,imin,imax)
+                      hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if(eunit=="kJ/mol") {
       prob<- exp(-1000*fesm/8.314/temp)

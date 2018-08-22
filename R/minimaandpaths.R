@@ -367,7 +367,6 @@ plot.minima <- function(x, plottype="both",
 #' minimum is const (zero).
 #'
 #' @param minims minima object.
-#' @param imin index of a hill from which summation starts (default 1).
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #'
 #' @export
@@ -376,7 +375,7 @@ plot.minima <- function(x, plottype="both",
 #' minima<-fesminima(tfes)
 #' prof<-feprof(minima)
 #' prof
-feprof <- function(minims, imin=1, imax=NULL) {
+feprof <- function(minims, imax=NULL) {
   fes<-minims$fes
   rows<-minims$rows
   mins<-minims$minima
@@ -388,17 +387,14 @@ feprof <- function(minims, imin=1, imax=NULL) {
     imax<-nrow(hills)
     cat("Warning: You requested more hills by imax than available, using all hills\n")
   }
-  if(imin>=imax) {
-    stop("Error: imax must be higher than imin")
-  }
-  tt <- imin:imax
+  tt <- 1:imax
   mms <- data.frame(tt)
   if(minims$dimension==1) {
     for(i in 1:nrow(mins)) {
       if(minims$per[1]==T) {
-        mm<-fe1dp(hills[,2], hills[,3], hills[,4], mins[i,3], minims$pcv1[2]-minims$pcv1[1], imin-1, imax-1)
+        mm<-fe1dp(hills[,2], hills[,3], hills[,4], mins[i,3], minims$pcv1[2]-minims$pcv1[1], 0, imax-1)
       } else {
-        mm<-fe1d(hills[,2], hills[,3], hills[,4], mins[i,3], imin-1, imax-1)
+        mm<-fe1d(hills[,2], hills[,3], hills[,4], mins[i,3], 0, imax-1)
       }
       mms<-cbind(mms,mm)
     }
@@ -406,16 +402,16 @@ feprof <- function(minims, imin=1, imax=NULL) {
   if(minims$dimension==2) {
     for(i in 1:nrow(mins)) {
       if(minims$per[1]==T && minims$per[2]==T) {
-        mm<-fe2dp12(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], minims$pcv2[2]-minims$pcv2[1], imin-1, imax-1)
+        mm<-fe2dp12(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], minims$pcv2[2]-minims$pcv2[1], 0, imax-1)
       }
       if(minims$per[1]==T && minims$per[2]==F) {
-        mm<-fe2dp1(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], imin-1, imax-1)
+        mm<-fe2dp1(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv1[2]-minims$pcv1[1], 0, imax-1)
       }
       if(minims$per[1]==F && minims$per[2]==T) {
-        mm<-fe2dp2(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv2[2]-minims$pcv2[1], imin-1, imax-1)
+        mm<-fe2dp2(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], minims$pcv2[2]-minims$pcv2[1], 0, imax-1)
       }
       if(minims$per[1]==F && minims$per[2]==F) {
-        mm<-fe2d(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], imin-1, imax-1)
+        mm<-fe2d(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], mins[i,4], mins[i,5], 0, imax-1)
       }
       mms<-cbind(mms,mm)
     }
@@ -467,8 +463,17 @@ print.profiles <- function(x,...) {
 #' summary(prof)
 summary.profiles <- function(object, imind=1, imaxd=NULL,...) {
   profs<-object
+  if(!is.null(imaxd)) {
+    if(nrow(profs$mms)<imaxd) {
+      cat("Warning: You requested more hills by imaxd than available, using all hills\n")
+      imaxd<-nrow(profs$mms)
+    }
+  }
   if(is.null(imaxd)) {
     imaxd<-nrow(profs$mms)
+  }
+  if(imind>imaxd) {
+    stop("Error: imaxd cannot be lower than imind")
   }
   if(profs$dimension==1) {
     outprofile <- profs$mins
