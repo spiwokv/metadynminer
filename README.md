@@ -5,7 +5,7 @@
 # MetadynMiner
 
 ## Introduction
-MetadynMiner is R packages for reading, analysis and visualisation of metadynamics HILLS files produced by Plumed.
+MetadynMiner is R packages for reading, analysis and visualization of metadynamics HILLS files produced by Plumed.
 It reads HILLS files from Plumed, calculates free energy surface by fast Bias Sum algorithm, finds minima and analyses
 transition paths by Nudged Elastic Band method.
 
@@ -45,7 +45,7 @@ tfes<-fes(hillsf, imin=5000, imax=10000)
 # Sum two FESes
 tfes+tfes
 
-# Calculate and substract min, max or mean from a FES
+# Calculate and subtract min, max or mean from a FES
 tfes<-tfes-min(tfes)
 
 # Summary of FES
@@ -150,7 +150,7 @@ dev.off()
 ```
 
 ### Evaluation of convergence of one CV
-You can use function `fes2d21d` to convert a 2D surface to 1D and to evalulate the evolution:
+You can use function `fes2d21d` to convert a 2D surface to 1D and to evaluate the evolution:
 ```R
 hillsf <- read.hills("HILLS", per=c(T,T))
 tfes1<-fes2d21d(hillsf, remdim=2)
@@ -172,7 +172,7 @@ box()
 ```
 The expression -3:3 will generate a vector {-3,-2,-1,0,1,2,3}, which can be multiplied by pi/3
 (tick positions in radians) or by 60 (tick positions in degrees). If you want to transform just
-one axis, e.g. the horizontal one while keepinng the vertical unchanges, simply type `axis(2)`
+one axis, e.g. the horizontal one while keeping the vertical unchanged, simply type `axis(2)`
 for the vertical one. `box()` redraws a box.
 
 ### kcal vs kJ
@@ -182,17 +182,25 @@ set `eunit="kcal/mol"` for functions `fes2d21d` or `summary` of minima object. O
 supported.
 
 ### Shifting a periodic CV
-It may happen that some simulations with a torsion CV it may be difficult to analyse and visualize
-it in the range -pi - +pi. However, this problem is not very common so we did not make any user friendly way
-how to solve this and it can be solved in a user unfriendly way. It is possible to move the whole free
-energy surface and corresponding x or y values within the free energy surface object. For example,
-if you want to shift free energy surface to have phi from 0 to 2pi you can do this:
+It may happen that some simulations with a torsion CV it may be difficult to analyze and visualize
+it in the range -pi - +pi. However, this problem is not very common so we did not make any user
+friendly way how to solve this and it can be solved in a user unfriendly way. Let us consider
+we want to shift the first collective variable to be in the range 0 - 2pi. First we will make 
+copy of acealanme. We will change its `pcv1` to `c(0,2*pi)`. Finally we can add 2pi to the
+first collective variable:
 ```R
-hillsf <- read.hills("HILLS", per=c(T,T))
-tfes<-fes(hillsf)
-tfes$fes<- rbind(tfes$fes[129:256,], tfes$fes[1:128,])
-  # replace 128, 129 and 256 if tfes$rows!=256
-tfes2$x<-tfes2$x+pi
-plot(tfes2)
+acealanmec<-acealanme
+acealanmec$pcv1<-c(0,2*pi)
+acealanmec$hillsfile[acealanmec$hillsfile[,2]<0,2]<-
+    acealanmec$hillsfile[acealanmec$hillsfile[,2]<0,2]+2*pi
+tfes<-fes(acealanmec)
+plot(tfes)
 ```
+The hills file object has several instances including `hillsfile`, which contains the HILLS file,
+and `pcv1` with collective variable periodicity. They can be printed by `$` operator. The expression
+`acealanmec$hillsfile[,2]` prints all values of the first collective variable. The expression
+`acealanmec$hillsfile[,2]<0` prints the same number of `TRUE` or `FALSE` values depending whether
+the first collective variable is positive or negative. The expression
+`acealanmec$hillsfile[acealanmec$hillsfile[,2]<0,2]` prints only negative values of the first
+collective variable. They can be replaced by the same value + 2pi.
 
