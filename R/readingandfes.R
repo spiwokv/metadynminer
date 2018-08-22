@@ -29,8 +29,7 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
   if(ncol(hillsf)==5 || ncol(hillsf)==6) {
     cat("1D HILLS file read\n")
     if(ignoretime) {
-      cat("Warning: time in the hills file is not continuous, probably you\n")
-      cat("used RESTART function. The time will be updated automatically from zero\n")
+      cat("Warning: The time will be updated automatically from zero\n")
       cat("according to the first step!\n")
       hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
     }
@@ -42,8 +41,7 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
     if(ncol(hillsf)==7 || ncol(hillsf)==8) {
       cat("2D HILLS file read\n")
       if(ignoretime) {
-        cat("Warning: time in the hills file is not continuous, probably you\n")
-        cat("used RESTART function. The time will be updated automatically from zero\n")
+        cat("Warning: The time will be updated automatically from zero\n")
         cat("according to the first step!\n")
         hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
       }
