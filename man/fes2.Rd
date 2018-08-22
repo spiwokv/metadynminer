@@ -28,5 +28,5 @@ fes object.
 as a reference or when hill widths are variable.
 }
 \examples{
-tfes<-fes2(acealanme)
+tfes<-fes2(acealanme, imax=1000)
 }

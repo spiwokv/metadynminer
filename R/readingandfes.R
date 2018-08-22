@@ -515,7 +515,7 @@ fes<-function(hills=hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256)
 #'
 #' @export
 #' @examples
-#' tfes<-fes2(acealanme)
+#' tfes<-fes2(acealanme, imax=1000)
 fes2<-function(hills=hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(imax)) {
     if(hills$size[1]<imax) {
