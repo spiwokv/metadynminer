@@ -14,9 +14,6 @@ removed.}
 
 \item{...}{further arguments passed to or from other methods.}
 }
-\value{
-minimum.
-}
 \description{
 `min.fes` calculates minimum of free energy in a fes object.
 }

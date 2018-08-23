@@ -4,8 +4,8 @@
 \alias{fes2}
 \title{Calculate free energy surface by conventional algorithm}
 \usage{
-fes2(hills = hills, imin = 1, imax = NULL, xlim = NULL,
-  ylim = NULL, npoints = 256)
+fes2(hills, imin = 1, imax = NULL, xlim = NULL, ylim = NULL,
+  npoints = 256)
 }
 \arguments{
 \item{hills}{hillsfile object.}

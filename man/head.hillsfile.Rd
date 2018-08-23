@@ -13,9 +13,6 @@
 
 \item{...}{further arguments passed to or from other methods.}
 }
-\value{
-first n lines of a hillsfile object.
-}
 \description{
 `head.hillsfile` prints first n lines of a hillsfile object.
 }

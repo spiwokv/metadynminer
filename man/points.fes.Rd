@@ -2,7 +2,7 @@
 % Please edit documentation in R/readingandfes.R
 \name{points.fes}
 \alias{points.fes}
-\title{Plots 1D fes object as points}
+\title{Plots 1D free energy surface object as points}
 \usage{
 \method{points}{fes}(x, pch = 1, col = "black", bg = "red",
   cex = 1, lwd = 1, ...)

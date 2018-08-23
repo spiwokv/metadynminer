@@ -5,6 +5,9 @@
 \alias{acealanme}
 \title{Hills from 30 ns metadynamics of AceAlaNme in water with two collective variables}
 \format{hillsfile object}
+\source{
+\url{http://www.metadynamics.cz/metadynminer/data/HILLS2d}
+}
 \usage{
 acealanme
 }

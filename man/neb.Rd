@@ -24,6 +24,9 @@ default "B").}
 
 \item{k}{Nudged Elastic Band toughness (default 0.2).}
 }
+\value{
+NEB path
+}
 \description{
 `neb` finds a transition path on free energy surface for a given pair of
 minima. For a 1D surface it simply takes the free energy profile between the

@@ -4,15 +4,15 @@
 \alias{fes2d21d}
 \title{Calculate 1D free energy surface from hillsfile object}
 \usage{
-fes2d21d(hills = hills, remdim = 2, temp = 300, eunit = "kJ/mol",
-  imin = 1, imax = NULL, xlim = NULL, ylim = NULL, npoints = 256)
+fes2d21d(hills, remdim = 2, temp = 300, eunit = "kJ/mol", imin = 1,
+  imax = NULL, xlim = NULL, ylim = NULL, npoints = 256)
 }
 \arguments{
 \item{hills}{hillsfile object.}
 
 \item{remdim}{dimension to be removed (1 for CV1, 2 for CV2, default 2).}
 
-\item{temp}{temperature in Kelvins.}
+\item{temp}{temperature in Kelvins (default 300).}
 
 \item{eunit}{energy units (kJ/mol or kcal/mol, kJ/mol is default).}
 

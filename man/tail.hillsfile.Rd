@@ -13,9 +13,6 @@
 
 \item{...}{further arguments passed to or from other methods.}
 }
-\value{
-last n lines of a hillsfile object.
-}
 \description{
 `tail.hillsfile` prints last n lines of a hillsfile object.
 }

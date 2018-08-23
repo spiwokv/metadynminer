@@ -14,6 +14,7 @@
 #' @param nsteps number of Nudged Elastic Band iterations (default 100).
 #' @param step Nudged Elastic Band iteration step (default 1).
 #' @param k Nudged Elastic Band toughness (default 0.2).
+#' @return NEB path
 #'
 #' @export
 #' @examples
@@ -39,7 +40,7 @@ neb<-function(minims=minims, min1="A", min2="B", nbins=20,
     min2 <- minims$minima[min2,]
   }
   if(minims$dimension==1) {
-    #path <- fes
+    stop("Error: Nudged Elastic Band is available only for 2D free energy surfaces, exiting")
   }
   if(minims$dimension==2) {
     align<-function(v1, v2) {

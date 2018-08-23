@@ -14,9 +14,6 @@ removed.}
 
 \item{...}{further arguments passed to or from other methods.}
 }
-\value{
-maximum.
-}
 \description{
 `max.fes` calculates maximum of free energy in a fes object.
 }

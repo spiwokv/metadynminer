@@ -2,7 +2,7 @@
 % Please edit documentation in R/readingandfes.R
 \name{lines.fes}
 \alias{lines.fes}
-\title{Plots 1D fes object as lines}
+\title{Plots 1D free energy surface object as lines}
 \usage{
 \method{lines}{fes}(x, lwd = 1, col = "black", ...)
 }

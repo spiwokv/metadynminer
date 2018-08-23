@@ -4,7 +4,7 @@
 \alias{oneminimum}
 \title{Creates one ad hoc free energy minimum for a fes object}
 \usage{
-oneminimum(inputfes, cv1 = cv1, cv2 = cv2)
+oneminimum(inputfes, cv1, cv2)
 }
 \arguments{
 \item{inputfes}{fes object.}

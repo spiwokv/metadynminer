@@ -11,9 +11,6 @@
 
 \item{...}{further arguments passed to or from other methods.}
 }
-\value{
-dimensionality and size of a hillsfile object.
-}
 \description{
 `summary.hillsfile` prints dimensionality, size and collective variable ranges of a hillsfile object.
 }

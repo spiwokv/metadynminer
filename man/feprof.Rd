@@ -13,8 +13,8 @@ feprof(minims, imax = NULL)
 }
 \description{
 `feprof` calculates free energy profiles for free energy minima. It finds the global minimum at the
-imax and calculates the evolution of free of local vs. global free energy minimum. The global
-minimum is const (zero).
+`imax` and calculates the evolution of free energies of a local vs. the global free energy minimum.
+The free energy of the global minimum is constant (zero).
 }
 \examples{
 tfes<-fes(acealanme)

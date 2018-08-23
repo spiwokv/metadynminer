@@ -4,8 +4,8 @@
 \alias{fes}
 \title{Calculate free energy surface by Bias Sum algorithm}
 \usage{
-fes(hills = hills, imin = 1, imax = NULL, xlim = NULL,
-  ylim = NULL, npoints = 256)
+fes(hills, imin = 1, imax = NULL, xlim = NULL, ylim = NULL,
+  npoints = 256)
 }
 \arguments{
 \item{hills}{hillsfile object.}

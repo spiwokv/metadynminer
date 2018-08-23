@@ -4,8 +4,8 @@
 \alias{plotheights}
 \title{Plot evolution of heights of hills in hillsfile object}
 \usage{
-plotheights(hills = hills, ignoretime = FALSE, xlab = NULL,
-  ylab = NULL, xlim = NULL, ylim = NULL, main = NULL, sub = NULL,
+plotheights(hills, ignoretime = FALSE, xlab = NULL, ylab = NULL,
+  xlim = NULL, ylim = NULL, main = NULL, sub = NULL,
   col = "black", asp = NULL, lwd = 1, axes = TRUE)
 }
 \arguments{

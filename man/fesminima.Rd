@@ -17,9 +17,9 @@ minima object.
 \description{
 `fesminima` finds free energy minima on 1D or 2D free energy surface.
 The surface is divided by a 1D or 2D grid and minima are found for each
-grid point. Next the program determines whether the minimum is a local
-free energy minimum. Free energy minima are labeled constitutively by
-capital letters.
+bin. Next the program determines whether the minimum of a bin is a local
+minimum of the whole free energy surface. Free energy minima are labeled
+constitutively by capital letters.
 }
 \examples{
 tfes<-fes(acealanme)
