@@ -11,7 +11,7 @@
 \arguments{
 \item{x}{profiles object.}
 
-\item{which}{vector of indexes of profiles to be ploted (default all).}
+\item{which}{vector of indexes of profiles to be plotted (default all).}
 
 \item{ignoretime}{time in the first column of the HILLS file will be ignored.}
 

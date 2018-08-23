@@ -1,6 +1,6 @@
 Package: metadynminer
 Type: Package
-Title: Tools to Read, Analyse and Visualise Metadynamics HILLS Files from Plumed
+Title: Tools to Read, Analyze and Visualize Metadynamics HILLS Files from Plumed
 Version: 0.1.0
 Date: 2018-08-23
 Authors@R: person("Vojtech", "Spiwok", email = "spiwokv@vscht.cz",
@@ -11,12 +11,12 @@ LinkingTo: Rcpp
 Description: Metadynamics is a state of the art biomolecular simulation technique.
   Plumed <doi:10.1016/j.cpc.2013.09.018> packages makes it possible to perform
   metadynamics using various simulation codes. The results of metadynamics done
-  in Plumed can be analsed by metadynminer. Metadynminer reads 1D and 2D metadynamics
+  in Plumed can be analzed by metadynminer. Metadynminer reads 1D and 2D metadynamics
   HILLS files from Plumed package. It uses a fast algorithm <doi:10.1016/j.cpc.2015.08.037>
-  to claculate a free energy surface from hills. Minima can be located and ploted on
-  the free energy surface. Transition states can be analysed by Nudged Elastic Band
+  to calculate a free energy surface from hills. Minima can be located and plotted on
+  the free energy surface. Transition states can be analyzed by Nudged Elastic Band
   method <doi:10.1063/1.1323224>. Free energy surfaces, minima and transition paths can
-  be ploted to produce publication quality images.
+  be plotted to produce publication quality images.
 LazyData: true
 License: GPL-3
 RoxygenNote: 6.1.0

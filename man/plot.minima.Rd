@@ -16,7 +16,7 @@
 \arguments{
 \item{x}{minima object.}
 
-\item{plottype}{specifies whether 2D free energy surface will be ploted
+\item{plottype}{specifies whether 2D free energy surface will be plotted
 as image, contours or both (default "both").}
 
 \item{xlim}{numeric vector of length 2, giving the x coordinates range.}
@@ -25,7 +25,7 @@ as image, contours or both (default "both").}
 
 \item{zlim}{numeric vector of length 2, giving the z coordinates range.}
 
-\item{colscale}{specifies whether color scale will be ploted (default False).}
+\item{colscale}{specifies whether color scale will be plotted (default False).}
 
 \item{colscalelab}{color scale label (default "free energy").}
 
@@ -51,10 +51,10 @@ functions (default=rainbow(135)[100:1]).}
 then the levels are used as labels, otherwise this is coerced
 by 'as.character'.}
 
-\item{labcex}{'cex' for contour labelling. This is an absolute size, not a
+\item{labcex}{'cex' for contour labeling. This is an absolute size, not a
 multiple of 'par("cex")'.}
 
-\item{drawlabels}{logical. Contours are labelled if 'TRUE'.}
+\item{drawlabels}{logical. Contours are labeled if 'TRUE'.}
 
 \item{method}{character string specifying where the labels will be located.
 Possible values are '"simple"', '"edge"' and '"flattest"'
@@ -84,8 +84,8 @@ on the plot.}
 \item{...}{further arguments passed to or from other methods.}
 }
 \description{
-`plot.minima` plots free energy surface with minima. The free energy sufrace is ploted the same
-way as by plot.fes with aditional minima labels.
+`plot.minima` plots free energy surface with minima. The free energy surface is plotted the same
+way as by plot.fes with additional minima labels.
 }
 \examples{
 tfes<-fes(acealanme)

@@ -31,7 +31,7 @@ fes object.
 }
 \description{
 `fes2d21d` calculates 2D free energy surface, converts free energies to probabilities
-(exp(-F/kT)), summes them up along one collective variable and converts back to free
+(exp(-F/kT)), sums them up along one collective variable and converts back to free
 energy (-kT log(P)).
 }
 \examples{

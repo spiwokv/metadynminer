@@ -223,13 +223,13 @@ summary.minima<-function(object, temp=300, eunit="kJ/mol",...) {
 
 #' Plot minima object
 #'
-#' `plot.minima` plots free energy surface with minima. The free energy sufrace is ploted the same
-#' way as by plot.fes with aditional minima labels.
+#' `plot.minima` plots free energy surface with minima. The free energy surface is plotted the same
+#' way as by plot.fes with additional minima labels.
 #'
 #' @param x minima object.
-#' @param plottype specifies whether 2D free energy surface will be ploted
+#' @param plottype specifies whether 2D free energy surface will be plotted
 #'        as image, contours or both (default "both").
-#' @param colscale specifies whether color scale will be ploted (default False).
+#' @param colscale specifies whether color scale will be plotted (default False).
 #' @param colscalelab color scale label (default "free energy").
 #' @param main an overall title for the plot: see 'title'.
 #' @param sub a sub title for the plot: see 'title'.
@@ -254,9 +254,9 @@ summary.minima<-function(object, temp=300, eunit="kJ/mol",...) {
 #' @param labels a vector giving the labels for the contour lines.  If 'NULL'
 #'        then the levels are used as labels, otherwise this is coerced
 #'        by 'as.character'.
-#' @param labcex 'cex' for contour labelling. This is an absolute size, not a
+#' @param labcex 'cex' for contour labeling. This is an absolute size, not a
 #'        multiple of 'par("cex")'.
-#' @param drawlabels logical. Contours are labelled if 'TRUE'.
+#' @param drawlabels logical. Contours are labeled if 'TRUE'.
 #' @param method character string specifying where the labels will be located.
 #'        Possible values are '"simple"', '"edge"' and '"flattest"'
 #'        (the default). See the 'Details' section.
@@ -495,7 +495,7 @@ summary.profiles <- function(object, imind=1, imaxd=NULL,...) {
 #' They are colored by rainbow colors from the global one (blue) to the highest (red).
 #'
 #' @param x profiles object.
-#' @param which vector of indexes of profiles to be ploted (default all).
+#' @param which vector of indexes of profiles to be plotted (default all).
 #' @param ignoretime time in the first column of the HILLS file will be ignored.
 #' @param main an overall title for the plot: see 'title'.
 #' @param sub a sub title for the plot: see 'title'.

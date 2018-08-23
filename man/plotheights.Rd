@@ -36,7 +36,7 @@ on the plot.}
 }
 \description{
 `plotheights` plots evolution of heights of hills. In well tempered metadynamics
-hill heights decrese with flooding of the free energy surface. Evolution of heights
+hill heights decrees with flooding of the free energy surface. Evolution of heights
 may be useful to evaluate convergence of the simulation.
 }
 \examples{

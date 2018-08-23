@@ -327,7 +327,7 @@ lines.hillsfile<-function(x, ignoretime=FALSE,
 #' Plot evolution of heights of hills in hillsfile object
 #'
 #' `plotheights` plots evolution of heights of hills. In well tempered metadynamics
-#' hill heights decrese with flooding of the free energy surface. Evolution of heights
+#' hill heights decrees with flooding of the free energy surface. Evolution of heights
 #' may be useful to evaluate convergence of the simulation.
 #'
 #' @param hills hillsfile object.
@@ -394,7 +394,7 @@ plotheights<-function(hills, ignoretime=FALSE,
 
 #' Calculate free energy surface by Bias Sum algorithm
 #'
-#' `fes` summes up hills using fast Bias Sum algorithm.
+#' `fes` sums up hills using fast Bias Sum algorithm.
 #'
 #' @param hills hillsfile object.
 #' @param imin index of a hill from which summation starts (default 1).
@@ -498,7 +498,7 @@ fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
 
 #' Calculate free energy surface by conventional algorithm
 #'
-#' `fes2` summes up hills using slow conventional algorithm. It can be used
+#' `fes2` sums up hills using slow conventional algorithm. It can be used
 #' as a reference or when hill widths are variable.
 #'
 #' @param hills hillsfile object.
@@ -595,7 +595,7 @@ fes2<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
 #' Calculate 1D free energy surface from hillsfile object
 #'
 #' `fes2d21d` calculates 2D free energy surface, converts free energies to probabilities
-#' (exp(-F/kT)), summes them up along one collective variable and converts back to free
+#' (exp(-F/kT)), sums them up along one collective variable and converts back to free
 #' energy (-kT log(P)).
 #'
 #' @param hills hillsfile object.
@@ -947,9 +947,9 @@ summary.fes<-function(object,...) {
 #' using image, contours or combination of both (default).
 #'
 #' @param x fes object.
-#' @param plottype specifies whether 2D free energy surface will be ploted
+#' @param plottype specifies whether 2D free energy surface will be plotted
 #'        as image, contours or both (default "both").
-#' @param colscale specifies whether color scale will be ploted (default False).
+#' @param colscale specifies whether color scale will be plotted (default False).
 #' @param colscalelab color scale label (default "free energy").
 #' @param main an overall title for the plot: see 'title'.
 #' @param sub a sub title for the plot: see 'title'.
@@ -969,9 +969,9 @@ summary.fes<-function(object,...) {
 #' @param labels a vector giving the labels for the contour lines.  If 'NULL'
 #'        then the levels are used as labels, otherwise this is coerced
 #'        by 'as.character'.
-#' @param labcex 'cex' for contour labelling. This is an absolute size, not a
+#' @param labcex 'cex' for contour labeling. This is an absolute size, not a
 #'        multiple of 'par("cex")'.
-#' @param drawlabels logical. Contours are labelled if 'TRUE'.
+#' @param drawlabels logical. Contours are labeled if 'TRUE'.
 #' @param method character string specifying where the labels will be located.
 #'        Possible values are '"simple"', '"edge"' and '"flattest"'
 #'        (the default). See the 'Details' section.

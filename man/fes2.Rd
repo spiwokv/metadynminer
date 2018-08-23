@@ -24,7 +24,7 @@ fes2(hills, imin = 1, imax = NULL, xlim = NULL, ylim = NULL,
 fes object.
 }
 \description{
-`fes2` summes up hills using slow conventional algorithm. It can be used
+`fes2` sums up hills using slow conventional algorithm. It can be used
 as a reference or when hill widths are variable.
 }
 \examples{

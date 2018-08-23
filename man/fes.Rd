@@ -24,7 +24,7 @@ fes(hills, imin = 1, imax = NULL, xlim = NULL, ylim = NULL,
 fes object.
 }
 \description{
-`fes` summes up hills using fast Bias Sum algorithm.
+`fes` sums up hills using fast Bias Sum algorithm.
 }
 \examples{
 tfes<-fes(acealanme)

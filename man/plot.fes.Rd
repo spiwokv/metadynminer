@@ -15,10 +15,10 @@
 \arguments{
 \item{x}{fes object.}
 
-\item{plottype}{specifies whether 2D free energy surface will be ploted
+\item{plottype}{specifies whether 2D free energy surface will be plotted
 as image, contours or both (default "both").}
 
-\item{colscale}{specifies whether color scale will be ploted (default False).}
+\item{colscale}{specifies whether color scale will be plotted (default False).}
 
 \item{xlim}{numeric vector of length 2, giving the x coordinates range.}
 
@@ -48,10 +48,10 @@ functions (default=rainbow(135)[100:1]).}
 then the levels are used as labels, otherwise this is coerced
 by 'as.character'.}
 
-\item{labcex}{'cex' for contour labelling. This is an absolute size, not a
+\item{labcex}{'cex' for contour labeling. This is an absolute size, not a
 multiple of 'par("cex")'.}
 
-\item{drawlabels}{logical. Contours are labelled if 'TRUE'.}
+\item{drawlabels}{logical. Contours are labeled if 'TRUE'.}
 
 \item{colscalelab}{color scale label (default "free energy").}
 
