@@ -25,6 +25,8 @@ on_failure:
   - 7z a failure.zip *.Rcheck\*
   - appveyor PushArtifact failure.zip
 
+version: 'v1.0.1.{build}'
+
 artifacts:
   - path: '*.Rcheck\**\*.log'
     name: Logs
