@@ -437,6 +437,22 @@ fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
     if((hills$per[1]==T)&is.null(xlim)) {xlims<-hills$pcv1}
     if(!is.null(ylim)) {ylims<-ylim}
     if((hills$per[2]==T)&is.null(ylim)) {ylims<-hills$pcv2}
+    if(hills$per[1]==T) {
+      if(min(hills$hillsfile[,2])<xlims[1]) {
+        stop("Error: The first collective variable outside pcv1")
+      }
+      if(max(hills$hillsfile[,2])>xlims[2]) {
+        stop("Error: The first collective variable outside pcv1")
+      }
+    }
+    if(hills$per[2]==T) {
+      if(min(hills$hillsfile[,3])<ylims[1]) {
+        stop("Error: The second collective variable outside pcv2")
+      }
+      if(max(hills$hillsfile[,3])>ylims[2]) {
+        stop("Error: The second collective variable outside pcv2")
+      }
+    }
     x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
     y<-0:(npoints-1)*(ylims[2]-ylims[1])/(npoints-1)+ylims[1]
     if((hills$per[1]==F)&(hills$per[2]==F)) {
