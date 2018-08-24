@@ -51,8 +51,10 @@ NumericMatrix hills1(NumericVector cv1, NumericVector cv2, double width1, double
     }
   }
   return vo;
-  delete v[n];
-  delete g[2*n];
+  for (int i = 0; i < n; ++i) delete [] v[i];
+  delete [] v;
+  for (int i = 0; i < 2*n; ++i) delete [] g[i];
+  delete [] g;
 }
 
 // [[Rcpp::export]]
@@ -105,8 +107,10 @@ NumericMatrix hills1p1(NumericVector cv1, NumericVector cv2, double width1, doub
     }
   }
   return vo;
-  delete v[n];
-  delete g[n];
+  for (int i = 0; i < n; ++i) delete [] v[i];
+  delete [] v;
+  for (int i = 0; i < n; ++i) delete [] g[i];
+  delete [] g;
 }
 
 // [[Rcpp::export]]
@@ -159,8 +163,10 @@ NumericMatrix hills1p2(NumericVector cv1, NumericVector cv2, double width1, doub
     }
   }
   return vo;
-  delete v[n];
-  delete g[2*n];
+  for (int i = 0; i < n; ++i) delete [] v[i];
+  delete [] v;
+  for (int i = 0; i < 2*n; ++i) delete [] g[i];
+  delete [] g;
 }
 
 // [[Rcpp::export]]
@@ -213,8 +219,10 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
     }
   }
   return vo;
-  delete v[n];
-  delete g[n];
+  for (int i = 0; i < n; ++i) delete [] v[i];
+  delete [] v;
+  for (int i = 0; i < n; ++i) delete [] g[i];
+  delete [] g;
 }
 
 // [[Rcpp::export]]
@@ -245,7 +253,8 @@ NumericMatrix hills2(NumericVector cv1, NumericVector cv2, NumericVector width1,
     }
   }
   return vo;
-  delete v[n];
+  for (int i = 0; i < n; ++i) delete [] v[i];
+  delete [] v;
 }
 
 // [[Rcpp::export]]
@@ -278,7 +287,8 @@ NumericMatrix hills2p1(NumericVector cv1, NumericVector cv2, NumericVector width
     }
   }
   return vo;
-  delete v[n];
+  for (int i = 0; i < n; ++i) delete [] v[i];
+  delete [] v;
 }
 
 
@@ -312,7 +322,8 @@ NumericMatrix hills2p2(NumericVector cv1, NumericVector cv2, NumericVector width
     }
   }
   return vo;
-  delete v[n];
+  for (int i = 0; i < n; ++i) delete [] v[i];
+  delete [] v;
 }
 
 // [[Rcpp::export]]
@@ -347,7 +358,8 @@ NumericMatrix hills2p12(NumericVector cv1, NumericVector cv2, NumericVector widt
     }
   }
   return vo;
-  delete v[n];
+  for (int i = 0; i < n; ++i) delete [] v[i];
+  delete [] v;
 }
 
 // [[Rcpp::export]]
@@ -383,8 +395,8 @@ NumericVector hills1d1(NumericVector cv1, double width1, NumericVector heights, 
     vo(i) = v[i];
   }
   return vo;
-  delete v;
-  delete g;
+  delete [] v;
+  delete [] g;
 }
 
 // [[Rcpp::export]]
@@ -420,8 +432,8 @@ NumericVector hills1d1p(NumericVector cv1, double width1, NumericVector heights,
     vo(i) = v[i];
   }
   return vo;
-  delete v;
-  delete g;
+  delete [] v;
+  delete [] g;
 }
 
 // [[Rcpp::export]]
@@ -443,7 +455,7 @@ NumericVector hills1d2(NumericVector cv1, NumericVector width1, NumericVector he
     vo(i) = v[i];
   }
   return vo;
-  delete v;
+  delete [] v;
 }
 
 // [[Rcpp::export]]
@@ -467,7 +479,7 @@ NumericVector hills1d2p(NumericVector cv1, NumericVector width1, NumericVector h
     vo(i) = v[i];
   }
   return vo;
-  delete v;
+  delete [] v;
 }
 
 
