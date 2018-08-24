@@ -1,5 +1,6 @@
 ## Test environments
 * local ubuntu 18 install, R 3.4.4
+* local MS Windows, R 3.3.0 with Rtools
 * ubuntu 14.04 (on travis-ci), R 3.4.4, 3.5.0, 3.6.0
 * OSX 10.11 (on travis-ci), R 3.4.4, 3.5.0, 3.6.0
 * MS Windows x86_64-w64-mingw32/x64 (on appveyor), R 3.5.1
