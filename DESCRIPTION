@@ -1,7 +1,7 @@
 Package: metadynminer
 Type: Package
 Title: Tools to Read, Analyze and Visualize Metadynamics HILLS Files from Plumed
-Version: 0.1.1
+Version: 0.1.2
 Date: 2018-08-24
 Authors@R: person("Vojtech", "Spiwok", email = "spiwokv@vscht.cz",
                   role = c("aut", "cre"),
