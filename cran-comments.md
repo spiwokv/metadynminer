@@ -23,5 +23,5 @@ lines.nebpath 5.04  0.004   5.045
 appear in the list of elapsed time > 5s depending on cpu load)
 
 ## REQUESTED CHANGES MADE
-* we changed DESCRIPTION file (packages and sowtware written in
+* we changed DESCRIPTION file (packages and software written in
 single quotes and names and years were added to references)
