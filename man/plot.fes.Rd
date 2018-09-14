@@ -78,7 +78,7 @@ a 1D profile. For a fes with two collective variables it plots 2D free energy su
 using image, contours or combination of both (default).
 }
 \examples{
-tfes2d<-fes(acealanme)
+tfes2d<-fes(acealanme, imax=5000)
 plot(tfes2d)
 tfes1d<-fes(acealanme1d)
 plot(tfes1d)

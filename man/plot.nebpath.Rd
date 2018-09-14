@@ -40,8 +40,8 @@ on the plot.}
 `plot.nebpath` plots free energy profile calculated by Nudged Elastic Band.
 }
 \examples{
-tfes<-fes(acealanme)
+tfes<-fes(acealanme, imax=5000)
 minima<-fesminima(tfes)
-nebAD<-neb(minima, min1="A", min2="D")
+nebAD<-neb(minima, min1="A", min2="D", nsteps=20)
 plot(nebAD)
 }

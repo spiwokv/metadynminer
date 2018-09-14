@@ -28,7 +28,7 @@ works as a multiple of 'par("cex")'.}
 `points.fes` plots 1D free energy surface as points.
 }
 \examples{
-tfes<-fes(acealanme1d)
+tfes<-fes(acealanme1d, imax=5000)
 plot(tfes)
 points(tfes)
 }

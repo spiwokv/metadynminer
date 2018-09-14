@@ -33,8 +33,8 @@ minima. For a 1D surface it simply takes the free energy profile between the
 two minima. For 2D surface it calculates the transition path by Nudged Elastic
 }
 \examples{
-tfes<-fes(acealanme)
+tfes<-fes(acealanme, imax=5000)
 minima<-fesminima(tfes)
-nebAD<-neb(minima, min1="A", min2="D")
+nebAD<-neb(minima, min1="A", min2="D", nsteps=20)
 nebAD
 }

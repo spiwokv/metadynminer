@@ -15,7 +15,7 @@
 `print.minima` prints free energy minima (identifier, values of bins and collective variables and free energy).
 }
 \examples{
-tfes<-fes(acealanme)
+tfes<-fes(acealanme, imax=5000)
 minima<-fesminima(tfes)
 minima
 }

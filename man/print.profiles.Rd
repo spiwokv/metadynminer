@@ -15,7 +15,7 @@
 `print.profiles` prints free energy profile.
 }
 \examples{
-tfes<-fes(acealanme)
+tfes<-fes(acealanme, imax=5000)
 minima<-fesminima(tfes)
 prof<-feprof(minima)
 prof

@@ -22,7 +22,7 @@ minimum of the whole free energy surface. Free energy minima are labeled
 constitutively by capital letters.
 }
 \examples{
-tfes<-fes(acealanme)
+tfes<-fes(acealanme, imax=5000)
 minima<-fesminima(tfes)
 minima
 }

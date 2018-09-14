@@ -18,9 +18,9 @@ linesonfes(x, col = "red", lwd = 1)
 projected onto free energy surface.
 }
 \examples{
-tfes<-fes(acealanme)
+tfes<-fes(acealanme, imax=5000)
 minima<-fesminima(tfes)
-nebAD<-neb(minima, min1="A", min2="D")
+nebAD<-neb(minima, min1="A", min2="D", nsteps=20)
 plot(minima)
 linesonfes(nebAD)
 }

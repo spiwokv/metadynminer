@@ -27,5 +27,5 @@ fes object.
 `fes` sums up hills using fast Bias Sum algorithm.
 }
 \examples{
-tfes<-fes(acealanme)
+tfes<-fes(acealanme, imax=5000)
 }

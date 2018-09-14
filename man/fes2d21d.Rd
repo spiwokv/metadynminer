@@ -35,5 +35,5 @@ fes object.
 energy (-kT log(P)).
 }
 \examples{
-tfes<-fes2d21d(acealanme, remdim=2)
+tfes<-fes2d21d(acealanme, remdim=2, imax=5000)
 }

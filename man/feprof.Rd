@@ -17,7 +17,7 @@ feprof(minims, imax = NULL)
 The free energy of the global minimum is constant (zero).
 }
 \examples{
-tfes<-fes(acealanme)
+tfes<-fes(acealanme, imax=5000)
 minima<-fesminima(tfes)
 prof<-feprof(minima)
 prof

@@ -92,7 +92,7 @@ print.hillsfile<-function(x,...) {
 #'
 #' @export
 #' @examples
-#' acealanme
+#' summary(acealanme)
 summary.hillsfile<-function(object,...) {
   hills <- object
   if(hills$size[2]==5) {
@@ -406,7 +406,7 @@ plotheights<-function(hills, ignoretime=FALSE,
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme)
+#' tfes<-fes(acealanme, imax=5000)
 fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(imax)) {
     if(hills$size[1]<imax) {
@@ -627,7 +627,7 @@ fes2<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
 #'
 #' @export
 #' @examples
-#' tfes<-fes2d21d(acealanme, remdim=2)
+#' tfes<-fes2d21d(acealanme, remdim=2, imax=5000)
 fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
                    imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(imax)) {
@@ -861,7 +861,7 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme)
+#' tfes<-fes(acealanme, imax=5000)
 #' min(tfes)
 min.fes<-function(inputfes, na.rm=NULL,...) {
   return(min(inputfes$fes, na.rm=na.rm))
@@ -878,7 +878,7 @@ min.fes<-function(inputfes, na.rm=NULL,...) {
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme)
+#' tfes<-fes(acealanme, imax=5000)
 #' max(tfes)
 max.fes<-function(inputfes, na.rm=NULL,...) {
   return(max(inputfes$fes, na.rm=na.rm))
@@ -894,7 +894,7 @@ max.fes<-function(inputfes, na.rm=NULL,...) {
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme)
+#' tfes<-fes(acealanme, imax=5000)
 #' tfes
 print.fes<-function(x,...) {
   inputfes<-x
@@ -930,7 +930,7 @@ print.fes<-function(x,...) {
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme)
+#' tfes<-fes(acealanme, imax=5000)
 #' summary(tfes)
 summary.fes<-function(object,...) {
   inputfes <- object
@@ -1000,7 +1000,7 @@ summary.fes<-function(object,...) {
 #'
 #' @export
 #' @examples
-#' tfes2d<-fes(acealanme)
+#' tfes2d<-fes(acealanme, imax=5000)
 #' plot(tfes2d)
 #' tfes1d<-fes(acealanme1d)
 #' plot(tfes1d)
@@ -1092,7 +1092,7 @@ plot.fes<-function(x, plottype="both",
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme1d)
+#' tfes<-fes(acealanme1d, imax=5000)
 #' plot(tfes)
 #' points(tfes)
 points.fes<-function(x, pch=1, col="black", bg="red", cex=1, lwd=1,...) {
@@ -1117,7 +1117,7 @@ points.fes<-function(x, pch=1, col="black", bg="red", cex=1, lwd=1,...) {
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme1d)
+#' tfes<-fes(acealanme1d, imax=5000)
 #' plot(tfes)
 #' lines(tfes, lwd=4)
 lines.fes<-function(x, lwd=1, col="black",...) {

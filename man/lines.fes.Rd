@@ -19,7 +19,7 @@
 `lines.fes` plots 1D free energy surface as lines.
 }
 \examples{
-tfes<-fes(acealanme1d)
+tfes<-fes(acealanme1d, imax=5000)
 plot(tfes)
 lines(tfes, lwd=4)
 }

@@ -43,7 +43,7 @@ on the plot.}
 They are colored by rainbow colors from the global one (blue) to the highest (red).
 }
 \examples{
-tfes<-fes(acealanme)
+tfes<-fes(acealanme, imax=5000)
 minima<-fesminima(tfes)
 prof<-feprof(minima)
 plot(prof)

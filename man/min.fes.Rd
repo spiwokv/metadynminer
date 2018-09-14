@@ -18,6 +18,6 @@ removed.}
 `min.fes` calculates minimum of free energy in a fes object.
 }
 \examples{
-tfes<-fes(acealanme)
+tfes<-fes(acealanme, imax=5000)
 min(tfes)
 }

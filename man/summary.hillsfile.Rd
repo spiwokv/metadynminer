@@ -15,5 +15,5 @@
 `summary.hillsfile` prints dimensionality, size and collective variable ranges of a hillsfile object.
 }
 \examples{
-acealanme
+summary(acealanme)
 }

@@ -88,7 +88,7 @@ on the plot.}
 way as by plot.fes with additional minima labels.
 }
 \examples{
-tfes<-fes(acealanme)
+tfes<-fes(acealanme, imax=5000)
 minima<-fesminima(tfes)
 plot(minima)
 }

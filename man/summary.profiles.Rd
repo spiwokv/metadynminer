@@ -22,7 +22,7 @@ stops (default the rest of hills).}
 and minimal free energy differences.
 }
 \examples{
-tfes<-fes(acealanme)
+tfes<-fes(acealanme, imax=5000)
 minima<-fesminima(tfes)
 prof<-feprof(minima)
 summary(prof)

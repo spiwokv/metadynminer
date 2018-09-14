@@ -18,9 +18,9 @@
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme)
+#' tfes<-fes(acealanme, imax=5000)
 #' minima<-fesminima(tfes)
-#' nebAD<-neb(minima, min1="A", min2="D")
+#' nebAD<-neb(minima, min1="A", min2="D", nsteps=20)
 #' nebAD
 neb<-function(minims=minims, min1="A", min2="B", nbins=20,
               nsteps=100, step=1.0, k=0.2) {
@@ -115,9 +115,9 @@ neb<-function(minims=minims, min1="A", min2="B", nbins=20,
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme)
+#' tfes<-fes(acealanme, imax=5000)
 #' minima<-fesminima(tfes)
-#' nebAD<-neb(minima, min1="A", min2="D")
+#' nebAD<-neb(minima, min1="A", min2="D", nsteps=20)
 #' nebAD
 print.nebpath <- function(x,...) {
   cat("path between minima:\n")
@@ -137,9 +137,9 @@ print.nebpath <- function(x,...) {
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme)
+#' tfes<-fes(acealanme, imax=5000)
 #' minima<-fesminima(tfes)
-#' nebAD<-neb(minima, min1="A", min2="D")
+#' nebAD<-neb(minima, min1="A", min2="D", nsteps=20)
 #' summary(nebAD)
 summary.nebpath <- function(object, temp=300, eunit="kJ/mol",...) {
   nebpath<-object
@@ -348,9 +348,9 @@ summary.nebpath <- function(object, temp=300, eunit="kJ/mol",...) {
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme)
+#' tfes<-fes(acealanme, imax=5000)
 #' minima<-fesminima(tfes)
-#' nebAD<-neb(minima, min1="A", min2="D")
+#' nebAD<-neb(minima, min1="A", min2="D", nsteps=20)
 #' plot(nebAD)
 plot.nebpath <- function(x,
                          xlim=NULL, ylim=NULL,
@@ -409,9 +409,9 @@ plot.nebpath <- function(x,
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme)
+#' tfes<-fes(acealanme, imax=5000)
 #' minima<-fesminima(tfes)
-#' nebAD<-neb(minima, min1="A", min2="D")
+#' nebAD<-neb(minima, min1="A", min2="D", nsteps=20)
 #' plot(nebAD)
 #' points(nebAD)
 points.nebpath <- function(x, pch=NULL, cex=1, bg=NULL,
@@ -440,9 +440,9 @@ points.nebpath <- function(x, pch=NULL, cex=1, bg=NULL,
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme)
+#' tfes<-fes(acealanme, imax=5000)
 #' minima<-fesminima(tfes)
-#' nebAD<-neb(minima, min1="A", min2="D")
+#' nebAD<-neb(minima, min1="A", min2="D", nsteps=20)
 #' plot(nebAD)
 #' lines(nebAD, lwd=4)
 lines.nebpath <- function(x,
@@ -474,9 +474,9 @@ lines.nebpath <- function(x,
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme)
+#' tfes<-fes(acealanme, imax=5000)
 #' minima<-fesminima(tfes)
-#' nebAD<-neb(minima, min1="A", min2="D")
+#' nebAD<-neb(minima, min1="A", min2="D", nsteps=20)
 #' plot(minima)
 #' pointsonfes(nebAD)
 pointsonfes <- function(x,
@@ -504,9 +504,9 @@ pointsonfes <- function(x,
 #'
 #' @export
 #' @examples
-#' tfes<-fes(acealanme)
+#' tfes<-fes(acealanme, imax=5000)
 #' minima<-fesminima(tfes)
-#' nebAD<-neb(minima, min1="A", min2="D")
+#' nebAD<-neb(minima, min1="A", min2="D", nsteps=20)
 #' plot(minima)
 #' linesonfes(nebAD)
 linesonfes <- function(x,

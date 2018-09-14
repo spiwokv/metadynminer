@@ -18,6 +18,6 @@ removed.}
 `max.fes` calculates maximum of free energy in a fes object.
 }
 \examples{
-tfes<-fes(acealanme)
+tfes<-fes(acealanme, imax=5000)
 max(tfes)
 }
