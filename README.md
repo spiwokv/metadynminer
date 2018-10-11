@@ -12,9 +12,9 @@ transition paths by Nudged Elastic Band method.
 ## Usage
 ```R
 # Install from R repository
-#install.packages("metadynminer") # in future will be added to R repository
+install.packages("metadynminer")
 
-# Before this you can install from GitHub by devtools
+# Install from GitHub by devtools
 install.packages("devtools")
 devtools::install_github("spiwokv/metadynminer")
 
