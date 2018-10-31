@@ -1015,6 +1015,7 @@ plot.fes<-function(x, plottype="both",
                    method="flattest",
                    contcol=par("fg"), lty=par("lty"),
                    lwd=1, asp=NULL, axes=T,...) {
+  close.screen()
   inputfes<-x
   fes<-inputfes$fes
   rows<-inputfes$rows
