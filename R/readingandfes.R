@@ -1044,7 +1044,15 @@ plot.fes<-function(x, plottype="both",
     if(is.null(xlim)) xlim<-c(min(x),max(x))
     if(is.null(ylim)) ylim<-c(min(y),max(y))
     if(colscale) {
-      layout(matrix(c(1,2), 1, 2, byrow = TRUE), widths=c(4,1))
+      #layout(matrix(c(1,2), 1, 2, byrow = TRUE), widths=c(4,1))
+      split.screen(matrix(c(0,0.75,0,1,0.75,1,0,1), byrow=T, ncol=4))
+      screen(2)
+      smat<-matrix(seq(from=zlim[1], to=zlim[2], length.out=100))
+      image(c(0), seq(from=zlim[1], to=zlim[2], length.out=100),
+            t(smat), zlim=zlim, col=col, xlab="", ylab=colscalelab, axes=F)
+      axis(2, lty=lty, lwd=lwd)
+      box(lwd=lwd)
+      screen(1)
     }
     if(plottype=="image" || plottype=="both") {
       image(x, y, fes, zlim=zlim,
@@ -1065,14 +1073,14 @@ plot.fes<-function(x, plottype="both",
               labels=labels, labcex=labcex, drawlabels=drawlabels,
               method=method, col=contcol, lty=lty, lwd=lwd, add=T)
     }
-    if(colscale) {
-      smat<-matrix(seq(from=zlim[1], to=zlim[2], length.out=100))
-      image(c(0), seq(from=zlim[1], to=zlim[2], length.out=100),
-            t(smat), zlim=zlim, col=col, xlab="", ylab=colscalelab, axes=F)
-      axis(2, lty=lty, lwd=lwd)
-      box(lwd=lwd)
-      par(mfrow=c(1,1))
-    }
+    #if(colscale) {
+    #  smat<-matrix(seq(from=zlim[1], to=zlim[2], length.out=100))
+    #  image(c(0), seq(from=zlim[1], to=zlim[2], length.out=100),
+    #        t(smat), zlim=zlim, col=col, xlab="", ylab=colscalelab, axes=F)
+    #  axis(2, lty=lty, lwd=lwd)
+    #  box(lwd=lwd)
+    #  par(mfrow=c(1,1))
+    #}
   }
 }
 
