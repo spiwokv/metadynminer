@@ -25,8 +25,12 @@
 neb<-function(minims=minims, min1="A", min2="B", nbins=20,
               nsteps=100, step=1.0, k=0.2) {
   fes<-minims$fes
-  pcv1<-minims$pcv1
-  pcv2<-minims$pcv2
+  #pcv1<-minims$pcv1
+  #pcv2<-minims$pcv2
+  minx <- min(minims$x)
+  maxx <- max(minims$x)
+  miny <- min(minims$y)
+  maxy <- max(minims$y)
   rows<-minims$rows
   myLETTERS <- c(LETTERS, paste("A", LETTERS, sep=""), paste("B", LETTERS, sep=""))[1:nrow(minims$minima)]
   if(min1 %in% myLETTERS) {
@@ -98,8 +102,8 @@ neb<-function(minims=minims, min1="A", min2="B", nbins=20,
       }
       path <- newpath
     }
-    path[,1]<-path[,1]*(pcv1[2]-pcv1[1])/rows+pcv1[1]
-    path[,2]<-path[,2]*(pcv2[2]-pcv2[1])/rows+pcv2[1]
+    path[,1]<-path[,1]*(maxx-minx)/rows+minx
+    path[,2]<-path[,2]*(maxy-miny)/rows+miny
   }
   cnebpath<-list(path=path, min1=min1, min2=min2)
   class(cnebpath) <- "nebpath"
