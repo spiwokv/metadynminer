@@ -4,6 +4,7 @@ r:
   - release
   - devel
 cache: packages
+fortran: false
 os:
 - osx
 - linux
