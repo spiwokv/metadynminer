@@ -2,6 +2,8 @@
 
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/spiwokv/metadynminer?branch=master&svg=true)](https://ci.appveyor.com/project/spiwokv/metadynminer)
 
+[![CRAN status](https://www.r-pkg.org/badges/version/metadynminer)](https://cran.r-project.org/package=metadynminer)
+
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/metadynminer)](https://cran.r-project.org/package=metadynminer)
 
 # MetadynMiner
