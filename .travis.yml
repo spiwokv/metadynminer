@@ -1,17 +1,48 @@
 language: r
 cache: packages
-r:
-- oldrel
-- release
-- devel
-fortran: false
-os:
-- osx
-- linux
-osx_image: xcode9
-dist: trusty
-warnings_are_errors: true
-sudo: required
-install:
-    - R -e 'install.packages("Rcpp")'
+matrix:
+  include:
+    - os: linux
+      r: oldrel
+      dist: trusty
+      warnings_are_errors: true
+      sudo: required
+      fortran: false
+      install:
+        - R -e 'install.packages("Rcpp")'
+    - os: linux
+      r: release
+      dist: trusty
+      warnings_are_errors: true
+      sudo: required
+      fortran: false
+      install:
+        - R -e 'install.packages("Rcpp")'
+    - os: linux
+      r: devel
+      dist: trusty
+      warnings_are_errors: true
+      sudo: required
+      fortran: false
+      install:
+        - R -e 'install.packages("Rcpp")'
+    - os: linux
+      r: oldrel
+      dist: trusty
+      warnings_are_errors: true
+      sudo: required
+      fortran: false
+      osx_image: xcode9
+      install:
+        - R -e 'install.packages("Rcpp")'
+    - os: linux
+      r: release
+      dist: trusty
+      warnings_are_errors: true
+      sudo: required
+      fortran: false
+      osx_image: xcode9
+      install:
+        - R -e 'install.packages("Rcpp")'
+
 
