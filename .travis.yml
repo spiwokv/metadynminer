@@ -1,29 +1,15 @@
 language: r
-matrix:
-  include:
-    - os: linux
-    dist: oldrel
-    - os: linux
-    dist: release
-    - os: linux
-    dist: devel
-    - os: osx
-    dist: oldrel
-    osx_image: xcode9
-    - os: osx
-    dist: release
-    osx_image: xcode9
-#r:
-#- oldrel
-#- release
-#- devel
+r:
+- oldrel
+- release
+- devel
 cache: packages
 fortran: false
-#os:
-#- osx
-#- linux
-#osx_image: xcode9
-#dist: trusty
+os:
+- osx
+- linux
+osx_image: xcode9
+dist: trusty
 warnings_are_errors: true
 sudo: required
 install:
