@@ -20,8 +20,7 @@ install.packages("devtools")
 devtools::install_github("spiwokv/metadynminer")
 
 # Load library
-library(metadynminer) # in future will be added to R repository
-
+library(metadynminer)
 # Read hills file
 hillsf<-read.hills("HILLS", per=c(TRUE, TRUE)) # HILLS with periodicity on CV1 and CV2
 
