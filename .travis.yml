@@ -1,7 +1,5 @@
 language: r
 cache: packages
-r_packages:
-  - covr
 after_success:
   - Rscript -e 'library(covr); codecov()'
 matrix:
@@ -14,6 +12,7 @@ matrix:
       fortran: false
       install:
         - R -e 'install.packages("Rcpp")'
+        - R -e 'install.packages("covr")'
     - os: linux
       r: release
       dist: trusty
@@ -22,6 +21,7 @@ matrix:
       fortran: false
       install:
         - R -e 'install.packages("Rcpp")'
+        - R -e 'install.packages("covr")'
     - os: linux
       r: devel
       dist: trusty
@@ -30,6 +30,7 @@ matrix:
       fortran: false
       install:
         - R -e 'install.packages("Rcpp")'
+        - R -e 'install.packages("covr")'
     - os: linux
       r: oldrel
       dist: trusty
@@ -39,6 +40,7 @@ matrix:
       osx_image: xcode9
       install:
         - R -e 'install.packages("Rcpp")'
+        - R -e 'install.packages("covr")'
     - os: linux
       r: release
       dist: trusty
@@ -48,5 +50,6 @@ matrix:
       osx_image: xcode9
       install:
         - R -e 'install.packages("Rcpp")'
+        - R -e 'install.packages("covr")'
 
 
