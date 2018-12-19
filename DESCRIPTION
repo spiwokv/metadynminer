@@ -23,4 +23,5 @@ LazyData: true
 License: GPL-3
 RoxygenNote: 6.1.0
 Imports: Rcpp
+Suggests: testthat
 URL: http://www.metadynamics.cz/metadynminer
