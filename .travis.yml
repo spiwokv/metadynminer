@@ -2,6 +2,9 @@ language: r
 cache: packages
 after_success:
   - Rscript -e 'library(covr); codecov()'
+r_binary_packages:
+ - covr
+ - testthat
 matrix:
   include:
     - os: linux
@@ -13,7 +16,6 @@ matrix:
       install:
         - R -e 'install.packages("Rcpp")'
         - R -e 'install.packages("covr")'
-        - R -e 'install.packages("testthat")'
     - os: linux
       r: release
       dist: trusty
@@ -23,7 +25,6 @@ matrix:
       install:
         - R -e 'install.packages("Rcpp")'
         - R -e 'install.packages("covr")'
-        - R -e 'install.packages("testthat")'
     - os: linux
       r: devel
       dist: trusty
@@ -33,7 +34,6 @@ matrix:
       install:
         - R -e 'install.packages("Rcpp")'
         - R -e 'install.packages("covr")'
-        - R -e 'install.packages("testthat")'
     - os: linux
       r: oldrel
       dist: trusty
@@ -44,7 +44,6 @@ matrix:
       install:
         - R -e 'install.packages("Rcpp")'
         - R -e 'install.packages("covr")'
-        - R -e 'install.packages("testthat")'
     - os: linux
       r: release
       dist: trusty
@@ -55,6 +54,5 @@ matrix:
       install:
         - R -e 'install.packages("Rcpp")'
         - R -e 'install.packages("covr")'
-        - R -e 'install.packages("testthat")'
 
 
