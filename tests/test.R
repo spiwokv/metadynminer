@@ -1,6 +1,5 @@
 library('metadynminer')
-library('covr')
+library('testthat')
 
-tfes<-fes(acealanme, imax=5000)
-expect_equal(sum(tfes$fes), -2024857)
+test_check("metadynminer")
 
