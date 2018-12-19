@@ -1,6 +1,5 @@
 language: r
 cache: packages
-sudo: false
 after_success:
   - Rscript -e 'library(covr); codecov()'
 matrix:
@@ -9,7 +8,7 @@ matrix:
       r: oldrel
       dist: trusty
       warnings_are_errors: true
-      sudo: required
+      sudo: false
       fortran: false
       install:
         - R -e 'install.packages("Rcpp")'
