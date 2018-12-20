@@ -34,6 +34,9 @@ test_that("Testing that fes calculates correctly sum of points", {
   myfes<-fes2d21d(acealanme, imax=2000)
   summyfes<-sum(myfes$fes)
   expect_equal(object=summyfes, expected=-9091, tolerance=1, scale=1)
+  myfes<-fes2d21d(acealanme, imax=2000, remdim=1)
+  summyfes<-sum(myfes$fes)
+  expect_equal(object=summyfes, expected=-10054, tolerance=1, scale=1)
   
   # fes function 2D with per=c(T,F)
   acealanme2 <- acealanme
