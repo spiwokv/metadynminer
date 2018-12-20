@@ -1074,14 +1074,6 @@ plot.fes<-function(x, plottype="both",
               labels=labels, labcex=labcex, drawlabels=drawlabels,
               method=method, col=contcol, lty=lty, lwd=lwd, add=T)
     }
-    #if(colscale) {
-    #  smat<-matrix(seq(from=zlim[1], to=zlim[2], length.out=100))
-    #  image(c(0), seq(from=zlim[1], to=zlim[2], length.out=100),
-    #        t(smat), zlim=zlim, col=col, xlab="", ylab=colscalelab, axes=F)
-    #  axis(2, lty=lty, lwd=lwd)
-    #  box(lwd=lwd)
-    #  par(mfrow=c(1,1))
-    #}
   }
 }
 
