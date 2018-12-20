@@ -57,6 +57,42 @@ test_that("Testing that fesminima correctly identifies energy minima", {
   profs<-feprof(mins)
   minA<-summary(profs)[2,6]
   expect_equal(object=minA, expected=5.89, tolerance=0.01, scale=1)
+  
+  # feprof and summary 2D with pertc(T,F)
+  acealanme2<-acealanme
+  acealanme2$per<-c(T,F)
+  myfes<-fes(acealanme2, imax=2000)
+  mins<-fesminima(myfes)
+  profs<-feprof(mins)
+  minA<-summary(profs)[2,7]
+  expect_equal(object=minA, expected=-0.60, tolerance=0.01, scale=1)
+
+  # feprof and summary 2D with pertc(F,T)
+  acealanme2<-acealanme
+  acealanme2$per<-c(F,T)
+  myfes<-fes(acealanme2, imax=2000)
+  mins<-fesminima(myfes)
+  profs<-feprof(mins)
+  minA<-summary(profs)[2,7]
+  expect_equal(object=minA, expected=0.13, tolerance=0.01, scale=1)
+
+  # feprof and summary 2D with pertc(F,F)
+  acealanme2<-acealanme
+  acealanme2$per<-c(F,F)
+  myfes<-fes(acealanme2, imax=2000)
+  mins<-fesminima(myfes)
+  profs<-feprof(mins)
+  minA<-summary(profs)[2,7]
+  expect_equal(object=minA, expected=-0.67, tolerance=0.01, scale=1)
+  
+  # feprof and summary 1D with pertc(F)
+  acealanme1d2<-acealanme1d
+  acealanme1d2$per<-c(F)
+  myfes<-fes(acealanme1d2, imax=2000)
+  mins<-fesminima(myfes)
+  profs<-feprof(mins)
+  minA<-summary(profs)[2,6]
+  expect_equal(object=minA, expected=5.91, tolerance=0.01, scale=1)
 
 })
 
