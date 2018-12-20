@@ -31,5 +31,47 @@ test_that("Testing that fes calculates correctly sum of points", {
   summyfes<-sum(myfes$fes)
   expect_equal(object=summyfes, expected=-9091, tolerance=1, scale=1)
   
+  # fes function 2D with per=c(T,F)
+  acealanme2 <- acealanme
+  acealanme2$per <- c(T,F)
+  myfes<-fes(acealanme2, imax=2000)
+  summyfes<-sum(myfes$fes)
+  expect_equal(object=summyfes, expected=-1016915, tolerance=1, scale=1)
+  
+  # fes function 2D with per=c(F,T)
+  acealanme2 <- acealanme
+  acealanme2$per <- c(F,T)
+  myfes<-fes(acealanme2, imax=2000)
+  summyfes<-sum(myfes$fes)
+  expect_equal(object=summyfes, expected=-1019403, tolerance=1, scale=1)
+
+  # fes function 2D with per=c(F,F)
+  acealanme2 <- acealanme
+  acealanme2$per <- c(F,F)
+  myfes<-fes(acealanme2, imax=2000)
+  summyfes<-sum(myfes$fes)
+  expect_equal(object=summyfes, expected=-919238, tolerance=1, scale=1)
+
+  # fes2 function 2D with per=c(T,F)
+  acealanme2 <- acealanme
+  acealanme2$per <- c(T,F)
+  myfes<-fes2(acealanme2, imax=2000)
+  summyfes<-sum(myfes$fes)
+  expect_equal(object=summyfes, expected=-1016897, tolerance=1, scale=1)
+  
+  # fes2 function 2D with per=c(F,T)
+  acealanme2 <- acealanme
+  acealanme2$per <- c(F,T)
+  myfes<-fes2(acealanme2, imax=2000)
+  summyfes<-sum(myfes$fes)
+  expect_equal(object=summyfes, expected=-1019409, tolerance=1, scale=1)
+
+  # fes2 function 2D with per=c(F,F)
+  acealanme2 <- acealanme
+  acealanme2$per <- c(F,F)
+  myfes<-fes2(acealanme2, imax=2000)
+  summyfes<-sum(myfes$fes)
+  expect_equal(object=summyfes, expected=-919226, tolerance=1, scale=1)
+
 })
 
