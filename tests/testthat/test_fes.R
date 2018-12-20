@@ -21,10 +21,14 @@ test_that("Testing that fes calculates correctly sum of points", {
   expect_equal(object=summyfes, expected=-14790, tolerance=1, scale=1)
 
   #+-*/
-  expect_equal(object=summyfes+summyfes, expected=-29581, tolerance=1, scale=1)
-  expect_equal(object=summyfes-summyfes, expected=0, tolerance=1, scale=1)
-  expect_equal(object=2*summyfes, expected=-29581, tolerance=1, scale=1)
-  expect_equal(object=summyfes/0.5, expected=-29581, tolerance=1, scale=1)
+  summyfes2<-summyfes+summyfes
+  expect_equal(object=summyfes2, expected=-29581, tolerance=1, scale=1)
+  summyfes2<-summyfes-summyfes
+  expect_equal(object=summyfes2, expected=0, tolerance=1, scale=1)
+  summyfes2<-2*summyfes
+  expect_equal(object=summyfes2, expected=-29581, tolerance=1, scale=1)
+  summyfes2<-summyfes/0.5
+  expect_equal(object=summyfes2, expected=-29581, tolerance=1, scale=1)
 
   # fes2d21d
   myfes<-fes2d21d(acealanme, imax=2000)
