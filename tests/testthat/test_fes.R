@@ -72,6 +72,20 @@ test_that("Testing that fes calculates correctly sum of points", {
   myfes<-fes2(acealanme2, imax=2000)
   summyfes<-sum(myfes$fes)
   expect_equal(object=summyfes, expected=-919226, tolerance=1, scale=1)
+  
+  # fes function 1D with per=c(F)
+  acealanme1d2 <- acealanme1d
+  acealanme1d2$per <- c(F)
+  myfes<-fes(acealanme1d2, imax=2000)
+  summyfes<-sum(myfes$fes)
+  expect_equal(object=summyfes, expected=-13347, tolerance=1, scale=1)
+
+  # fes2 function 1D with per=c(F)
+  acealanme1d2 <- acealanme1d
+  acealanme1d2$per <- c(F)
+  myfes<-fes2(acealanme1d2, imax=2000)
+  summyfes<-sum(myfes$fes)
+  expect_equal(object=summyfes, expected=-13347, tolerance=1, scale=1)
 
 })
 
