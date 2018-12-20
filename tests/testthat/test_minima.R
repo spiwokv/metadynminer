@@ -26,7 +26,6 @@ test_that("Testing that fesminima correctly identifies energy minima", {
   profs<-feprof(mins)
   minA<-summary(profs)[2,7]
   expect_equal(object=minA, expected=0.10, tolerance=0.01, scale=1)
-  print()
 
   # feprof and summary 1D
   myfes<-fes(acealanme1d, imax=2000)
@@ -34,7 +33,6 @@ test_that("Testing that fesminima correctly identifies energy minima", {
   profs<-feprof(mins)
   minA<-summary(profs)[2,6]
   expect_equal(object=minA, expected=5.89, tolerance=0.01, scale=1)
-  print()
 
 })
 
