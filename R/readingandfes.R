@@ -737,24 +737,24 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
       }
     }
     if(fes1$dimension==1) {
-      cfes<-list(fes=fes1$fes+fes2$fes, hills=rbind(fes1$hillsfile, fes2$hillsfile), rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+      cfes<-list(fes=fes1$fes+fes2$fes, hills=rbind(fes1$hills, fes2$hills), rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
-      cfes<-list(fes=fes1$fes+fes2$fes, hills=rbind(fes1$hillsfile, fes2$hillsfile), rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+      cfes<-list(fes=fes1$fes+fes2$fes, hills=rbind(fes1$hills, fes2$hills), rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
   } else if(class(fes1)=="fes") {
     if(fes1$dimension==1) {
-      cfes<-list(fes=fes1$fes+fes2, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+      cfes<-list(fes=fes1$fes+fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
-      cfes<-list(fes=fes1$fes+fes2, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+      cfes<-list(fes=fes1$fes+fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
   } else if(class(fes2)=="fes") {
     if(fes2$dimension==1) {
-      cfes<-list(fes=fes1+fes2$fes, hills=fes2$hillsfile, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
+      cfes<-list(fes=fes1+fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
     if(fes2$dimension==2) {
-      cfes<-list(fes=fes1+fes2$fes, hills=rbind(fes1$hillsfile,fes2$hillsfile), rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
+      cfes<-list(fes=fes1+fes2$fes, hills=rbind(fes1$hills,fes2$hills), rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
   }
   class(cfes) <- "fes"
@@ -781,24 +781,24 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
     cat("Warning: FES obtained by subtraction of two FESes\n")
     cat(" will inherit hills only from the first FES\n")
     if(fes1$dimension==1) {
-      cfes<-list(fes=fes1$fes-fes2$fes, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+      cfes<-list(fes=fes1$fes-fes2$fes, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
-      cfes<-list(fes=fes1$fes-fes2$fes, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+      cfes<-list(fes=fes1$fes-fes2$fes, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
   } else if(class(fes1)=="fes") {
     if(fes1$dimension==1) {
-      cfes<-list(fes=fes1$fes-fes2, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+      cfes<-list(fes=fes1$fes-fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
-      cfes<-list(fes=fes1$fes-fes2, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+      cfes<-list(fes=fes1$fes-fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
   } else if(class(fes2)=="fes") {
     if(fes2$dimension==1) {
-      cfes<-list(fes=fes1-fes2$fes, hills=fes2$hillsfile, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
+      cfes<-list(fes=fes1-fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
     if(fes2$dimension==2) {
-      cfes<-list(fes=fes1-fes2$fes, hills=fes2$hillsfile, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
+      cfes<-list(fes=fes1-fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
   }
   class(cfes) <- "fes"
@@ -811,17 +811,17 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
     stop("Error: You cannot multiply fes by fes")
   } else if(class(fes1)=="fes") {
     if(fes1$dimension==1) {
-      cfes<-list(fes=fes1$fes*fes2, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+      cfes<-list(fes=fes1$fes*fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
-      cfes<-list(fes=fes1$fes*fes2, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+      cfes<-list(fes=fes1$fes*fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
   } else if(class(fes2)=="fes") {
     if(fes2$dimension==1) {
-      cfes<-list(fes=fes1*fes2$fes, hills=fes2$hillsfile, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
+      cfes<-list(fes=fes1*fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
     if(fes2$dimension==2) {
-      cfes<-list(fes=fes1*fes2$fes, hills=fes2$hillsfile, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
+      cfes<-list(fes=fes1*fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
   }
   cat("Warning: multiplication of FES will multiply\n")
@@ -836,10 +836,10 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
     stop("Error: You cannot divide fes by fes")
   } else if(class(fes1)=="fes") {
     if(fes1$dimension==1) {
-      cfes<-list(fes=fes1$fes/coef, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+      cfes<-list(fes=fes1$fes/coef, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
-      cfes<-list(fes=fes1$fes/coef, hills=fes1$hillsfile, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+      cfes<-list(fes=fes1$fes/coef, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
   } else if(class(coef)=="fes") {
     stop("Error: You cannot divide something by fes")
