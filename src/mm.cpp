@@ -226,7 +226,7 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
 }
 
 // [[Rcpp::export]]
-NumericMatrix hills3d1(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax) {
+NumericVector hills3d1(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax) {
   int cv1i, cv2i, cv3i;
   int ni, nj, nk;
   double z;
