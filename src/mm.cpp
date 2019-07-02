@@ -363,6 +363,398 @@ NumericMatrix hills2p12(NumericVector cv1, NumericVector cv2, NumericVector widt
 }
 
 // [[Rcpp::export]]
+NumericMatrix hills3d2(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax) {
+  double dcv1;
+  double dcv2;
+  double dcv3;
+  //double v[n][n];
+  double ***v = new double **[n];
+  for (int i = 0; i < n; i++) {
+    v[i] = new double *[n];
+    for (int j = 0; j < n; j++) v[i][j] = new double [n];
+  }
+  NumericMatrix vo(n, n, n);
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        v[i][j][k]=0.0;
+      }
+    }
+  }
+  for (int icv=tmin; icv <= tmax; icv++) {
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        for (int k = 0; k < n; k++) {
+          dcv1 = cv1[icv]-double(i);
+          dcv2 = cv2[icv]-double(j);
+          dcv3 = cv3[icv]-double(k);
+          v[i][j][k] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]-dcv3*dcv3/2.0/width3[icv]/width3[icv]);
+        }
+      }
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        vo(i, j, k) = v[i][j][k];
+      }
+    }
+  }
+  return vo;
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; j++) delete [] v[i][j];
+    delete [] v[i];
+  }
+  delete [] v;
+}
+
+// [[Rcpp::export]]
+NumericMatrix hills3d2p1(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax) {
+  double dcv1;
+  double dcv2;
+  double dcv3;
+  //double v[n][n];
+  double ***v = new double **[n];
+  for (int i = 0; i < n; i++) {
+    v[i] = new double *[n];
+    for (int j = 0; j < n; j++) v[i][j] = new double [n];
+  }
+  NumericMatrix vo(n, n, n);
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        v[i][j][k]=0.0;
+      }
+    }
+  }
+  for (int icv=tmin; icv <= tmax; icv++) {
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        for (int k = 0; k < n; k++) {
+          dcv1 = cv1[icv]-double(i);
+          if(dcv1 >  double(n)/2.0) dcv1 -= double(n);
+          if(dcv1 < -double(n)/2.0) dcv1 += double(n);
+          dcv2 = cv2[icv]-double(j);
+          dcv3 = cv3[icv]-double(k);
+          v[i][j][k] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]-dcv3*dcv3/2.0/width3[icv]/width3[icv]);
+        }
+      }
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        vo(i, j, k) = v[i][j][k];
+      }
+    }
+  }
+  return vo;
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; j++) delete [] v[i][j];
+    delete [] v[i];
+  }
+  delete [] v;
+}
+
+// [[Rcpp::export]]
+NumericMatrix hills3d2p2(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax) {
+  double dcv1;
+  double dcv2;
+  double dcv3;
+  //double v[n][n];
+  double ***v = new double **[n];
+  for (int i = 0; i < n; i++) {
+    v[i] = new double *[n];
+    for (int j = 0; j < n; j++) v[i][j] = new double [n];
+  }
+  NumericMatrix vo(n, n, n);
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        v[i][j][k]=0.0;
+      }
+    }
+  }
+  for (int icv=tmin; icv <= tmax; icv++) {
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        for (int k = 0; k < n; k++) {
+          dcv1 = cv1[icv]-double(i);
+          dcv2 = cv2[icv]-double(j);
+          if(dcv2 >  double(n)/2.0) dcv2 -= double(n);
+          if(dcv2 < -double(n)/2.0) dcv2 += double(n);
+          dcv3 = cv3[icv]-double(k);
+          v[i][j][k] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]-dcv3*dcv3/2.0/width3[icv]/width3[icv]);
+        }
+      }
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        vo(i, j, k) = v[i][j][k];
+      }
+    }
+  }
+  return vo;
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; j++) delete [] v[i][j];
+    delete [] v[i];
+  }
+  delete [] v;
+}
+
+// [[Rcpp::export]]
+NumericMatrix hills3d2p3(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax) {
+  double dcv1;
+  double dcv2;
+  double dcv3;
+  //double v[n][n];
+  double ***v = new double **[n];
+  for (int i = 0; i < n; i++) {
+    v[i] = new double *[n];
+    for (int j = 0; j < n; j++) v[i][j] = new double [n];
+  }
+  NumericMatrix vo(n, n, n);
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        v[i][j][k]=0.0;
+      }
+    }
+  }
+  for (int icv=tmin; icv <= tmax; icv++) {
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        for (int k = 0; k < n; k++) {
+          dcv1 = cv1[icv]-double(i);
+          dcv2 = cv2[icv]-double(j);
+          dcv3 = cv3[icv]-double(k);
+          if(dcv3 >  double(n)/2.0) dcv3 -= double(n);
+          if(dcv3 < -double(n)/2.0) dcv3 += double(n);
+          v[i][j][k] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]-dcv3*dcv3/2.0/width3[icv]/width3[icv]);
+        }
+      }
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        vo(i, j, k) = v[i][j][k];
+      }
+    }
+  }
+  return vo;
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; j++) delete [] v[i][j];
+    delete [] v[i];
+  }
+  delete [] v;
+}
+
+// [[Rcpp::export]]
+NumericMatrix hills3d2p12(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax) {
+  double dcv1;
+  double dcv2;
+  double dcv3;
+  //double v[n][n];
+  double ***v = new double **[n];
+  for (int i = 0; i < n; i++) {
+    v[i] = new double *[n];
+    for (int j = 0; j < n; j++) v[i][j] = new double [n];
+  }
+  NumericMatrix vo(n, n, n);
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        v[i][j][k]=0.0;
+      }
+    }
+  }
+  for (int icv=tmin; icv <= tmax; icv++) {
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        for (int k = 0; k < n; k++) {
+          dcv1 = cv1[icv]-double(i);
+          if(dcv1 >  double(n)/2.0) dcv1 -= double(n);
+          if(dcv1 < -double(n)/2.0) dcv1 += double(n);
+          dcv2 = cv2[icv]-double(j);
+          if(dcv2 >  double(n)/2.0) dcv2 -= double(n);
+          if(dcv2 < -double(n)/2.0) dcv2 += double(n);
+          dcv3 = cv3[icv]-double(k);
+          v[i][j][k] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]-dcv3*dcv3/2.0/width3[icv]/width3[icv]);
+        }
+      }
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        vo(i, j, k) = v[i][j][k];
+      }
+    }
+  }
+  return vo;
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; j++) delete [] v[i][j];
+    delete [] v[i];
+  }
+  delete [] v;
+}
+
+// [[Rcpp::export]]
+NumericMatrix hills3d2p13(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax) {
+  double dcv1;
+  double dcv2;
+  double dcv3;
+  //double v[n][n];
+  double ***v = new double **[n];
+  for (int i = 0; i < n; i++) {
+    v[i] = new double *[n];
+    for (int j = 0; j < n; j++) v[i][j] = new double [n];
+  }
+  NumericMatrix vo(n, n, n);
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        v[i][j][k]=0.0;
+      }
+    }
+  }
+  for (int icv=tmin; icv <= tmax; icv++) {
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        for (int k = 0; k < n; k++) {
+          dcv1 = cv1[icv]-double(i);
+          if(dcv1 >  double(n)/2.0) dcv1 -= double(n);
+          if(dcv1 < -double(n)/2.0) dcv1 += double(n);
+          dcv2 = cv2[icv]-double(j);
+          dcv3 = cv3[icv]-double(k);
+          if(dcv3 >  double(n)/2.0) dcv3 -= double(n);
+          if(dcv3 < -double(n)/2.0) dcv3 += double(n);
+          v[i][j][k] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]-dcv3*dcv3/2.0/width3[icv]/width3[icv]);
+        }
+      }
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        vo(i, j, k) = v[i][j][k];
+      }
+    }
+  }
+  return vo;
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; j++) delete [] v[i][j];
+    delete [] v[i];
+  }
+  delete [] v;
+}
+
+// [[Rcpp::export]]
+NumericMatrix hills3d2p23(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax) {
+  double dcv1;
+  double dcv2;
+  double dcv3;
+  //double v[n][n];
+  double ***v = new double **[n];
+  for (int i = 0; i < n; i++) {
+    v[i] = new double *[n];
+    for (int j = 0; j < n; j++) v[i][j] = new double [n];
+  }
+  NumericMatrix vo(n, n, n);
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        v[i][j][k]=0.0;
+      }
+    }
+  }
+  for (int icv=tmin; icv <= tmax; icv++) {
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        for (int k = 0; k < n; k++) {
+          dcv1 = cv1[icv]-double(i);
+          dcv2 = cv2[icv]-double(j);
+          if(dcv2 >  double(n)/2.0) dcv2 -= double(n);
+          if(dcv2 < -double(n)/2.0) dcv2 += double(n);
+          dcv3 = cv3[icv]-double(k);
+          if(dcv3 >  double(n)/2.0) dcv3 -= double(n);
+          if(dcv3 < -double(n)/2.0) dcv3 += double(n);
+          v[i][j][k] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]-dcv3*dcv3/2.0/width3[icv]/width3[icv]);
+        }
+      }
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        vo(i, j, k) = v[i][j][k];
+      }
+    }
+  }
+  return vo;
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; j++) delete [] v[i][j];
+    delete [] v[i];
+  }
+  delete [] v;
+}
+
+// [[Rcpp::export]]
+NumericMatrix hills3d2p123(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax) {
+  double dcv1;
+  double dcv2;
+  double dcv3;
+  //double v[n][n];
+  double ***v = new double **[n];
+  for (int i = 0; i < n; i++) {
+    v[i] = new double *[n];
+    for (int j = 0; j < n; j++) v[i][j] = new double [n];
+  }
+  NumericMatrix vo(n, n, n);
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        v[i][j][k]=0.0;
+      }
+    }
+  }
+  for (int icv=tmin; icv <= tmax; icv++) {
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        for (int k = 0; k < n; k++) {
+          dcv1 = cv1[icv]-double(i);
+          if(dcv1 >  double(n)/2.0) dcv1 -= double(n);
+          if(dcv1 < -double(n)/2.0) dcv1 += double(n);
+          dcv2 = cv2[icv]-double(j);
+          if(dcv2 >  double(n)/2.0) dcv2 -= double(n);
+          if(dcv2 < -double(n)/2.0) dcv2 += double(n);
+          dcv3 = cv3[icv]-double(k);
+          if(dcv3 >  double(n)/2.0) dcv3 -= double(n);
+          if(dcv3 < -double(n)/2.0) dcv3 += double(n);
+          v[i][j][k] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]-dcv3*dcv3/2.0/width3[icv]/width3[icv]);
+        }
+      }
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      for (int k = 0; k < n; k++) {
+        vo(i, j, k) = v[i][j][k];
+      }
+    }
+  }
+  return vo;
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; j++) delete [] v[i][j];
+    delete [] v[i];
+  }
+  delete [] v;
+}
+
+// [[Rcpp::export]]
 NumericVector hills1d1(NumericVector cv1, double width1, NumericVector heights, int n, int tmin, int tmax) {
   int cv1i;
   int ni;
