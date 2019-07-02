@@ -471,7 +471,7 @@ plotheights<-function(hills, ignoretime=FALSE,
 #' @export
 #' @examples
 #' tfes<-fes(acealanme, imax=5000)
-fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints=256) {
+fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints=NULL) {
   if(!is.null(imax)) {
     if(hills$size[1]<imax) {
       cat("Warning: You requested more hills by imax than available, using all hills\n")
@@ -490,6 +490,9 @@ fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints
     }
     if(max(hills$hillsfile[,5])/min(hills$hillsfile[,5])>1.00000000001) {
       stop("Error: Bias Sum algorithm works only with hills of the same sizes")
+    }
+    if(is.null(npoints) {
+      npoints <- 256
     }
     minCV1 <- min(hills$hillsfile[,2])
     maxCV1 <- max(hills$hillsfile[,2])
@@ -554,6 +557,9 @@ fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints
     if(max(hills$hillsfile[,3])/min(hills$hillsfile[,3])>1.00000000001) {
       stop("Error: Bias Sum algorithm works only with hills of the same sizes")
     }
+    if(is.null(npoints) {
+      npoints <- 256
+    }
     minCV1 <- min(hills$hillsfile[,2])
     maxCV1 <- max(hills$hillsfile[,2])
     xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
@@ -582,6 +588,9 @@ fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints
     }
     if(max(hills$hillsfile[,7])/min(hills$hillsfile[,7])>1.00000000001) {
       stop("Error: Bias Sum algorithm works only with hills of the same sizes")
+    }
+    if(is.null(npoints) {
+      npoints <- 64
     }
     minCV1 <- min(hills$hillsfile[,2])
     maxCV1 <- max(hills$hillsfile[,2])
@@ -720,7 +729,7 @@ fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints
 #' @export
 #' @examples
 #' tfes<-fes2(acealanme, imax=1000)
-fes2<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints=256) {
+fes2<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints=NULL) {
   if(!is.null(imax)) {
     if(hills$size[1]<imax) {
       cat("Warning: You requested more hills by imax than available, using all hills\n")
@@ -734,6 +743,9 @@ fes2<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoint
     stop("Error: imax cannot be lower than imin")
   }
   if(hills$size[2]==7) {
+    if(is.null(npoints) {
+      npoints <- 256
+    }
     minCV1 <- min(hills$hillsfile[,2])
     maxCV1 <- max(hills$hillsfile[,2])
     minCV2 <- min(hills$hillsfile[,3])
@@ -778,6 +790,9 @@ fes2<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoint
     class(cfes) <- "fes"
   }
   if(hills$size[2]==5) {
+    if(is.null(npoints) {
+      npoints <- 256
+    }
     minCV1 <- min(hills$hillsfile[,2])
     maxCV1 <- max(hills$hillsfile[,2])
     xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
@@ -798,6 +813,9 @@ fes2<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoint
     class(cfes) <- "fes"
   }
   if(hills$size[2]==9) {
+    if(is.null(npoints) {
+      npoints <- 64
+    }
     minCV1 <- min(hills$hillsfile[,2])
     maxCV1 <- max(hills$hillsfile[,2])
     minCV2 <- min(hills$hillsfile[,3])
