@@ -77,6 +77,166 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// hills3d1
+NumericMatrix hills3d1(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d1(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d1(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d1p1
+NumericMatrix hills3d1p1(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d1p1(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d1p1(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d1p2
+NumericMatrix hills3d1p2(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d1p2(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d1p2(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d1p3
+NumericMatrix hills3d1p3(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d1p3(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d1p3(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d1p12
+NumericMatrix hills3d1p12(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d1p12(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d1p12(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d1p13
+NumericMatrix hills3d1p13(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d1p13(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d1p13(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d1p23
+NumericMatrix hills3d1p23(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d1p23(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d1p23(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d1p123
+NumericMatrix hills3d1p123(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d1p123(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d1p123(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
 // hills2
 NumericMatrix hills2(NumericVector cv1, NumericVector cv2, NumericVector width1, NumericVector width2, NumericVector heights, int n, int tmin, int tmax);
 RcppExport SEXP _metadynminer_hills2(SEXP cv1SEXP, SEXP cv2SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
@@ -146,6 +306,166 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
     Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
     rcpp_result_gen = Rcpp::wrap(hills2p12(cv1, cv2, width1, width2, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d2
+NumericMatrix hills3d2(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d2(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d2(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d2p1
+NumericMatrix hills3d2p1(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d2p1(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d2p1(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d2p2
+NumericMatrix hills3d2p2(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d2p2(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d2p2(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d2p3
+NumericMatrix hills3d2p3(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d2p3(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d2p3(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d2p12
+NumericMatrix hills3d2p12(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d2p12(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d2p12(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d2p13
+NumericMatrix hills3d2p13(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d2p13(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d2p13(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d2p23
+NumericMatrix hills3d2p23(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d2p23(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d2p23(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hills3d2p123
+NumericMatrix hills3d2p123(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+RcppExport SEXP _metadynminer_hills3d2p123(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type cv1(cv1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv2(cv2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type cv3(cv3SEXP);
+    Rcpp::traits::input_parameter< double >::type width1(width1SEXP);
+    Rcpp::traits::input_parameter< double >::type width2(width2SEXP);
+    Rcpp::traits::input_parameter< double >::type width3(width3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type heights(heightsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type tmin(tminSEXP);
+    Rcpp::traits::input_parameter< int >::type tmax(tmaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(hills3d2p123(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax));
     return rcpp_result_gen;
 END_RCPP
 }
