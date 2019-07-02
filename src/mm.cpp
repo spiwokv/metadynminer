@@ -242,7 +242,7 @@ NumericMatrix hills3d1(NumericVector cv1, NumericVector cv2, NumericVector cv3, 
     g[i] = new double *[2*n];
     for (int j = 0; j < 2*n; j++) g[i][j] = new double [2*n];
   }
-  NumericMatrix vo(n, n, n);
+  NumericVector vo(Dimension(n, n, n));
   for (int i = 0; i < 2*n; i++) {
     for (int j = 0; j < 2*n; j++) {
       for (int k = 0; k < 2*n; k++) {
