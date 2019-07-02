@@ -50,7 +50,20 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
       class(hills) <- "hillsfile"
       return(hills)
     } else {
-      stop("Error: Number of columns in HILLS file must be 5 or 6 (1D) or 7 or 8 (2D)")
+      if(ncol(hillsf)==9 || ncol(hillsf)==10) {
+        cat("3D HILLS file read\n")
+        if(ignoretime) {
+          cat("Warning: The time will be updated automatically from zero\n")
+          cat("according to the first step!\n")
+          hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
+        }
+        hills<-list(hillsfile=hillsf, time=hillsf[,1], cv1=hillsf[,2], cv2=hillsf[,3], cv3=hillsf[,4],
+                    size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2, pcv3=pcv3)
+        class(hills) <- "hillsfile"
+        return(hills)
+      } else {
+        stop("Error: Number of columns in HILLS file must be 5 or 6 (1D), 7 or 8 (2D) or 9 or 10 (3D)")
+      }
     }
   }
 }
@@ -76,6 +89,13 @@ print.hillsfile<-function(x,...) {
   }
   if(hills$size[2]==7) {
     cat("2D hills file ")
+    cat(hills$filename)
+    cat(" with ")
+    cat(hills$size[1])
+    cat(" lines\n")
+  }
+  if(hills$size[2]==9) {
+    cat("3D hills file ")
     cat(hills$filename)
     cat(" with ")
     cat(hills$size[1])
@@ -123,6 +143,26 @@ summary.hillsfile<-function(object,...) {
     cat(max(hills$hillsfile[,3]))
     cat("\n")
   }
+  if(hills$size[2]==9) {
+    cat("2D hills file ")
+    cat(hills$filename)
+    cat(" with ")
+    cat(hills$size[1])
+    cat(" lines\n")
+    cat("The CV1 ranges from ")
+    cat(min(hills$hillsfile[,2]))
+    cat(" to ")
+    cat(max(hills$hillsfile[,2]))
+    cat("\nThe CV2 ranges from ")
+    cat(min(hills$hillsfile[,3]))
+    cat(" to ")
+    cat(max(hills$hillsfile[,3]))
+    cat("\nThe CV3 ranges from ")
+    cat(min(hills$hillsfile[,4]))
+    cat(" to ")
+    cat(max(hills$hillsfile[,4]))
+    cat("\n")
+  }
 }
 
 #' Print first n lines of hillsfile
@@ -168,8 +208,16 @@ tail.hillsfile<-function(x, n=10,...) {
       stop("Error: You can sum only hills of same periodicity")
     }
   }
+  if(ncol(hills1$hillsfile)==9 || ncol(hills1$hillsfile)==10) {
+    if(hills1$per[2]!=hills2$per[2]) {
+      stop("Error: You can sum only hills of same periodicity")
+    }
+    if(hills1$per[3]!=hills2$per[3]) {
+      stop("Error: You can sum only hills of same periodicity")
+    }
+  }
   hills<-list(hillsfile=rbind(hills1$hillsfile, hills2$hillsfile), size=dim(rbind(hills1$hillsfile, hills2$hillsfile)),
-              filename=hills1$filename, per=hills1$per, pcv1=hills1$pcv1, pcv2=hills1$pcv2)
+              filename=hills1$filename, per=hills1$per, pcv1=hills1$pcv1, pcv2=hills1$pcv2, pcv3=hills1$pcv3)
   class(hills) <- "hillsfile"
   return(hills)
 }
@@ -234,7 +282,7 @@ plot.hillsfile<-function(x, ignoretime=FALSE,
            asp=asp, axes=axes)
     }
   }
-  if(hills$size[2]==7) {
+  if(hills$size[2]==7 || hills$size[2]==9) {
     if((hills$per[1]==T)&is.null(xlim)) {xlims<-hills$pcv1}
     if((hills$per[2]==T)&is.null(ylim)) {ylims<-hills$pcv2}
     if(is.null(xlab)) xlab="CV1"
@@ -283,7 +331,7 @@ points.hillsfile<-function(x, ignoretime=FALSE,
              col=col, cex=cex, lwd=lwd)
     }
   }
-  if(hills$size[2]==7) {
+  if(hills$size[2]==7 || hills$size[2]==9) {
     points(hills$hillsfile[,2], hills$hillsfile[,3],
            pch=pch, col=col, bg=bg, cex=cex, lwd=lwd)
   }
@@ -318,7 +366,7 @@ lines.hillsfile<-function(x, ignoretime=FALSE,
            col=col, lwd=lwd)
     }
   }
-  if(hills$size[2]==7) {
+  if(hills$size[2]==7 || hills$size[2]==9) {
     lines(hills$hillsfile[,2], hills$hillsfile[,3],
           col=col, lwd=lwd)
   }
@@ -381,6 +429,22 @@ plotheights<-function(hills, ignoretime=FALSE,
              asp=asp, axes=axes)
       } else {
         plot(hills$hillsfile[,1], hills$hillsfile[,6], type="l",
+             xlab=xlab, ylab=ylab,
+             main=main, sub=sub,
+             col=col, lwd=lwd,
+             asp=asp, axes=axes)
+      }
+    }
+    if(hills$size[2]==9) {
+      if(ignoretime) {
+        plot(seq(from=hills$hillsfile[1,1],by=hills$hillsfile[1,1],length.out=nrow(hills$hillsfile)),
+             hills$hillsfile[,8], type="l",
+             xlab=xlab, ylab=ylab,
+             main=main, sub=sub,
+             col=col, lwd=lwd,
+             asp=asp, axes=axes)
+      } else {
+        plot(hills$hillsfile[,1], hills$hillsfile[,8], type="l",
              xlab=xlab, ylab=ylab,
              main=main, sub=sub,
              col=col, lwd=lwd,
