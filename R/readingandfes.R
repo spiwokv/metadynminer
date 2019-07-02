@@ -706,6 +706,7 @@ fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints
                          npoints*max(hills$hillsfile[,7])/(zlims[2]-zlims[1]),
                          hills$hillsfile[,8],npoints,imin-1,imax-1)
     }
+    fesm<-array(fesm, c(npoints, npoints, npoints))
     cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=3, per=hills$per,
                x=x, y=y, z=z, pcv1=hills$pcv1, pcv2=hills$pcv2, pcv3=hills$pcv3)
     class(cfes) <- "fes"
@@ -906,6 +907,7 @@ fes2<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoint
                          npoints*hills$hillsfile[,7]/(zlims[2]-zlims[1]),
                          hills$hillsfile[,8],npoints,imin-1,imax-1)
     }
+    fesm<-array(fesm, c(npoints, npoints, npoints))
     cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=3, per=hills$per,
                x=x, y=y, z=z, pcv1=hills$pcv1, pcv2=hills$pcv2, pcv3=hills$pcv3)
     class(cfes) <- "fes"
