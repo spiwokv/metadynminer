@@ -37,34 +37,30 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
                 size=dim(hillsf), filename=file, per=per, pcv1=pcv1)
     class(hills) <- "hillsfile"
     return(hills)
-  } else {
-    if(ncol(hillsf)==7 || ncol(hillsf)==8) {
-      cat("2D HILLS file read\n")
-      if(ignoretime) {
-        cat("Warning: The time will be updated automatically from zero\n")
-        cat("according to the first step!\n")
-        hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
-      }
-      hills<-list(hillsfile=hillsf, time=hillsf[,1], cv1=hillsf[,2], cv2=hillsf[,3],
-                  size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2)
-      class(hills) <- "hillsfile"
-      return(hills)
-    } else {
-      if(ncol(hillsf)==9 || ncol(hillsf)==10) {
-        cat("3D HILLS file read\n")
-        if(ignoretime) {
-          cat("Warning: The time will be updated automatically from zero\n")
-          cat("according to the first step!\n")
-          hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
-        }
-        hills<-list(hillsfile=hillsf, time=hillsf[,1], cv1=hillsf[,2], cv2=hillsf[,3], cv3=hillsf[,4],
-                    size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2, pcv3=pcv3)
-        class(hills) <- "hillsfile"
-        return(hills)
-      } else {
-        stop("Error: Number of columns in HILLS file must be 5 or 6 (1D), 7 or 8 (2D) or 9 or 10 (3D)")
-      }
+  } else if(ncol(hillsf)==7 || ncol(hillsf)==8) {
+    cat("2D HILLS file read\n")
+    if(ignoretime) {
+      cat("Warning: The time will be updated automatically from zero\n")
+      cat("according to the first step!\n")
+      hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
     }
+    hills<-list(hillsfile=hillsf, time=hillsf[,1], cv1=hillsf[,2], cv2=hillsf[,3],
+                size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2)
+    class(hills) <- "hillsfile"
+    return(hills)
+  } else if(ncol(hillsf)==9 || ncol(hillsf)==10) {
+    cat("3D HILLS file read\n")
+    if(ignoretime) {
+      cat("Warning: The time will be updated automatically from zero\n")
+      cat("according to the first step!\n")
+      hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
+    }
+    hills<-list(hillsfile=hillsf, time=hillsf[,1], cv1=hillsf[,2], cv2=hillsf[,3], cv3=hillsf[,4],
+                size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2, pcv3=pcv3)
+    class(hills) <- "hillsfile"
+    return(hills)
+  } else {
+    stop("Error: Number of columns in HILLS file must be 5 or 6 (1D), 7 or 8 (2D) or 9 or 10 (3D)")
   }
 }
 
@@ -1075,10 +1071,10 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
       cfes<-list(fes=fes1+fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
     if(fes2$dimension==2) {
-      cfes<-list(fes=fes1+fes2$fes, hills=rbind(fes1$hills,fes2$hills), rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
+      cfes<-list(fes=fes1+fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
     if(fes2$dimension==3) {
-      cfes<-list(fes=fes1+fes2$fes, hills=rbind(fes1$hills,fes2$hills), rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, z=fes2$z, pcv1=fes2$pcv1, pcv2=fes2$pcv2, pcv3=fes2$pcv3)
+      cfes<-list(fes=fes1+fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, z=fes2$z, pcv1=fes2$pcv1, pcv2=fes2$pcv2, pcv3=fes2$pcv3)
     }
   }
   class(cfes) <- "fes"
