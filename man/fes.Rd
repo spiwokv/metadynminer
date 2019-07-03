@@ -5,7 +5,7 @@
 \title{Calculate free energy surface by Bias Sum algorithm}
 \usage{
 fes(hills, imin = 1, imax = NULL, xlim = NULL, ylim = NULL,
-  npoints = 256)
+  npoints = NULL)
 }
 \arguments{
 \item{hills}{hillsfile object.}
@@ -18,7 +18,7 @@ fes(hills, imin = 1, imax = NULL, xlim = NULL, ylim = NULL,
 
 \item{ylim}{numeric vector of length 2, giving the CV2 coordinates range.}
 
-\item{npoints}{resolution of the free energy surface in number of points.}
+\item{npoints}{resolution of the free energy surface in number of points (256 for 1D and 2D, 64 for 3D).}
 }
 \value{
 fes object.
