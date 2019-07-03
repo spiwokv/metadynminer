@@ -18,35 +18,35 @@ hills1p12 <- function(cv1, cv2, width1, width2, heights, n, tmin, tmax) {
 }
 
 hills3d1 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d1', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d1', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d1p1 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d1p1', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d1p1', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d1p2 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d1p2', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d1p2', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d1p3 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d1p3', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d1p3', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d1p12 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d1p12', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d1p12', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d1p13 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d1p13', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d1p13', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d1p23 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d1p23', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d1p23', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d1p123 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d1p123', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d1p123', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills2 <- function(cv1, cv2, width1, width2, heights, n, tmin, tmax) {
@@ -66,35 +66,35 @@ hills2p12 <- function(cv1, cv2, width1, width2, heights, n, tmin, tmax) {
 }
 
 hills3d2 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d2', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d2', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d2p1 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d2p1', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d2p1', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d2p2 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d2p2', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d2p2', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d2p3 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d2p3', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d2p3', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d2p12 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d2p12', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d2p12', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d2p13 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d2p13', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d2p13', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d2p23 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d2p23', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d2p23', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills3d2p123 <- function(cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax) {
-    .Call('_metadynminer_hills3d2p123', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, n, tmin, tmax)
+    .Call('_metadynminer_hills3d2p123', PACKAGE = 'metadynminer', cv1, cv2, cv3, width1, width2, width3, heights, n, tmin, tmax)
 }
 
 hills1d1 <- function(cv1, width1, heights, n, tmin, tmax) {
