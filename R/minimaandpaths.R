@@ -498,7 +498,7 @@ summary.profiles <- function(object, imind=1, imaxd=NULL,...) {
     names(outprofile)[5:7]<-c("min diff", "max diff", "tail")
     print(outprofile)
   }
-  if(minims$dimension==2) {
+  if(profs$dimension==2) {
     outprofile <- profs$mins
     mms<-profs$mms[,2:ncol(profs$mms)]-profs$mms[,2]
     outprofile <- cbind(outprofile,apply(mms[imind:imaxd,],2,min))
@@ -507,7 +507,7 @@ summary.profiles <- function(object, imind=1, imaxd=NULL,...) {
     names(outprofile)[7:9]<-c("min diff", "max diff", "tail")
     print(outprofile)
   }
-  if(minims$dimension==3) {
+  if(profs$dimension==3) {
     stop("Error: function not (yet) supported for 3D FES")
   }
 }
