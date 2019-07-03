@@ -718,7 +718,7 @@ NumericVector hills3d1p13(NumericVector cv1, NumericVector cv2, NumericVector cv
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
       for (int k = 0; k < n; k++) {
-        vo(i,j,k) = v[i][j][k];
+        vo(n*n*i+n*j+k) = v[i][j][k];
       }
     }
   }
