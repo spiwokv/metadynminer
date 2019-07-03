@@ -310,7 +310,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // hills3d2
-NumericVector hills3d2(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+NumericVector hills3d2(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax);
 RcppExport SEXP _metadynminer_hills3d2(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -330,7 +330,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // hills3d2p1
-NumericVector hills3d2p1(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+NumericVector hills3d2p1(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax);
 RcppExport SEXP _metadynminer_hills3d2p1(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -350,7 +350,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // hills3d2p2
-NumericVector hills3d2p2(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+NumericVector hills3d2p2(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax);
 RcppExport SEXP _metadynminer_hills3d2p2(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -370,7 +370,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // hills3d2p3
-NumericVector hills3d2p3(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+NumericVector hills3d2p3(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax);
 RcppExport SEXP _metadynminer_hills3d2p3(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -390,7 +390,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // hills3d2p12
-NumericVector hills3d2p12(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+NumericVector hills3d2p12(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax);
 RcppExport SEXP _metadynminer_hills3d2p12(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -410,7 +410,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // hills3d2p13
-NumericVector hills3d2p13(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+NumericVector hills3d2p13(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax);
 RcppExport SEXP _metadynminer_hills3d2p13(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -430,7 +430,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // hills3d2p23
-NumericVector hills3d2p23(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+NumericVector hills3d2p23(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax);
 RcppExport SEXP _metadynminer_hills3d2p23(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -450,7 +450,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // hills3d2p123
-NumericVector hills3d2p123(NumericVector cv1, NumericVector cv2, NumericVector cv3, double width1, double width2, double width3, NumericVector heights, int n, int tmin, int tmax);
+NumericVector hills3d2p123(NumericVector cv1, NumericVector cv2, NumericVector cv3, NumericVector width1, NumericVector width2, NumericVector width3, NumericVector heights, int n, int tmin, int tmax);
 RcppExport SEXP _metadynminer_hills3d2p123(SEXP cv1SEXP, SEXP cv2SEXP, SEXP cv3SEXP, SEXP width1SEXP, SEXP width2SEXP, SEXP width3SEXP, SEXP heightsSEXP, SEXP nSEXP, SEXP tminSEXP, SEXP tmaxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
