@@ -16,7 +16,7 @@ read.hills(file = "HILLS", per = c(FALSE, FALSE, FALSE), pcv1 = c(-pi, pi),
 
 \item{pcv2}{periodicity of CV2.}
 
-\item{pcv2}{periodicity of CV3.}
+\item{pcv3}{periodicity of CV3.}
 
 \item{ignoretime}{time in the first column of the HILLS file will be ignored.}
 }
