@@ -37,30 +37,34 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
                 size=dim(hillsf), filename=file, per=per, pcv1=pcv1)
     class(hills) <- "hillsfile"
     return(hills)
-  } else if(ncol(hillsf)==7 || ncol(hillsf)==8) {
-    cat("2D HILLS file read\n")
-    if(ignoretime) {
-      cat("Warning: The time will be updated automatically from zero\n")
-      cat("according to the first step!\n")
-      hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
-    }
-    hills<-list(hillsfile=hillsf, time=hillsf[,1], cv1=hillsf[,2], cv2=hillsf[,3],
-                size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2)
-    class(hills) <- "hillsfile"
-    return(hills)
-  } else if(ncol(hillsf)==9 || ncol(hillsf)==10) {
-    cat("3D HILLS file read\n")
-    if(ignoretime) {
-      cat("Warning: The time will be updated automatically from zero\n")
-      cat("according to the first step!\n")
-      hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
-    }
-    hills<-list(hillsfile=hillsf, time=hillsf[,1], cv1=hillsf[,2], cv2=hillsf[,3], cv3=hillsf[,4],
-                size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2, pcv3=pcv3)
-    class(hills) <- "hillsfile"
-    return(hills)
   } else {
-    stop("Error: Number of columns in HILLS file must be 5 or 6 (1D), 7 or 8 (2D) or 9 or 10 (3D)")
+    if(ncol(hillsf)==7 || ncol(hillsf)==8) {
+      cat("2D HILLS file read\n")
+      if(ignoretime) {
+        cat("Warning: The time will be updated automatically from zero\n")
+        cat("according to the first step!\n")
+        hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
+      }
+      hills<-list(hillsfile=hillsf, time=hillsf[,1], cv1=hillsf[,2], cv2=hillsf[,3],
+                  size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2)
+      class(hills) <- "hillsfile"
+      return(hills)
+    } else {
+      if(ncol(hillsf)==9 || ncol(hillsf)==10) {
+        cat("3D HILLS file read\n")
+        if(ignoretime) {
+          cat("Warning: The time will be updated automatically from zero\n")
+          cat("according to the first step!\n")
+          hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
+        }
+        hills<-list(hillsfile=hillsf, time=hillsf[,1], cv1=hillsf[,2], cv2=hillsf[,3], cv3=hillsf[,4],
+                    size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2, pcv3=pcv3)
+        class(hills) <- "hillsfile"
+        return(hills)
+      } else {
+        stop("Error: Number of columns in HILLS file must be 5 or 6 (1D), 7 or 8 (2D) or 9 or 10 (3D)")
+      }
+    }
   }
 }
 
@@ -1039,11 +1043,22 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
         stop("Error: Free energy surfaces have different CV2 axes, exiting")
       }
     }
+    if(fes1$dimension==3) {
+      if(sum(fes1$y!=fes2$y)>0) {
+        stop("Error: Free energy surfaces have different CV2 axes, exiting")
+      }
+      if(sum(fes1$z!=fes2$z)>0) {
+        stop("Error: Free energy surfaces have different CV3 axes, exiting")
+      }
+    }
     if(fes1$dimension==1) {
       cfes<-list(fes=fes1$fes+fes2$fes, hills=rbind(fes1$hills, fes2$hills), rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
       cfes<-list(fes=fes1$fes+fes2$fes, hills=rbind(fes1$hills, fes2$hills), rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+    }
+    if(fes1$dimension==3) {
+      cfes<-list(fes=fes1$fes+fes2$fes, hills=rbind(fes1$hills, fes2$hills), rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, z=fes1$z, pcv1=fes1$pcv1, pcv2=fes1$pcv2, pcv3=fes1$pcv3)
     }
   } else if(class(fes1)=="fes") {
     if(fes1$dimension==1) {
@@ -1052,19 +1067,19 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
     if(fes1$dimension==2) {
       cfes<-list(fes=fes1$fes+fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
+    if(fes1$dimension==3) {
+      cfes<-list(fes=fes1$fes+fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, z=fes1$z, pcv1=fes1$pcv1, pcv2=fes1$pcv2, pcv3=fes1$pcv3)
+    }
   } else if(class(fes2)=="fes") {
     if(fes2$dimension==1) {
       cfes<-list(fes=fes1+fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
     if(fes2$dimension==2) {
-      cfes<-list(fes=fes1+fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
+      cfes<-list(fes=fes1+fes2$fes, hills=rbind(fes1$hills,fes2$hills), rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
-<<<<<<< HEAD
     if(fes2$dimension==3) {
-      cfes<-list(fes=fes1+fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, z=fes2$z, pcv1=fes2$pcv1, pcv2=fes2$pcv2, pcv3=fes2$pcv3)
+      cfes<-list(fes=fes1+fes2$fes, hills=rbind(fes1$hills,fes2$hills), rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, z=fes2$z, pcv1=fes2$pcv1, pcv2=fes2$pcv2, pcv3=fes2$pcv3)
     }
-=======
->>>>>>> parent of 0ea83d4... added +-*/ etc.
   }
   class(cfes) <- "fes"
   return(cfes)
@@ -1087,6 +1102,14 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
         stop("Error: Free energy surfaces have different CV2 axes, exiting")
       }
     }
+    if(fes1$dimension==3) {
+      if(sum(fes1$y!=fes2$y)>0) {
+        stop("Error: Free energy surfaces have different CV2 axes, exiting")
+      }
+      if(sum(fes1$z!=fes2$z)>0) {
+        stop("Error: Free energy surfaces have different CV3 axes, exiting")
+      }
+    }
     cat("Warning: FES obtained by subtraction of two FESes\n")
     cat(" will inherit hills only from the first FES\n")
     if(fes1$dimension==1) {
@@ -1095,6 +1118,9 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
     if(fes1$dimension==2) {
       cfes<-list(fes=fes1$fes-fes2$fes, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
+    if(fes1$dimension==3) {
+      cfes<-list(fes=fes1$fes-fes2$fes, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, z=fes1$z, pcv1=fes1$pcv1, pcv2=fes1$pcv2, pcv3=fes1$pcv3)
+    }
   } else if(class(fes1)=="fes") {
     if(fes1$dimension==1) {
       cfes<-list(fes=fes1$fes-fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
@@ -1102,12 +1128,18 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
     if(fes1$dimension==2) {
       cfes<-list(fes=fes1$fes-fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
+    if(fes1$dimension==3) {
+      cfes<-list(fes=fes1$fes-fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, z=fes1$z, pcv1=fes1$pcv1, pcv2=fes1$pcv2, pcv3=fes1$pcv3)
+    }
   } else if(class(fes2)=="fes") {
     if(fes2$dimension==1) {
       cfes<-list(fes=fes1-fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
     if(fes2$dimension==2) {
       cfes<-list(fes=fes1-fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
+    }
+    if(fes2$dimension==3) {
+      cfes<-list(fes=fes1-fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, z=fes2$z, pcv1=fes2$pcv1, pcv2=fes2$pcv2, pcv3=fes2$pcv3)
     }
   }
   class(cfes) <- "fes"
@@ -1125,12 +1157,18 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
     if(fes1$dimension==2) {
       cfes<-list(fes=fes1$fes*fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
+    if(fes1$dimension==3) {
+      cfes<-list(fes=fes1$fes*fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, z=fes1$z, pcv1=fes1$pcv1, pcv2=fes1$pcv2, pcv3=fes1$pcv3)
+    }
   } else if(class(fes2)=="fes") {
     if(fes2$dimension==1) {
       cfes<-list(fes=fes1*fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
     if(fes2$dimension==2) {
       cfes<-list(fes=fes1*fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
+    }
+    if(fes2$dimension==3) {
+      cfes<-list(fes=fes1*fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, y=fes2$y, z=fes2$z, pcv1=fes2$pcv1, pcv2=fes2$pcv2, pcv3=fes2$pcv3)
     }
   }
   cat("Warning: multiplication of FES will multiply\n")
@@ -1149,6 +1187,9 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
     }
     if(fes1$dimension==2) {
       cfes<-list(fes=fes1$fes/coef, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+    }
+    if(fes1$dimension==3) {
+      cfes<-list(fes=fes1$fes/coef, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, z=fes1$z, pcv1=fes1$pcv1, pcv2=fes1$pcv2, pcv3=fes1$pcv3)
     }
   } else if(class(coef)=="fes") {
     stop("Error: You cannot divide something by fes")
@@ -1227,6 +1268,19 @@ print.fes<-function(x,...) {
     cat(min(inputfes$fes))
     cat("\n")
   }
+  if(inputfes$dimension==3) {
+    cat("3D free energy surface with ")
+    cat(inputfes$rows)
+    cat(" x ")
+    cat(inputfes$rows)
+    cat(" x ")
+    cat(inputfes$rows)
+    cat(" points, maximum ")
+    cat(max(inputfes$fes))
+    cat(" and minimum ")
+    cat(min(inputfes$fes))
+    cat("\n")
+  }
 }
 
 #' Print summary of free energy surface
@@ -1254,6 +1308,19 @@ summary.fes<-function(object,...) {
   }
   if(inputfes$dimension==2) {
     cat("2D free energy surface with ")
+    cat(inputfes$rows)
+    cat(" x ")
+    cat(inputfes$rows)
+    cat(" points, maximum ")
+    cat(max(inputfes$fes))
+    cat(" and minimum ")
+    cat(min(inputfes$fes))
+    cat("\n")
+  }
+  if(inputfes$dimension==3) {
+    cat("3D free energy surface with ")
+    cat(inputfes$rows)
+    cat(" x ")
     cat(inputfes$rows)
     cat(" x ")
     cat(inputfes$rows)
@@ -1340,7 +1407,8 @@ plot.fes<-function(x, plottype="both",
         col=col, xlim=xlim, ylim=ylim,
         xlab=xlab, ylab=ylab, axes=axes,
         main=main, sub=sub, asp=asp)
-  } else {
+  }
+  if(inputfes$dimension==2) {
     x<-inputfes$x
     y<-inputfes$y
     if(is.null(xlab)) xlab="CV1"
