@@ -46,6 +46,9 @@ neb<-function(minims=minims, min1="A", min2="B", nbins=20,
   if(minims$dimension==1) {
     stop("Error: Nudged Elastic Band is available only for 2D free energy surfaces, exiting")
   }
+  if(minims$dimension==3) {
+    stop("Error: Nudged Elastic Band is available only for 2D free energy surfaces, comming soon for 3D fes, exiting")
+  }
   if(minims$dimension==2) {
     align<-function(v1, v2) {
       dot <- v1[1]*v2[1]+v1[2]*v2[2]
