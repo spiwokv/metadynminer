@@ -4,7 +4,7 @@
 \alias{fes2}
 \title{Calculate free energy surface by conventional algorithm}
 \usage{
-fes2(hills, imin = 1, imax = NULL, xlim = NULL, ylim = NULL,
+fes2(hills, imin = 1, imax = NULL, xlim = NULL, ylim = NULL, zlim = NULL,
   npoints = NULL)
 }
 \arguments{
@@ -17,6 +17,8 @@ fes2(hills, imin = 1, imax = NULL, xlim = NULL, ylim = NULL,
 \item{xlim}{numeric vector of length 2, giving the CV1 coordinates range.}
 
 \item{ylim}{numeric vector of length 2, giving the CV2 coordinates range.}
+
+\item{zlim}{numeric vector of length 2, giving the CV3 coordinates range.}
 
 \item{npoints}{resolution of the free energy surface in number of points (256 for 1D and 2D, 64 for 3D).}
 }
