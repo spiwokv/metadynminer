@@ -491,7 +491,7 @@ fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints
     if(max(hills$hillsfile[,5])/min(hills$hillsfile[,5])>1.00000000001) {
       stop("Error: Bias Sum algorithm works only with hills of the same sizes")
     }
-    if(is.null(npoints) {
+    if(is.null(npoints)) {
       npoints <- 256
     }
     minCV1 <- min(hills$hillsfile[,2])
@@ -557,7 +557,7 @@ fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints
     if(max(hills$hillsfile[,3])/min(hills$hillsfile[,3])>1.00000000001) {
       stop("Error: Bias Sum algorithm works only with hills of the same sizes")
     }
-    if(is.null(npoints) {
+    if(is.null(npoints)) {
       npoints <- 256
     }
     minCV1 <- min(hills$hillsfile[,2])
@@ -589,7 +589,7 @@ fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints
     if(max(hills$hillsfile[,7])/min(hills$hillsfile[,7])>1.00000000001) {
       stop("Error: Bias Sum algorithm works only with hills of the same sizes")
     }
-    if(is.null(npoints) {
+    if(is.null(npoints)) {
       npoints <- 64
     }
     minCV1 <- min(hills$hillsfile[,2])
@@ -744,7 +744,7 @@ fes2<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoint
     stop("Error: imax cannot be lower than imin")
   }
   if(hills$size[2]==7) {
-    if(is.null(npoints) {
+    if(is.null(npoints)) {
       npoints <- 256
     }
     minCV1 <- min(hills$hillsfile[,2])
@@ -791,7 +791,7 @@ fes2<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoint
     class(cfes) <- "fes"
   }
   if(hills$size[2]==5) {
-    if(is.null(npoints) {
+    if(is.null(npoints)) {
       npoints <- 256
     }
     minCV1 <- min(hills$hillsfile[,2])
@@ -814,7 +814,7 @@ fes2<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoint
     class(cfes) <- "fes"
   }
   if(hills$size[2]==9) {
-    if(is.null(npoints) {
+    if(is.null(npoints)) {
       npoints <- 64
     }
     minCV1 <- min(hills$hillsfile[,2])
