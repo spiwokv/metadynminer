@@ -26,6 +26,9 @@ fesminima<-function(inputfes, nbins=8) {
     stop("Error: number of rows in FES must be integer multiple of nbins")
   }
   per<-inputfes$per
+  if(inputfes$dimension==3) {
+    stop("Error: function not (yet) supported for 3D FES")
+  }
   if(inputfes$dimension==2) {
     minx<-c()
     miny<-c()
@@ -112,6 +115,9 @@ oneminimum<-function(inputfes, cv1, cv2) {
   fes<-inputfes$fes
   rows<-inputfes$rows
   per<-inputfes$per
+  if(inputfes$dimension==3) {
+    stop("Error: function not (yet) supported for 3D FES")
+  }
   if(inputfes$dimension==2) {
     icv1<-as.integer(rows*(cv1-min(inputfes$x))/(max(inputfes$x)-min(inputfes$x)))+1
     if(icv1<0)    stop("Error: Out of range")
@@ -151,6 +157,9 @@ oneminimum<-function(inputfes, cv1, cv2) {
   minima1<-min1$minima
   minima2<-min2$minima
   minima<-rbind(minima1, minima2)
+  if(min1$dimension==3) {
+    stop("Error: function not (yet) supported for 3D FES")
+  }
   if(min1$dimension==2) {
     names(minima) <- c("letter", "CV1bin", "CV2bin", "CV1", "CV2", "free_energy")
     minima <- minima[order(minima[,6]),]
@@ -205,6 +214,9 @@ summary.minima<-function(object, temp=300, eunit="kJ/mol",...) {
   minims<-object
   toprint <- minims$minima
   tind = 6
+  if(minims$dimension==3) {
+    stop("Error: function not (yet) supported for 3D FES")
+  }
   if(minims$dimension==1) {
     tind = 4
   }
@@ -289,6 +301,9 @@ plot.minima <- function(x, plottype="both",
   fes<-minims$fes
   rows<-minims$rows
   minlabs<-minims$minima[,1]
+  if(minims$dimension==3) {
+    stop("Error: function not (yet) supported for 3D FES")
+  }
   if(minims$dimension==1) {
     x<-minims$x
     if(is.null(xlab)) xlab="CV"
@@ -304,7 +319,8 @@ plot.minima <- function(x, plottype="both",
         xlab=xlab, ylab=ylab, axes=axes,
         main=main, sub=sub, asp=asp)
     text(minpoints, labels=minlabs, col=textcol, xlim=xlim, ylim=ylim, cex=cex)
-  } else {
+  }
+  if(minims$dimension==2) {
     minpoints<-minims$minima[,4:5]
     x<-minims$x
     y<-minims$y
@@ -415,6 +431,9 @@ feprof <- function(minims, imax=NULL) {
       mms<-cbind(mms,mm)
     }
   }
+  if(minims$dimension==3) {
+    stop("Error: function not (yet) supported for 3D FES")
+  }
   profs<-list(mms=mms, mins=mins, fes=fes, rows=rows, dimension=minims$dimension, per=minims$per, pcv1=minims$pcv1, pcv2=minims$pcv2)
   class(profs) <- "profiles"
   return(profs)
@@ -478,7 +497,8 @@ summary.profiles <- function(object, imind=1, imaxd=NULL,...) {
     outprofile <- cbind(outprofile,t(mms[imaxd,]))
     names(outprofile)[5:7]<-c("min diff", "max diff", "tail")
     print(outprofile)
-  } else {
+  }
+  if(minims$dimension==2) {
     outprofile <- profs$mins
     mms<-profs$mms[,2:ncol(profs$mms)]-profs$mms[,2]
     outprofile <- cbind(outprofile,apply(mms[imind:imaxd,],2,min))
@@ -486,6 +506,9 @@ summary.profiles <- function(object, imind=1, imaxd=NULL,...) {
     outprofile <- cbind(outprofile,t(mms[imaxd,]))
     names(outprofile)[7:9]<-c("min diff", "max diff", "tail")
     print(outprofile)
+  }
+  if(minims$dimension==3) {
+    stop("Error: function not (yet) supported for 3D FES")
   }
 }
 
