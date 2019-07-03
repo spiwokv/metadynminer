@@ -306,6 +306,7 @@ NumericVector hills3d1(NumericVector cv1, NumericVector cv2, NumericVector cv3, 
   for (int i = 0; i < 2*n; ++i) {
     for (int j = 0; j < 2*n; j++) delete [] g[i][j];
     delete [] g[i];
+  }
   delete [] g;
 }
 
@@ -390,6 +391,7 @@ NumericVector hills3d1p1(NumericVector cv1, NumericVector cv2, NumericVector cv3
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < 2*n; j++) delete [] g[i][j];
     delete [] g[i];
+  }
   delete [] g;
 }
 
@@ -474,6 +476,7 @@ NumericVector hills3d1p2(NumericVector cv1, NumericVector cv2, NumericVector cv3
   for (int i = 0; i < 2*n; ++i) {
     for (int j = 0; j < n; j++) delete [] g[i][j];
     delete [] g[i];
+  }
   delete [] g;
 }
 
@@ -558,6 +561,7 @@ NumericVector hills3d1p3(NumericVector cv1, NumericVector cv2, NumericVector cv3
   for (int i = 0; i < 2*n; ++i) {
     for (int j = 0; j < 2*n; j++) delete [] g[i][j];
     delete [] g[i];
+  }
   delete [] g;
 }
 
@@ -642,6 +646,7 @@ NumericVector hills3d1p12(NumericVector cv1, NumericVector cv2, NumericVector cv
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; j++) delete [] g[i][j];
     delete [] g[i];
+  }
   delete [] g;
 }
 
@@ -726,6 +731,7 @@ NumericVector hills3d1p13(NumericVector cv1, NumericVector cv2, NumericVector cv
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < 2*n; j++) delete [] g[i][j];
     delete [] g[i];
+  }
   delete [] g;
 }
 
@@ -810,6 +816,7 @@ NumericVector hills3d1p23(NumericVector cv1, NumericVector cv2, NumericVector cv
   for (int i = 0; i < 2*n; ++i) {
     for (int j = 0; j < n; j++) delete [] g[i][j];
     delete [] g[i];
+  }
   delete [] g;
 }
 
@@ -894,6 +901,7 @@ NumericVector hills3d1p123(NumericVector cv1, NumericVector cv2, NumericVector c
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; j++) delete [] g[i][j];
     delete [] g[i];
+  }
   delete [] g;
 }
 
