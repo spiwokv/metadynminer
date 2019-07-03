@@ -4,8 +4,8 @@
 \alias{read.hills}
 \title{Read HILLS from Plumed}
 \usage{
-read.hills(file = "HILLS", per = c(FALSE, FALSE), pcv1 = c(-pi, pi),
-  pcv2 = c(-pi, pi), ignoretime = FALSE)
+read.hills(file = "HILLS", per = c(FALSE, FALSE, FALSE), pcv1 = c(-pi, pi),
+  pcv2 = c(-pi, pi), pcv3 = c(-pi, pi), ignoretime = FALSE)
 }
 \arguments{
 \item{file}{HILLS file from Plumed.}
@@ -15,6 +15,8 @@ read.hills(file = "HILLS", per = c(FALSE, FALSE), pcv1 = c(-pi, pi),
 \item{pcv1}{periodicity of CV1.}
 
 \item{pcv2}{periodicity of CV2.}
+
+\item{pcv2}{periodicity of CV3.}
 
 \item{ignoretime}{time in the first column of the HILLS file will be ignored.}
 }
