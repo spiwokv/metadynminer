@@ -1462,6 +1462,9 @@ plot.fes<-function(x, plottype="both",
     }
   }
   if(inputfes$dimension==3) {
+    x<-inputfes$x
+    y<-inputfes$y
+    z<-inputfes$z
     if(is.null(xlab)) xlab="CV1"
     if(is.null(ylab)) ylab="CV2"
     if(is.null(zlab)) zlab="CV3"
