@@ -1465,7 +1465,7 @@ plot.fes<-function(x, plottype="both",
     if(is.null(xlab)) xlab="CV1"
     if(is.null(ylab)) ylab="CV2"
     if(is.null(zlab)) zlab="CV3"
-    if(is.null(level)) level=(max(myfes$fes)+min(myfes$fes))/2
+    if(is.null(level)) level=(max(fes)+min(fes))/2
     if(length(level)>1) {
       if(is.null(col)) col<-rainbow(1.35*length(level))[length(level):1]
       if(is.null(alpha)) {
@@ -1476,7 +1476,7 @@ plot.fes<-function(x, plottype="both",
       if(is.null(col)) col<-"orange"
       if(is.null(alpha)) alpha<-1
     }
-    contour3d(f=myfes$fes, level=level, x=myfes$x, y=myfes$y, z=myfes$z, 
+    contour3d(f=fes, level=level, x=x, y=y, z=z, 
               color=col, alpha=alpha, fill=fill)
     axes3d()
     title3d(xlab=xlab, ylab=ylab, zlab=zlab,
