@@ -1,5 +1,6 @@
 #' @useDynLib metadynminer
 #' @importFrom Rcpp sourceCpp
+#' @importFrom misc3d contour3d axes3d title3d box3d
 NULL
 
 #' Read HILLS from Plumed
