@@ -1,8 +1,8 @@
 Package: metadynminer
 Type: Package
 Title: Tools to Read, Analyze and Visualize Metadynamics HILLS Files from 'Plumed'
-Version: 0.1.4
-Date: 2019-03-13
+Version: 0.1.5
+Date: 2019-07-08
 Authors@R: person("Vojtech", "Spiwok", email = "spiwokv@vscht.cz",
                   role = c("aut", "cre"),
                   comment = c(ORCID = "0000-0001-8108-2033"))
@@ -12,7 +12,7 @@ Description: Metadynamics is a state of the art biomolecular simulation techniqu
   'Plumed' Tribello, G.A. et al. (2014) <doi:10.1016/j.cpc.2013.09.018> program makes
   it possible to perform metadynamics using various simulation codes. The results of
   metadynamics done in 'Plumed' can be analyzed by 'metadynminer'. The package
-  'metadynminer' reads 1D and 2D metadynamics hills files from 'Plumed' package.
+  'metadynminer' reads 1D, 2D and 3D metadynamics hills files from 'Plumed' package.
   It uses a fast algorithm by Hosek, P. and Spiwok, V. (2016) <doi:10.1016/j.cpc.2015.08.037>
   to calculate a free energy surface from hills. Minima can be located and plotted on
   the free energy surface. Transition states can be analyzed by Nudged Elastic Band
