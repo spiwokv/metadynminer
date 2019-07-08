@@ -12,6 +12,7 @@ matrix:
       fortran: false
       install:
         - R -e 'install.packages("Rcpp")'
+        - R -e 'install.packages("misc3d")'
         - R -e 'install.packages("covr")'
         - R -e 'install.packages("testthat")'
     - os: linux
@@ -22,6 +23,7 @@ matrix:
       fortran: false
       install:
         - R -e 'install.packages("Rcpp")'
+        - R -e 'install.packages("misc3d")'
         - R -e 'install.packages("covr")'
         - R -e 'install.packages("testthat")'
     - os: linux
@@ -32,6 +34,7 @@ matrix:
       fortran: false
       install:
         - R -e 'install.packages("Rcpp")'
+        - R -e 'install.packages("misc3d")'
         - R -e 'install.packages("covr")'
         - R -e 'install.packages("testthat")'
     - os: linux
@@ -43,6 +46,7 @@ matrix:
       osx_image: xcode9
       install:
         - R -e 'install.packages("Rcpp")'
+        - R -e 'install.packages("misc3d")'
         - R -e 'install.packages("covr")'
         - R -e 'install.packages("testthat")'
     - os: linux
@@ -54,6 +58,7 @@ matrix:
       osx_image: xcode9
       install:
         - R -e 'install.packages("Rcpp")'
+        - R -e 'install.packages("misc3d")'
         - R -e 'install.packages("covr")'
         - R -e 'install.packages("testthat")'
 
