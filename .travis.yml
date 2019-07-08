@@ -16,6 +16,8 @@ matrix:
         - R -e 'install.packages("misc3d")'
         - R -e 'install.packages("covr")'
         - R -e 'install.packages("testthat")'
+      env:
+        - RGL_USE_NULL=TRUE
     - os: linux
       r: release
       dist: trusty
@@ -28,6 +30,8 @@ matrix:
         - R -e 'install.packages("misc3d")'
         - R -e 'install.packages("covr")'
         - R -e 'install.packages("testthat")'
+      env:
+        - RGL_USE_NULL=TRUE
     - os: linux
       r: devel
       dist: trusty
@@ -40,6 +44,8 @@ matrix:
         - R -e 'install.packages("misc3d")'
         - R -e 'install.packages("covr")'
         - R -e 'install.packages("testthat")'
+      env:
+        - RGL_USE_NULL=TRUE
     - os: linux
       r: oldrel
       dist: trusty
@@ -53,6 +59,8 @@ matrix:
         - R -e 'install.packages("misc3d")'
         - R -e 'install.packages("covr")'
         - R -e 'install.packages("testthat")'
+      env:
+        - RGL_USE_NULL=TRUE
     - os: linux
       r: release
       dist: trusty
@@ -66,5 +74,7 @@ matrix:
         - R -e 'install.packages("misc3d")'
         - R -e 'install.packages("covr")'
         - R -e 'install.packages("testthat")'
+      env:
+        - RGL_USE_NULL=TRUE
 
 
