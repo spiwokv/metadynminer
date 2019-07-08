@@ -22,6 +22,6 @@ Description: Metadynamics is a state of the art biomolecular simulation techniqu
 LazyData: true
 License: GPL-3
 RoxygenNote: 6.1.0
-Imports: Rcpp
+Imports: Rcpp, rgl, misc3d
 Suggests: testthat
 URL: http://www.metadynamics.cz/metadynminer

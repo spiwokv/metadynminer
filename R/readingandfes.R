@@ -1383,9 +1383,9 @@ summary.fes<-function(object,...) {
 plot.fes<-function(x, plottype="both",
                    colscale=F, xlim=NULL, ylim=NULL, zlim=NULL,
                    main=NULL, sub=NULL,
-                   xlab=NULL, ylab=NULL,
-                   nlevels=10, levels=NULL,
-                   col=rainbow(135)[100:1],
+                   xlab=NULL, ylab=NULL, zlab=NULL,
+                   nlevels=10, levels=NULL, level=NULL,
+                   col=NULL,
                    labels=NULL, labcex=0.6, drawlabels=TRUE,
                    colscalelab="free energy",
                    method="flattest",
@@ -1403,6 +1403,7 @@ plot.fes<-function(x, plottype="both",
     if(is.null(ylim)) {
       ylim<-range(pretty(range(fes)))
     }
+    if(is.null(col)) col <- "black"
     plot(x, fes, type="l", lwd=lwd,
         col=col, xlim=xlim, ylim=ylim,
         xlab=xlab, ylab=ylab, axes=axes,
@@ -1421,6 +1422,7 @@ plot.fes<-function(x, plottype="both",
     }
     if(is.null(xlim)) xlim<-c(min(x),max(x))
     if(is.null(ylim)) ylim<-c(min(y),max(y))
+    if(is.null(col)) col <- rainbow(135)[100:1]
     if(colscale) {
       #layout(matrix(c(1,2), 1, 2, byrow = TRUE), widths=c(4,1))
       split.screen(matrix(c(0,0.75,0,1,0.75,1,0,1), byrow=T, ncol=4))
@@ -1451,6 +1453,28 @@ plot.fes<-function(x, plottype="both",
               labels=labels, labcex=labcex, drawlabels=drawlabels,
               method=method, col=contcol, lty=lty, lwd=lwd, add=T)
     }
+  }
+  if(inputfes$dimension==3) {
+    if(is.null(xlab)) xlab="CV1"
+    if(is.null(ylab)) ylab="CV2"
+    if(is.null(zlab)) zlab="CV3"
+    if(is.null(level)) level=(max(myfes$fes)+min(myfes$fes))/2
+    if(length(level)>1) {
+      if(is.null(col)) col<-rainbow(1.35*length(level))[length(level):1]
+      if(is.null(alpha)) {
+        alpha<-length(level):1/length(level)
+        level<-sort(level)
+      }
+    } else {
+      if(is.null(col)) col<-"orange"
+      if(is.null(alpha)) alpha<-1
+    }
+    contour3d(f=myfes$fes, level=level, x=myfes$x, y=myfes$y, z=myfes$z, 
+              color=col, alpha=alpha, fill=F)
+    axes3d()
+    title3d(xlab=xlab, ylab=xlab, zlab=xlab,
+            main=main, sub=sub)
+    box3d()
   }
 }
 
