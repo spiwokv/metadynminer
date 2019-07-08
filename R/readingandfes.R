@@ -1474,7 +1474,7 @@ plot.fes<-function(x, plottype="both",
     contour3d(f=myfes$fes, level=level, x=myfes$x, y=myfes$y, z=myfes$z, 
               color=col, alpha=alpha, fill=F)
     axes3d()
-    title3d(xlab=xlab, ylab=xlab, zlab=xlab,
+    title3d(xlab=xlab, ylab=ylab, zlab=zlab,
             main=main, sub=sub)
     box3d()
   }
