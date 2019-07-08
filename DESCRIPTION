@@ -7,7 +7,7 @@ Authors@R: person("Vojtech", "Spiwok", email = "spiwokv@vscht.cz",
                   role = c("aut", "cre"),
                   comment = c(ORCID = "0000-0001-8108-2033"))
 Depends: R (>= 3.3.0)
-LinkingTo: Rcpp
+LinkingTo: Rcpp, rgl, misc3d
 Description: Metadynamics is a state of the art biomolecular simulation technique.
   'Plumed' Tribello, G.A. et al. (2014) <doi:10.1016/j.cpc.2013.09.018> program makes
   it possible to perform metadynamics using various simulation codes. The results of
