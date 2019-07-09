@@ -27,7 +27,54 @@ fesminima<-function(inputfes, nbins=8) {
   }
   per<-inputfes$per
   if(inputfes$dimension==3) {
-    stop("Error: function not (yet) supported for 3D FES")
+    minx<-c()
+    miny<-c()
+    minz<-c()
+    for(i in 0:(nbins-1)) {
+      ni<-i*rb+0:(rb+1)
+      if(per[1]) {
+        ni[ni==0]<-rows
+        ni[ni==(rows+1)]<-1
+      } else {
+        ni<-ni[ni!=0]
+        ni<-ni[ni!=(rows+1)]
+      }
+      for(j in 0:(nbins-1)) {
+        nj<-j*rb+0:(rb+1)
+        if(per[2]) {
+          nj[nj==0]<-rows
+          nj[nj==(rows+1)]<-1
+        } else {
+          nj<-nj[nj!=0]
+          nj<-nj[nj!=(rows+1)]
+        }
+        for(k in 0:(nbins-1)) {
+          nk<-k*rb+0:(rb+1)
+          if(per[2]) {
+            nk[nk==0]<-rows
+            nk[nk==(rows+1)]<-1
+          } else {
+            nk<-nk[nk!=0]
+            nk<-nk[nk!=(rows+1)]
+          }
+          binmin<-which(fes[ni,nj,nk]==min(fes[ni,nj,nk]), arr.ind = TRUE)
+          if(binmin[1]!=1 && binmin[2]!=1 && binmin[3]!=1 && binmin[1]!=length(ni) && binmin[2]!=length(nj) && binmin[3]!=length(nk)) {
+            minx<-c(minx,i*rb+binmin[1]-1)
+            miny<-c(miny,j*rb+binmin[2]-1)
+            minz<-c(minz,k*rb+binmin[3]-1)
+          }
+        }
+      }
+    }
+    myLETTERS <- c(LETTERS, paste("A", LETTERS, sep=""), paste("B", LETTERS, sep=""))[1:length(minx)]
+    minima<-data.frame(myLETTERS, minx, miny, minz, inputfes$x[minx], inputfes$y[miny], inputfes$z[minz], fes[cbind(minx,miny,minz)])
+    names(minima) <- c("letter", "CV1bin", "CV2bin", "CV3bin", "CV1", "CV2", "CV3", "free_energy")
+    minima <- minima[order(minima[,6]),]
+    rownames(minima) <- seq(length=nrow(minima))
+    minima[,1]<-myLETTERS
+    minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per,
+                 x=inputfes$x, y=inputfes$y, z=inputfes$z, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2, pcv3=inputfes$pcv3)
+    class(minima) <- "minima"
   }
   if(inputfes$dimension==2) {
     minx<-c()
@@ -103,6 +150,7 @@ fesminima<-function(inputfes, nbins=8) {
 #' @param inputfes fes object.
 #' @param cv1 the value of collective variable 1.
 #' @param cv2 the value of collective variable 2.
+#' @param cv3 the value of collective variable 3.
 #' @return minima object.
 #'
 #' @export
@@ -111,18 +159,31 @@ fesminima<-function(inputfes, nbins=8) {
 #' minima<-fesminima(tfes)
 #' minima<-minima+oneminimum(tfes, cv1=0, cv2=0)
 #' minima
-oneminimum<-function(inputfes, cv1, cv2) {
+oneminimum<-function(inputfes, cv1, cv2, cv3) {
   fes<-inputfes$fes
   rows<-inputfes$rows
   per<-inputfes$per
   if(inputfes$dimension==3) {
-    stop("Error: function not (yet) supported for 3D FES")
+    icv1<-as.integer(rows*(cv1-min(inputfes$x))/(max(inputfes$x)-min(inputfes$x)))+1
+    if(icv1<0)    stop("Error: Out of range")
+    if(icv1>rows) stop("Error: Out of range")
+    icv2<-as.integer(rows*(cv2-min(inputfes$y))/(max(inputfes$y)-min(inputfes$y)))+1
+    if(icv2<0)    stop("Error: Out of range")
+    if(icv2>rows) stop("Error: Out of range")
+    icv3<-as.integer(rows*(cv3-min(inputfes$z))/(max(inputfes$z)-min(inputfes$z)))+1
+    if(icv2<0)    stop("Error: Out of range")
+    if(icv2>rows) stop("Error: Out of range")
+    minima<-data.frame(c("A"), c(icv1), c(icv2), c(icv3), c(cv1), c(cv2), c(cv3), c(fes[icv1,icv2,icv3]))
+    names(minima) <- c("letter", "CV1bin", "CV2bin", "CV3bin", "CV1", "CV2", "CV3", "free_energy")
+    minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per,
+                 x=inputfes$x, y=inputfes$y, z=inputfes$z, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2, pcv3=inputfes$pcv3)
+    class(minima) <- "minima"
   }
   if(inputfes$dimension==2) {
     icv1<-as.integer(rows*(cv1-min(inputfes$x))/(max(inputfes$x)-min(inputfes$x)))+1
     if(icv1<0)    stop("Error: Out of range")
     if(icv1>rows) stop("Error: Out of range")
-    icv2<-as.integer(rows*(cv2-min(inputfes$y))/(max(inputfes$x)-min(inputfes$x)))+1
+    icv2<-as.integer(rows*(cv2-min(inputfes$y))/(max(inputfes$y)-min(inputfes$y)))+1
     if(icv2<0)    stop("Error: Out of range")
     if(icv2>rows) stop("Error: Out of range")
     minima<-data.frame(c("A"), c(icv1), c(icv2), c(cv1), c(cv2), c(fes[icv1,icv2]))
@@ -158,7 +219,13 @@ oneminimum<-function(inputfes, cv1, cv2) {
   minima2<-min2$minima
   minima<-rbind(minima1, minima2)
   if(min1$dimension==3) {
-    stop("Error: function not (yet) supported for 3D FES")
+    names(minima) <- c("letter", "CV1bin", "CV2bin", "CV3bin", "CV1", "CV2", "CV3", "free_energy")
+    minima <- minima[order(minima[,8]),]
+    rownames(minima) <- seq(length=nrow(minima))
+    minima[,1]<-myLETTERS
+    minima<-list(minima=minima, hills=min1$hills, fes=min1$fes, rows=min1$rows, dimension=min1$dimension, per=min1$per,
+                 x=min1$x, y=min1$y, z=min1$z, pcv1=min1$pcv1, pcv2=min1$pcv2, pcv3=min1$pcv3)
+    class(minima) <- "minima"
   }
   if(min1$dimension==2) {
     names(minima) <- c("letter", "CV1bin", "CV2bin", "CV1", "CV2", "free_energy")
@@ -173,7 +240,7 @@ oneminimum<-function(inputfes, cv1, cv2) {
     minima <- minima[order(minima[,4]),]
     rownames(minima) <- seq(length=nrow(minima))
     minima[,1]<-myLETTERS
-    minima<-list(minima=minima, hills=min1$hillsfile, fes=min1$fes, rows=min1$rows, dimension=min1$dimension, per=min1$per, x=min1$x, pcv1=min1$pcv1, pcv2=min1$pcv2)
+    minima<-list(minima=minima, hills=min1$hills, fes=min1$fes, rows=min1$rows, dimension=min1$dimension, per=min1$per, x=min1$x, pcv1=min1$pcv1, pcv2=min1$pcv2)
     class(minima) <- "minima"
   }
   return(minima)
@@ -213,13 +280,9 @@ print.minima<-function(x,...) {
 summary.minima<-function(object, temp=300, eunit="kJ/mol",...) {
   minims<-object
   toprint <- minims$minima
-  tind = 6
-  if(minims$dimension==3) {
-    stop("Error: function not (yet) supported for 3D FES")
-  }
-  if(minims$dimension==1) {
-    tind = 4
-  }
+  if(minims$dimension==3) tind = 8
+  if(minims$dimension==2) tind = 6
+  if(minims$dimension==1) tind = 4
   if(eunit=="kJ/mol") {
     toprint<-cbind(toprint, exp(-1000*toprint[,tind]/8.314/temp))
   }
@@ -372,6 +435,8 @@ plot.minima <- function(x, plottype="both",
       box(lwd=lwd)
       par(mfrow=c(1,1))
     }
+  }
+  if(minims$dimension==3) {
   }
 }
 
