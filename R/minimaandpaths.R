@@ -329,6 +329,7 @@ summary.minima<-function(object, temp=300, eunit="kJ/mol",...) {
 #' @param nlevels number of contour levels desired if 'levels' is not
 #'        supplied.
 #' @param levels numeric vector of levels at which to draw contour lines.
+#' @param level number or numeric vector of levels at which to draw 3D isosurface.
 #' @param labels a vector giving the labels for the contour lines.  If 'NULL'
 #'        then the levels are used as labels, otherwise this is coerced
 #'        by 'as.character'.
@@ -364,7 +365,7 @@ plot.minima <- function(x, plottype="both",
                   method="flattest", textcol="black",
                   pch=1, bg="red", cex=1,
                   contcol=par("fg"), lty=par("lty"), lwd=par("lwd"),
-                  asp=NULL, axes=TRUE, fill=T,...) {
+                  asp=NULL, axes=TRUE, fill=TRUE,...) {
   minims <- x
   fes<-minims$fes
   rows<-minims$rows
@@ -536,9 +537,42 @@ feprof <- function(minims, imax=NULL) {
     }
   }
   if(minims$dimension==3) {
-    stop("Error: function not (yet) supported for 3D FES")
+    for(i in 1:nrow(mins)) {
+      if(minims$per[1]==T && minims$per[2]==T && minims$per[3]==T) {
+        mm<-fe3dp123(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], hills[,7], hills[,8], mins[i,5], mins[i,6], mins[i,7],
+                     minims$pcv1[2]-minims$pcv1[1], minims$pcv2[2]-minims$pcv2[1], minims$pcv3[2]-minims$pcv3[1], 0, imax-1)
+      }
+      if(minims$per[1]==T && minims$per[2]==T && minims$per[3]==F) {
+        mm<-fe3dp12(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], hills[,7], hills[,8], mins[i,5], mins[i,6], mins[i,7],
+                    minims$pcv1[2]-minims$pcv1[1], minims$pcv2[2]-minims$pcv2[1], 0, imax-1)
+      }
+      if(minims$per[1]==T && minims$per[2]==F && minims$per[3]==T) {
+        mm<-fe3dp13(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], hills[,7], hills[,8], mins[i,5], mins[i,6], mins[i,7],
+                    minims$pcv1[2]-minims$pcv1[1], minims$pcv3[2]-minims$pcv3[1], 0, imax-1)
+      }
+      if(minims$per[1]==F && minims$per[2]==T && minims$per[3]==T) {
+        mm<-fe3dp23(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], hills[,7], hills[,8], mins[i,5], mins[i,6], mins[i,7],
+                    minims$pcv2[2]-minims$pcv2[1], minims$pcv3[2]-minims$pcv3[1], 0, imax-1)
+      }
+      if(minims$per[1]==T && minims$per[2]==F && minims$per[3]==F) {
+        mm<-fe3dp1(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], hills[,7], hills[,8], mins[i,5], mins[i,6], mins[i,7],
+                   minims$pcv1[2]-minims$pcv1[1], 0, imax-1)
+      }
+      if(minims$per[1]==F && minims$per[2]==T && minims$per[3]==F) {
+        mm<-fe3dp2(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], hills[,7], hills[,8], mins[i,5], mins[i,6], mins[i,7],
+                   minims$pcv2[2]-minims$pcv2[1], 0, imax-1)
+      }
+      if(minims$per[1]==F && minims$per[2]==F && minims$per[3]==T) {
+        mm<-fe3dp3(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], hills[,7], hills[,8], mins[i,5], mins[i,6], mins[i,7],
+                   minims$pcv3[2]-minims$pcv3[1], 0, imax-1)
+      }
+      if(minims$per[1]==F && minims$per[2]==F && minims$per[3]==F) {
+        mm<-fe3d(hills[,2], hills[,3], hills[,4], hills[,5], hills[,6], hills[,7], hills[,8], mins[i,5], mins[i,6], mins[i,7], 0, imax-1)
+      }
+      mms<-cbind(mms,mm)
+    }
   }
-  profs<-list(mms=mms, mins=mins, fes=fes, rows=rows, dimension=minims$dimension, per=minims$per, pcv1=minims$pcv1, pcv2=minims$pcv2)
+  profs<-list(mms=mms, mins=mins, fes=fes, rows=rows, dimension=minims$dimension, per=minims$per, pcv1=minims$pcv1, pcv2=minims$pcv2, pcv3=minims$pcv3)
   class(profs) <- "profiles"
   return(profs)
 }
