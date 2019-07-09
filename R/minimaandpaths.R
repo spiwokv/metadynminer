@@ -69,7 +69,7 @@ fesminima<-function(inputfes, nbins=8) {
     myLETTERS <- c(LETTERS, paste("A", LETTERS, sep=""), paste("B", LETTERS, sep=""))[1:length(minx)]
     minima<-data.frame(myLETTERS, minx, miny, minz, inputfes$x[minx], inputfes$y[miny], inputfes$z[minz], fes[cbind(minx,miny,minz)])
     names(minima) <- c("letter", "CV1bin", "CV2bin", "CV3bin", "CV1", "CV2", "CV3", "free_energy")
-    minima <- minima[order(minima[,6]),]
+    minima <- minima[order(minima[,8]),]
     rownames(minima) <- seq(length=nrow(minima))
     minima[,1]<-myLETTERS
     minima<-list(minima=minima, hills=inputfes$hills, fes=fes, rows=rows, dimension=inputfes$dimension, per=per,
