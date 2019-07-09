@@ -4,7 +4,7 @@
 \alias{oneminimum}
 \title{Creates one ad hoc free energy minimum for a fes object}
 \usage{
-oneminimum(inputfes, cv1, cv2)
+oneminimum(inputfes, cv1, cv2, cv3)
 }
 \arguments{
 \item{inputfes}{fes object.}
@@ -12,6 +12,8 @@ oneminimum(inputfes, cv1, cv2)
 \item{cv1}{the value of collective variable 1.}
 
 \item{cv2}{the value of collective variable 2.}
+
+\item{cv3}{the value of collective variable 3.}
 }
 \value{
 minima object.
@@ -24,6 +26,6 @@ point of free energy surface.
 \examples{
 tfes<-fes(acealanme1d)
 minima<-fesminima(tfes)
-minima<-minima+oneminimum(tfes, cv1=0, cv2=0)
+minima<-minima+oneminimum(tfes, cv1=0, cv2=0, cv3=0)
 minima
 }
