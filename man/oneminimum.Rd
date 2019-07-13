@@ -2,7 +2,8 @@
 % Please edit documentation in R/minimaandpaths.R
 \name{oneminimum}
 \alias{oneminimum}
-\title{Creates one ad hoc free energy minimum for a fes object}
+\title{Creates one ad hoc free energy minimum for a fes object (generic function
+for 'metadynminer' and 'metadynminer3d')}
 \usage{
 oneminimum(inputfes, cv1, cv2)
 }

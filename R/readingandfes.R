@@ -322,7 +322,8 @@ lines.hillsfile<-function(x, ignoretime=FALSE,
   }
 }
 
-#' Plot evolution of heights of hills in hillsfile object
+#' Plot evolution of heights of hills (generic function for 'metadynminer' and
+#' 'metadynminer3d')
 #'
 #' `plotheights` plots evolution of heights of hills. In well tempered metadynamics
 #' hill heights decrees with flooding of the free energy surface. Evolution of heights
@@ -413,7 +414,8 @@ plotheights.hillsfile<-function(hills, ignoretime=FALSE,
   }
 }
 
-#' Calculate free energy surface by Bias Sum algorithm
+#' Calculate free energy surface by Bias Sum algorithm (generic function for
+#' 'metadynminer' and 'metadynminer3d')
 #'
 #' `fes` sums up hills using fast Bias Sum algorithm.
 #'
@@ -550,7 +552,8 @@ fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=
   return(cfes)
 }
 
-#' Calculate free energy surface by conventional algorithm
+#' Calculate free energy surface by conventional algorithm (generic function
+#' for 'metadynminer' and 'metadynminer3d')
 #'
 #' `fes2` sums up hills using slow conventional algorithm. It can be used
 #' as a reference or when hill widths are variable.

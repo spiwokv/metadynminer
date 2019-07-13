@@ -2,7 +2,8 @@
 % Please edit documentation in R/readingandfes.R
 \name{fes}
 \alias{fes}
-\title{Calculate free energy surface by Bias Sum algorithm}
+\title{Calculate free energy surface by Bias Sum algorithm (generic function for
+'metadynminer' and 'metadynminer3d')}
 \usage{
 fes(hills, imin, imax, xlim, ylim, npoints)
 }

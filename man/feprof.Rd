@@ -2,7 +2,8 @@
 % Please edit documentation in R/minimaandpaths.R
 \name{feprof}
 \alias{feprof}
-\title{Calculate free energy profile for minima object}
+\title{Calculate free energy profile for minima object (generic function for 'metadynminer'
+and 'metadynminer3d')}
 \usage{
 feprof(minims, imax)
 }

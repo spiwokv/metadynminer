@@ -2,7 +2,8 @@
 % Please edit documentation in R/minimaandpaths.R
 \name{fesminima}
 \alias{fesminima}
-\title{Find free energy minima in the fes object}
+\title{Find free energy minima in the fes object (generic function for 'metadynminer'
+and 'metadynminer3d')}
 \usage{
 fesminima(inputfes, nbins)
 }

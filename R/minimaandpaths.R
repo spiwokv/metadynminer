@@ -1,4 +1,5 @@
-#' Find free energy minima in the fes object
+#' Find free energy minima in the fes object (generic function for 'metadynminer'
+#' and 'metadynminer3d')
 #'
 #' `fesminima` finds free energy minima on 1D or 2D free energy surface.
 #' The surface is divided by a 1D or 2D grid and minima are found for each
@@ -108,7 +109,8 @@ fesminima.fes<-function(inputfes, nbins=8) {
   return(minima)
 }
 
-#' Creates one ad hoc free energy minimum for a fes object
+#' Creates one ad hoc free energy minimum for a fes object (generic function
+#' for 'metadynminer' and 'metadynminer3d')
 #'
 #' `oneminimum` creates an ad hoc free energy minimum on free energy surface.
 #' This can be used to calculate free energy surface evolution at arbitrary
@@ -392,7 +394,8 @@ plot.minima <- function(x, plottype="both",
   }
 }
 
-#' Calculate free energy profile for minima object
+#' Calculate free energy profile for minima object (generic function for 'metadynminer'
+#' and 'metadynminer3d')
 #'
 #' `feprof` calculates free energy profiles for free energy minima. It finds the global minimum
 #' at the `imax` and calculates the evolution of free energies of a local vs. the global free energy

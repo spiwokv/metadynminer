@@ -2,7 +2,8 @@
 % Please edit documentation in R/readingandfes.R
 \name{plotheights}
 \alias{plotheights}
-\title{Plot evolution of heights of hills in hillsfile object}
+\title{Plot evolution of heights of hills (generic function for 'metadynminer' and
+'metadynminer3d')}
 \usage{
 plotheights(hills, ignoretime, xlab, ylab, xlim, ylim, main, sub, col, asp,
   lwd, axes)

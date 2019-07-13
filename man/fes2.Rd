@@ -2,7 +2,8 @@
 % Please edit documentation in R/readingandfes.R
 \name{fes2}
 \alias{fes2}
-\title{Calculate free energy surface by conventional algorithm}
+\title{Calculate free energy surface by conventional algorithm (generic function
+for 'metadynminer' and 'metadynminer3d')}
 \usage{
 fes2(hills, imin, imax, xlim, ylim, npoints)
 }
