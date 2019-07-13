@@ -37,21 +37,19 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
                 size=dim(hillsf), filename=file, per=per, pcv1=pcv1)
     class(hills) <- "hillsfile"
     return(hills)
-  } else {
-    if(ncol(hillsf)==7 || ncol(hillsf)==8) {
-      cat("2D HILLS file read\n")
-      if(ignoretime) {
-        cat("Warning: The time will be updated automatically from zero\n")
-        cat("according to the first step!\n")
-        hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
-      }
-      hills<-list(hillsfile=hillsf, time=hillsf[,1], cv1=hillsf[,2], cv2=hillsf[,3],
-                  size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2)
-      class(hills) <- "hillsfile"
-      return(hills)
-    } else {
-      stop("Error: Number of columns in HILLS file must be 5 or 6 (1D) or 7 or 8 (2D)")
+  } else if(ncol(hillsf)==7 || ncol(hillsf)==8) {
+    cat("2D HILLS file read\n")
+    if(ignoretime) {
+      cat("Warning: The time will be updated automatically from zero\n")
+      cat("according to the first step!\n")
+      hillsf[,1]<-seq(from=hillsf[1,1], by=hillsf[1,1], length.out=nrow(hillsf))
     }
+    hills<-list(hillsfile=hillsf, time=hillsf[,1], cv1=hillsf[,2], cv2=hillsf[,3],
+                size=dim(hillsf), filename=file, per=per, pcv1=pcv1, pcv2=pcv2)
+    class(hills) <- "hillsfile"
+    return(hills)
+  } else {
+    stop("Error: Number of columns in HILLS file must be 5 or 6 (1D) or 7 or 8 (2D)")
   }
 }
 
@@ -324,9 +322,37 @@ lines.hillsfile<-function(x, ignoretime=FALSE,
   }
 }
 
-#' Plot evolution of heights of hills in hillsfile object
+#' Plot evolution of heights of hills (generic function for 'metadynminer' and
+#' 'metadynminer3d')
 #'
 #' `plotheights` plots evolution of heights of hills. In well tempered metadynamics
+#' hill heights decrees with flooding of the free energy surface. Evolution of heights
+#' may be useful to evaluate convergence of the simulation.
+#'
+#' @param hills hillsfile object.
+#' @param ignoretime time in the first column of the HILLS file will be ignored.
+#' @param main an overall title for the plot: see 'title'.
+#' @param sub a sub title for the plot: see 'title'.
+#' @param xlab a title for the x axis: see 'title'.
+#' @param ylab a title for the y axis: see 'title'.
+#' @param asp the y/x aspect ratio, see 'plot.window'.
+#' @param col color code or name, see 'par'.
+#' @param lwd line width for drawing symbols see 'par'.
+#' @param xlim numeric vector of length 2, giving the x coordinates range.
+#' @param ylim numeric vector of length 2, giving the y coordinates range.
+#' @param axes a logical value indicating whether both axes should be drawn
+#'        on the plot.
+#'
+#' @export plotheights
+plotheights<-function(hills, ignoretime, xlab, ylab,
+                      xlim, ylim, main, sub,
+                      col, asp, lwd, axes) {
+  UseMethod("plotheights")
+}
+
+#' Plot evolution of heights of hills in hillsfile object
+#'
+#' `plotheights.hillsfile` plots evolution of heights of hills. In well tempered metadynamics
 #' hill heights decrees with flooding of the free energy surface. Evolution of heights
 #' may be useful to evaluate convergence of the simulation.
 #'
@@ -347,54 +373,68 @@ lines.hillsfile<-function(x, ignoretime=FALSE,
 #' @export
 #' @examples
 #' plotheights(acealanme)
-plotheights<-function(hills, ignoretime=FALSE,
+plotheights.hillsfile<-function(hills, ignoretime=FALSE,
                       xlab=NULL, ylab=NULL,
                       xlim=NULL, ylim=NULL,
                       main=NULL, sub=NULL,
                       col="black", asp=NULL, lwd=1, axes=TRUE) {
-  if(class(hills)=="hillsfile") {
-    if(is.null(xlab)) xlab="time"
-    if(is.null(ylab)) ylab="hill height"
-    if(hills$size[2]==5) {
-      if(ignoretime) {
-        plot(seq(from=hills$hillsfile[1,1],by=hills$hillsfile[1,1],length.out=nrow(hills$hillsfile)),
-             hills$hillsfile[,4], type="l",
-             xlab=xlab, ylab=ylab,
-             main=main, sub=sub,
-             col=col, lwd=lwd,
-             asp=asp, axes=axes)
-      } else {
-        plot(hills$hillsfile[,1], hills$hillsfile[,4], type="l",
-             xlab=xlab, ylab=ylab,
-             main=main, sub=sub,
-             col=col, lwd=lwd,
-             asp=asp, axes=axes)
-      }
+  if(is.null(xlab)) xlab="time"
+  if(is.null(ylab)) ylab="hill height"
+  if(hills$size[2]==5) {
+    if(ignoretime) {
+      plot(seq(from=hills$hillsfile[1,1],by=hills$hillsfile[1,1],length.out=nrow(hills$hillsfile)),
+           hills$hillsfile[,4], type="l",
+           xlab=xlab, ylab=ylab,
+           main=main, sub=sub,
+           col=col, lwd=lwd,
+           asp=asp, axes=axes)
+    } else {
+      plot(hills$hillsfile[,1], hills$hillsfile[,4], type="l",
+           xlab=xlab, ylab=ylab,
+           main=main, sub=sub,
+           col=col, lwd=lwd,
+           asp=asp, axes=axes)
     }
-    if(hills$size[2]==7) {
-      if(ignoretime) {
-        plot(seq(from=hills$hillsfile[1,1],by=hills$hillsfile[1,1],length.out=nrow(hills$hillsfile)),
-             hills$hillsfile[,6], type="l",
-             xlab=xlab, ylab=ylab,
-             main=main, sub=sub,
-             col=col, lwd=lwd,
-             asp=asp, axes=axes)
-      } else {
-        plot(hills$hillsfile[,1], hills$hillsfile[,6], type="l",
-             xlab=xlab, ylab=ylab,
-             main=main, sub=sub,
-             col=col, lwd=lwd,
-             asp=asp, axes=axes)
-      }
-    }
-  } else {
-    stop("Error: Function plotheights requires object hillsfile as an input")
   }
+  if(hills$size[2]==7) {
+    if(ignoretime) {
+      plot(seq(from=hills$hillsfile[1,1],by=hills$hillsfile[1,1],length.out=nrow(hills$hillsfile)),
+           hills$hillsfile[,6], type="l",
+           xlab=xlab, ylab=ylab,
+           main=main, sub=sub,
+           col=col, lwd=lwd,
+           asp=asp, axes=axes)
+    } else {
+      plot(hills$hillsfile[,1], hills$hillsfile[,6], type="l",
+           xlab=xlab, ylab=ylab,
+           main=main, sub=sub,
+           col=col, lwd=lwd,
+           asp=asp, axes=axes)
+    }
+  }
+}
+
+#' Calculate free energy surface by Bias Sum algorithm (generic function for
+#' 'metadynminer' and 'metadynminer3d')
+#'
+#' `fes` sums up hills using fast Bias Sum algorithm.
+#'
+#' @param hills hillsfile object.
+#' @param imin index of a hill from which summation starts (default 1).
+#' @param imax index of a hill from which summation stops (default the rest of hills).
+#' @param xlim numeric vector of length 2, giving the CV1 coordinates range.
+#' @param ylim numeric vector of length 2, giving the CV2 coordinates range.
+#' @param npoints resolution of the free energy surface in number of points.
+#' @return fes object.
+#'
+#' @export fes
+fes<-function(hills, imin, imax, xlim, ylim, npoints) {
+  UseMethod("fes")
 }
 
 #' Calculate free energy surface by Bias Sum algorithm
 #'
-#' `fes` sums up hills using fast Bias Sum algorithm.
+#' `fes.hillsfile` sums up hills using fast Bias Sum algorithm.
 #'
 #' @param hills hillsfile object.
 #' @param imin index of a hill from which summation starts (default 1).
@@ -407,7 +447,7 @@ plotheights<-function(hills, ignoretime=FALSE,
 #' @export
 #' @examples
 #' tfes<-fes(acealanme, imax=5000)
-fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(imax)) {
     if(hills$size[1]<imax) {
       cat("Warning: You requested more hills by imax than available, using all hills\n")
@@ -512,9 +552,28 @@ fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   return(cfes)
 }
 
-#' Calculate free energy surface by conventional algorithm
+#' Calculate free energy surface by conventional algorithm (generic function
+#' for 'metadynminer' and 'metadynminer3d')
 #'
 #' `fes2` sums up hills using slow conventional algorithm. It can be used
+#' as a reference or when hill widths are variable.
+#'
+#' @param hills hillsfile object.
+#' @param imin index of a hill from which summation starts (default 1).
+#' @param imax index of a hill from which summation stops (default the rest of hills).
+#' @param xlim numeric vector of length 2, giving the CV1 coordinates range.
+#' @param ylim numeric vector of length 2, giving the CV2 coordinates range.
+#' @param npoints resolution of the free energy surface in number of points.
+#' @return fes object.
+#'
+#' @export fes2
+fes2<-function(hills, imin, imax, xlim, ylim, npoints) {
+  UseMethod("fes2")
+}
+
+#' Calculate free energy surface by conventional algorithm
+#'
+#' `fes2.hillsfile` sums up hills using slow conventional algorithm. It can be used
 #' as a reference or when hill widths are variable.
 #'
 #' @param hills hillsfile object.
@@ -528,7 +587,7 @@ fes<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
 #' @export
 #' @examples
 #' tfes<-fes2(acealanme, imax=1000)
-fes2<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+fes2.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
   if(!is.null(imax)) {
     if(hills$size[1]<imax) {
       cat("Warning: You requested more hills by imax than available, using all hills\n")
