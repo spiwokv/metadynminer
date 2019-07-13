@@ -10,12 +10,29 @@
 #' @param nbins number of bins for each CV (default 8).
 #' @return minima object.
 #'
+#' @export fesminima
+fesminima<-function(inputfes, nbins) {
+  UseMethod("fesminima")
+}
+
+#' Find free energy minima in the fes object
+#'
+#' `fesminima.fes` finds free energy minima on 1D or 2D free energy surface.
+#' The surface is divided by a 1D or 2D grid and minima are found for each
+#' bin. Next the program determines whether the minimum of a bin is a local
+#' minimum of the whole free energy surface. Free energy minima are labeled
+#' constitutively by capital letters.
+#'
+#' @param inputfes fes object.
+#' @param nbins number of bins for each CV (default 8).
+#' @return minima object.
+#'
 #' @export
 #' @examples
 #' tfes<-fes(acealanme, imax=5000)
 #' minima<-fesminima(tfes)
 #' minima
-fesminima<-function(inputfes, nbins=8) {
+fesminima.fes<-function(inputfes, nbins=8) {
   fes<-inputfes$fes
   rows<-inputfes$rows
   rb <- rows/nbins
@@ -102,13 +119,29 @@ fesminima<-function(inputfes, nbins=8) {
 #' @param cv2 the value of collective variable 2.
 #' @return minima object.
 #'
+#' @export oneminimum
+oneminimum<-function(inputfes, cv1, cv2) {
+  UseMethod("oneminimum")
+}
+
+#' Creates one ad hoc free energy minimum for a fes object
+#'
+#' `oneminimum.fes` creates an ad hoc free energy minimum on free energy surface.
+#' This can be used to calculate free energy surface evolution at arbitrary
+#' point of free energy surface.
+#'
+#' @param inputfes fes object.
+#' @param cv1 the value of collective variable 1.
+#' @param cv2 the value of collective variable 2.
+#' @return minima object.
+#'
 #' @export
 #' @examples
 #' tfes<-fes(acealanme1d)
 #' minima<-fesminima(tfes)
 #' minima<-minima+oneminimum(tfes, cv1=0, cv2=0)
 #' minima
-oneminimum<-function(inputfes, cv1, cv2) {
+oneminimum.fes<-function(inputfes, cv1, cv2) {
   fes<-inputfes$fes
   rows<-inputfes$rows
   per<-inputfes$per
@@ -361,9 +394,23 @@ plot.minima <- function(x, plottype="both",
 
 #' Calculate free energy profile for minima object
 #'
-#' `feprof` calculates free energy profiles for free energy minima. It finds the global minimum at the
-#' `imax` and calculates the evolution of free energies of a local vs. the global free energy minimum.
-#' The free energy of the global minimum is constant (zero).
+#' `feprof` calculates free energy profiles for free energy minima. It finds the global minimum
+#' at the `imax` and calculates the evolution of free energies of a local vs. the global free energy
+#' minimum. The free energy of the global minimum is constant (zero).
+#'
+#' @param minims minima object.
+#' @param imax index of a hill from which summation stops (default the rest of hills).
+#'
+#' @export
+feprof <- function(minims, imax) {
+  UseMethod("feprof")
+}
+
+#' Calculate free energy profile for minima object
+#'
+#' `feprof.minima` calculates free energy profiles for free energy minima. It finds the global minimum
+#' at the `imax` and calculates the evolution of free energies of a local vs. the global free energy
+#' minimum. The free energy of the global minimum is constant (zero).
 #'
 #' @param minims minima object.
 #' @param imax index of a hill from which summation stops (default the rest of hills).
@@ -374,7 +421,7 @@ plot.minima <- function(x, plottype="both",
 #' minima<-fesminima(tfes)
 #' prof<-feprof(minima)
 #' prof
-feprof <- function(minims, imax=NULL) {
+feprof.minima <- function(minims, imax=NULL) {
   fes<-minims$fes
   rows<-minims$rows
   mins<-minims$minima

@@ -4,8 +4,7 @@
 \alias{fes}
 \title{Calculate free energy surface by Bias Sum algorithm}
 \usage{
-fes(hills, imin = 1, imax = NULL, xlim = NULL, ylim = NULL,
-  npoints = 256)
+fes(hills, imin, imax, xlim, ylim, npoints)
 }
 \arguments{
 \item{hills}{hillsfile object.}
@@ -25,7 +24,4 @@ fes object.
 }
 \description{
 `fes` sums up hills using fast Bias Sum algorithm.
-}
-\examples{
-tfes<-fes(acealanme, imax=5000)
 }
