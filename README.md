@@ -66,7 +66,6 @@ minima<-fesminima(tfes)
 summary(minima)
 
 # Create empty minima list, create ad hoc minimum, add minima
-minima<-emptyminima(tfes)
 minima<-oneminimum(tfes, cv1=0, cv2=0)
 fesminima(fes) + oneminimum(tfes, cv1=0, cv2=0)
 
