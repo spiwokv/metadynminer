@@ -5,7 +5,7 @@ using namespace Rcpp;
 NumericMatrix hills1(NumericVector cv1, NumericVector cv2, double width1, double width2, NumericVector heights, int n, int tmin, int tmax) {
   int cv1i, cv2i;
   int ni, nj;
-  double z;
+  double x,y,z;
   //double v[n][n];
   double **v = new double *[n];
   for (int i = 0; i < n; i++) v[i] = new double [n];
@@ -20,7 +20,10 @@ NumericMatrix hills1(NumericVector cv1, NumericVector cv2, double width1, double
   }
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
-      z = exp(-double(i)*double(i)/2.0/width1/width1-double(j)*double(j)/2.0/width2/width2);
+      x = double(i)*double(n)/double(n-1);
+      y = double(j)*double(n)/double(n-1);
+      //z = exp(-double(i)*double(i)/2.0/width1/width1-double(j)*double(j)/2.0/width2/width2);
+      z = exp(-x*x/2.0/width1/width1-y*y/2.0/width2/width2);
       g[i][j] = z;
       if(j>0) g[i][2*n-j] = z;
       if(i>0) g[2*n-i][j] = z;
