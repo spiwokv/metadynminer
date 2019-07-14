@@ -344,11 +344,23 @@ NumericMatrix hills2p12(NumericVector cv1, NumericVector cv2, NumericVector widt
       for (int j = 0; j < n; j++) {
         dcv1 = cv1[icv]-double(i);
         dcv2 = cv2[icv]-double(j);
-        if(dcv1 >  double(n)/2.0) dcv1 -= double(n);
-        if(dcv1 < -double(n)/2.0) dcv1 += double(n);
-        if(dcv2 >  double(n)/2.0) dcv2 -= double(n);
-        if(dcv2 < -double(n)/2.0) dcv2 += double(n);
         v[i][j] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]);
+        if(dcv1 >  double(n)/2.0) {
+          dcv1 -= double(n);
+          v[i][j] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]);
+        }
+        if(dcv1 < -double(n)/2.0) {
+          dcv1 += double(n);
+          v[i][j] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]);
+        }
+        if(dcv2 >  double(n)/2.0) {
+          dcv2 -= double(n);
+          v[i][j] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]);
+        }
+        if(dcv2 < -double(n)/2.0) {
+          dcv2 += double(n);
+          v[i][j] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]);
+        }
       }
     }
   }
