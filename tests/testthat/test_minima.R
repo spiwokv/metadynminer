@@ -74,7 +74,7 @@ test_that("Testing that fesminima correctly identifies energy minima", {
   mins<-fesminima(myfes)
   profs<-feprof(mins)
   minA<-summary(profs)[2,7]
-  expect_equal(object=minA, expected=0.012, tolerance=0.01, scale=1)
+  expect_equal(object=minA, expected=-0.012, tolerance=0.01, scale=1)
 
   # feprof and summary 2D with pertc(F,F)
   acealanme2<-acealanme
