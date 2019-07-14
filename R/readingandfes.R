@@ -495,8 +495,8 @@ fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=
     }
     x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
     y<-0:(npoints-1)*(ylims[2]-ylims[1])/(npoints-1)+ylims[1]
-    binx<-(xlims[2]-xlims[1])/(npoints-1)/2
-    biny<-(ylims[2]-ylims[1])/(npoints-1)/2
+    binx<-(xlims[2]-xlims[1])/(npoints-1)
+    biny<-(ylims[2]-ylims[1])/(npoints-1)
     if((hills$per[1]==F)&(hills$per[2]==F)) {
       fesm<-hills1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]+binx),
                    npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]+biny),
@@ -538,7 +538,7 @@ fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=
     if(!is.null(xlim)) {xlims<-xlim}
     if((hills$per[1]==T)&is.null(xlim)) {xlims<-hills$pcv1}
     x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
-    binx<-(xlims[2]-xlims[1])/(npoints-1)/2
+    binx<-(xlims[2]-xlims[1])/(npoints-1)
     if(hills$per[1]==F) {
       fesm<-hills1d1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]+binx),
                      npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]+binx),
