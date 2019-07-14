@@ -191,8 +191,8 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
   }
   for (int i = 0; i < n/2; i++) {
     for (int j = 0; j < n/2; j++) {
-      x = double(i)*double(n)/double(n-1);
-      y = double(j)*double(n)/double(n-1);
+      x = double(i)*double(n-1)/double(n);
+      y = double(j)*double(n-1)/double(n);
       //z = exp(-double(i)*double(i)/2.0/width1/width1-double(j)*double(j)/2.0/width2/width2);
       z = exp(-x*x/2.0/width1/width1-y*y/2.0/width2/width2);
       g[i][j] = z;
