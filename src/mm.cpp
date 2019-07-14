@@ -205,10 +205,10 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
     cv2i = int(cv2[icv]+0.5);
     for (int i = 0; i < n; i++) {
       ni=i-cv1i;
-      if(i<cv1i) ni+=n-1;
+      if(i<cv1i) ni+=n;
       for (int j = 0; j < n; j++) {
         nj=j-cv2i;
-        if(j<cv2i) nj+=n-1;
+        if(j<cv2i) nj+=n;
         v[i][j] -= heights[icv]*g[ni][nj];
       }
     }
