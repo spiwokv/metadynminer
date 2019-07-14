@@ -495,34 +495,32 @@ fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=
     }
     x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
     y<-0:(npoints-1)*(ylims[2]-ylims[1])/(npoints-1)+ylims[1]
-    binx<-(xlims[2]-xlims[1])/(npoints-1)
-    biny<-(ylims[2]-ylims[1])/(npoints-1)
     if((hills$per[1]==F)&(hills$per[2]==F)) {
-      fesm<-hills1((npoints-1)*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                   (npoints-1)*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
-                   (npoints-1)*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
-                   (npoints-1)*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+      fesm<-hills1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                   npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                   npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                   npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
                    hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==T)&(hills$per[2]==F)) {
-      fesm<-hills1p1((npoints-1)*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                     (npoints-1)*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
-                     (npoints-1)*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
-                     (npoints-1)*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+      fesm<-hills1p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                     npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                     npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                     npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
                      hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==F)&(hills$per[2]==T)) {
-      fesm<-hills1p2((npoints-1)*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                     (npoints-1)*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
-                     (npoints-1)*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
-                     (npoints-1)*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+      fesm<-hills1p2(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                     npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                     npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                     npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
                      hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==T)&(hills$per[2]==T)) {
-      fesm<-hills1p12((npoints+1)*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                      (npoints+1)*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
-                      (npoints+1)*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
-                      (npoints+1)*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+      fesm<-hills1p12(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                      npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                      npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                      npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
                       hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=2, per=hills$per, x=x, y=y, pcv1=hills$pcv1, pcv2=hills$pcv2)
@@ -538,15 +536,14 @@ fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=
     if(!is.null(xlim)) {xlims<-xlim}
     if((hills$per[1]==T)&is.null(xlim)) {xlims<-hills$pcv1}
     x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
-    binx<-(xlims[2]-xlims[1])/(npoints-1)
     if(hills$per[1]==F) {
-      fesm<-hills1d1((npoints-1)*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                     (npoints-1)*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]-binx),
+      fesm<-hills1d1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                     npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]),
                      hills$hillsfile[,4],npoints,imin-1,imax-1)
     }
     if(hills$per[1]==T) {
-      fesm<-hills1d1p((npoints-1)*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                      (npoints-1)*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]-binx),
+      fesm<-hills1d1p(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                      npoints*max(hills$hillsfile[,3])/(xlims[2]-xlims[1]),
                       hills$hillsfile[,4],npoints,imin-1,imax-1)
     }
     cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=1, per=hills$per, x=x, pcv1=hills$pcv1, pcv2=hills$pcv2)
