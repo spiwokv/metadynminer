@@ -178,11 +178,11 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
   double **v = new double *[n];
   for (int i = 0; i < n; i++) v[i] = new double [n];
   //double g[n][n];
-  double **g = new double *[n];
-  for (int i = 0; i < n; i++) g[i] = new double [n];
+  double **g = new double *[n+1];
+  for (int i = 0; i < n+1; i++) g[i] = new double [n+1];
   NumericMatrix vo(n, n);
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
+  for (int i = 0; i < n+1; i++) {
+    for (int j = 0; j < n+1; j++) {
       g[i][j] = 0.0;
     }
   }
@@ -190,9 +190,9 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
     for (int j = 0; j < n/2; j++) {
       z = exp(-double(i)*double(i)/2.0/width1/width1-double(j)*double(j)/2.0/width2/width2);
       g[i][j] = z;
-      if(j>0) g[i][n-j-1] = z;
-      if(i>0) g[n-i-1][j] = z;
-      if((i>0)&&(j>0)) g[n-i-1][n-j-1] = z;
+      if(j>0) g[i][n-j+1] = z;
+      if(i>0) g[n-i+1][j] = z;
+      if((i>0)&&(j>0)) g[n-i+1][n-j+1] = z;
     }
   }
   for (int i = 0; i < n; i++) {
