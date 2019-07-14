@@ -495,11 +495,12 @@ fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=
     }
     x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
     y<-0:(npoints-1)*(ylims[2]-ylims[1])/(npoints-1)+ylims[1]
+    bin<-(ylims[2]-ylims[1])/(npoints-1)
     if((hills$per[1]==F)&(hills$per[2]==F)) {
-      fesm<-hills1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                   npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
-                   npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
-                   npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+      fesm<-hills1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]+bin),
+                   npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]+bin),
+                   npoints*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]+bin),
+                   npoints*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]+bin),
                    hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==T)&(hills$per[2]==F)) {
