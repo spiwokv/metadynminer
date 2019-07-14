@@ -519,10 +519,10 @@ fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=
                      hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     if((hills$per[1]==T)&(hills$per[2]==T)) {
-      fesm<-hills1p12((npoints-1)*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
-                      (npoints-1)*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
-                      (npoints-1)*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
-                      (npoints-1)*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
+      fesm<-hills1p12((npoints+1)*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]),
+                      (npoints+1)*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]),
+                      (npoints+1)*max(hills$hillsfile[,4])/(xlims[2]-xlims[1]),
+                      (npoints+1)*max(hills$hillsfile[,5])/(ylims[2]-ylims[1]),
                       hills$hillsfile[,6],npoints,imin-1,imax-1)
     }
     cfes<-list(fes=fesm, hills=hills$hillsfile, rows=npoints, dimension=2, per=hills$per, x=x, y=y, pcv1=hills$pcv1, pcv2=hills$pcv2)
