@@ -181,8 +181,8 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
   double **g = new double *[n];
   for (int i = 0; i < n; i++) g[i] = new double [n];
   NumericMatrix vo(n, n);
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
+  for (int i = 0; i < n+1; i++) {
+    for (int j = 0; j < n+1; j++) {
       g[i][j] = 0.0;
     }
   }
