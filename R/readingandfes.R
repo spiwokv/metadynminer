@@ -627,7 +627,7 @@ fes2.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints
     }
     if((hills$per[1]==T)&(hills$per[2]==F)) {
       fesm<-hills2p1(npoints*(hills$hillsfile[,2]-xlims[1])/(xlims[2]-xlims[1]+binx),
-                     npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]+biny,
+                     npoints*(hills$hillsfile[,3]-ylims[1])/(ylims[2]-ylims[1]+biny),
                      npoints*hills$hillsfile[,4]/(xlims[2]-xlims[1]+binx),
                      npoints*hills$hillsfile[,5]/(ylims[2]-ylims[1]+biny),
                      hills$hillsfile[,6],npoints,imin-1,imax-1)
