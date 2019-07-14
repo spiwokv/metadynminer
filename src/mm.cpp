@@ -577,8 +577,8 @@ NumericVector fe1dp(NumericVector cv1, NumericVector width1, NumericVector heigh
   v = 0.0;
   for (int i=tmin; i <= tmax; i++) {
     dcv1 = cv1[i]-x;
-    #if(dcv1 >  p1/2.0) dcv1 -= p1;
-    #if(dcv1 < -p1/2.0) dcv1 += p1;
+    //if(dcv1 >  p1/2.0) dcv1 -= p1;
+    //if(dcv1 < -p1/2.0) dcv1 += p1;
     v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]);
     v -= heights[i]*exp(-(dcv1-p1)*(dcv1-p1)/2.0/width1[i]/width1[i]);
     v -= heights[i]*exp(-(dcv1+p1)*(dcv1+p1)/2.0/width1[i]/width1[i]);
