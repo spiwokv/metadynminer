@@ -175,8 +175,8 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
   int ni, nj;
   double z;
   //double v[n][n];
-  double **v = new double *[n];
-  for (int i = 0; i < n; i++) v[i] = new double [n];
+  double **v = new double *[n+1];
+  for (int i = 0; i < n+1; i++) v[i] = new double [n+1];
   //double g[n][n];
   double **g = new double *[n];
   for (int i = 0; i < n; i++) g[i] = new double [n];
@@ -186,13 +186,13 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
       g[i][j] = 0.0;
     }
   }
-  for (int i = 0; i < n/2; i++) {
-    for (int j = 0; j < n/2; j++) {
+  for (int i = 0; i < n/2+1; i++) {
+    for (int j = 0; j < n/2+1; j++) {
       z = exp(-double(i)*double(i)/2.0/width1/width1-double(j)*double(j)/2.0/width2/width2);
       g[i][j] = z;
-      if(j>0) g[i][n-j] = z;
-      if(i>0) g[n-i][j] = z;
-      if((i>0)&&(j>0)) g[n-i][n-j] = z;
+      if(j>0) g[i][n-j+1] = z;
+      if(i>0) g[n-i+1][j] = z;
+      if((i>0)&&(j>0)) g[n-i+1][n-j+1] = z;
     }
   }
   for (int i = 0; i < n; i++) {
@@ -203,12 +203,12 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
   for (int icv=tmin; icv<=tmax; icv++) {
     cv1i = int(cv1[icv]+0.5);
     cv2i = int(cv2[icv]+0.5);
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n+1; i++) {
       ni=i-cv1i;
-      if(i<cv1i) ni+=n;
-      for (int j = 0; j < n; j++) {
+      if(i<cv1i) ni+=n+1;
+      for (int j = 0; j < n+1; j++) {
         nj=j-cv2i;
-        if(j<cv2i) nj+=n;
+        if(j<cv2i) nj+=n+1;
         v[i][j] -= heights[icv]*g[ni][nj];
       }
     }
