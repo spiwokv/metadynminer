@@ -31,7 +31,7 @@ test_that("Testing that read.hills correctly loads hills and ralated functions a
   h<-read.hills(tf, per=c(TRUE))
   myfes<-fes(h)
   summyfes<-sum(myfes$fes)
-  expect_equal(object=summyfes, expected=-135, tolerance=0.1, scale=1)
+  expect_equal(object=summyfes, expected=-135.2, tolerance=0.1, scale=1)
 
   # +
   h<-read.hills(tf, per=c(TRUE))
