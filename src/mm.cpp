@@ -544,12 +544,24 @@ NumericVector fe2dp12(NumericVector cv1, NumericVector cv2, NumericVector width1
   v = 0.0;
   for (int i=tmin; i <= tmax; i++) {
     dcv1 = cv1[i]-x;
-    if(dcv1 >  p1/2.0) dcv1 -= p1;
-    if(dcv1 < -p1/2.0) dcv1 += p1;
     dcv2 = cv2[i]-y;
-    if(dcv2 >  p2/2.0) dcv2 -= p2;
-    if(dcv2 < -p2/2.0) dcv2 += p2;
     v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]-dcv2*dcv2/2.0/width2[i]/width2[i]);
+    if(dcv1 >  p1/2.0) {
+      dcv1 -= p1;
+      v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]-dcv2*dcv2/2.0/width2[i]/width2[i]);
+    }
+    if(dcv1 < -p1/2.0) {
+      dcv1 += p1;
+      v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]-dcv2*dcv2/2.0/width2[i]/width2[i]);
+    }
+    if(dcv2 >  p2/2.0) {
+      dcv2 -= p2;
+      v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]-dcv2*dcv2/2.0/width2[i]/width2[i]);
+    }
+    if(dcv2 < -p2/2.0) {
+      dcv2 += p2;
+      v -= heights[i]*exp(-dcv1*dcv1/2.0/width1[i]/width1[i]-dcv2*dcv2/2.0/width2[i]/width2[i]);
+    }
     vo(i)=v;
   }
   return vo;
