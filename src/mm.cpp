@@ -79,8 +79,8 @@ NumericMatrix hills1p1(NumericVector cv1, NumericVector cv2, double width1, doub
       z = exp(-double(i)*double(i)/2.0/width1/width1-double(j)*double(j)/2.0/width2/width2);
       g[i][j] = z;
       if(j>0) g[i][2*n-j] = z;
-      if(i>0) g[n-i-1][j] = z;
-      if((i>0)&&(j>0)) g[n-i-1][2*n-j] = z;
+      if(i>0) g[n-i][j] = z;
+      if((i>0)&&(j>0)) g[n-i][2*n-j] = z;
     }
   }
   for (int i = 0; i < n; i++) {
@@ -134,9 +134,9 @@ NumericMatrix hills1p2(NumericVector cv1, NumericVector cv2, double width1, doub
     for (int j = 0; j < n/2; j++) {
       z = exp(-double(i)*double(i)/2.0/width1/width1-double(j)*double(j)/2.0/width2/width2);
       g[i][j] = z;
-      if(j>0) g[i][n-j-1] = z;
+      if(j>0) g[i][n-j] = z;
       if(i>0) g[2*n-i][j] = z;
-      if((i>0)&&(j>0)) g[2*n-i][n-j-1] = z;
+      if((i>0)&&(j>0)) g[2*n-i][n-j] = z;
     }
   }
   for (int i = 0; i < n; i++) {
@@ -190,9 +190,9 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
     for (int j = 0; j < n/2; j++) {
       z = exp(-double(i)*double(i)/2.0/width1/width1-double(j)*double(j)/2.0/width2/width2);
       g[i][j] = z;
-      if(j>0) g[i][n-j-1] = z;
-      if(i>0) g[n-i-1][j] = z;
-      if((i>0)&&(j>0)) g[n-i-1][n-j-1] = z;
+      if(j>0) g[i][n-j] = z;
+      if(i>0) g[n-i][j] = z;
+      if((i>0)&&(j>0)) g[n-i][n-j] = z;
     }
   }
   for (int i = 0; i < n; i++) {
@@ -415,7 +415,7 @@ NumericVector hills1d1p(NumericVector cv1, double width1, NumericVector heights,
   for (int i = 0; i < n/2; i++) {
     z = exp(-double(i)*double(i)/2.0/width1/width1);
     g[i] = z;
-    if(i>0) g[n-i-1] = z;
+    if(i>0) g[n-i] = z;
   }
   for (int i = 0; i < n; i++) {
     v[i] = 0.0;
