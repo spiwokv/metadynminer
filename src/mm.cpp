@@ -93,7 +93,7 @@ NumericMatrix hills1p1(NumericVector cv1, NumericVector cv2, double width1, doub
     cv2i = int(cv2[icv]+0.5);
     for (int i = 0; i < n; i++) {
       ni=i-cv1i;
-      if(i<cv1i) ni+=n;
+      if(i<cv1i) ni+=n-1;
       for (int j = 0; j < n; j++) {
         nj=j-cv2i;
         if(j<cv2i) nj+=2*n;
@@ -152,7 +152,7 @@ NumericMatrix hills1p2(NumericVector cv1, NumericVector cv2, double width1, doub
       if(i<cv1i) ni+=2*n;
       for (int j = 0; j < n; j++) {
         nj=j-cv2i;
-        if(j<cv2i) nj+=n;
+        if(j<cv2i) nj+=n-1;
         v[i][j] -= heights[icv]*g[ni][nj];
       }
     }
@@ -205,10 +205,10 @@ NumericMatrix hills1p12(NumericVector cv1, NumericVector cv2, double width1, dou
     cv2i = int(cv2[icv]+0.5);
     for (int i = 0; i < n; i++) {
       ni=i-cv1i;
-      if(i<cv1i) ni+=n;
+      if(i<cv1i) ni+=n-1;
       for (int j = 0; j < n; j++) {
         nj=j-cv2i;
-        if(j<cv2i) nj+=n;
+        if(j<cv2i) nj+=n-1;
         v[i][j] -= heights[icv]*g[ni][nj];
       }
     }
@@ -275,8 +275,8 @@ NumericMatrix hills2p1(NumericVector cv1, NumericVector cv2, NumericVector width
       for (int j = 0; j < n; j++) {
         dcv1 = cv1[icv]-double(i);
         dcv2 = cv2[icv]-double(j);
-        if(dcv1 >  double(n)/2.0) dcv1 -= double(n);
-        if(dcv1 < -double(n)/2.0) dcv1 += double(n);
+        if(dcv1 >  double(n)/2.0) dcv1 -= double(n-1);
+        if(dcv1 < -double(n)/2.0) dcv1 += double(n-1);
         v[i][j] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]);
       }
     }
@@ -310,8 +310,8 @@ NumericMatrix hills2p2(NumericVector cv1, NumericVector cv2, NumericVector width
       for (int j = 0; j < n; j++) {
         dcv1 = cv1[icv]-double(i);
         dcv2 = cv2[icv]-double(j);
-        if(dcv2 >  double(n)/2.0) dcv2 -= double(n);
-        if(dcv2 < -double(n)/2.0) dcv2 += double(n);
+        if(dcv2 >  double(n)/2.0) dcv2 -= double(n-1);
+        if(dcv2 < -double(n)/2.0) dcv2 += double(n-1);
         v[i][j] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]-dcv2*dcv2/2.0/width2[icv]/width2[icv]);
       }
     }
@@ -424,7 +424,7 @@ NumericVector hills1d1p(NumericVector cv1, double width1, NumericVector heights,
     cv1i = int(cv1[icv]+0.5);
     for (int i = 0; i < n; i++) {
       ni=i-cv1i;
-      if(i<cv1i) ni+=n;
+      if(i<cv1i) ni+=n-1;
       v[i] -= heights[icv]*g[ni];
     }
   }
@@ -470,8 +470,8 @@ NumericVector hills1d2p(NumericVector cv1, NumericVector width1, NumericVector h
   for (int icv=tmin; icv <= tmax; icv++) {
     for (int i = 0; i < n; i++) {
       dcv1 = cv1[icv]-double(i);
-      if(dcv1 >  double(n)/2.0) dcv1 -= double(n);
-      if(dcv1 < -double(n)/2.0) dcv1 += double(n);
+      if(dcv1 >  double(n)/2.0) dcv1 -= double(n-1);
+      if(dcv1 < -double(n)/2.0) dcv1 += double(n-1);
       v[i] -= heights[icv]*exp(-dcv1*dcv1/2.0/width1[icv]/width1[icv]);
     }
   }
