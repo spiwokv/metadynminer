@@ -5,7 +5,7 @@ test_that("Testing that fesminima correctly identifies energy minima", {
   mins<-fesminima(myfes)
   myneb<-neb(mins, min1="A", min2="B")
   thalf<-summary(myneb)[1,2]
-  expect_equal(object=thalf, expected=3.36, tolerance=0.01, scale=1)
+  expect_equal(object=thalf, expected=3.09, tolerance=0.01, scale=1)
   
 })
 
