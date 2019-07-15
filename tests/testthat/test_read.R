@@ -11,14 +11,14 @@ test_that("Testing that read.hills correctly loads hills and ralated functions a
   h<-read.hills(tf, per=c(TRUE,TRUE))
   myfes<-fes(h)
   summyfes<-sum(myfes$fes)
-  expect_equal(object=summyfes, expected=-4066, tolerance=1, scale=1)
+  expect_equal(object=summyfes, expected=-4098, tolerance=1, scale=1)
   
   # +
   h<-read.hills(tf, per=c(TRUE,TRUE))
   h2<-h+h
   myfes<-fes(h2)
   summyfes<-sum(myfes$fes)
-  expect_equal(object=summyfes, expected=-8131, tolerance=1, scale=1)
+  expect_equal(object=summyfes, expected=-8195, tolerance=1, scale=1)
   
   # read.hills 1D
   l1<-"1 -2.600 0.3 1.111 10"
@@ -31,7 +31,7 @@ test_that("Testing that read.hills correctly loads hills and ralated functions a
   h<-read.hills(tf, per=c(TRUE))
   myfes<-fes(h)
   summyfes<-sum(myfes$fes)
-  expect_equal(object=summyfes, expected=-134.8, tolerance=0.1, scale=1)
+  expect_equal(object=summyfes, expected=-135.3, tolerance=0.1, scale=1)
 
   # +
   h<-read.hills(tf, per=c(TRUE))
