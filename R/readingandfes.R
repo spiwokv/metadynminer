@@ -671,6 +671,54 @@ fes2.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NU
   return(cfes)
 }
 
+#' Read 1D or 2D free energy surface from PLUMED sum_hills
+#'
+#' `read.plumed` reads 1D or 2D free energy surface from PLUMED sum_hills.
+#' The grid in the (2D) inputfile must contain the same number of points
+#' for CV1 and CV2. It does not use the header of the file. Instead, user
+#' must specify the dimensionality (1 or 2). Periodicity must be specified
+#' as well.
+#'
+#' @param file input file from PLUMED sum_hills.
+#' @param remdim dimension (1 or 2, default 2).
+#' @param per logical vector specifying periodicity of collective variables.
+#' @return fes object.
+#'
+#' @export
+#' @examples
+#' l1<-"-3.142 -124.8 -44.76"
+#' l2<-"-3.117 -125.9 -43.05"
+#' l3<-"-3.092 -126.9 -41.22"
+#' l4<-"-3.068 -127.9 -39.36"
+#' l5<-"-3.043 -128.8 -37.45"
+#' fourpoints<-c(l1,l2,l3,l4)
+#' tf <- tempfile()
+#' writeLines(fourpoints, tf)
+#' read.plumed(tf, per=c(TRUE,TRUE))
+read.plumed<-function(file="fes.dat", dim=2, per=c(F,F,F)) {
+  hillsf<-read.table(file, header=F, comment.char="#")
+  bins<-round(nrow(hillsf)^(1/dim))
+  if(bins^dim!=nrow(hillsf)) {
+    stop("Error: the number of bins cannot be determined, it must be same for all dimension, or the number of dimensions is wrong.")
+  }
+  if(dim==1) {
+    x <- hillsf[,1]
+    fesm <- hillsf[,2]
+    cfes <- list(fes=fesm, hills=NULL, rows=bins, dimension=1, per=per, x=x, pcv1=c(min(x), max(x)))
+    class(cfes) <- "fes"
+  } else if(dim==2) {
+    x <- hillsf[1:bins,1]
+    y <- hillsf[(0:(bins-1))*bins+1,2]
+    fesm <- matrix(hillsf[,3], nrow=bins)
+    cfes <- list(fes=fesm, hills=NULL, rows=bins, dimension=2, per=per, x=x, y=y,
+                 pcv1=c(min(x), max(x)), pcv2=c(min(y), max(y)))
+    class(cfes) <- "fes"
+  } else {
+    stop("Error: for 3D fes use read.plumed3d from metadynminer3d, higher dimensions are not supported.")
+  }
+  return(cfes)
+}
+
 #' Calculate 1D free energy surface from hillsfile object
 #'
 #' `fes2d21d` calculates 2D free energy surface, converts free energies to probabilities
