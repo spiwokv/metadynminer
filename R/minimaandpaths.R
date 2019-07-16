@@ -119,10 +119,11 @@ fesminima.fes<-function(inputfes, nbins=8) {
 #' @param inputfes fes object.
 #' @param cv1 the value of collective variable 1.
 #' @param cv2 the value of collective variable 2.
+#' @param cv3 the value of collective variable 3.
 #' @return minima object.
 #'
 #' @export oneminimum
-oneminimum<-function(inputfes, cv1, cv2) {
+oneminimum<-function(inputfes, cv1, cv2, cv3) {
   UseMethod("oneminimum")
 }
 
@@ -135,6 +136,7 @@ oneminimum<-function(inputfes, cv1, cv2) {
 #' @param inputfes fes object.
 #' @param cv1 the value of collective variable 1.
 #' @param cv2 the value of collective variable 2.
+#' @param cv3 the value of collective variable 3.
 #' @return minima object.
 #'
 #' @export
@@ -143,7 +145,7 @@ oneminimum<-function(inputfes, cv1, cv2) {
 #' minima<-fesminima(tfes)
 #' minima<-minima+oneminimum(tfes, cv1=0, cv2=0)
 #' minima
-oneminimum.fes<-function(inputfes, cv1, cv2) {
+oneminimum.fes<-function(inputfes, cv1, cv2, cv3) {
   fes<-inputfes$fes
   rows<-inputfes$rows
   per<-inputfes$per
