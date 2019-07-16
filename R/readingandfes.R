@@ -428,7 +428,7 @@ plotheights.hillsfile<-function(hills, ignoretime=FALSE,
 #' @return fes object.
 #'
 #' @export fes
-fes<-function(hills, imin, imax, xlim, ylim, npoints) {
+fes<-function(hills, imin, imax, xlim, ylim, zlim, npoints) {
   UseMethod("fes")
 }
 
@@ -441,13 +441,14 @@ fes<-function(hills, imin, imax, xlim, ylim, npoints) {
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #' @param xlim numeric vector of length 2, giving the CV1 coordinates range.
 #' @param ylim numeric vector of length 2, giving the CV2 coordinates range.
+#' @param zlim numeric vector of length 2, giving the CV2 coordinates range.
 #' @param npoints resolution of the free energy surface in number of points.
 #' @return fes object.
 #'
 #' @export
 #' @examples
 #' tfes<-fes(acealanme, imax=5000)
-fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints=256) {
   if(!is.null(imax)) {
     if(hills$size[1]<imax) {
       cat("Warning: You requested more hills by imax than available, using all hills\n")
@@ -563,11 +564,12 @@ fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #' @param xlim numeric vector of length 2, giving the CV1 coordinates range.
 #' @param ylim numeric vector of length 2, giving the CV2 coordinates range.
+#' @param zlim numeric vector of length 2, giving the CV2 coordinates range.
 #' @param npoints resolution of the free energy surface in number of points.
 #' @return fes object.
 #'
 #' @export fes2
-fes2<-function(hills, imin, imax, xlim, ylim, npoints) {
+fes2<-function(hills, imin, imax, xlim, ylim, zlim, npoints) {
   UseMethod("fes2")
 }
 
@@ -581,13 +583,14 @@ fes2<-function(hills, imin, imax, xlim, ylim, npoints) {
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #' @param xlim numeric vector of length 2, giving the CV1 coordinates range.
 #' @param ylim numeric vector of length 2, giving the CV2 coordinates range.
+#' @param zlim numeric vector of length 2, giving the CV2 coordinates range.
 #' @param npoints resolution of the free energy surface in number of points.
 #' @return fes object.
 #'
 #' @export
 #' @examples
 #' tfes<-fes2(acealanme, imax=1000)
-fes2.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, npoints=256) {
+fes2.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints=256) {
   if(!is.null(imax)) {
     if(hills$size[1]<imax) {
       cat("Warning: You requested more hills by imax than available, using all hills\n")
