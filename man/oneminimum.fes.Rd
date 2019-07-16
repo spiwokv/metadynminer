@@ -4,7 +4,7 @@
 \alias{oneminimum.fes}
 \title{Creates one ad hoc free energy minimum for a fes object}
 \usage{
-\method{oneminimum}{fes}(inputfes, cv1, cv2)
+\method{oneminimum}{fes}(inputfes, cv1, cv2, cv3)
 }
 \arguments{
 \item{inputfes}{fes object.}
@@ -12,6 +12,8 @@
 \item{cv1}{the value of collective variable 1.}
 
 \item{cv2}{the value of collective variable 2.}
+  
+\item{cv3}{the value of collective variable 3.}
 }
 \value{
 minima object.
