@@ -5,7 +5,7 @@
 \title{Calculate free energy surface by conventional algorithm (generic function
 for 'metadynminer' and 'metadynminer3d')}
 \usage{
-fes2(hills, imin, imax, xlim, ylim, npoints)
+fes2(hills, imin, imax, xlim, ylim, zlim, npoints)
 }
 \arguments{
 \item{hills}{hillsfile object.}
