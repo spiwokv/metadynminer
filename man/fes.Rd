@@ -4,7 +4,7 @@
 \alias{fes}
 \title{Calculate free energy surface by Bias Sum algorithm (generic function for
 'metadynminer' and 'metadynminer3d')}
-\method{
+\usage{
 fes(hills, imin, imax, xlim, ylim, zlim, npoints)
 }
 \arguments{
