@@ -680,7 +680,7 @@ fes2.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NU
 #' as well.
 #'
 #' @param file input file from PLUMED sum_hills.
-#' @param remdim dimension (1 or 2, default 2).
+#' @param dim dimension (1 or 2, default 2).
 #' @param per logical vector specifying periodicity of collective variables.
 #' @return fes object.
 #'
@@ -694,7 +694,7 @@ fes2.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NU
 #' fourpoints<-c(l1,l2,l3,l4)
 #' tf <- tempfile()
 #' writeLines(fourpoints, tf)
-#' read.plumed(tf, per=c(TRUE,TRUE))
+#' read.plumed(tf, dim=1, per=c(TRUE,TRUE))
 read.plumed<-function(file="fes.dat", dim=2, per=c(F,F,F)) {
   hillsf<-read.table(file, header=F, comment.char="#")
   bins<-round(nrow(hillsf)^(1/dim))
