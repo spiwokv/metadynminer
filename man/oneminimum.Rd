@@ -5,7 +5,7 @@
 \title{Creates one ad hoc free energy minimum for a fes object (generic function
 for 'metadynminer' and 'metadynminer3d')}
 \usage{
-oneminimum(inputfes, cv1, cv2)
+oneminimum(inputfes, cv1, cv2, cv3)
 }
 \arguments{
 \item{inputfes}{fes object.}
@@ -13,6 +13,8 @@ oneminimum(inputfes, cv1, cv2)
 \item{cv1}{the value of collective variable 1.}
 
 \item{cv2}{the value of collective variable 2.}
+  
+\item{cv3}{the value of collective variable 3.}
 }
 \value{
 minima object.
