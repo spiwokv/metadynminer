@@ -424,6 +424,7 @@ plotheights.hillsfile<-function(hills, ignoretime=FALSE,
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #' @param xlim numeric vector of length 2, giving the CV1 coordinates range.
 #' @param ylim numeric vector of length 2, giving the CV2 coordinates range.
+#' @param zlim numeric vector of length 2, giving the CV3 coordinates range.
 #' @param npoints resolution of the free energy surface in number of points.
 #' @return fes object.
 #'
@@ -441,7 +442,7 @@ fes<-function(hills, imin, imax, xlim, ylim, zlim, npoints) {
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #' @param xlim numeric vector of length 2, giving the CV1 coordinates range.
 #' @param ylim numeric vector of length 2, giving the CV2 coordinates range.
-#' @param zlim numeric vector of length 2, giving the CV2 coordinates range.
+#' @param zlim numeric vector of length 2, giving the CV3 coordinates range.
 #' @param npoints resolution of the free energy surface in number of points.
 #' @return fes object.
 #'
@@ -564,7 +565,7 @@ fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NUL
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #' @param xlim numeric vector of length 2, giving the CV1 coordinates range.
 #' @param ylim numeric vector of length 2, giving the CV2 coordinates range.
-#' @param zlim numeric vector of length 2, giving the CV2 coordinates range.
+#' @param zlim numeric vector of length 2, giving the CV3 coordinates range.
 #' @param npoints resolution of the free energy surface in number of points.
 #' @return fes object.
 #'
@@ -583,7 +584,7 @@ fes2<-function(hills, imin, imax, xlim, ylim, zlim, npoints) {
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #' @param xlim numeric vector of length 2, giving the CV1 coordinates range.
 #' @param ylim numeric vector of length 2, giving the CV2 coordinates range.
-#' @param zlim numeric vector of length 2, giving the CV2 coordinates range.
+#' @param zlim numeric vector of length 2, giving the CV3 coordinates range.
 #' @param npoints resolution of the free energy surface in number of points.
 #' @return fes object.
 #'
