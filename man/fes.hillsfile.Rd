@@ -5,7 +5,7 @@
 \title{Calculate free energy surface by Bias Sum algorithm}
 \usage{
 \method{fes}{hillsfile}(hills, imin = 1, imax = NULL, xlim = NULL,
-  ylim = NULL, npoints = 256)
+  ylim = NULL, zlim = NULL, npoints = 256)
 }
 \arguments{
 \item{hills}{hillsfile object.}
