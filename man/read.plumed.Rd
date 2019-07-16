@@ -11,7 +11,7 @@ read.plumed(file = "fes.dat", dim = 2, per = c(F, F, F))
 
 \item{per}{logical vector specifying periodicity of collective variables.}
 
-\item{remdim}{dimension (1 or 2, default 2).}
+\item{dim}{dimension (1 or 2, default 2).}
 }
 \value{
 fes object.
@@ -32,5 +32,5 @@ l5<-"-3.043 -128.8 -37.45"
 fourpoints<-c(l1,l2,l3,l4)
 tf <- tempfile()
 writeLines(fourpoints, tf)
-read.plumed(tf, per=c(TRUE,TRUE))
+read.plumed(tf, dim=1, per=c(TRUE,TRUE))
 }
