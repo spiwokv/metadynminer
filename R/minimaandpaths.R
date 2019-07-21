@@ -530,7 +530,7 @@ summary.profiles <- function(object, imind=1, imaxd=NULL,...) {
     outprofile <- cbind(outprofile,t(mms[imaxd,]))
     names(outprofile)[5:7]<-c("min diff", "max diff", "tail")
     print(outprofile)
-  } else {
+  } else if(profs$dimension==2) {
     outprofile <- profs$mins
     mms<-profs$mms[,2:ncol(profs$mms)]-profs$mms[,2]
     outprofile <- cbind(outprofile,apply(mms[imind:imaxd,],2,min))
@@ -538,7 +538,15 @@ summary.profiles <- function(object, imind=1, imaxd=NULL,...) {
     outprofile <- cbind(outprofile,t(mms[imaxd,]))
     names(outprofile)[7:9]<-c("min diff", "max diff", "tail")
     print(outprofile)
-  }
+  } else if(profs$dimension==3) {
+    outprofile <- profs$mins
+    mms<-profs$mms[,2:ncol(profs$mms)]-profs$mms[,2]
+    outprofile <- cbind(outprofile,apply(mms[imind:imaxd,],2,min))
+    outprofile <- cbind(outprofile,apply(mms[imind:imaxd,],2,max))
+    outprofile <- cbind(outprofile,t(mms[imaxd,]))
+    names(outprofile)[9:11]<-c("min diff", "max diff", "tail")
+    print(outprofile)
+  } else {
 }
 
 #' Plot free energy profile
