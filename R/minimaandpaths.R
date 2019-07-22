@@ -546,7 +546,7 @@ summary.profiles <- function(object, imind=1, imaxd=NULL,...) {
     outprofile <- cbind(outprofile,t(mms[imaxd,]))
     names(outprofile)[9:11]<-c("min diff", "max diff", "tail")
     print(outprofile)
-  } else {
+  }
 }
 
 #' Plot free energy profile
