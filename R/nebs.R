@@ -157,7 +157,7 @@ summary.nebpath <- function(object, temp=300, eunit="kJ/mol",...) {
   if(ncol(nebpath$path)==3) {
     activ <- max(nebpath$path[,3])-nebpath$path[1,3]
     deltag[1]<-activ
-    if(eunit="kcal/mol") activ<-activ*4.184
+    if(eunit=="kcal/mol") activ<-activ*4.184
     rate <- 1.38064852E-023*temp*exp(-1000.0*activ/8.314459848/temp)/6.62607004E-034;
     halft <- log(2)/rate
     halflife[1] <- halft
@@ -200,7 +200,7 @@ summary.nebpath <- function(object, temp=300, eunit="kJ/mol",...) {
     }
     activ <- max(nebpath$path[,3])-nebpath$path[nrow(nebpath$path),3]
     deltag[2]<-activ
-    if(eunit="kcal/mol") activ<-activ*4.184
+    if(eunit=="kcal/mol") activ<-activ*4.184
     rate <- 1.38064852E-023*temp*exp(-1000.0*activ/8.314459848/temp)/6.62607004E-034;
     halft <- log(2)/rate
     halflife[2] <- halft
@@ -245,7 +245,7 @@ summary.nebpath <- function(object, temp=300, eunit="kJ/mol",...) {
   if(ncol(nebpath$path)==2) {
     activ <- max(nebpath$path[,2])-nebpath$path[1,2]
     deltag[1]<-activ
-    if(eunit="kcal/mol") activ<-activ*4.184
+    if(eunit=="kcal/mol") activ<-activ*4.184
     rate <- 1.38064852E-023*temp*exp(-1000.0*activ/8.314459848/temp)/6.62607004E-034;
     halft <- log(2)/rate
     halflife[1] <- halft
@@ -288,7 +288,7 @@ summary.nebpath <- function(object, temp=300, eunit="kJ/mol",...) {
     }
     activ <- max(nebpath$path[,2])-nebpath$path[nrow(nebpath$path),2]
     deltag[2]<-activ
-    if(eunit="kcal/mol") activ<-activ*4.184
+    if(eunit=="kcal/mol") activ<-activ*4.184
     rate <- 1.38064852E-023*temp*exp(-1000.0*activ/8.314459848/temp)/6.62607004E-034;
     halft <- log(2)/rate
     halflife[2] <- halft
