@@ -8,7 +8,10 @@
 }
 \arguments{
 \item{object}{fes object.}
+  
+\item{temp}{temperature in Kelvins}
 
+\item{eunit}{energy units (kJ/mol or kcal/mol, kJ/mol is default)}
 }
 \description{
 `prob.fes` calculates probability from free energy in a fes object.
