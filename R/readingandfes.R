@@ -1085,17 +1085,17 @@ prob<-function(inputfes, temp=300, eunit="kJ/mol") {
   if(class(inputfes)=="fes") {
     if(eunit=="kJ/mol") {
       if(fes1$dimension==1) {
-        cfes<-list(fes=exp(-1000*inputfes$fes/8.314/temp), hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+        cfes<-list(fes=exp(-1000*inputfes$fes/8.314/temp), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
       }
       if(fes1$dimension==2) {
-        cfes<-list(fes=exp(-1000*inputfes$fes/8.314/temp), hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+        cfes<-list(fes=exp(-1000*inputfes$fes/8.314/temp), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, y=inputfes$y, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
       }
     } else if (eunit=="kJ/mol") {
       if(fes1$dimension==1) {
-        cfes<-list(fes=exp(-1000*4.184*inputfes$fes/8.314/temp), hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+        cfes<-list(fes=exp(-1000*4.184*inputfes$fes/8.314/temp), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
       }
       if(fes1$dimension==2) {
-        cfes<-list(fes=exp(-1000*4.184*inputfes$fes/8.314/temp), hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
+        cfes<-list(fes=exp(-1000*4.184*inputfes$fes/8.314/temp), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, y=inputfes$y, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
       }
     } else {
       stop("Error: Wrong eunit")
