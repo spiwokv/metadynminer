@@ -4,7 +4,7 @@
 \alias{prob}
 \title{Calculate probability of free energy surface}
 \usage{
-prob(fes)
+prob(inputfes, temp = 300, eunit = "kJ/mol")
 }
 \arguments{
 \item{inputfes}{fes object.}
