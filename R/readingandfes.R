@@ -1069,6 +1069,48 @@ summary.fes<-function(object,...) {
   }
 }
 
+#' Calculate probability of free energy surface
+#'
+#' `prob` calculates probability from free energy in a fes object.
+#'
+#' @param inputfes fes object.
+#' @param temp temperature in Kelvins (default 300).
+#' @param eunit energy units (kJ/mol or kcal/mol, kJ/mol is default).
+#'
+#' @export
+#' @examples
+#' tfes<-fes(acealanme, imax=5000)
+#' print(prob(tfes))
+prob<-function(inputfes, temp=300, eunit="kJ/mol") {
+  if(class(inputfes)=="fes") {
+    if(eunit=="kJ/mol") {
+      if(inputfes$dimension==1) {
+        probs <- exp(-1000*inputfes$fes/8.314/temp)
+        cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
+      }
+      if(inputfes$dimension==2) {
+        probs <- exp(-1000*inputfes$fes/8.314/temp)
+        cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, y=inputfes$y, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
+      }
+    } else if (eunit=="kJ/mol") {
+      if(inputfes$dimension==1) {
+        probs <- exp(-1000*4.184*inputfes$fes/8.314/temp)
+        cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
+      }
+      if(inputfes$dimension==2) {
+        probs <- exp(-1000*4.184*inputfes$fes/8.314/temp)
+        cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, y=inputfes$y, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
+      }
+    } else {
+      stop("Error: Wrong eunit")
+    }
+    class(cfes) <- "fes"
+    return(cfes)
+  } else {
+    stop("Error: Input must be fes object")
+  }
+}
+
 #' Plot free energy surface object
 #'
 #' `plot.fes` plots free energy surface. For a fes with one collective variable it plots
