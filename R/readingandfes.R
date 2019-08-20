@@ -1085,17 +1085,21 @@ prob<-function(inputfes, temp=300, eunit="kJ/mol") {
   if(class(inputfes)=="fes") {
     if(eunit=="kJ/mol") {
       if(inputfes$dimension==1) {
-        cfes<-list(fes=exp(-1000*inputfes$fes/8.314/temp), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
+        probs <- exp(-1000*inputfes$fes/8.314/temp)
+        cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
       }
       if(inputfes$dimension==2) {
-        cfes<-list(fes=exp(-1000*inputfes$fes/8.314/temp), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, y=inputfes$y, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
+        probs <- exp(-1000*inputfes$fes/8.314/temp)
+        cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, y=inputfes$y, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
       }
     } else if (eunit=="kJ/mol") {
       if(inputfes$dimension==1) {
-        cfes<-list(fes=exp(-1000*4.184*inputfes$fes/8.314/temp), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
+        probs <- exp(-1000*4.184*inputfes$fes/8.314/temp)
+        cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
       }
       if(inputfes$dimension==2) {
-        cfes<-list(fes=exp(-1000*4.184*inputfes$fes/8.314/temp), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, y=inputfes$y, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
+        probs <- exp(-1000*4.184*inputfes$fes/8.314/temp)
+        cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, y=inputfes$y, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
       }
     } else {
       stop("Error: Wrong eunit")
