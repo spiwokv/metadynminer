@@ -4,14 +4,14 @@
 \alias{prob}
 \title{Calculate probability of free energy surface}
 \usage{
-\method{prob}(object, ...)
+prob(fes)
 }
 \arguments{
-\item{object}{fes object.}
-  
-\item{temp}{temperature in Kelvins}
+\item{inputfes}{fes object.}
 
-\item{eunit}{energy units (kJ/mol or kcal/mol, kJ/mol is default)}
+\item{temp}{temperature in Kelvins.}
+
+\item{eunit}{energy units (kJ/mol or kcal/mol, kJ/mol is default).}
 }
 \description{
 `prob` calculates probability from free energy in a fes object.
