@@ -1071,7 +1071,7 @@ summary.fes<-function(object,...) {
 
 #' Calculate probability of free energy surface
 #'
-#' `prob.fes` calculates probability from free energy in a fes object.
+#' `prob` calculates probability from free energy in a fes object.
 #'
 #' @param inputfes fes object.
 #' @param temp temperature in Kelvins (default 300).
@@ -1081,7 +1081,7 @@ summary.fes<-function(object,...) {
 #' @examples
 #' tfes<-fes(acealanme, imax=5000)
 #' print(prob(tfes))
-prob.fes<-function(inputfes, temp=300, eunit="kJ/mol") {
+prob<-function(inputfes, temp=300, eunit="kJ/mol") {
   if(class(inputfes)=="fes") {
     if(eunit=="kJ/mol") {
       if(fes1$dimension==1) {
