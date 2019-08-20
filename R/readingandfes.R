@@ -1086,7 +1086,7 @@ prob<-function(inputfes, temp=300, eunit="kJ/mol") {
     if(eunit=="kJ/mol") {
       if(inputfes$dimension==1) {
         probs <- exp(-1000*inputfes$fes/8.314/temp)
-        cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
+        cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, pcv1=inputfes$pcv1)
       }
       if(inputfes$dimension==2) {
         probs <- exp(-1000*inputfes$fes/8.314/temp)
@@ -1095,7 +1095,7 @@ prob<-function(inputfes, temp=300, eunit="kJ/mol") {
     } else if (eunit=="kJ/mol") {
       if(inputfes$dimension==1) {
         probs <- exp(-1000*4.184*inputfes$fes/8.314/temp)
-        cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2)
+        cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, pcv1=inputfes$pcv1)
       }
       if(inputfes$dimension==2) {
         probs <- exp(-1000*4.184*inputfes$fes/8.314/temp)
@@ -1106,8 +1106,20 @@ prob<-function(inputfes, temp=300, eunit="kJ/mol") {
     }
     class(cfes) <- "fes"
     return(cfes)
+  } else if(class(inputfes)=="fes3d") {
+    if(eunit=="kJ/mol") {
+      probs <- exp(-1000*inputfes$fes/8.314/temp)
+      cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, y=inputfes$y, z=inputfes$z, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2, pcv3=inputfes$pcv3)
+    } else if (eunit=="kJ/mol") {
+      probs <- exp(-1000*4.184*inputfes$fes/8.314/temp)
+      cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, y=inputfes$y, z=inputfes$z, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2, pcv3=inputfes$pcv3)
+    } else {
+      stop("Error: Wrong eunit")
+    }
+    class(cfes) <- "fes3d"
+    return(cfes)
   } else {
-    stop("Error: Input must be fes object")
+    stop("Error: Input must be fes or fes3d object")
   }
 }
 
