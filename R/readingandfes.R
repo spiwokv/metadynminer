@@ -85,7 +85,7 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
 #' read.hills2(tf, per=c(TRUE,TRUE), times=1, centres=2:3, widths=4:5, heights=6)
 read.hills2<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-pi,pi), ignoretime=FALSE,
                       times=1, centres=2:3, widths=4:5, heights=6, sep="", dec=".", na.strings="NA", comment.char="#") {
-  hillsf<-read.table(file, header=F, sep=sep, dec=dec, na.string=na.string, comment.char=comment.char)
+  hillsf<-read.table(file, header=F, sep=sep, dec=dec, na.strings=na.strings, comment.char=comment.char)
   if(length(times)!=1) {
     stop("Error: Parameter values must be set to one value")
   }
