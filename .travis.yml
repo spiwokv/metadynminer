@@ -1,5 +1,7 @@
 language: r
 cache: packages
+r:
+r_build_args: --resave-data
 after_success:
   - Rscript -e 'library(covr); codecov()'
 matrix:
