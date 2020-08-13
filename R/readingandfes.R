@@ -71,13 +71,13 @@ emptyhills<-function(dim=2, per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-pi,pi))
   if(dim==1) {
     cat("empty 1D hillsfile generated\n")
     hills<-list(hillsfile=NULL, time=NULL, cv1=NULL, cv2=NULL,
-                size=0, filename=NULL, per=per, pcv1=pcv1)
+                size=c(0,5), filename=NULL, per=per, pcv1=pcv1)
     class(hills) <- "hillsfile"
     return(hills)
   } else if(dim) {
     cat("empty 2D hillsfile generated\n")
     hills<-list(hillsfile=NULL, time=NULL, cv1=NULL, cv2=NULL,
-                size=0, filename=NULL, per=per, pcv1=pcv1, pcv2=pcv2)
+                size=c(0,7), filename=NULL, per=per, pcv1=pcv1, pcv2=pcv2)
     class(hills) <- "hillsfile"
     return(hills)
   } else {
