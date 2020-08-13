@@ -77,7 +77,7 @@ emptyhills<-function(dim=2, per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-pi,pi))
   } else if(dim) {
     cat("empty 2D hillsfile generated\n")
     hills<-list(hillsfile=NULL, time=NULL, cv1=NULL, cv2=NULL,
-                size=dim(hillsf), filename=NULL, per=per, pcv1=pcv1, pcv2=pcv2)
+                size=0, filename=NULL, per=per, pcv1=pcv1, pcv2=pcv2)
     class(hills) <- "hillsfile"
     return(hills)
   } else {
