@@ -53,7 +53,7 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
   }
 }
 
-#' Generate empty HILLS from Plumed
+#' Generate empty HILLS
 #'
 #' `emptyhills` returns a hillsfile object with no hills.
 #' User can specify whether some collective variables are periodic.
