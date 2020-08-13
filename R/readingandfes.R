@@ -498,17 +498,17 @@ fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NUL
     if(imax==0) {
       if(is.null(xlim)) {
         minCV1 <- 0
-        maxCv1 <- 1
+        maxCV1 <- 1
       } else {
         minCV1 <- xlim[1]
-        maxCv1 <- xlim[2]
+        maxCV1 <- xlim[2]
       }
       if(is.null(ylim)) {
         minCV2 <- 0
-        maxCv2 <- 1
+        maxCV2 <- 1
       } else {
         minCV2 <- ylim[1]
-        maxCv2 <- ylim[2]
+        maxCV2 <- ylim[2]
       }
       xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
       ylims<-c(minCV2-0.05*(maxCV2-minCV2), maxCV2+0.05*(maxCV2-minCV2))
@@ -588,10 +588,10 @@ fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NUL
     if(imax==0) {
       if(is.null(xlim)) {
         minCV1 <- 0
-        maxCv1 <- 1
+        maxCV1 <- 1
       } else {
         minCV1 <- xlim[1]
-        maxCv1 <- xlim[2]
+        maxCV1 <- xlim[2]
       }
       xlims<-c(minCV1-0.05*(maxCV1-minCV1), maxCV1+0.05*(maxCV1-minCV1))
       x<-0:(npoints-1)*(xlims[2]-xlims[1])/(npoints-1)+xlims[1]
