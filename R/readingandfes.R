@@ -491,7 +491,7 @@ fes.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NUL
   if(is.null(imax)) {
     imax<-hills$size[1]
   }
-  } if(imax>0 & imin>imax) {
+  if(imax>0 & imin>imax) {
     stop("Error: imax cannot be lower than imin")
   }
   if(hills$size[2]==7) {
