@@ -53,6 +53,38 @@ read.hills<-function(file="HILLS", per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-
   }
 }
 
+#' Generate empty HILLS from Plumed
+#'
+#' `emptyhills` returns a hillsfile object with no hills.
+#' User can specify whether some collective variables are periodic.
+#'
+#' @param dim dimensionality of the output.
+#' @param per logical vector specifying periodicity of collective variables.
+#' @param pcv1 periodicity of CV1.
+#' @param pcv2 periodicity of CV2.
+#' @return hillsfile object.
+#'
+#' @export
+#' @examples
+#' emptyhills(dim=2)"
+emptyhills<-function(dim=2, per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-pi,pi)) {
+  if(dim==1) {
+    cat("empty 1D hillsfile generated\n")
+    hills<-list(hillsfile=NULL, time=NULL, cv1=NULL, cv2=NULL,
+                size=0, filename=NULL, per=per, pcv1=pcv1)
+    class(hills) <- "hillsfile"
+    return(hills)
+  } else if(dim) {
+    cat("empty 2D hillsfile generated\n")
+    hills<-list(hillsfile=NULL, time=NULL, cv1=NULL, cv2=NULL,
+                size=dim(hillsf), filename=NULL, per=per, pcv1=pcv1, pcv2=pcv2)
+    class(hills) <- "hillsfile"
+    return(hills)
+  } else {
+    stop("Error: works with dim=2 or dim=3")
+  }
+}
+
 #' Print hillsfile
 #'
 #' `print.hillsfile` prints dimensionality and size of a hillsfile object.
