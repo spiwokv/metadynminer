@@ -34,7 +34,7 @@ matrix:
         - R -e 'install.packages("Rcpp")'
         - R -e 'install.packages("covr")'
         - R -e 'install.packages("testthat")'
-    - os: linux
+    - os: osx
       r: oldrel
       dist: bionic
       warnings_are_errors: true
@@ -45,7 +45,7 @@ matrix:
         - R -e 'install.packages("Rcpp")'
         - R -e 'install.packages("covr")'
         - R -e 'install.packages("testthat")'
-    - os: linux
+    - os: osx
       r: release
       dist: bionic
       warnings_are_errors: true
