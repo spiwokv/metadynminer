@@ -6,7 +6,7 @@ matrix:
   include:
     - os: linux
       r: oldrel
-      dist: trusty
+      dist: bionic
       warnings_are_errors: true
       sudo: required
       fortran: false
@@ -16,7 +16,7 @@ matrix:
         - R -e 'install.packages("testthat")'
     - os: linux
       r: release
-      dist: trusty
+      dist: bionic
       warnings_are_errors: true
       sudo: required
       fortran: false
@@ -26,7 +26,7 @@ matrix:
         - R -e 'install.packages("testthat")'
     - os: linux
       r: devel
-      dist: trusty
+      dist: bionic
       warnings_are_errors: true
       sudo: required
       fortran: false
@@ -36,7 +36,7 @@ matrix:
         - R -e 'install.packages("testthat")'
     - os: linux
       r: oldrel
-      dist: trusty
+      dist: bionic
       warnings_are_errors: true
       sudo: required
       fortran: false
@@ -47,7 +47,7 @@ matrix:
         - R -e 'install.packages("testthat")'
     - os: linux
       r: release
-      dist: trusty
+      dist: bionic
       warnings_are_errors: true
       sudo: required
       fortran: false
