@@ -1,3 +1,38 @@
+#' align function for `neb` and `neborder`
+align<-function(v1, v2) {
+  dot <- v1[1]*v2[1]+v1[2]*v2[2]
+  return(c(dot*v2[1], dot*v2[2]))
+}
+
+#' perp function for `neb` and `neborder`
+perp<-function(xm1, x, xp1) {
+  d1 <- sqrt((x[,1]-xm1[,1])**2 + (x[,2]-xm1[,2])**2)
+  d2 <- sqrt((xp1[,1]-x[,1])**2 + (xp1[,2]-x[,2])**2)
+  d <- d1 + d2
+  return(c((xp1[,1]-xm1[,1])/d, (xp1[,2]-xm1[,2])/d))
+}
+
+#' cosphi function for `neb` and `neborder`
+cosphi<-function(xm1, x, xp1) {
+  d1 <- sqrt((x[,1]-xm1[,1])**2 + (x[,2]-xm1[,2])**2)
+  d2 <- sqrt((xp1[,1]-x[,1])**2 + (xp1[,2]-x[,2])**2)
+  return(((x[,1]-xm1[,1])*(xp1[,1]-x[,1])+(x[,2]-xm1[,2])*(xp1[,2]-x[,2]))/d1/d2)
+}
+
+#' force1 function for `neb` and `neborder`
+force1<-function(fes, x, y) {
+  fx<-(fes[x-1,y]-fes[x+1,y])/2.0
+  fy<-(fes[x,y-1]-fes[x,y+1])/2.0
+  return(c(fx,fy))
+}
+
+#' force2 function for `neb` and `neborder`
+force2<-function(xm1, x, xp1, k) {
+  fx <- k*(xm1[,1]+xp1[,1]-2.0*x[,1])
+  fy <- k*(xm1[,2]+xp1[,2]-2.0*x[,2])
+  return(c(fx,fy))
+}
+
 #' Find transition path on free energy surface by Nudged Elastic Band method
 #'
 #' `neb` finds a transition path on free energy surface for a given pair of
@@ -47,31 +82,6 @@ neb<-function(minims=minims, min1="A", min2="B", nbins=20,
     stop("Error: Nudged Elastic Band is available only for 2D free energy surfaces, exiting")
   }
   if(minims$dimension==2) {
-    align<-function(v1, v2) {
-      dot <- v1[1]*v2[1]+v1[2]*v2[2]
-      return(c(dot*v2[1], dot*v2[2]))
-    }
-    perp<-function(xm1, x, xp1) {
-      d1 <- sqrt((x[,1]-xm1[,1])**2 + (x[,2]-xm1[,2])**2)
-      d2 <- sqrt((xp1[,1]-x[,1])**2 + (xp1[,2]-x[,2])**2)
-      d <- d1 + d2
-      return(c((xp1[,1]-xm1[,1])/d, (xp1[,2]-xm1[,2])/d))
-    }
-    cosphi<-function(xm1, x, xp1) {
-      d1 <- sqrt((x[,1]-xm1[,1])**2 + (x[,2]-xm1[,2])**2)
-      d2 <- sqrt((xp1[,1]-x[,1])**2 + (xp1[,2]-x[,2])**2)
-      return(((x[,1]-xm1[,1])*(xp1[,1]-x[,1])+(x[,2]-xm1[,2])*(xp1[,2]-x[,2]))/d1/d2)
-    }
-    force1<-function(fes, x, y) {
-      fx<-(fes[x-1,y]-fes[x+1,y])/2.0
-      fy<-(fes[x,y-1]-fes[x,y+1])/2.0
-      return(c(fx,fy))
-    }
-    force2<-function(xm1, x, xp1, k) {
-      fx <- k*(xm1[,1]+xp1[,1]-2.0*x[,1])
-      fy <- k*(xm1[,2]+xp1[,2]-2.0*x[,2])
-      return(c(fx,fy))
-    }
     x1<-c(min1[1,2], min1[1,3])
     x2<-c(min2[1,2], min2[1,3])
     pathx <- x1[1]+0:nbins*(x2[1]-x1[1])/nbins
