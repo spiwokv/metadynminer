@@ -16,8 +16,7 @@ on:
 
 jobs:
   build:
-    matrix:
-      runs-on: [ macos-latest, ubuntu-latest ]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         r-version: ['3.6.3', '4.1.1']
