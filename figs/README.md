@@ -10,7 +10,10 @@ Fig5: Free energy surface with minima (min2d.png)
 
 Fig6: Evolution of free energy differences (prof2d.png)
 
-Fig7: Nudged elastic border 1 (neb1.png)
+Fig7: One-dimensional free energy surface obtained by fes2d21d (fes1d.png)
 
-Fig8: Nudged elastic border 2 (neb2.png)
+Fig8: Nudged elastic border 1 (neb1.png)
 
+Fig9: Nudged elastic border 2 (neb2.png)
+
+Fig10: Free energy surface in high resolution (fes2dq.png)
