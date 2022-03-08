@@ -184,7 +184,7 @@ tfes<-fes(hillsf)
 png(paste(odir, "/snap%04d.png", sep=""))
 plot(tfes, zlim=c(-200,0))
 for(i in 0:99) {
-  tfes<-tfes + -1*fes(hillsf, imin=300*i+1, imax=200*(i+1))
+  tfes<-tfes + -1*fes(hillsf, imin=300*i+1, imax=300*(i+1))
   plot(tfes, zlim=c(-200,0))
 }
 dev.off()
