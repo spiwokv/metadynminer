@@ -257,3 +257,9 @@ the first collective variable is positive or negative. The expression
 `acealanmec$hillsfile[acealanmec$hillsfile[,2]<0,2]` prints only negative values of the first
 collective variable. They can be replaced by the same value + 2pi.
 
+## Contact
+Vojtech Spiwok - spiwokv<youknowwhat>vscht.cz
+
+To contribute, se [CONTRIBUTING.md](./CONTRIBUTING.md)
+  
+
