@@ -34,9 +34,9 @@ summary(hillsf)
 
 # Plot CVs
 plot(hillsf)
-
+```
 ![hills2d](./figs/hills2d.png)
-
+```R
 # Plot heights
 plotheights(hillsf)
 
