@@ -39,7 +39,9 @@ plot(hillsf)
 ```R
 # Plot heights
 plotheights(hillsf)
-
+```
+![hills2dh](./figs/hills2dh.png)
+```R
 # Calculate FES by bias sum (alternatively use fes2 for conventional calculation)
 tfes<-fes(hillsf)
 
