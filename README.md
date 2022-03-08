@@ -208,7 +208,7 @@ for(i in 1:10) {
  lines(tfes1-min(tfes1), col=rainbow(13)[i])
 }
 ```
-![evol1d](./figs/evol1d.gif)
+![evol1d](./figs/evol1d.png)
 
 ### Transforming CVs
 If you want to use degrees instead of radians on axes, set `axes=F` in the plot function and then plot
