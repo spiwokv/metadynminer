@@ -258,7 +258,7 @@ the first collective variable is positive or negative. The expression
 collective variable. They can be replaced by the same value + 2pi.
 
 ## Contact
-Vojtech Spiwok - spiwokv<youknowwhat>vscht.cz
+Vojtech Spiwok - spiwokv{youknowwhat}vscht.cz
 
 To contribute, se [CONTRIBUTING.md](./CONTRIBUTING.md)
   
