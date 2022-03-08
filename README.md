@@ -153,11 +153,11 @@ library(magick)
 odir<-file.path(tempdir(), "frames")
 dir.create(odir, recursive=T)
 hillsf <- read.hills("HILLS", per=c(T,T))
-tfes<-fes(acealanme, imax=300)
+tfes<-fes(hillsf, imax=300)
 png(paste(odir, "/snap%04d.png", sep=""))
 plot(tfes, zlim=c(-200,0))
 for(i in 1:99) {
-  tfes<-tfes+fes(acealanme, imin=300*i+1, imax=300*(i+1))
+  tfes<-tfes+fes(hillsf, imin=300*i+1, imax=300*(i+1))
   plot(tfes, zlim=c(-200,0))
 }
 dev.off()
@@ -194,6 +194,8 @@ allfigs <- image_join(rfigs)
 anim <- image_animate(allfigs, fps=25)
 image_write(image=anim, path="flooding.gif")
 ```
+![anim2](./figs/flooding.gif)
+
 
 ### Evaluation of convergence of one CV
 You can use function `fes2d21d` to convert a 2D surface to 1D and to evaluate the evolution:
