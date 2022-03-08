@@ -208,7 +208,7 @@ for(i in 1:10) {
  lines(tfes1-min(tfes1), col=rainbow(13)[i])
 }
 ```
-![anim2](./figs/flooding.gif)
+![evol1d](./figs/evol1d.gif)
 
 ### Transforming CVs
 If you want to use degrees instead of radians on axes, set `axes=F` in the plot function and then plot
@@ -219,6 +219,8 @@ axis(2, at=-3:3*pi/3, labels=-3:3*60)
 axis(1, at=-3:3*pi/3, labels=-3:3*60)
 box()
 ```
+![degs](./figs/degs.png)
+
 The expression -3:3 will generate a vector {-3,-2,-1,0,1,2,3}, which can be multiplied by pi/3
 (tick positions in radians) or by 60 (tick positions in degrees). If you want to transform just
 one axis, e.g. the horizontal one while keeping the vertical unchanged, simply type `axis(2)`
@@ -245,6 +247,8 @@ acealanmec$hillsfile[acealanmec$hillsfile[,2]<0,2]<-
 tfes<-fes(acealanmec)
 plot(tfes)
 ```
+![degs](./figs/shift.png)
+
 The hills file object has several instances including `hillsfile`, which contains the HILLS file,
 and `pcv1` with collective variable periodicity. They can be printed by `$` operator. The expression
 `acealanmec$hillsfile[,2]` prints all values of the first collective variable. The expression
