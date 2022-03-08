@@ -174,15 +174,25 @@ files can be concatenated by outside R by any movie making program.
 
 If you instead want to see flooding, type:
 ```R
+#install.packages("magick") <- install before the first run
+library(metadynminer)
+library(magick)
+odir<-file.path(tempdir(), "frames")
+dir.create(odir, recursive=T)
 hillsf <- read.hills("HILLS", per=c(T,T))
 tfes<-fes(hillsf)
-png("snap%04d.png")
+png(paste(odir, "/snap%04d.png", sep=""))
 plot(tfes, zlim=c(-200,0))
-for(i in 0:299) {
-  tfes<-tfes + -1*fes(hillsf, imin=100*i+1, imax=100*(i+1))
+for(i in 0:99) {
+  tfes<-tfes + -1*fes(hillsf, imin=300*i+1, imax=200*(i+1))
   plot(tfes, zlim=c(-200,0))
 }
 dev.off()
+figs <- list.files(odir, full.names=T)
+rfigs <- lapply(figs, image_read)
+allfigs <- image_join(rfigs)
+anim <- image_animate(allfigs, fps=25)
+image_write(image=anim, path="flooding.gif")
 ```
 
 ### Evaluation of convergence of one CV
@@ -196,6 +206,7 @@ for(i in 1:10) {
  lines(tfes1-min(tfes1), col=rainbow(13)[i])
 }
 ```
+![anim2](./figs/flooding.gif)
 
 ### Transforming CVs
 If you want to use degrees instead of radians on axes, set `axes=F` in the plot function and then plot
