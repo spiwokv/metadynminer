@@ -167,7 +167,7 @@ allfigs <- image_join(rfigs)
 anim <- image_animate(allfigs, fps=25)
 image_write(image=anim, path="anim.gif")
 ```
-![anim1](./figs/anim.png)
+![anim1](./figs/anim.gif)
 
 Package [magick](https://github.com/ropensci/magick) was used. Alternatively,
 files can be concatenated by outside R by any movie making program.
