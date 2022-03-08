@@ -59,10 +59,14 @@ summary(tfes)
 
 # Plot FES
 plot(tfes)
-
+```
+![fes2d](./figs/fes2d.png)
+```R
 # Plot FES with color scale
 plot(tfes, colscale=T)
-
+```
+![fes2d](./figs/fes2d2.png)
+```R
 # Find minima
 minima<-fesminima(tfes)
 
@@ -75,17 +79,24 @@ fesminima(fes) + oneminimum(tfes, cv1=0, cv2=0)
 
 # Plot free energy minima
 plot(minima)
-
+```
+![min2d](./figs/min2d.png)
+```R
 # Calculate free energy profile for minima
 prof<-feprof(minima)
 
 # Plot free energy profile for minima
 plot(prof)
+```
+![prof2d](./figs/prof2d.png)
+```R
 
 # Make 1D free energy surface from the 2D one
 tfes1<-fes2d21d(hillsf, remdim=2) # T=300K, kJ/mol
 plot(tfes1)
-
+```
+![fes1d](./figs/fes1d.png)
+```R
 # Calculate transition path using Nudged Elastic Band
 myneb <- neb(minima, min1="A", min2="B")
 myneb
@@ -93,11 +104,14 @@ summary(myneb)
 
 # Plot transition path
 plot(myneb)
-
+```
+![neb1](./figs/neb1.png)
+```R
 # Plot transition path on FES
 plot(minima)
 linesonfes(myneb)
 ```
+![neb2](./figs/neb2.png)
 
 ## Tips and Tricks
 ### Publication quality figures
