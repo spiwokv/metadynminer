@@ -155,7 +155,7 @@ dir.create(odir, recursive=T)
 hillsf <- read.hills("HILLS", per=c(T,T))
 tfes<-fes(acealanme, imax=300)
 png(paste(odir, "/snap%04d.png", sep=""))
-plot(acealanme, zlim=c(-200,0))
+plot(tfes, zlim=c(-200,0))
 for(i in 1:99) {
   tfes<-tfes+fes(acealanme, imin=300*i+1, imax=300*(i+1))
   plot(tfes, zlim=c(-200,0))
