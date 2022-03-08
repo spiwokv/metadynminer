@@ -21,3 +21,9 @@ Fig10: Free energy surface in high resolution (fes2dq.png)
 Fig11: Animated GIF of free energy surface evolution (anim.gif)
 
 Fig12: Animated GIF of free energy surface flooding (flooding.gif)
+
+Fig13: Evolution of 1D free energy surface (evol1d.png)
+
+Fig14: Free energy surface in degrees (degs.png)
+
+Fig15: Shifter free energy surface with periodic collective variable (shift.png)
