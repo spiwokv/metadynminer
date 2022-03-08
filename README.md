@@ -126,7 +126,7 @@ png("filename.png", height=8, width=8, units='cm', res=600, pointsize=6)
 plot(tfes)
 dev.off()
 ```
-./figs/fes2dq.png
+[Image](./figs/fes2dq.png)
 
 ### Making FES relative to the global minimum
 You can set free energy minimum to zero by typing:
