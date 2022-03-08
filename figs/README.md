@@ -17,3 +17,7 @@ Fig8: Nudged elastic border 1 (neb1.png)
 Fig9: Nudged elastic border 2 (neb2.png)
 
 Fig10: Free energy surface in high resolution (fes2dq.png)
+
+Fig11: Animated GIF of free energy surface evolution (anim.gif)
+
+Fig12: Animated GIF of free energy surface flooding (flooding.gif)
