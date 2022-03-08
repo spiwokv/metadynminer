@@ -247,7 +247,7 @@ acealanmec$hillsfile[acealanmec$hillsfile[,2]<0,2]<-
 tfes<-fes(acealanmec)
 plot(tfes)
 ```
-![degs](./figs/shift.png)
+![shift](./figs/shift.png)
 
 The hills file object has several instances including `hillsfile`, which contains the HILLS file,
 and `pcv1` with collective variable periodicity. They can be printed by `$` operator. The expression
