@@ -68,7 +68,7 @@ plot(tfes)
 # Plot FES with color scale
 plot(tfes, colscale=T)
 ```
-![fes2d](./figs/fes2d2.png)
+![fes2d3](./figs/fes2d3.png)
 ```R
 # Find minima
 minima<-fesminima(tfes)
