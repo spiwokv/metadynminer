@@ -258,7 +258,7 @@ the first collective variable is positive or negative. The expression
 collective variable. They can be replaced by the same value + 2pi.
 
 ## Training
-[MetadynMiner Webinar video](https://www.youtu.be/W8N-G8d0or4)
+[MetadynMiner Webinar video](https://youtu.be/W8N-G8d0or4)
 
 [Plumed Masterclass tutorial](https://www.plumed.org/doc-master/user-doc/html/masterclass-22-02.html)
 
