@@ -3,3 +3,5 @@
 ^\.github$
 ^appveyor\.yml$
 ^cran-comments\.md$
+^CONTRIBUTING\.md$
+^figs$
