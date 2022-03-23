@@ -965,14 +965,14 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
     if(fes1$dimension==2) {
       cfes<-list(fes=fes1$fes+fes2$fes, hills=rbind(fes1$hills, fes2$hills), rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
-  } else if(class(fes1)=="fes") {
+  } else if(inherits(fes1, "fes")) {
     if(fes1$dimension==1) {
       cfes<-list(fes=fes1$fes+fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
       cfes<-list(fes=fes1$fes+fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
-  } else if(class(fes2)=="fes") {
+  } else if(inherits(fes2, "fes")) {
     if(fes2$dimension==1) {
       cfes<-list(fes=fes1+fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
@@ -1009,14 +1009,14 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
     if(fes1$dimension==2) {
       cfes<-list(fes=fes1$fes-fes2$fes, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
-  } else if(class(fes1)=="fes") {
+  } else if(inherits(fes1, "fes")) {
     if(fes1$dimension==1) {
       cfes<-list(fes=fes1$fes-fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
       cfes<-list(fes=fes1$fes-fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
-  } else if(class(fes2)=="fes") {
+  } else if(inherits(fes2, "fes")) {
     if(fes2$dimension==1) {
       cfes<-list(fes=fes1-fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
@@ -1032,14 +1032,14 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
 `*.fes`<-function(fes1, fes2) {
   if((class(fes1)=="fes")&(class(fes2)=="fes")) {
     stop("Error: You cannot multiply fes by fes")
-  } else if(class(fes1)=="fes") {
+  } else if(inherits(fes1, "fes")) {
     if(fes1$dimension==1) {
       cfes<-list(fes=fes1$fes*fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
       cfes<-list(fes=fes1$fes*fes2, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
-  } else if(class(fes2)=="fes") {
+  } else if(inherits(fes2, "fes")) {
     if(fes2$dimension==1) {
       cfes<-list(fes=fes1*fes2$fes, hills=fes2$hills, rows=fes2$rows, dimension=fes2$dimension, per=fes2$per, x=fes2$x, pcv1=fes2$pcv1, pcv2=fes2$pcv2)
     }
@@ -1057,14 +1057,14 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
 `/.fes`<-function(fes1, coef) {
   if((class(fes1)=="fes")&(class(coef)=="fes")) {
     stop("Error: You cannot divide fes by fes")
-  } else if(class(fes1)=="fes") {
+  } else if(inherits(fes1, "fes")) {
     if(fes1$dimension==1) {
       cfes<-list(fes=fes1$fes/coef, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
     if(fes1$dimension==2) {
       cfes<-list(fes=fes1$fes/coef, hills=fes1$hills, rows=fes1$rows, dimension=fes1$dimension, per=fes1$per, x=fes1$x, y=fes1$y, pcv1=fes1$pcv1, pcv2=fes1$pcv2)
     }
-  } else if(class(coef)=="fes") {
+  } else if(inherits(coef, "fes")) {
     stop("Error: You cannot divide something by fes")
   }
   cat("Warning: division of FES will divide\n")
@@ -1192,7 +1192,7 @@ summary.fes<-function(object,...) {
 #' tfes<-fes(acealanme, imax=5000)
 #' print(prob(tfes))
 prob<-function(inputfes, temp=300, eunit="kJ/mol") {
-  if(class(inputfes)=="fes") {
+  if(inherits(inputfes, "fes")) {
     if(eunit=="kJ/mol") {
       if(inputfes$dimension==1) {
         probs <- exp(-1000*inputfes$fes/8.314/temp)
@@ -1216,7 +1216,7 @@ prob<-function(inputfes, temp=300, eunit="kJ/mol") {
     }
     class(cfes) <- "fes"
     return(cfes)
-  } else if(class(inputfes)=="fes3d") {
+  } else if(inherits(inputfes, "fes3d")) {
     if(eunit=="kJ/mol") {
       probs <- exp(-1000*inputfes$fes/8.314/temp)
       cfes<-list(fes=probs/sum(probs), hills=inputfes$hills, rows=inputfes$rows, dimension=inputfes$dimension, per=inputfes$per, x=inputfes$x, y=inputfes$y, z=inputfes$z, pcv1=inputfes$pcv1, pcv2=inputfes$pcv2, pcv3=inputfes$pcv3)
