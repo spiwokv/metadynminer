@@ -7,37 +7,32 @@ on:
 name: R-deploy
 
 jobs:
-  web-deploy:
+  build:
+    name: Upload Release Asset
     runs-on: ubuntu-latest
-    name: Deploy
-    strategy:
-      fail-fast: false
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      R_KEEP_PKG_SOURCE: yes
     steps:
-      - uses: actions/checkout@v2
-      - uses: r-lib/actions/setup-pandoc@v2
-      - uses: r-lib/actions/setup-r@v2
-        with:
-          r-version: release
-          use-public-rspm: true
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::rcmdcheck
-          needs: check
-      - uses: r-lib/actions/check-r-package@v2
-        with:
-          upload-snapshots: true
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build project
         run: |
-          pwd
-          ls
-#      - uses: SamKirkland/FTP-Deploy-Action@4.3.0
-#        with:
-#          server: ${{ secrets.mmftp_server }}
-#          username: ${{ secrets.mmftp_user }}
-#          password: ${{ secrets.mmftp_password }}
-#          port: ${{ secrets.mmftp_port }}
-#          #local-dir: ./metadynminer-*.tar.gz
-#          server-dir: ${{ secrets.mmftp_dir }}
-#          security: strict
+          zip --junk-paths my-artifact README.md
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./my-artifact.zip
+          asset_name: my-artifact.zip
+          asset_content_type: application/zip
