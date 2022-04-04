@@ -34,7 +34,7 @@ jobs:
           username: ${{ secrets.mmftp_user }}
           password: ${{ secrets.mmftp_password }}
           port: ${{ secrets.mmftp_port }}
-          local-dir: ./release.zip
+          local-dir: ./
           server-dir: ${{ secrets.mmftp_dir }}
           security: strict
 
