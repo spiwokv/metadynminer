@@ -7,18 +7,14 @@ on:
 name: R-deploy
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-    - uses: actions/checkout@master
-    - name: Archive Release
-      uses: thedoctor0/zip-release@master
+    - uses: actions/checkout@v2
+    - uses: ncipollo/release-action@v1
       with:
-        type: 'zip'
-        filename: 'release.zip'
-        exclusions: '*.git* /*figs/*'
-    - name: Upload Release
-      uses: ncipollo/release-action@v1
-      with:
-        artifacts: "release.zip"
+        artifacts: "release.tar.gz,/*"
         token: ${{ secrets.GITHUB_TOKEN }}
