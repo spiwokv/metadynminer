@@ -1,6 +1,7 @@
 on:
   push:
-    branches: dev
+    tags:
+      - '*'
 
 name: R-deploy
 
