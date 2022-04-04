@@ -34,7 +34,7 @@ jobs:
           server: ${{ secrets.mmftp_server }}
           username: ${{ secrets.mmftp_user }}
           password: ${{ secrets.mmftp_password }}
-          port: ${{ secrets.mmftp_port }}
+          #port: ${{ secrets.mmftp_port }}
           #local-dir: ./rel/
           #server-dir: ${{ secrets.mmftp_dir }}
 
