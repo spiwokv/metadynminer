@@ -35,6 +35,6 @@ jobs:
           username: ${{ secrets.mmftp_user }}
           password: ${{ secrets.mmftp_password }}
           port: ${{ secrets.mmftp_port }}
-          local-dir: ./metadynminer-*.tar.gz
+          #local-dir: ./metadynminer-*.tar.gz
           server-dir: ${{ secrets.mmftp_dir }}
           security: strict
