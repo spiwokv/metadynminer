@@ -29,6 +29,7 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
+      - run: ip addr show
       - uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
           server: ${{ secrets.mmftp_server }}
