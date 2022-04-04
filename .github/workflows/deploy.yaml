@@ -28,8 +28,7 @@ jobs:
         with:
           upload-snapshots: true
       - run:
-          mkdir rel
-          zip --junk-paths -r rel/release R data man src tests CONTRIBUTING.md DESCRIPTION LICENSE NAMESPACE README.md
+          mkdir rel; zip --junk-paths -r rel/release R data man src tests CONTRIBUTING.md DESCRIPTION LICENSE NAMESPACE README.md
       - uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
           server: ${{ secrets.mmftp_server }}
