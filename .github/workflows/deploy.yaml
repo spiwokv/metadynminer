@@ -29,10 +29,9 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
-      - name: makepackage
-        uses: r-lib/actions/check-r-package@v2
-        run: pwd
-        run: ls
+        run: |
+          pwd
+          ls
 #      - uses: SamKirkland/FTP-Deploy-Action@4.3.0
 #        with:
 #          server: ${{ secrets.mmftp_server }}
