@@ -27,14 +27,16 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
-      - run: zip --junk-paths -r release R data man src tests CONTRIBUTING.md DESCRIPTION LICENSE NAMESPACE README.md
+      - run:
+          mkdir rel
+          zip --junk-paths -r rel/release R data man src tests CONTRIBUTING.md DESCRIPTION LICENSE NAMESPACE README.md
       - uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
           server: ${{ secrets.mmftp_server }}
           username: ${{ secrets.mmftp_user }}
           password: ${{ secrets.mmftp_password }}
           port: ${{ secrets.mmftp_port }}
-          local-dir: ./
+          local-dir: ./rel/
           server-dir: ${{ secrets.mmftp_dir }}
           security: strict
 
