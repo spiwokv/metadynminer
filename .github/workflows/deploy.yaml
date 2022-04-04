@@ -27,8 +27,8 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
+      - run: zip --junk-paths -r release R data man src tests CONTRIBUTING.md DESCRIPTION LICENSE NAMESPACE README.md
       - uses: SamKirkland/FTP-Deploy-Action@4.3.0
-        run: zip --junk-paths -r release R data man src tests CONTRIBUTING.md DESCRIPTION LICENSE NAMESPACE README.md
         with:
           server: ${{ secrets.mmftp_server }}
           username: ${{ secrets.mmftp_user }}
