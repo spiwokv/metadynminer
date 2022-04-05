@@ -37,5 +37,6 @@ jobs:
           local-dir: ./rel/
           server-dir: ${{ secrets.MMFTP_DIR }}
           server: ${{ secrets.MMFTP_SERVER }}
+          dry-run: true
 
 
