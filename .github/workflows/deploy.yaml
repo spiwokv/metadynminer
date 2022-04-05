@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.MMFTP_USER }}
           password: ${{ secrets.MMFTP_PASSWORD }}
           port: ${{ secrets.MMFTP_PORT }}
-          protocol: ftps
+          protocol: ftp-legacy
           local-dir: ./rel/
           server-dir: ${{ secrets.MMFTP_DIR }}
 
