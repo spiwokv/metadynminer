@@ -31,12 +31,11 @@ jobs:
           mkdir rel; zip --junk-paths -r rel/release R data man src tests CONTRIBUTING.md DESCRIPTION LICENSE NAMESPACE README.md
       - uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
-          server: ${{ secrets.MMFTP_SERVER }}
           username: ${{ secrets.MMFTP_USER }}
           password: ${{ secrets.MMFTP_PASSWORD }}
           port: ${{ secrets.MMFTP_PORT }}
-          protocol: ftps-legacy
           local-dir: ./rel/
           server-dir: ${{ secrets.MMFTP_DIR }}
+          server: ${{ secrets.MMFTP_SERVER }}
 
 
