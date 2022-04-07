@@ -10,7 +10,7 @@
 ## Web site
 http://metadynamics.cz/metadynminer/
 
-https://spiwokv.github.io/metadynminer/ ([pkgdown web](https://spiwokv.github.io/metadynminer/))
+https://spiwokv.github.io/metadynminer/ ([pkgdown](https://pkgdown.r-lib.org/) web)
 
 ## Introduction
 MetadynMiner is R packages for reading, analysis and visualization of metadynamics HILLS files produced by Plumed.
