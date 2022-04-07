@@ -944,7 +944,7 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
 
 #' @export
 `+.fes`<-function(fes1, fes2) {
-  if((class(fes1)=="fes")&(class(fes2)=="fes")) {
+  if(inherits(fes1, "fes")&inherits(fes2, "fes")) {
     if(fes1$rows!=fes2$rows) {
       stop("Error: Free energy surfaces have different numbers of points, exiting")
     }
@@ -986,7 +986,7 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
 
 #' @export
 `-.fes`<-function(fes1, fes2) {
-  if((class(fes1)=="fes")&(class(fes2)=="fes")) {
+  if(inherits(fes1, "fes")&inherits(fes2, "fes")) {
     if(fes1$rows!=fes2$rows) {
       stop("Error: Free energy surfaces have different numbers of points, exiting")
     }
@@ -1030,7 +1030,7 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
 
 #' @export
 `*.fes`<-function(fes1, fes2) {
-  if((class(fes1)=="fes")&(class(fes2)=="fes")) {
+  if(inherits(fes1, "fes")&inherits(fes2, "fes")) {
     stop("Error: You cannot multiply fes by fes")
   } else if(inherits(fes1, "fes")) {
     if(fes1$dimension==1) {
@@ -1055,7 +1055,7 @@ fes2d21d<-function(hills, remdim=2, temp=300, eunit="kJ/mol",
 
 #' @export
 `/.fes`<-function(fes1, coef) {
-  if((class(fes1)=="fes")&(class(coef)=="fes")) {
+  if(inherits(fes1, "fes")&inherits(coef, "fes")) {
     stop("Error: You cannot divide fes by fes")
   } else if(inherits(fes1, "fes")) {
     if(fes1$dimension==1) {
