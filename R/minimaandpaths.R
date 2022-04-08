@@ -623,8 +623,7 @@ fespoint <- function(hills, coord, imin, imax, verb) {
   UseMethod("fespoint")
 }
 
-fespoint.hillsfile <- function(hills, coord=NULL, imin, imax, verb=T) {
-  #fes2.hillsfile<-function(hills, imin=1, imax=NULL, xlim=NULL, ylim=NULL, zlim=NULL, npoints=256) {
+fespoint.hillsfile <- function(hills, coord=NULL, imin=1, imax=NULL, verb=T) {
   if(!is.null(imax)) {
     if(hills$size[1]<imax) {
       cat("Warning: You requested more hills by imax than available, using all hills\n")
@@ -641,6 +640,8 @@ fespoint.hillsfile <- function(hills, coord=NULL, imin, imax, verb=T) {
     if(length(coord)!=2) {
       stop("Error: for 2D fes you must use 2D vector as coord")
     }
+    pcv1 <- hills$pcv1[2] - hills$pcv1[1]
+    pcv2 <- hills$pcv2[2] - hills$pcv2[1]
     fe <- 0
     if((hills$per[1]==F)&(hills$per[2]==F)) {
       for(i in imin:imax) {
@@ -650,29 +651,29 @@ fespoint.hillsfile <- function(hills, coord=NULL, imin, imax, verb=T) {
       }
     }
     if((hills$per[1]==T)&(hills$per[2]==F)) {
-      if((coord[1]-max(hills$hillsfile[,2]))>0.3*hills$pcv1) {
+      if((coord[1]-max(hills$hillsfile[,2]))>0.3*pcv1) {
         cat("Warning: coord quite outside periodic CV range")
       }
-      if((min(hills$hillsfile[,2])-coord[1])>0.3*hills$pcv1) {
+      if((min(hills$hillsfile[,2])-coord[1])>0.3*pcv1) {
         cat("Warning: coord quite outside periodic CV range")
       }
       for(i in imin:imax) {
         d <- (hills$hillsfile[i,2]-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
              (hills$hillsfile[i,3]-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
-        d <- (hills$hillsfile[i,2]-hills$pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
+        d <- (hills$hillsfile[i,2]-pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
              (hills$hillsfile[i,3]-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
-        d <- (hills$hillsfile[i,2]+hills$pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
+        d <- (hills$hillsfile[i,2]+pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
              (hills$hillsfile[i,3]-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
       }
     }
     if((hills$per[1]==F)&(hills$per[2]==T)) {
-      if((coord[2]-max(hills$hillsfile[,3]))>0.3*hills$pcv2) {
+      if((coord[2]-max(hills$hillsfile[,3]))>0.3*pcv2) {
         cat("Warning: coord quite outside periodic CV range")
       }
-      if((min(hills$hillsfile[,3])-coord[2])>0.3*hills$pcv2) {
+      if((min(hills$hillsfile[,3])-coord[2])>0.3*pcv2) {
         cat("Warning: coord quite outside periodic CV range")
       }
       for(i in imin:imax) {
@@ -680,53 +681,53 @@ fespoint.hillsfile <- function(hills, coord=NULL, imin, imax, verb=T) {
              (hills$hillsfile[i,3]-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
         d <- (hills$hillsfile[i,2]-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
-             (hills$hillsfile[i,3]-hills$pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
+             (hills$hillsfile[i,3]-pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
         d <- (hills$hillsfile[i,2]-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
-             (hills$hillsfile[i,3]+hills$pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
+             (hills$hillsfile[i,3]+pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
       }
     }
     if((hills$per[1]==T)&(hills$per[2]==T)) {
-      if((coord[1]-max(hills$hillsfile[,2]))>0.3*hills$pcv1) {
+      if((coord[1]-max(hills$hillsfile[,2]))>0.3*pcv1) {
         cat("Warning: coord quite outside periodic CV range")
       }
-      if((min(hills$hillsfile[,2])-coord[1])>0.3*hills$pcv1) {
+      if((min(hills$hillsfile[,2])-coord[1])>0.3*pcv1) {
         cat("Warning: coord quite outside periodic CV range")
       }
-      if((coord[2]-max(hills$hillsfile[,3]))>0.3*hills$pcv2) {
+      if((coord[2]-max(hills$hillsfile[,3]))>0.3*pcv2) {
         cat("Warning: coord quite outside periodic CV range")
       }
-      if((min(hills$hillsfile[,3])-coord[2])>0.3*hills$pcv2) {
+      if((min(hills$hillsfile[,3])-coord[2])>0.3*pcv2) {
         cat("Warning: coord quite outside periodic CV range")
       }
       for(i in imin:imax) {
         d <- (hills$hillsfile[i,2]-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
              (hills$hillsfile[i,3]-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
-        d <- (hills$hillsfile[i,2]-hills$pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
+        d <- (hills$hillsfile[i,2]-pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
              (hills$hillsfile[i,3]-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
-        d <- (hills$hillsfile[i,2]+hills$pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
+        d <- (hills$hillsfile[i,2]+pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
              (hills$hillsfile[i,3]-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
         d <- (hills$hillsfile[i,2]-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
-             (hills$hillsfile[i,3]-hills$pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
+             (hills$hillsfile[i,3]-pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
         d <- (hills$hillsfile[i,2]-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
-             (hills$hillsfile[i,3]+hills$pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
+             (hills$hillsfile[i,3]+pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
-        d <- (hills$hillsfile[i,2]-hills$pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
-             (hills$hillsfile[i,3]-hills$pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
+        d <- (hills$hillsfile[i,2]-pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
+             (hills$hillsfile[i,3]-pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
-        d <- (hills$hillsfile[i,2]-hills$pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
-             (hills$hillsfile[i,3]+hills$pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
+        d <- (hills$hillsfile[i,2]-pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
+             (hills$hillsfile[i,3]+pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
-        d <- (hills$hillsfile[i,2]+hills$pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
-             (hills$hillsfile[i,3]-hills$pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
+        d <- (hills$hillsfile[i,2]+pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
+             (hills$hillsfile[i,3]-pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
-        d <- (hills$hillsfile[i,2]+hills$pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
-             (hills$hillsfile[i,3]+hills$pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
+        d <- (hills$hillsfile[i,2]+pcv1-coord[1])^2/2/hills$hillsfile[i,4]/hills$hillsfile[i,4] +
+             (hills$hillsfile[i,3]+pcv2-coord[2])^2/2/hills$hillsfile[i,5]/hills$hillsfile[i,5]
         fe <- fe - hills$hillsfile[i,6]*exp(-d)
       }
     }
@@ -737,12 +738,14 @@ fespoint.hillsfile <- function(hills, coord=NULL, imin, imax, verb=T) {
       cat(coord[2])
       cat(" is ")
       cat(fe)
+      cat("\n")
     }
   }
   if(hills$size[2]==5) {
     if(length(coord)!=2) {
       stop("Error: for 2D fes you must use 2D vector as coord")
     }
+    pcv1 <- hills$pcv1[2] - hills$pcv1[1]
     fe <- 0
     if(hills$per[1]==F) {
       for(i in imin:imax) {
@@ -754,9 +757,9 @@ fespoint.hillsfile <- function(hills, coord=NULL, imin, imax, verb=T) {
       for(i in imin:imax) {
         d <- (hills$hillsfile[i,2]-coord[1])/2/hills$hillsfile[i,3]/hills$hillsfile[i,3]
         fe <- fe - hills$hillsfile[i,4]*exp(-d)
-        d <- (hills$hillsfile[i,2]-hills$pcv1-coord[1])/2/hills$hillsfile[i,3]/hills$hillsfile[i,3]
+        d <- (hills$hillsfile[i,2]-pcv1-coord[1])/2/hills$hillsfile[i,3]/hills$hillsfile[i,3]
         fe <- fe - hills$hillsfile[i,4]*exp(-d)
-        d <- (hills$hillsfile[i,2]+hills$pcv1-coord[1])/2/hills$hillsfile[i,3]/hills$hillsfile[i,3]
+        d <- (hills$hillsfile[i,2]+pcv1-coord[1])/2/hills$hillsfile[i,3]/hills$hillsfile[i,3]
         fe <- fe - hills$hillsfile[i,4]*exp(-d)
       }
     }
@@ -767,6 +770,7 @@ fespoint.hillsfile <- function(hills, coord=NULL, imin, imax, verb=T) {
       cat(coord[2])
       cat(" is ")
       cat(fe)
+      cat("\n")
     }
   }
   return(fe)
