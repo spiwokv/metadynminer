@@ -9,7 +9,7 @@ prob(inputfes, temp = 300, eunit = "kJ/mol")
 \arguments{
 \item{inputfes}{fes object.}
 
-\item{temp}{temperature in Kelvins (default 300).}
+\item{temp}{temperature in Kelvins.}
 
 \item{eunit}{energy units (kJ/mol or kcal/mol, kJ/mol is default).}
 }

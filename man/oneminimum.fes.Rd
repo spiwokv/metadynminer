@@ -12,7 +12,7 @@
 \item{cv1}{the value of collective variable 1.}
 
 \item{cv2}{the value of collective variable 2.}
-
+  
 \item{cv3}{the value of collective variable 3.}
 }
 \value{

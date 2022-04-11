@@ -9,9 +9,9 @@ read.plumed(file = "fes.dat", dim = 2, per = c(F, F, F))
 \arguments{
 \item{file}{input file from PLUMED sum_hills.}
 
-\item{dim}{dimension (1 or 2, default 2).}
-
 \item{per}{logical vector specifying periodicity of collective variables.}
+
+\item{dim}{dimension (1 or 2, default 2).}
 }
 \value{
 fes object.

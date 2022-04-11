@@ -2,10 +2,9 @@
 % Please edit documentation in R/readingandfes.R
 \name{emptyhills}
 \alias{emptyhills}
-\title{Generate empty HILLS}
+\title{Generate empty HILLS from Plumed}
 \usage{
-emptyhills(dim = 2, per = c(FALSE, FALSE), pcv1 = c(-pi, pi),
-  pcv2 = c(-pi, pi))
+emptyhills(dim=2, per=c(FALSE, FALSE), pcv1=c(-pi,pi), pcv2=c(-pi,pi))
 }
 \arguments{
 \item{dim}{dimensionality of the output.}
@@ -22,4 +21,7 @@ hillsfile object.
 \description{
 `emptyhills` returns a hillsfile object with no hills.
 User can specify whether some collective variables are periodic.
+}
+\examples{
+emptyhills(dim=2)
 }
