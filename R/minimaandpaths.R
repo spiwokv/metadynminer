@@ -627,6 +627,7 @@ plot.profiles <- function(x, which=NULL,
 #' 'verb' to TRUE.
 #'
 #' @param hills hillsfile object.
+#' @param coord coordinates of the point in the CV space.
 #' @param imin index of a hill from which calculation of difference
 #'        starts (default 1).
 #' @param imax index of a hill from which summation stops (default the rest of hills).
@@ -644,6 +645,7 @@ fespoint <- function(hills, coord, imin, imax, verb) {
 #' 'verb' to TRUE.
 #'
 #' @param hills hillsfile object.
+#' @param coord coordinates of the point in the CV space.
 #' @param imin index of a hill from which calculation of difference
 #'        starts (default 1).
 #' @param imax index of a hill from which summation stops (default the rest of hills).
