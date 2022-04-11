@@ -9,7 +9,7 @@
 }
 \arguments{
 \item{hills}{hillsfile object.}
-  
+
 \item{coord}[coordinates of the point in the CV space.}
 
 \item{imin}{index of a hill from which calculation of difference
