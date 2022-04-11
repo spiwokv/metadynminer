@@ -627,7 +627,7 @@ plot.profiles <- function(x, which=NULL,
 #' 'verb' to TRUE.
 #'
 #' @param hills hillsfile object.
-#' @param imind index of a hill from which calculation of difference
+#' @param imin index of a hill from which calculation of difference
 #'        starts (default 1).
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #' @param verb if TRUE, the output is verbose (default TRUE).
@@ -644,7 +644,7 @@ fespoint <- function(hills, coord, imin, imax, verb) {
 #' 'verb' to TRUE.
 #'
 #' @param hills hillsfile object.
-#' @param imind index of a hill from which calculation of difference
+#' @param imin index of a hill from which calculation of difference
 #'        starts (default 1).
 #' @param imax index of a hill from which summation stops (default the rest of hills).
 #' @param verb if TRUE, the output is verbose (default TRUE).

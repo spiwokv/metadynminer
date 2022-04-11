@@ -10,12 +10,12 @@ fespoint(hills, coord, imin, imax, verb)
 \arguments{
 \item{hills}{hillsfile object.}
 
+\item{imin}{index of a hill from which calculation of difference
+starts (default 1).}
+
 \item{imax}{index of a hill from which summation stops (default the rest of hills).}
 
 \item{verb}{if TRUE, the output is verbose (default TRUE).}
-
-\item{imind}{index of a hill from which calculation of difference
-starts (default 1).}
 }
 \description{
 `fespoint` calculates free energy at given point in the CV space 'coord'.
