@@ -73,3 +73,27 @@ fe1dp <- function(cv1, width1, heights, x, p1, tmin, tmax) {
     .Call('_metadynminer_fe1dp', PACKAGE = 'metadynminer', cv1, width1, heights, x, p1, tmin, tmax)
 }
 
+f2d <- function(cv1, cv2, width1, width2, heights, x, y, tmin, tmax) {
+    .Call('_metadynminer_f2d', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, x, y, tmin, tmax)
+}
+
+f2dp1 <- function(cv1, cv2, width1, width2, heights, x, y, p1, tmin, tmax) {
+    .Call('_metadynminer_f2dp1', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, x, y, p1, tmin, tmax)
+}
+
+f2dp2 <- function(cv1, cv2, width1, width2, heights, x, y, p2, tmin, tmax) {
+    .Call('_metadynminer_f2dp2', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, x, y, p2, tmin, tmax)
+}
+
+f2dp12 <- function(cv1, cv2, width1, width2, heights, x, y, p1, p2, tmin, tmax) {
+    .Call('_metadynminer_f2dp12', PACKAGE = 'metadynminer', cv1, cv2, width1, width2, heights, x, y, p1, p2, tmin, tmax)
+}
+
+f1d <- function(cv1, width1, heights, x, tmin, tmax) {
+    .Call('_metadynminer_f1d', PACKAGE = 'metadynminer', cv1, width1, heights, x, tmin, tmax)
+}
+
+f1dp <- function(cv1, width1, heights, x, p1, tmin, tmax) {
+    .Call('_metadynminer_f1dp', PACKAGE = 'metadynminer', cv1, width1, heights, x, p1, tmin, tmax)
+}
+
