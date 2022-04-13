@@ -2,13 +2,13 @@
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/spiwokv/metadynminer?branch=master&svg=true)](https://ci.appveyor.com/project/spiwokv/metadynminer) 
 [![CRAN status](https://www.r-pkg.org/badges/version/metadynminer)](https://cran.r-project.org/package=metadynminer) 
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/metadynminer)](https://cran.r-project.org/package=metadynminer)
-[![Rdoc](http://api.rdocumentation.org/badges/version/metadynminer)](http://www.rdocumentation.org/packages/metadynminer)
-[![codecov](https://codecov.io/gh/spiwokv/metadynminer/branch/master/graph/badge.svg)](https://codecov.io/gh/spiwokv/metadynminer/)
+[![Rdoc](https://api.rdocumentation.org/badges/version/metadynminer)](https://www.rdocumentation.org/packages/metadynminer)
+[![codecov](https://codecov.io/gh/spiwokv/metadynminer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/spiwokv/metadynminer/)
 
 # MetadynMiner
 
 ## Web site
-http://metadynamics.cz/metadynminer/
+https://metadynamics.cz/metadynminer/
 
 https://spiwokv.github.io/metadynminer/ ([pkgdown](https://pkgdown.r-lib.org/) web)
 
