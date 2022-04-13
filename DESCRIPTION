@@ -20,8 +20,8 @@ Description: Metadynamics is a state of the art biomolecular simulation techniqu
   surfaces, minima and transition paths can be plotted to produce publication quality
   images.
 LazyData: true
-License: GPL-3 + file LICENSE
+License: GPL-3
 RoxygenNote: 6.1.0
 Imports: Rcpp
 Suggests: testthat
-URL: http://www.metadynamics.cz/metadynminer
+URL: https://metadynamics.cz/metadynminer
