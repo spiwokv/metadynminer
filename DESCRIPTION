@@ -24,4 +24,4 @@ License: GPL-3
 RoxygenNote: 6.1.0
 Imports: Rcpp
 Suggests: testthat
-URL: https://metadynamics.cz/metadynminer
+URL: https://metadynamics.cz/metadynminer/
