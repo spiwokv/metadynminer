@@ -271,6 +271,6 @@ collective variable. They can be replaced by the same value + 2pi.
 ## Contact
 Vojtech Spiwok - spiwokv{youknowwhat}vscht.cz
 
-To contribute, se [CONTRIBUTING.md](./CONTRIBUTING.md)
+To contribute, se [CONTRIBUTING.md](https://github.com/spiwokv/metadynminer/blob/master/CONTRIBUTING.md)
   
 
