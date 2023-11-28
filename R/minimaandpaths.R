@@ -201,7 +201,7 @@ oneminimum.fes<-function(inputfes, cv1, cv2, cv3) {
     minima <- minima[order(minima[,4]),]
     rownames(minima) <- seq(length=nrow(minima))
     minima[,1]<-myLETTERS
-    minima<-list(minima=minima, hills=min1$hillsfile, fes=min1$fes, rows=min1$rows, dimension=min1$dimension, per=min1$per, x=min1$x, pcv1=min1$pcv1, pcv2=min1$pcv2)
+    minima<-list(minima=minima, hills=min1$hills, fes=min1$fes, rows=min1$rows, dimension=min1$dimension, per=min1$per, x=min1$x, pcv1=min1$pcv1, pcv2=min1$pcv2)
     class(minima) <- "minima"
   }
   return(minima)
